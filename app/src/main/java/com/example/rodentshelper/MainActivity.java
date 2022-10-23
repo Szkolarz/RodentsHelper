@@ -2,6 +2,8 @@ package com.example.rodentshelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -10,15 +12,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.rodentshelper.SQL.Querries;
-import com.example.rodentshelper.SQL.SQLITEtest;
+import com.example.rodentshelper.SQL.SQLiteHelper;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.sql.ResultSet;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SQLITEtest dbHandler;
+    //private SQLiteHelper dbHandler;
     TextView text1;
     TextView text2;
     Button button1;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dbHandler = new SQLITEtest(MainActivity.this);
+       // dbHandler = new SQLITEtest(MainActivity.this);
 
         Querries dbQuerries = new Querries();
 
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                             if (DBversion == 20221910) {
 
                             }
-                            dbHandler.addNewRodent(resultSetTest.getString("imie"), resultSetTest.getString("nazwisko"));
+                            //dbHandler.addNewRodent(resultSetTest.getString("imie"), resultSetTest.getString("nazwisko"));
                         }
                     }
                     else {
@@ -117,4 +117,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    public void addRodents(android.view.View view)
+    {
+        final Context context = this;
+        Intent intent = new Intent(context, AddRodents.class);
+        startActivity(intent);
+    }
+
+
+
 }

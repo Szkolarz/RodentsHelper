@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddRodents">
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/editTextListName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="8dp"
+            android:ems="10"
+            android:hint="Imię twojego pupila"
+            />
+
+        <EditText
+            android:id="@+id/editTextNotes"
+            android:layout_width="match_parent"
+            android:layout_height="176dp"
+            android:layout_margin="8dp"
+            android:ems="10"
+            android:hint="Notatki..." />
+
+        <Button
+            android:id="@+id/buttonSaveRodent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="saveRodent"
+            android:text="Zapisz" />
+
+        <Button
+            android:id="@+id/buttonView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="viewRodents"
+            android:text="Wyswietl" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
