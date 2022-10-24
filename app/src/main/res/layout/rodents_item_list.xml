@@ -14,44 +14,92 @@
         android:textSize="18dp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/editTextEditName"
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Imię" />
+        android:layout_height="wrap_content"
+        android:text="Imię pupila:"
+        android:textColor="#77147A"
+        android:textColorHint="#77147A"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewListName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:text="Imię"
+        android:textColor="#BE47FF"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Płeć:" />
+        android:text="Płeć:"
+        android:textColor="#77147A"
+        android:textColorHint="#77147A"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textViewListGender"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Gender"
-        android:textSize="20sp" />
+        android:text="brak"
+        android:textColor="#BE47FF"
+        android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/editTextListDate"
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Data urodzenia:"
+        android:textColor="#77147A"
+        android:textColorHint="#77147A"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewListDate"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="date"
-        android:text="Data urodzenia" />
+        android:text="brak"
+        android:textColor="#BE47FF"
+        android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/editTextListFur"
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Umaszczenie:"
+        android:textColor="#77147A"
+        android:textColorHint="#77147A"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewListFur"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Kolor umaszczenia" />
+        android:text="brak"
+        android:textColor="#BE47FF"
+        android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/editTextListNotes"
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ewentualne notatki:"
+        android:textColor="#77147A"
+        android:textColorHint="#77147A"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewListNotes"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Notatki" />
+        android:text="brak"
+        android:textColor="#BE47FF"
+        android:textSize="24sp" />
 
     <LinearLayout
         android:layout_margin="6dp"

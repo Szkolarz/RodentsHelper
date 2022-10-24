@@ -48,31 +48,29 @@ public class RodentsAdapterClass extends RecyclerView.Adapter<RodentsAdapterClas
         final RodentsModelClass rodentsModelClass = rodentsList.get(position);
 
         holder.textViewListID.setText(Integer.toString(rodentsModelClass.getId()));
-        holder.editTextListName.setText(rodentsModelClass.getName());
+        holder.textViewListName.setText(rodentsModelClass.getName());
         holder.textViewListGender.setText(rodentsModelClass.getGender());
-        holder.editTextListDate.setText((rodentsModelClass.getBirth()).toString());
-        holder.editTextListFur.setText(rodentsModelClass.getFur());
-        holder.editTextListNotes.setText(rodentsModelClass.getNotes());
+        holder.textViewListDate.setText((rodentsModelClass.getBirth()).toString());
+        holder.textViewListFur.setText(rodentsModelClass.getFur());
+        holder.textViewListNotes.setText(rodentsModelClass.getNotes());
 
 
 
         holder.buttonListEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println(holder.editTextListName.getText().toString());
+
                 System.out.println(rodentsModelClass.getName());
 
                 Intent intent = new Intent(context, RodentEdit.class);
 
                 intent.putExtra("idKey", rodentsModelClass.getId());
-                intent.putExtra("nameKey", holder.editTextListName.getText().toString());
+                intent.putExtra("nameKey", holder.textViewListName.getText().toString());
                 intent.putExtra("genderKey",  rodentsModelClass.getGender());
-                intent.putExtra("birthKey",  holder.editTextListDate.getText().toString());
-                intent.putExtra("furKey",  holder.editTextListFur.getText().toString());
-                intent.putExtra("notesKey",  holder.editTextListNotes.getText().toString());
+                intent.putExtra("birthKey",  holder.textViewListDate.getText().toString());
+                intent.putExtra("furKey",  holder.textViewListFur.getText().toString());
+                intent.putExtra("notesKey",  holder.textViewListNotes.getText().toString());
 
-                System.out.println(holder.editTextListName.getText().toString());
-                System.out.println(rodentsModelClass.getName());
 
 
                 context.startActivity(intent);
@@ -107,12 +105,9 @@ public class RodentsAdapterClass extends RecyclerView.Adapter<RodentsAdapterClas
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewListID, textViewListGender;
-        EditText editTextListName, editTextListNotes, editTextListDate, editTextListFur;
-        RadioButton radioButtonGender1, radioButtonGender2;
+        TextView textViewListID, textViewListName, textViewListGender, textViewListDate, textViewListFur, textViewListNotes;
         Button buttonListEdit, buttonListDelete, button2;
-        RadioGroup radioGroup;
-        RadioButton radioButton;
+
 
         public ViewHolder (@NonNull View itemView) {
             super(itemView);
@@ -120,13 +115,14 @@ public class RodentsAdapterClass extends RecyclerView.Adapter<RodentsAdapterClas
             button2 = itemView.findViewById(R.id.button2);
 
             textViewListID = itemView.findViewById(R.id.textViewListID);
-            editTextListName = itemView.findViewById(R.id.editTextEditName);
-            editTextListDate = itemView.findViewById(R.id.editTextListDate);
-            editTextListFur = itemView.findViewById(R.id.editTextListFur);
 
+            textViewListName = itemView.findViewById(R.id.textViewListName);
             textViewListGender = itemView.findViewById(R.id.textViewListGender);
+            textViewListDate = itemView.findViewById(R.id.textViewListDate);
+            textViewListFur = itemView.findViewById(R.id.textViewListFur);
+            textViewListNotes = itemView.findViewById(R.id.textViewListNotes);
 
-            editTextListNotes = itemView.findViewById(R.id.editTextListNotes);
+
             buttonListEdit = itemView.findViewById(R.id.buttonListEdit);
             buttonListDelete = itemView.findViewById(R.id.buttonListDelete);
 

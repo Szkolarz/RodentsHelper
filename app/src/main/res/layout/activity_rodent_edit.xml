@@ -56,13 +56,14 @@
 
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/editTextEditDate"
+            <TextView
+                android:id="@+id/textViewEditDate"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:ems="10"
-                android:hint="Data urodzenia"
-                android:inputType="date" />
+                android:layout_margin="8dp"
+                android:text="Data urodzenia ⌄"
+                android:textColor="#000000"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextEditFur"
