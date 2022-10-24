@@ -15,10 +15,37 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/editTextListName"
+        android:id="@+id/editTextEditName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Imię" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Płeć:" />
+
+    <TextView
+        android:id="@+id/textViewListGender"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Gender"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/editTextListDate"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="date"
+        android:text="Data urodzenia" />
+
+    <EditText
+        android:id="@+id/editTextListFur"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Kolor umaszczenia" />
 
     <EditText
         android:id="@+id/editTextListNotes"
@@ -54,5 +81,12 @@
         android:layout_height="1dp"
         android:layout_margin="6dp"
         android:background="#CA7A7A" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="ju"
+        android:text="Button" />
 
 </LinearLayout>

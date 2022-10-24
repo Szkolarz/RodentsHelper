@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/editTextListName"
+            android:id="@+id/editTextEditName"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_margin="8dp"
@@ -22,8 +22,54 @@
             android:hint="Imię twojego pupila"
             />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="71dp"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:id="@+id/radioEditGroup1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButtonEditGender1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Samiec" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonEditGender2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Samica" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
         <EditText
-            android:id="@+id/editTextNotes"
+            android:id="@+id/editTextEditDate"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:hint="Data urodzenia"
+            android:inputType="date" />
+
+        <EditText
+            android:id="@+id/editTextEditFur"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:hint="Umaszczenie"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/editTextEditNotes"
             android:layout_width="match_parent"
             android:layout_height="176dp"
             android:layout_margin="8dp"
@@ -31,17 +77,17 @@
             android:hint="Notatki..." />
 
         <Button
-            android:id="@+id/buttonSaveRodent"
+            android:id="@+id/buttonEditSaveRodent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="saveRodent"
             android:text="Zapisz" />
 
         <Button
-            android:id="@+id/buttonView"
+            android:id="@+id/buttonEditView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="viewRodents"
-            android:text="Wyswietl" />
+            android:text="Wyswietlll" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

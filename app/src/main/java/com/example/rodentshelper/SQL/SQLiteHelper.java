@@ -24,6 +24,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static final String ID_COL = "id";
     private static final String NAME_COL = "name";
+    private static final String GENDER_COL = "gender";
+    private static final String BIRTH_COL = "birth";
+    private static final String FUR_COL = "fur";
     private static final String NOTES_COL = "notes";
 
     private SQLiteDatabase sqLiteDatabase;
@@ -41,6 +44,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_Rodents = ("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
             + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + NAME_COL + " TEXT,"
+            + GENDER_COL + " TEXT,"
+            + BIRTH_COL + " DATE,"
+            + FUR_COL + " TEXT,"
             + NOTES_COL + " TEXT)");
 
     @Override
@@ -48,23 +54,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_Rodents);
     }
 
-    public void addNewRodent(String name, String notes) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(NAME_COL, name);
-        values.put(NOTES_COL, notes);
-
-        db.insert(TABLE_NAME, null, values);
-
-        db.close();
-    }
 
     public void addNeRodent(RodentsModelClass rodentsModelClass) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME_COL, rodentsModelClass.getName());
+        contentValues.put(GENDER_COL, rodentsModelClass.getGender());
+        contentValues.put(BIRTH_COL, (rodentsModelClass.getBirth()).toString());
+        contentValues.put(FUR_COL, rodentsModelClass.getFur());
         contentValues.put(NOTES_COL, rodentsModelClass.getNotes());
 
         sqLiteDatabase = this.getWritableDatabase();
@@ -83,8 +79,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             do {
                 int id = Integer.parseInt(cursor.getString(0));
                 String name = cursor.getString(1);
-                String notes = cursor.getString(2);
-                storeRodent.add(new RodentsModelClass(id, name, notes));
+                String gender = cursor.getString(2);
+                String birth = cursor.getString(3);
+                String fur = cursor.getString(4);
+                String notes = cursor.getString(5);
+                storeRodent.add(new RodentsModelClass(id, name, gender, birth, fur, notes));
             }while (cursor.moveToNext());
         }
         cursor.close();
@@ -100,8 +99,12 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
     public void updateRodent (RodentsModelClass rodentsModelClass) {
+        System.out.println(rodentsModelClass.getName());
         ContentValues contentValues = new ContentValues();
         contentValues.put(SQLiteHelper.NAME_COL, rodentsModelClass.getName());
+        contentValues.put(SQLiteHelper.GENDER_COL, rodentsModelClass.getGender());
+        contentValues.put(SQLiteHelper.BIRTH_COL, (rodentsModelClass.getBirth()).toString());
+        contentValues.put(SQLiteHelper.FUR_COL, rodentsModelClass.getFur());
         contentValues.put(SQLiteHelper.NOTES_COL, rodentsModelClass.getNotes());
         sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.update(TABLE_NAME, contentValues, ID_COL + " = ?", new String[]
