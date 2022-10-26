@@ -11,9 +11,7 @@ import com.example.rodentshelper.RodentsModelClass;
 import java.util.ArrayList;
 import java.util.List;
 
-import kotlin.collections.ArrayDeque;
-
-public class SQLiteHelper extends SQLiteOpenHelper {
+public class DBHelperAnimal extends SQLiteOpenHelper {
 
 
     private static final String DB_NAME = "rodents";
@@ -32,12 +30,12 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private SQLiteDatabase sqLiteDatabase;
 
 
-    public SQLiteHelper(Context context) {
+    public DBHelperAnimal(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
     public int getVersion() {
-        Integer version = SQLiteHelper.DB_VERSION;
+        Integer version = DBHelperAnimal.DB_VERSION;
         return version;
     }
 
@@ -50,7 +48,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + NOTES_COL + " TEXT)");
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase db)
+    {
+        db.execSQL(CREATE_TABLE_Rodents);
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_Rodents);
     }
 
@@ -101,11 +105,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void updateRodent (RodentsModelClass rodentsModelClass) {
         System.out.println(rodentsModelClass.getName());
         ContentValues contentValues = new ContentValues();
-        contentValues.put(SQLiteHelper.NAME_COL, rodentsModelClass.getName());
-        contentValues.put(SQLiteHelper.GENDER_COL, rodentsModelClass.getGender());
-        contentValues.put(SQLiteHelper.BIRTH_COL, (rodentsModelClass.getBirth()).toString());
-        contentValues.put(SQLiteHelper.FUR_COL, rodentsModelClass.getFur());
-        contentValues.put(SQLiteHelper.NOTES_COL, rodentsModelClass.getNotes());
+        contentValues.put(DBHelperAnimal.NAME_COL, rodentsModelClass.getName());
+        contentValues.put(DBHelperAnimal.GENDER_COL, rodentsModelClass.getGender());
+        contentValues.put(DBHelperAnimal.BIRTH_COL, (rodentsModelClass.getBirth()).toString());
+        contentValues.put(DBHelperAnimal.FUR_COL, rodentsModelClass.getFur());
+        contentValues.put(DBHelperAnimal.NOTES_COL, rodentsModelClass.getNotes());
         sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.update(TABLE_NAME, contentValues, ID_COL + " = ?", new String[]
                 {String.valueOf(rodentsModelClass.getId())});

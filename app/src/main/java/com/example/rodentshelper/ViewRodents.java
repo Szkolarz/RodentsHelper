@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.rodentshelper.SQL.SQLiteHelper;
+import com.example.rodentshelper.SQL.DBHelperAnimal;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class ViewRodents extends AppCompatActivity {
         recyclerViewRodents.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewRodents.setHasFixedSize(true);
 
-        SQLiteHelper databaseHelper = new SQLiteHelper(this);
+        DBHelperAnimal databaseHelper = new DBHelperAnimal(this);
         List<RodentsModelClass> rodentsModelClassList = databaseHelper.getRodentsLis();
 
         if (rodentsModelClassList.size() > 0) {

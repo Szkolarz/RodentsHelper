@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:context=".ViewVets">
 
     <TextView
-        android:id="@+id/editTextListID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        android:text="Id"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:visibility="gone" />
-
-    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Imię pupila:"
+        android:text="Nazwa weterynarza:"
         android:textColor="#77147A"
         android:textColorHint="#77147A"
         android:textSize="16sp" />
 
-    <TextView
+    <EditText
         android:id="@+id/editTextListName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:layout_margin="6dp"
-        android:text="Imię"
+        android:text="Nazwa"
         android:textColor="#BE47FF"
         android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView3"
+        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Płeć:"
+        android:text="Adres"
         android:textColor="#77147A"
         android:textColorHint="#77147A"
         android:textSize="16sp" />
 
-    <TextView
+    <EditText
         android:id="@+id/editTextListAddress"
+        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="brak"
-        android:textColor="#BE47FF"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Data urodzenia:"
-        android:textColor="#77147A"
-        android:textColorHint="#77147A"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/textViewListDate"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="brak"
+        android:text="Adres"
         android:textColor="#BE47FF"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_width="126dp"
         android:layout_height="wrap_content"
-        android:text="Umaszczenie:"
+        android:text="Telefon"
         android:textColor="#77147A"
         android:textColorHint="#77147A"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/editTextListPhone"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="brak"
-        android:textColor="#BE47FF"
-        android:textSize="24sp" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextListPhone"
+            android:layout_marginLeft="10dp"
+            android:layout_width="305dp"
+            android:layout_height="50dp"
+            android:text="Telefon"
+            android:textColor="#BE47FF"
+            android:textSize="24sp" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#448F33"
+            app:srcCompat="@android:drawable/stat_sys_speakerphone"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView7"
+        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ewentualne notatki:"
@@ -95,34 +95,46 @@
         android:textColorHint="#77147A"
         android:textSize="16sp" />
 
-    <TextView
+    <EditText
         android:id="@+id/editTextListNotes"
+        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="brak"
+        android:text="Notatki"
         android:textColor="#BE47FF"
         android:textSize="24sp" />
 
     <LinearLayout
-        android:layout_margin="6dp"
-        android:orientation="horizontal"
+        android:id="@+id/aaad"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonListEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="3dp"
+            android:layout_weight="1"
             android:text="Edytuj" />
+
+        <Button
+            android:id="@+id/buttonListAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:onClick="saveVet"
+            android:text="Dodaj"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/buttonListDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="3dp"
+            android:layout_weight="1"
             android:text="Usuń" />
     </LinearLayout>
 
@@ -131,12 +143,5 @@
         android:layout_height="1dp"
         android:layout_margin="6dp"
         android:background="#CA7A7A" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="ju"
-        android:text="Button" />
 
 </LinearLayout>

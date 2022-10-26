@@ -16,9 +16,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.rodentshelper.SQL.SQLiteHelper;
+import com.example.rodentshelper.SQL.DBHelperAnimal;
 
-import java.sql.Date;
 import java.util.Calendar;
 
 public class RodentEdit extends AppCompatActivity {
@@ -35,7 +34,7 @@ public class RodentEdit extends AppCompatActivity {
     RadioButton radioButton, radioButton1, radioButton2;
 
     Context context;
-    SQLiteHelper databaseHelper = new SQLiteHelper(context);
+    DBHelperAnimal databaseHelper = new DBHelperAnimal(context);
 
 
     @Override
@@ -122,7 +121,7 @@ public class RodentEdit extends AppCompatActivity {
         String stringGender = radioButton.getText().toString();
 
 
-        SQLiteHelper databaseHelper = new SQLiteHelper(RodentEdit.this);
+        DBHelperAnimal databaseHelper = new DBHelperAnimal(RodentEdit.this);
         RodentsModelClass rodentsModelClass = new RodentsModelClass( (Integer.valueOf(getIntent().getIntExtra("idKey", 0))), stringName, stringGender, stringBirth, stringFur, stringNotes);
         databaseHelper.updateRodent(rodentsModelClass);
 

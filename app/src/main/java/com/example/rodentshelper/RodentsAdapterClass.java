@@ -1,37 +1,32 @@
 package com.example.rodentshelper;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.rodentshelper.SQL.SQLiteHelper;
+import com.example.rodentshelper.SQL.DBHelperAnimal;
 
-import java.sql.Date;
 import java.util.List;
 
 public class RodentsAdapterClass extends RecyclerView.Adapter<RodentsAdapterClass.ViewHolder>{
 
     List<RodentsModelClass> rodentsList;
     Context context;
-    SQLiteHelper databaseHelper;
+    DBHelperAnimal databaseHelper;
 
 
 
     public RodentsAdapterClass(List<RodentsModelClass> rodentsList, Context context) {
         this.rodentsList = rodentsList;
         this.context = context;
-        databaseHelper = new SQLiteHelper(context);
+        databaseHelper = new DBHelperAnimal(context);
     }
 
     @NonNull
@@ -114,13 +109,13 @@ public class RodentsAdapterClass extends RecyclerView.Adapter<RodentsAdapterClas
 
             button2 = itemView.findViewById(R.id.button2);
 
-            textViewListID = itemView.findViewById(R.id.textViewListID);
+            textViewListID = itemView.findViewById(R.id.editTextListID);
 
-            textViewListName = itemView.findViewById(R.id.textViewListName);
-            textViewListGender = itemView.findViewById(R.id.textViewListGender);
+            textViewListName = itemView.findViewById(R.id.editTextListName);
+            textViewListGender = itemView.findViewById(R.id.editTextListAddress);
             textViewListDate = itemView.findViewById(R.id.textViewListDate);
-            textViewListFur = itemView.findViewById(R.id.textViewListFur);
-            textViewListNotes = itemView.findViewById(R.id.textViewListNotes);
+            textViewListFur = itemView.findViewById(R.id.editTextListPhone);
+            textViewListNotes = itemView.findViewById(R.id.editTextListNotes);
 
 
             buttonListEdit = itemView.findViewById(R.id.buttonListEdit);

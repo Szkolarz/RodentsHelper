@@ -15,7 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.rodentshelper.SQL.SQLiteHelper;
+import com.example.rodentshelper.SQL.DBHelperAnimal;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -38,7 +38,7 @@ public class AddRodents extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chosen_rodent);
+        setContentView(R.layout.add_rodent);
 
         editTextName = findViewById(R.id.editTextEditName);
 
@@ -99,12 +99,11 @@ public class AddRodents extends Activity {
         radioButton = (RadioButton) findViewById(selectedRadio);
         String stringGender = radioButton.getText().toString();
 
-        if (stringName.length() <= 0 || stringNotes.length() <= 0) {
+        if (stringName.length() <= 0) {
             Toast.makeText(AddRodents.this, "Wprowadź wszystkie dane", Toast.LENGTH_SHORT).show();
-            System.out.println("NEIN");
         }
         else {
-            SQLiteHelper databaseHelper = new SQLiteHelper(AddRodents.this);
+            DBHelperAnimal databaseHelper = new DBHelperAnimal(AddRodents.this);
             RodentsModelClass rodentsModelClass = new RodentsModelClass(stringName, stringGender, Date.valueOf(stringDate), stringFur, stringNotes);
             databaseHelper.addNeRodent(rodentsModelClass);
             Toast.makeText(AddRodents.this, "Pomyślnie dodano", Toast.LENGTH_SHORT).show();

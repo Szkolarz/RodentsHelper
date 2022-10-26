@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.rodentshelper.SQL.Querries;
-import com.example.rodentshelper.SQL.SQLiteHelper;
 
 import java.sql.ResultSet;
 
@@ -126,5 +125,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    public void viewVets(android.view.View view)
+    {
+        FlagSetup.setFlagVetAdd(0);
+        final Context context = this;
+        Intent intent = new Intent(context, ViewVets.class);
+        startActivity(intent);
+    }
 }

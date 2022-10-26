@@ -6,18 +6,13 @@ import java.sql.Date;
 public class RodentsModelClass {
 
     private Integer id;
+    private Integer id_animal;
     private String name;
     private String gender;
     private Date birth;
     private String fur;
     private String notes;
 
-    private static Integer idStatic;
-    private static String nameStatic;
-    private static String genderStatic;
-    private static Date birthStatic;
-    private static String furStatic;
-    private static String notesStatic;
 
     public RodentsModelClass() {
     }
