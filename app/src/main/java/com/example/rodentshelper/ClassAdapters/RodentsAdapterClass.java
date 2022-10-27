@@ -1,4 +1,4 @@
-package com.example.rodentshelper;
+package com.example.rodentshelper.ClassAdapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rodentshelper.R;
+import com.example.rodentshelper.RodentEdit;
+import com.example.rodentshelper.ClassModels.RodentsModelClass;
 import com.example.rodentshelper.SQL.DBHelperAnimal;
 
 import java.util.List;

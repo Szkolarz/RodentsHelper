@@ -1,4 +1,4 @@
-package com.example.rodentshelper;
+package com.example.rodentshelper.MainViews;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.rodentshelper.AddRodents;
+import com.example.rodentshelper.AsyncActivity;
+import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.R;
 import com.example.rodentshelper.SQL.Querries;
 
 import java.sql.ResultSet;

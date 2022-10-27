@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -15,6 +16,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rodentshelper.ClassModels.RodentsModelClass;
+import com.example.rodentshelper.MainViews.ViewRodents;
 import com.example.rodentshelper.SQL.DBHelperAnimal;
 
 import java.sql.Date;
@@ -114,9 +117,18 @@ public class AddRodents extends Activity {
 
     }
 
-    public void viewRodents(View view) {
+    public void viewRodents() {
         Intent intent = new Intent(AddRodents.this, ViewRodents.class);
         startActivity(intent);
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            viewRodents();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 

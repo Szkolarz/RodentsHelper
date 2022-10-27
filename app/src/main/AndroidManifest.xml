@@ -25,7 +25,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ViewRodents"
+            android:name=".MainViews.ViewRodents"
             android:exported="false"
             android:noHistory="true">
             <meta-data
@@ -33,10 +33,13 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ViewVets"
+            android:name=".MainViews.ViewVets"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".MainViews.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainViews.FirstStart"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.example.rodentshelper;
+package com.example.rodentshelper.ClassModels;
 
 public class VetsModelClass {
 

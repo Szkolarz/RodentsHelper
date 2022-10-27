@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.rodentshelper.VetsModelClass;
+import com.example.rodentshelper.ClassModels.VetsModelClass;
 
 import java.util.ArrayList;
 import java.util.List;

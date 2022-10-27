@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,6 +17,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.rodentshelper.ClassModels.RodentsModelClass;
+import com.example.rodentshelper.MainViews.ViewRodents;
 import com.example.rodentshelper.SQL.DBHelperAnimal;
 
 import java.util.Calendar;
@@ -135,5 +138,18 @@ public class RodentEdit extends AppCompatActivity {
 
     }
 
+
+    public void viewRodents() {
+        Intent intent = new Intent(RodentEdit.this, ViewRodents.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            viewRodents();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }

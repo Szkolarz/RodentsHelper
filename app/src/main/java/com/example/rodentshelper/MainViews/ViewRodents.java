@@ -1,12 +1,18 @@
-package com.example.rodentshelper;
+package com.example.rodentshelper.MainViews;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.rodentshelper.AddRodents;
+import com.example.rodentshelper.R;
+import com.example.rodentshelper.ClassAdapters.RodentsAdapterClass;
+import com.example.rodentshelper.ClassModels.RodentsModelClass;
 import com.example.rodentshelper.SQL.DBHelperAnimal;
 
 import java.util.List;
@@ -37,4 +43,19 @@ public class ViewRodents extends AppCompatActivity {
         }
 
     }
+
+    public void addNewRodent(android.view.View view)
+    {
+        Intent intent = new Intent(ViewRodents.this, AddRodents.class);
+        startActivity(intent);
+    }
+
+    public void onClickVet(android.view.View view)
+    {
+        Intent intent = new Intent(ViewRodents.this, ViewVets.class);
+        startActivity(intent);
+    }
+
+
+
 }

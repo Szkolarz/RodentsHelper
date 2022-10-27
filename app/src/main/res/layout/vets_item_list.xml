@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="wrap_content"
-    tools:context=".ViewVets">
+    tools:context=".MainViews.ViewVets">
 
     <TextView
         android:layout_marginTop="10dp"
@@ -103,6 +103,13 @@
         android:text="Notatki"
         android:textColor="#BE47FF"
         android:textSize="24sp" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Przypisać weterynarza do konkretnego pupila?"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:id="@+id/aaad"
