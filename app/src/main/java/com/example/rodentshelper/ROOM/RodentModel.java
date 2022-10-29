@@ -1,44 +1,53 @@
-package com.example.rodentshelper.ClassModels;
+package com.example.rodentshelper.ROOM;
+
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import java.sql.Date;
 
+@Entity(tableName = "rodents")
+public class RodentModel {
 
-public class RodentsModelClass {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
-    private Integer id;
-    private Integer id_animal;
+    @ColumnInfo(name = "id_animal")
+    private int id_animal;
+
+    @ColumnInfo(name = "name")
     private String name;
+    @ColumnInfo(name = "gender")
     private String gender;
+
+    @TypeConverters(Converters.class)
+    @ColumnInfo(name = "birth")
     private Date birth;
+
+    @ColumnInfo(name = "fur")
     private String fur;
+    @ColumnInfo(name = "notes")
     private String notes;
 
 
-    public RodentsModelClass() {
-    }
 
-    public RodentsModelClass(String name, String gender, Date birth, String fur, String notes) {
+    public RodentModel(Integer id_animal, String name, String gender, Date birth, String fur, String notes) {
+        this.id_animal = id_animal;
         this.name = name;
         this.gender = gender;
         this.birth = birth;
         this.fur = fur;
         this.notes = notes;
+
+
     }
 
-    public RodentsModelClass(Integer id, String name, String gender, String birth, String fur, String notes) {
-        this.id = id;
-        this.name = name;
-        this.gender = gender;
-        this.birth = Date.valueOf(birth);
-        this.fur = fur;
-        this.notes = notes;
-    }
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -48,6 +57,14 @@ public class RodentsModelClass {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getId_animal() {
+        return id_animal;
+    }
+
+    public void setId_animal(int id_animal) {
+        this.id_animal = id_animal;
     }
 
     public String getGender() {

@@ -1,7 +1,9 @@
 package com.example.rodentshelper.SQL;
 
 import java.net.InetAddress;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 
 public interface ConnectionSQL {

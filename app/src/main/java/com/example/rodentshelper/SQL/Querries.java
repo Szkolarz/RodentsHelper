@@ -1,6 +1,5 @@
 package com.example.rodentshelper.SQL;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;

@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rodentshelper.AddVets;
+import com.example.rodentshelper.ClassAdapters.VetsAdapterClass;
+import com.example.rodentshelper.ClassModels.VetsModelClass;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.SQL.DBHelperVet;
-import com.example.rodentshelper.ClassAdapters.VetsAdapterClass;
-import com.example.rodentshelper.ClassModels.VetsModelClass;
 
 import java.util.List;
 

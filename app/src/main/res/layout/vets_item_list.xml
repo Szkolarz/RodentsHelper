@@ -119,7 +119,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonListEdit"
+            android:id="@+id/buttonEdit_rodent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -137,7 +137,7 @@
             android:visibility="gone" />
 
         <Button
-            android:id="@+id/buttonListDelete"
+            android:id="@+id/buttonDelete_vet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"

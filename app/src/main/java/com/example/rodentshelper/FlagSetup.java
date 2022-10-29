@@ -1,10 +1,10 @@
 package com.example.rodentshelper;
 
-import java.sql.Date;
-
 public class FlagSetup {
 
     private static Integer flagVetAdd;
+
+    private static Integer flagRodentAdd;
 
 
     public FlagSetup() {
@@ -17,4 +17,13 @@ public class FlagSetup {
     public static void setFlagVetAdd(Integer flagVetAdd) {
         FlagSetup.flagVetAdd = flagVetAdd;
     }
+
+    public static Integer getFlagRodentAdd() {
+        return flagRodentAdd;
+    }
+
+    public static void setFlagRodentAdd(Integer flagRodentAdd) {
+        FlagSetup.flagRodentAdd = flagRodentAdd;
+    }
+
 }

@@ -10,9 +10,9 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rodentshelper.ClassModels.VetsModelClass;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.SQL.DBHelperVet;
-import com.example.rodentshelper.ClassModels.VetsModelClass;
 
 import java.util.List;
 
@@ -93,8 +93,8 @@ public class VetsAdapterClass extends RecyclerView.Adapter<VetsAdapterClass.View
             editTextListPhone = itemView.findViewById(R.id.editTextListPhone);
             editTextListNotes = itemView.findViewById(R.id.editTextListNotes);
 
-            buttonListEdit = itemView.findViewById(R.id.buttonListEdit);
-            buttonListDelete = itemView.findViewById(R.id.buttonListDelete);
+            buttonListEdit = itemView.findViewById(R.id.buttonEdit_rodent);
+            buttonListDelete = itemView.findViewById(R.id.buttonDelete_vet);
         }
 
 
