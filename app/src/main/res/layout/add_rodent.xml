@@ -78,24 +78,16 @@
             android:hint="Notatki..." />
 
         <Button
-            android:id="@+id/buttonEditSaveRodent"
+            android:id="@+id/buttonAdd_rodent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="saveRodent"
             android:text="Zapisz" />
 
         <Button
-            android:id="@+id/buttonView"
+            android:id="@+id/buttonSaveEdit_rodent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="viewRodents"
-            android:text="Wyswietlll" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Zapisz edycję" />
 
         <TextView
             android:id="@+id/textViewDate_hidden"

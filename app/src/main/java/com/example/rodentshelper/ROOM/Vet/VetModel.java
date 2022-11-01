@@ -1,31 +1,39 @@
-package com.example.rodentshelper.ClassModels;
+package com.example.rodentshelper.ROOM.Vet;
 
-public class VetsModelClass {
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
+import com.example.rodentshelper.ROOM.Converters;
+
+import java.sql.Date;
+
+@Entity(tableName = "vets")
+public class VetModel {
+
+    @PrimaryKey(autoGenerate = true)
     private Integer id;
-    private Integer id_animal;
+    @ColumnInfo(name = "id_rodent")
+    private Integer id_rodent;
+    @ColumnInfo(name = "name")
     private String name;
+    @ColumnInfo(name = "address")
     private String address;
+    @ColumnInfo(name = "phone_number")
     private String phone_number;
+    @ColumnInfo(name = "notes")
     private String notes;
 
 
-    public VetsModelClass(Integer id_animal, String name, String address, String phone_number, String notes) {
-        this.id_animal = id_animal;
+    public VetModel(Integer id_rodent, String name, String address, String phone_number, String notes) {
+        this.id_rodent = id_rodent;
         this.name = name;
         this.address = address;
         this.phone_number = phone_number;
         this.notes = notes;
     }
 
-    public VetsModelClass(Integer id, Integer id_animal, String name, String address, String phone_number, String notes) {
-        this.id = id;
-        this.id_animal = id_animal;
-        this.name = name;
-        this.address = address;
-        this.phone_number = phone_number;
-        this.notes = notes;
-    }
 
     public Integer getId() {
         return id;
@@ -35,12 +43,12 @@ public class VetsModelClass {
         this.id = id;
     }
 
-    public Integer getId_animal() {
-        return id_animal;
+    public Integer getId_rodent() {
+        return id_rodent;
     }
 
-    public void setId_animal(Integer id_animal) {
-        this.id_animal = id_animal;
+    public void setId_rodent(Integer id_rodent) {
+        this.id_rodent = id_rodent;
     }
 
     public String getName() {

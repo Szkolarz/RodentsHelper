@@ -16,24 +16,26 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.rodentshelper.ClassModels.RodentsModelClass;
+import androidx.room.Room;
+
 import com.example.rodentshelper.MainViews.ViewRodents;
-import com.example.rodentshelper.SQL.DBHelperAnimal;
+import com.example.rodentshelper.ROOM.AppDatabase;
+import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 
 import java.sql.Date;
 import java.util.Calendar;
 
 public class AddRodents extends Activity {
 
-    EditText editTextNotes, editTextName, editTextDate, editTextFur;
-    Button buttonSaveRodent, buttonView;
+    EditText editTextNotes, editTextName, editTextFur;
+    Button buttonAdd_rodent, buttonEdit_rodent;
     RadioButton radioButtonGender1, radioButtonGender2;
-
 
     RadioGroup radioGroup;
     RadioButton radioButton;
 
-    private TextView textViewDate;
+    private TextView textViewDate, textViewDate_hidden;
 
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private String dateFormat;
@@ -43,8 +45,8 @@ public class AddRodents extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_rodent);
 
-        editTextName = findViewById(R.id.editTextEditName);
 
+        editTextName = findViewById(R.id.editTextEditName);
         editTextFur = findViewById(R.id.editTextEditFur);
         editTextNotes = findViewById(R.id.editTextEditNotes);
 
@@ -53,10 +55,15 @@ public class AddRodents extends Activity {
 
         radioGroup = findViewById(R.id.radioEditGroup1);
 
-        buttonSaveRodent = findViewById(R.id.buttonEditSaveRodent);
-        buttonView = findViewById(R.id.buttonEditView);
+        buttonAdd_rodent = findViewById(R.id.buttonAdd_rodent);
+
+
+        buttonEdit_rodent = findViewById(R.id.buttonSaveEdit_rodent);
+
 
         textViewDate = findViewById(R.id.textViewDate);
+        textViewDate_hidden = findViewById(R.id.textViewDate_hidden);
+
 
 
         textViewDate.setOnClickListener(new View.OnClickListener() {
@@ -85,13 +92,77 @@ public class AddRodents extends Activity {
                 textViewDate.setText(date);
 
                 dateFormat = (year + "-" + month + "-" + day);
+                textViewDate_hidden.setText(dateFormat);
+
             }
         };
 
 
+        buttonAdd_rodent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveRodent();
+
+            }
+        });
+
+        if (FlagSetup.getFlagRodentAdd() == 0) {
+
+            Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
+            Integer id_animalKey = Integer.parseInt(getIntent().getStringExtra("id_animalKey"));
+            String nameKey = getIntent().getStringExtra("nameKey");
+            String genderKey = getIntent().getStringExtra("genderKey");
+            String birthKey = getIntent().getStringExtra("birthKey");
+            String furKey = getIntent().getStringExtra("furKey");
+            String notesKey = getIntent().getStringExtra("notesKey");
+
+            if (genderKey.equals("Samiec"))
+                radioButtonGender1.setChecked(true);
+            else
+                radioButtonGender2.setChecked(true);
+
+
+
+            editTextName.setText(nameKey);
+            textViewDate.setText(birthKey);
+            textViewDate_hidden.setText(birthKey);
+            editTextFur.setText(furKey);
+            editTextNotes.setText(notesKey);
+
+
+            buttonEdit_rodent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    int selectedRadio = radioGroup.getCheckedRadioButtonId();
+                    radioButton = (RadioButton) findViewById(selectedRadio);
+
+
+                    dateFormat = textViewDate_hidden.getText().toString();
+
+                    AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                            AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+                    DAO rodentDao = db.dao();
+                    rodentDao.updateRodentById(idKey, id_animalKey, editTextName.getText().toString(),
+                            radioButton.getText().toString(), Date.valueOf(dateFormat),
+                            editTextFur.getText().toString(), editTextNotes.getText().toString());
+                    viewRodents();
+
+                }
+            });
+        }
+
+
+        /*buttonEdit_rodent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ViewRodents.class));
+            }
+        });*/
+
     }
 
-    public void saveRodent(View view) {
+    public void saveRodent() {
         String stringName = editTextName.getText().toString();
 
         String stringDate = dateFormat;
@@ -102,25 +173,29 @@ public class AddRodents extends Activity {
         radioButton = (RadioButton) findViewById(selectedRadio);
         String stringGender = radioButton.getText().toString();
 
+
+
         if (stringName.length() <= 0) {
             Toast.makeText(AddRodents.this, "Wprowadź wszystkie dane", Toast.LENGTH_SHORT).show();
         }
         else {
-            DBHelperAnimal databaseHelper = new DBHelperAnimal(AddRodents.this);
-            RodentsModelClass rodentsModelClass = new RodentsModelClass(stringName, stringGender, Date.valueOf(stringDate), stringFur, stringNotes);
-            databaseHelper.addNeRodent(rodentsModelClass);
-            Toast.makeText(AddRodents.this, "Pomyślnie dodano", Toast.LENGTH_SHORT).show();
+
+            AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+            DAO rodentDao = db.dao();
+            rodentDao.insertRecordRodent(new RodentModel(1, stringName, stringGender, Date.valueOf(stringDate), stringFur, stringNotes));
+
             System.out.println("DODANO");
-            finish();
-            startActivity(getIntent());
+            viewRodents();
         }
 
     }
 
-    public void viewRodents() {
-        Intent intent = new Intent(AddRodents.this, ViewRodents.class);
-        startActivity(intent);
+    private void viewRodents() {
+        finish();
+        startActivity(new Intent(getApplicationContext(), ViewRodents.class));
     }
+
 
 
     @Override

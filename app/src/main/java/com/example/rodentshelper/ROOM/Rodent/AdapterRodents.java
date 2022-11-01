@@ -1,4 +1,4 @@
-package com.example.rodentshelper.ROOM;
+package com.example.rodentshelper.ROOM.Rodent;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -15,6 +15,8 @@ import androidx.room.Room;
 import com.example.rodentshelper.AddRodents;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
+import com.example.rodentshelper.ROOM.AppDatabase;
+import com.example.rodentshelper.ROOM.DAO;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -55,9 +57,9 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.myviewho
 
                   AppDatabase db = Room.databaseBuilder(holder.textViewName.getContext(),
                           AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                  DAO userDao = db.userDao();
+                  DAO rodentDao = db.dao();
                   // this is to delete the record from room database
-                   userDao.deleteRodentById(rodentModel.get(holder.getAdapterPosition()).getId());
+                  rodentDao.deleteRodentById(rodentModel.get(holder.getAdapterPosition()).getId());
                   // this is to delete the record from Array List which is the source of recview data
                   rodentModel.remove(holder.getAdapterPosition());
 

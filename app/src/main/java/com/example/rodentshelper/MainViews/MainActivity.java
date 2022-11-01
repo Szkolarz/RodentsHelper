@@ -1,7 +1,5 @@
 package com.example.rodentshelper.MainViews;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +8,8 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rodentshelper.AddRodents;
 import com.example.rodentshelper.AsyncActivity;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         AsyncActivity internetAsyncCheck = new AsyncActivity();
         internetAsyncCheck.execute();
 
-        System.out.println(internetAsyncCheck.getInternetConnectionInfo() + "qqqqqqqqqqqqq");
+        System.out.println(internetAsyncCheck.getInternetConnectionInfo());
 
 
 
@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
                     Boolean internetCheck = internetAsyncCheck.getInternetConnectionInfo();
 
-                    System.out.println("dsfdsfdsdfsfdsfds");
-                    System.out.println(internetCheck + "dsfdsfdsdfsfdsfds");
+                    System.out.println("internet check:");
+                    System.out.println(internetCheck);
 
                     if (internetCheck == true) {
 
@@ -80,12 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
                         SharedPreferences prefsDB = getSharedPreferences("prefsDB", MODE_PRIVATE);
                         Integer sharedPreferencesDBVersion = prefsDB.getInt("dbversion", DBversion);
-                        System.out.println(sharedPreferencesDBVersion + " xxxxx");
-                        System.out.println(DBversion + " xxxxx");
-                        System.out.println(firstStart + " xxxxx");
 
                         if (firstStart == true || !sharedPreferencesDBVersion.equals(DBversion)) {
-                            System.out.println("CZEK @@@@@@@@@@@@@@@@");
 
                             SharedPreferences.Editor editorFirstStart = prefsFirstStart.edit();
                             editorFirstStart.putBoolean("firstStart", false);
@@ -121,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void addRodents(android.view.View view)
+    public void addRodents(View view)
     {
         final Context context = this;
         Intent intent = new Intent(context, AddRodents.class);
@@ -129,9 +125,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void viewVets(android.view.View view)
+    public void viewVets(View view)
     {
-        FlagSetup.setFlagVetAdd(0);
+
         final Context context = this;
         Intent intent = new Intent(context, ViewVets.class);
         startActivity(intent);
