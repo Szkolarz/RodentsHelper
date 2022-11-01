@@ -5,6 +5,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.TypeConverters;
 
+import com.example.rodentshelper.ROOM.MTM.RodentVetModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM.Vet.VetModel;
 
@@ -16,10 +17,21 @@ public interface DAO {
 
 
 
-    @Query("SELECT rodents.name FROM rodents JOIN vets ON vets.id_rodent = rodents.id WHERE vets.id = :id")
-    List<String> getNameRelations_VetAndRodent(int id);
+    //@Query("SELECT rodents.name FROM rodents JOIN vets ON vets.id_rodent = rodents.id WHERE vets.id = :id")
+    //List<String> getNameRelations_VetAndRodent(int id);
 
+    @Insert
+    void insertRecordRodentVet(RodentVetModel rodents_vets);
 
+    //@Query("SELECT name FROM rodents where id = :id")
+    //List<RodentModel> getAllRodentsVets(int id);
+
+    @Query ("SELECT rodents.name\n" +
+            "FROM rodents\n" +
+            "JOIN vets ON rodents_vets.id_vet = vets.id\n" +
+            "JOIN rodents_vets ON rodents.id = rodents_vets.id_rodent\n" +
+            "WHERE vets.id = :id")
+    List<String> getAllRodentsVets(int id);
 
     /*************/
     /** RODENTS **/
@@ -31,8 +43,11 @@ public interface DAO {
     /*@Query("SELECT EXISTS(SELECT * FROM rodents WHERE id = :id)")
     Boolean is_exist(int id);*/
 
-    @Query("SELECT * FROM rodents")
+    @Query("SELECT * FROM rodents ORDER BY id ASC")
     List<RodentModel> getAllRodents();
+
+    //@Query("SELECT id FROM rodents ORDER BY id ASC")
+    //List<RodentModel> getAllIdRodents();
 
     @Query("DELETE FROM rodents WHERE id = :id")
     void deleteRodentById(int id);
@@ -57,8 +72,13 @@ public interface DAO {
     void deleteVetById(int id);
 
     @TypeConverters(Converters.class)
-    @Query("UPDATE vets SET id_rodent = :id_rodent, name = :name, address = :address, phone_number = :phone, notes = :notes WHERE id = :id")
-    void updateVetById(int id, int id_rodent, String name, String address, String phone, String notes);
+    @Query("UPDATE vets SET name = :name, address = :address, phone_number = :phone, notes = :notes WHERE id = :id")
+    void updateVetById(int id, String name, String address, String phone, String notes);
+
+
+
+    @Query("SELECT id FROM vets WHERE id = (SELECT MAX(id) FROM vets)")
+    List<Integer> getLastIdVet();
 }
 
 

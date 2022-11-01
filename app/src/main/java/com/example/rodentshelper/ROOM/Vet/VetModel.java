@@ -14,8 +14,6 @@ public class VetModel {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;
-    @ColumnInfo(name = "id_rodent")
-    private Integer id_rodent;
     @ColumnInfo(name = "name")
     private String name;
     @ColumnInfo(name = "address")
@@ -26,8 +24,7 @@ public class VetModel {
     private String notes;
 
 
-    public VetModel(Integer id_rodent, String name, String address, String phone_number, String notes) {
-        this.id_rodent = id_rodent;
+    public VetModel(String name, String address, String phone_number, String notes) {
         this.name = name;
         this.address = address;
         this.phone_number = phone_number;
@@ -43,13 +40,6 @@ public class VetModel {
         this.id = id;
     }
 
-    public Integer getId_rodent() {
-        return id_rodent;
-    }
-
-    public void setId_rodent(Integer id_rodent) {
-        this.id_rodent = id_rodent;
-    }
 
     public String getName() {
         return name;

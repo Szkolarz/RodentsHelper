@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,12 +20,15 @@ import com.example.rodentshelper.ROOM.DAO;
 import com.example.rodentshelper.ROOM.Vet.AdapterVets;
 import com.example.rodentshelper.ROOM.Vet.VetModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewVets extends AppCompatActivity {
 
     RecyclerView recyclerViewVets;
     Button buttonAddVets;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

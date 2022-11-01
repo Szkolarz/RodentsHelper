@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -26,6 +29,7 @@ import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterVets extends RecyclerView.Adapter<AdapterVets.myviewholder>
@@ -53,15 +57,45 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.myviewholder>
         holder.editTextPhone_vet.setText(vetModel.get(position).getPhone_number());
         holder.editTextNotes_vet.setText(vetModel.get(position).getNotes());
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(holder.ListViewVet.getContext(), android.R.layout.simple_list_item_multiple_choice, holder.ArrayListLV);
+        holder.ListViewVet.setAdapter(adapter);
+
 
         AppDatabase db = Room.databaseBuilder(holder.editTextName_vet.getContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAO vetDao = db.dao();
 
+        List<String> list = vetDao.getAllRodentsVets(vetModel.get(position).getId());
 
-        if (vetDao.getNameRelations_VetAndRodent(vetModel.get(position).getId()) != null)
+        for(int i = 0; i < list.size(); i++) {
+            holder.ArrayListLV.add(list.get(i));
+            holder.ListViewVet.setItemChecked(i, true);
+        }
+
+        if (holder.ArrayListLV.isEmpty())
+            holder.checkBoxVet.setChecked(false);
+        else
+            holder.checkBoxVet.setChecked(true);
+
+
+        holder.checkBoxVet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (holder.checkBoxVet.isChecked()) {
+                    holder.ListViewVet.setVisibility(View.VISIBLE);
+                    holder.ListViewVet.setSelected(true);
+                }
+                else {
+                    holder.ListViewVet.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
+        /*if (vetDao.getNameRelations_VetAndRodent(vetModel.get(position).getId()) != null)
             holder.editTextNotes_vet.setText(vetDao.getNameRelations_VetAndRodent(vetModel.get(position).getId()).toString());
-        System.out.println(vetDao.getNameRelations_VetAndRodent(vetModel.get(position).getId()));
+        System.out.println(vetDao.getNameRelations_VetAndRodent(vetModel.get(position).getId()));*/
 
 
 
@@ -91,7 +125,12 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.myviewholder>
                   AppDatabase db = Room.databaseBuilder(holder.editTextName_vet.getContext(),
                           AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
                   DAO vetDao = db.dao();
-                  vetDao.updateVetById(vetModel.get(holder.getAdapterPosition()).getId(), vetModel.get(holder.getAdapterPosition()).getId_rodent(),
+
+                  System.out.println(  holder.editTextPhone_vet.getText().toString());
+                  System.out.println(  vetModel.get(holder.getAdapterPosition()).getId().toString());
+
+
+                  vetDao.updateVetById(vetModel.get(holder.getAdapterPosition()).getId(),
                           holder.editTextName_vet.getText().toString(), holder.editTextAddress_vet.getText().toString(),
                           holder.editTextPhone_vet.getText().toString(), holder.editTextNotes_vet.getText().toString());
 
@@ -121,6 +160,10 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.myviewholder>
 
            EditText editTextName_vet, editTextAddress_vet, editTextPhone_vet, editTextNotes_vet;
            Button buttonDelete_vet, buttonEdit_vet, buttonAdd_vet;
+           ListView ListViewVet;
+           CheckBox checkBoxVet;
+           private ArrayList<String> ArrayListLV;
+
 
 
            public myviewholder(@NonNull @NotNull View itemView) {
@@ -135,6 +178,17 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.myviewholder>
                buttonDelete_vet = itemView.findViewById(R.id.buttonDelete_vet);
                buttonEdit_vet = itemView.findViewById(R.id.buttonEdit_vet);
                buttonAdd_vet = itemView.findViewById(R.id.buttonAdd_vet);
+
+
+               ListViewVet = itemView.findViewById(R.id.ListViewVet);
+               ListViewVet.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+               ListViewVet.setItemsCanFocus(false);
+
+               checkBoxVet = itemView.findViewById(R.id.checkBoxVet);
+
+               ArrayListLV = new ArrayList<>();
+
+
            }
        }
 }

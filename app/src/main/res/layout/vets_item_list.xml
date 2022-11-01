@@ -105,11 +105,16 @@
         android:textSize="24sp" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkBoxVet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Przypisać weterynarza do konkretnego pupila?"
         android:textSize="16sp" />
+
+    <ListView
+        android:id="@+id/ListViewVet"
+        android:layout_width="match_parent"
+        android:layout_height="104dp" />
 
     <LinearLayout
         android:id="@+id/aaad"
