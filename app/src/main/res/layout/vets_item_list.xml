@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".MainViews.ViewVets">
 
+
+
     <TextView
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:text="Nazwa weterynarza:"
         android:textColor="#77147A"
         android:textColorHint="#77147A"
@@ -23,8 +27,8 @@
         android:id="@+id/editTextName_vet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:layout_margin="6dp"
+        android:layout_marginLeft="10dp"
         android:text="Nazwa"
         android:textColor="#BE47FF"
         android:textSize="24sp"
@@ -32,9 +36,9 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:text="Adres"
         android:textColor="#77147A"
         android:textColorHint="#77147A"
@@ -42,18 +46,18 @@
 
     <EditText
         android:id="@+id/editTextAddress_vet"
-        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
         android:text="Adres"
         android:textColor="#BE47FF"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_marginLeft="10dp"
         android:layout_width="126dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:text="Telefon"
         android:textColor="#77147A"
         android:textColorHint="#77147A"
@@ -66,9 +70,9 @@
 
         <EditText
             android:id="@+id/editTextPhone_vet"
-            android:layout_marginLeft="10dp"
             android:layout_width="305dp"
             android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
             android:text="Telefon"
             android:textColor="#BE47FF"
             android:textSize="24sp" />
@@ -87,9 +91,9 @@
 
     <TextView
         android:id="@+id/textView7"
-        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:text="Ewentualne notatki:"
         android:textColor="#77147A"
         android:textColorHint="#77147A"
@@ -97,12 +101,36 @@
 
     <EditText
         android:id="@+id/editTextNotes_vet"
-        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
         android:text="Notatki"
         android:textColor="#BE47FF"
         android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textViewRodentRelationsInfo_vet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:ellipsize="none"
+        android:maxLines="8"
+        android:text="Zwierzęta leczone przez weterynarza:"
+        android:textColor="#BE47FF"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewRodentRelations_vet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:ellipsize="none"
+        android:maxLines="8"
+        android:textColor="#BE47FF"
+        android:textSize="17sp" />
 
     <CheckBox
         android:id="@+id/checkBoxVet"
@@ -113,8 +141,9 @@
 
     <ListView
         android:id="@+id/ListViewVet"
-        android:layout_width="match_parent"
-        android:layout_height="104dp" />
+        android:layout_width="389dp"
+        android:layout_height="104dp"
+        android:overScrollMode="ifContentScrolls" />
 
     <LinearLayout
         android:id="@+id/aaad"
@@ -139,7 +168,17 @@
             android:layout_weight="1"
             android:onClick="saveVet"
             android:text="Dodaj"
-            android:visibility="gone" />
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/buttonSaveEdit_vet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:onClick="saveVet"
+            android:text="Zapisz"
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/buttonDelete_vet"

@@ -21,9 +21,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Imię pupila:"
-        android:textColor="#77147A"
+        android:textColor="#014D70"
         android:textColorHint="#77147A"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="10dp"
+        />
 
     <TextView
         android:id="@+id/textViewName_rodent"
@@ -31,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
         android:text="Imię"
-        android:textColor="#BE47FF"
+        android:textColor="#014D70"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -40,68 +43,84 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Płeć:"
-        android:textColor="#77147A"
+        android:textColor="#014D70"
         android:textColorHint="#77147A"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_marginLeft="6dp"
+        />
 
     <TextView
         android:id="@+id/textViewGender_rodent"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="brak"
-        android:textColor="#BE47FF"
-        android:textSize="24sp" />
+        android:textColor="#014D70"
+        android:textSize="24sp"
+        android:layout_marginLeft="6dp"
+        />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Data urodzenia:"
-        android:textColor="#77147A"
+        android:textColor="#014D70"
         android:textColorHint="#77147A"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_marginLeft="6dp"
+        />
 
     <TextView
         android:id="@+id/textViewDate_rodent"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="brak"
-        android:textColor="#BE47FF"
-        android:textSize="24sp" />
+        android:textColor="#014D70"
+        android:textSize="24sp"
+        android:layout_marginLeft="6dp"
+        />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Umaszczenie:"
-        android:textColor="#77147A"
+        android:textColor="#014D70"
         android:textColorHint="#77147A"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_marginLeft="6dp"
+        />
 
     <TextView
         android:id="@+id/textViewFur_rodent"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="brak"
-        android:textColor="#BE47FF"
-        android:textSize="24sp" />
+        android:textColor="#014D70"
+        android:textSize="24sp"
+        android:layout_marginLeft="6dp"
+        />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ewentualne notatki:"
-        android:textColor="#77147A"
+        android:textColor="#014D70"
         android:textColorHint="#77147A"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_marginLeft="6dp"
+        />
 
     <TextView
         android:id="@+id/textViewNotes_rodent"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="brak"
-        android:textColor="#BE47FF"
-        android:textSize="24sp" />
+        android:textColor="#014D70"
+        android:textSize="24sp"
+        android:layout_marginLeft="6dp"
+        />
 
     <LinearLayout
         android:layout_margin="6dp"
@@ -113,16 +132,18 @@
             android:id="@+id/buttonEdit_rodent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:backgroundTint="#048FCD"
             android:text="Edytuj" />
 
         <Button
             android:id="@+id/buttonDelete_rodent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:backgroundTint="#048FCD"
             android:text="Usuń" />
     </LinearLayout>
 

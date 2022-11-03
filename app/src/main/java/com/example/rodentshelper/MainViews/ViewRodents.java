@@ -49,6 +49,7 @@ public class ViewRodents extends AppCompatActivity {
 
     public void addNewRodent(android.view.View view)
     {
+        //1 = nowy
         FlagSetup.setFlagRodentAdd(1);
         Intent intent = new Intent(ViewRodents.this, AddRodents.class);
         startActivity(intent);

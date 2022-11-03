@@ -57,13 +57,20 @@ public class AddRodents extends Activity {
 
         buttonAdd_rodent = findViewById(R.id.buttonAdd_rodent);
 
-
         buttonEdit_rodent = findViewById(R.id.buttonSaveEdit_rodent);
 
 
         textViewDate = findViewById(R.id.textViewDate);
         textViewDate_hidden = findViewById(R.id.textViewDate_hidden);
 
+        if (FlagSetup.getFlagRodentAdd() == 1) {
+            buttonAdd_rodent.setVisibility(View.VISIBLE);
+            buttonEdit_rodent.setVisibility(View.GONE);
+        }
+        else {
+            buttonAdd_rodent.setVisibility(View.GONE);
+            buttonEdit_rodent.setVisibility(View.VISIBLE);
+        }
 
 
         textViewDate.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +153,8 @@ public class AddRodents extends Activity {
                     rodentDao.updateRodentById(idKey, id_animalKey, editTextName.getText().toString(),
                             radioButton.getText().toString(), Date.valueOf(dateFormat),
                             editTextFur.getText().toString(), editTextNotes.getText().toString());
+
+
                     viewRodents();
 
                 }

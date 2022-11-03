@@ -81,12 +81,14 @@
             android:id="@+id/buttonAdd_rodent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#048FCD"
             android:text="Zapisz" />
 
         <Button
             android:id="@+id/buttonSaveEdit_rodent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#048FCD"
             android:text="Zapisz edycję" />
 
         <TextView

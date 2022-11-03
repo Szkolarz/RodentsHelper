@@ -50,6 +50,7 @@ public class ViewVets extends AppCompatActivity {
 
     public void addNewVet(android.view.View view)
     {
+        //1 = nowy
         FlagSetup.setFlagVetAdd(1);
         final Context context = this;
         Intent intent = new Intent(context, AddVets.class);

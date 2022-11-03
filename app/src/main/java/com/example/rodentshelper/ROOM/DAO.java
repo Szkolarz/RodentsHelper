@@ -33,6 +33,12 @@ public interface DAO {
             "WHERE vets.id = :id")
     List<String> getAllRodentsVets(int id);
 
+    @Query ("DELETE FROM rodents_vets WHERE id_vet = :id")
+    void DeleteAllRodentsVetsByVet(int id);
+
+    @Query ("DELETE FROM rodents_vets WHERE id_rodent = :id")
+    void DeleteAllRodentsVetsByRodent(int id);
+
     /*************/
     /** RODENTS **/
     /*************/
@@ -45,6 +51,9 @@ public interface DAO {
 
     @Query("SELECT * FROM rodents ORDER BY id ASC")
     List<RodentModel> getAllRodents();
+
+    @Query("SELECT name FROM rodents ORDER BY id ASC")
+    List<String> getAllNameRodents();
 
     //@Query("SELECT id FROM rodents ORDER BY id ASC")
     //List<RodentModel> getAllIdRodents();

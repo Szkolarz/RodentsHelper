@@ -63,6 +63,7 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.myviewho
                   // this is to delete the record from Array List which is the source of recview data
                   rodentModel.remove(holder.getAdapterPosition());
 
+                  rodentDao.DeleteAllRodentsVetsByRodent(rodentModel.get(holder.getAdapterPosition()).getId());
                   //update the fresh list of ArrayList data to recview
                   notifyDataSetChanged();
               }
@@ -79,8 +80,6 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.myviewho
                   intent.putExtra("birthKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getBirth()));
                   intent.putExtra("furKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getFur()));
                   intent.putExtra("notesKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getNotes()));
-
-                  System.out.println(rodentModel.get(holder.getAdapterPosition()).getBirth().toString());
 
 
                   //0 = edit
