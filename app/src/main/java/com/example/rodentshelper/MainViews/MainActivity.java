@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.rodentshelper.AddRodents;
+import com.example.rodentshelper.ROOM.Rodent.AddRodents;
 import com.example.rodentshelper.AsyncActivity;
-import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.SQL.Querries;
 

@@ -14,7 +14,6 @@ public class RodentModel {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     @ColumnInfo(name = "id_animal")
     private int id_animal;
 
@@ -22,26 +21,27 @@ public class RodentModel {
     private String name;
     @ColumnInfo(name = "gender")
     private String gender;
-
     @TypeConverters(Converters.class)
     @ColumnInfo(name = "birth")
     private Date birth;
-
     @ColumnInfo(name = "fur")
     private String fur;
     @ColumnInfo(name = "notes")
     private String notes;
 
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] image;
 
 
-    public RodentModel(Integer id_animal, String name, String gender, Date birth, String fur, String notes) {
+
+    public RodentModel(Integer id_animal, String name, String gender, Date birth, String fur, String notes, byte[] image) {
         this.id_animal = id_animal;
         this.name = name;
         this.gender = gender;
         this.birth = birth;
         this.fur = fur;
         this.notes = notes;
-
+        this.image = image;
 
     }
 
@@ -99,5 +99,13 @@ public class RodentModel {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

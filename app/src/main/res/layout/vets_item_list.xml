@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,7 +8,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".MainViews.ViewVets">
-
 
 
     <TextView
@@ -29,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
         android:layout_marginLeft="10dp"
+        android:maxLines="2"
         android:text="Nazwa"
         android:textColor="#BE47FF"
         android:textSize="24sp"
@@ -47,8 +46,9 @@
     <EditText
         android:id="@+id/editTextAddress_vet"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:maxLines="3"
         android:text="Adres"
         android:textColor="#BE47FF"
         android:textSize="24sp" />
@@ -73,7 +73,9 @@
             android:layout_width="305dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
-            android:text="Telefon"
+            android:hint="Telefon"
+            android:inputType="number"
+            android:maxLength="16"
             android:textColor="#BE47FF"
             android:textSize="24sp" />
 
@@ -188,6 +190,7 @@
             android:layout_weight="1"
             android:text="Usuń" />
     </LinearLayout>
+
 
     <View
         android:layout_width="match_parent"

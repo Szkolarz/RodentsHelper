@@ -4,14 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddRodents">
+    tools:context=".ROOM.Rodent.AddRodents">
 
     <LinearLayout
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/view2"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
+            android:elevation="32dp"
+            android:gravity="center"
+
+            app:cardBackgroundColor="#A31A1A"
+            app:cardCornerRadius="60dp"
+            app:cardElevation="5dp">
+
+
+            <ImageView
+                android:id="@+id/imageView_rodent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="@drawable/rounded_image_view"
+                android:cropToPadding="true"
+
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_camera" />
+
+        </androidx.cardview.widget.CardView>
+
+
 
         <EditText
             android:id="@+id/editTextEditName"
@@ -20,6 +51,7 @@
             android:layout_margin="8dp"
             android:ems="10"
             android:hint="Imię twojego pupila"
+            android:maxLength="50"
             />
 
         <LinearLayout
@@ -72,7 +104,7 @@
         <EditText
             android:id="@+id/editTextEditNotes"
             android:layout_width="match_parent"
-            android:layout_height="176dp"
+            android:layout_height="116dp"
             android:layout_margin="8dp"
             android:ems="10"
             android:hint="Notatki..." />

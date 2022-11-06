@@ -33,7 +33,7 @@ public interface DAO {
             "WHERE vets.id = :id")
     List<String> getAllRodentsVets(int id);
 
-    @Query ("DELETE FROM rodents_vets WHERE id_vet = :id")
+    @Query ("DELETE FROM  rodents_vets WHERE id_vet = :id")
     void DeleteAllRodentsVetsByVet(int id);
 
     @Query ("DELETE FROM rodents_vets WHERE id_rodent = :id")
@@ -62,9 +62,11 @@ public interface DAO {
     void deleteRodentById(int id);
 
     @TypeConverters(Converters.class)
-    @Query("UPDATE rodents SET id_animal = :id_animal, name = :name, gender = :gender, birth = :date, fur = :fur, notes = :notes WHERE id = :id")
-    void updateRodentById(int id, int id_animal, String name, String gender, Date date, String fur, String notes);
+    @Query("UPDATE rodents SET id_animal = :id_animal, name = :name, gender = :gender, birth = :date, fur = :fur, notes = :notes, image = :image WHERE id = :id")
+    void updateRodentById(int id, int id_animal, String name, String gender, Date date, String fur, String notes, byte[] image);
 
+    @Query("SELECT image FROM rodents WHERE id = :id")
+    byte[] getImageById(int id);
 
 
     /**************/

@@ -1,6 +1,7 @@
 package com.example.rodentshelper.ROOM.Vet;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.example.rodentshelper.AddRodents;
-import com.example.rodentshelper.AddVets;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.ViewVets;
 import com.example.rodentshelper.R;
@@ -39,6 +38,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
     private List<RodentModel> lisjtOfAllRodents;
     List<String> aaa;
 
+
     public AdapterVets(List<VetModel> vetModel) {
         this.vetModel = vetModel;
     }
@@ -47,7 +47,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
     @NotNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.vets_item_list,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.vets_item_list,parent,false);
         flag = false;
 
         return new viewHolder(view);
@@ -55,6 +55,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull viewHolder holder, int position) {
+
 
 
         holder.editTextName_vet.setEnabled(false);
@@ -154,13 +155,17 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
                           AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
                   DAO vetDao = db.dao();
 
+                  vetDao.DeleteAllRodentsVetsByVet(vetModel.get(holder.getAdapterPosition()).getId());
                   vetDao.deleteVetById(vetModel.get(holder.getAdapterPosition()).getId());
 
                   vetModel.remove(holder.getAdapterPosition());
 
-                  vetDao.DeleteAllRodentsVetsByVet(vetModel.get(holder.getAdapterPosition()).getId());
 
                   notifyDataSetChanged();
+
+                  Intent intent = new Intent(holder.buttonDelete_vet.getContext(), ViewVets.class);
+                  holder.buttonDelete_vet.getContext().startActivity(intent);
+
               }
           });
 
@@ -215,6 +220,12 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
 
     @Override
     public int getItemCount() {
+
+
+
+        if (vetModel.isEmpty())
+            System.out.println("dsf\n");
+
         return vetModel.size();
     }
 
@@ -237,7 +248,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
 
 
     class viewHolder extends RecyclerView.ViewHolder
-       {
+    {
 
            EditText editTextName_vet, editTextAddress_vet, editTextPhone_vet, editTextNotes_vet;
            Button buttonDelete_vet, buttonEdit_vet, buttonAdd_vet, buttonSaveEdit_vet;
@@ -250,8 +261,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
 
 
 
-
-           public viewHolder(@NonNull @NotNull View itemView) {
+          public viewHolder(@NonNull @NotNull View itemView) {
                super(itemView);
 
                editTextName_vet = itemView.findViewById(R.id.editTextName_vet);
@@ -266,8 +276,6 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
                buttonSaveEdit_vet = itemView.findViewById(R.id.buttonSaveEdit_vet);
 
 
-
-
                ListViewVet = itemView.findViewById(R.id.ListViewVet);
                ListViewVet.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
                ListViewVet.setItemsCanFocus(false);
@@ -279,6 +287,8 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
 
                arrayListSelected = new ArrayList<>();
 
+
+               System.out.println(";lkijuhytrfghj");
 
            }
        }

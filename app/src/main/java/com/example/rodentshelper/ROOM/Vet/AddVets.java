@@ -1,4 +1,4 @@
-package com.example.rodentshelper;
+package com.example.rodentshelper.ROOM.Vet;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,22 +11,20 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
-import com.example.rodentshelper.MainViews.ViewRodents;
+import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.ViewVets;
+import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
 import com.example.rodentshelper.ROOM.MTM.RodentVetModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
-import com.example.rodentshelper.ROOM.Vet.VetModel;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +34,7 @@ public class AddVets extends AppCompatActivity {
     Button buttonDelete_vet, buttonEdit_vet, buttonAdd_vet, buttonSaveEdit_vet;
     ListView ListViewVet;
     CheckBox checkBoxVet;
+    TextView textViewRodentRelationsInfo_vet;
 
 
 
@@ -67,6 +66,9 @@ public class AddVets extends AppCompatActivity {
         arrayListID = new ArrayList<>();
         arrayListLV = new ArrayList<>();
         arrayListSelected = new ArrayList<>();
+
+        textViewRodentRelationsInfo_vet = findViewById(R.id.textViewRodentRelationsInfo_vet);
+        textViewRodentRelationsInfo_vet.setVisibility(View.GONE);
 
         editTextName_vet = findViewById(R.id.editTextName_vet);
         editTextAddress_vet = findViewById(R.id.editTextAddress_vet);
@@ -256,8 +258,12 @@ public class AddVets extends AppCompatActivity {
                 //String item = ArrayListLV.get(i);
                 arrayListSelected.add(i);
 
-                rodentVetDao.insertRecordRodentVet(new RodentVetModel(arrayListID.get(i), rodentVetDao.getLastIdVet().get(0) ));
-
+                if (FlagSetup.getFlagVetAdd() == 1)
+                    rodentVetDao.insertRecordRodentVet(new RodentVetModel(arrayListID.get(i), rodentVetDao.getLastIdVet().get(0) ));
+                else {
+                    Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
+                    rodentVetDao.insertRecordRodentVet(new RodentVetModel(arrayListID.get(i), idKey));
+                }
             }
     }
 
@@ -272,6 +278,7 @@ public class AddVets extends AppCompatActivity {
         if (checkBoxVet.isChecked()) {
             listViewVet.setVisibility(View.VISIBLE);
             listViewVet.setSelected(true);
+
         }
         else {
             listViewVet.setVisibility(View.GONE);

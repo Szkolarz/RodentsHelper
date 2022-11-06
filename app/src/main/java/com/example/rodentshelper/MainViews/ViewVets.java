@@ -4,15 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.example.rodentshelper.AddVets;
+import com.example.rodentshelper.ROOM.Vet.AddVets;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
@@ -20,13 +21,13 @@ import com.example.rodentshelper.ROOM.DAO;
 import com.example.rodentshelper.ROOM.Vet.AdapterVets;
 import com.example.rodentshelper.ROOM.Vet.VetModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewVets extends AppCompatActivity {
 
     RecyclerView recyclerViewVets;
     Button buttonAddVets;
+    TextView textViewEmpty_vet;
 
 
 
@@ -44,7 +45,10 @@ public class ViewVets extends AppCompatActivity {
 
         getRoomData();
 
+        textViewEmpty_vet = findViewById(R.id.textViewEmpty_vet);
 
+        if (getListVet().isEmpty())
+            textViewEmpty_vet.setVisibility(View.VISIBLE);
 
     }
 
@@ -57,6 +61,12 @@ public class ViewVets extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void onClickViewRodents(android.view.View view)
+    {
+        viewRodents();
+    }
+
 
     public void viewRodents() {
         Intent intent = new Intent(ViewVets.this, ViewRodents.class);
@@ -72,18 +82,23 @@ public class ViewVets extends AppCompatActivity {
     }
 
 
-    public void getRoomData()
-    {
+    public List getListVet(){
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAO vetDao = db.dao();
 
+        List<VetModel> vetModel = vetDao.getAllVets();
+        return vetModel;
+    }
+
+
+    public void getRoomData()
+    {
         recyclerViewVets=findViewById(R.id.recyclerViewVets);
         recyclerViewVets.setLayoutManager(new LinearLayoutManager(this));
 
-        List<VetModel> vetModel = vetDao.getAllVets();
+        AdapterVets adapter=new AdapterVets(getListVet());
 
-        AdapterVets adapter=new AdapterVets(vetModel);
         recyclerViewVets.setAdapter(adapter);
     }
 
