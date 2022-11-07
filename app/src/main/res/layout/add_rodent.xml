@@ -7,10 +7,11 @@
     tools:context=".ROOM.Rodent.AddRodents">
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ACC5E1"
         android:gravity="center_horizontal"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -43,7 +44,6 @@
         </androidx.cardview.widget.CardView>
 
 
-
         <EditText
             android:id="@+id/editTextEditName"
             android:layout_width="match_parent"
@@ -52,11 +52,12 @@
             android:ems="10"
             android:hint="Imię twojego pupila"
             android:maxLength="50"
-            />
+            android:textColor="#014D70"
+            android:textColorHint="#014D70" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="71dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioGroup
@@ -71,27 +72,52 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Samiec" />
+                    android:text="Samiec"
+                    android:textColor="#014D70" />
 
                 <RadioButton
                     android:id="@+id/radioButtonEditGender2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Samica" />
+                    android:text="Samica"
+                    android:textColor="#014D70" />
 
             </RadioGroup>
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewDate"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="8dp"
-            android:text="Data urodzenia ⌄"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="left"
+                android:text="Data urodzenia"
+                android:textColor="#014D70"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imageViewDate_rodent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+
+                android:gravity="left"
+                android:src="@android:drawable/arrow_down_float"
+                android:tint="#048FCD" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/editTextEditFur"
@@ -99,7 +125,9 @@
             android:layout_height="50dp"
             android:ems="10"
             android:hint="Umaszczenie"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="#014D70"
+            android:textColorHint="#014D70" />
 
         <EditText
             android:id="@+id/editTextEditNotes"
@@ -107,13 +135,15 @@
             android:layout_height="116dp"
             android:layout_margin="8dp"
             android:ems="10"
-            android:hint="Notatki..." />
+            android:hint="Notatki..."
+            android:textColor="#014D70"
+            android:textColorHint="#014D70" />
 
         <Button
             android:id="@+id/buttonAdd_rodent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#048FCD"
+            android:backgroundTint="#5397DF"
             android:text="Zapisz" />
 
         <Button

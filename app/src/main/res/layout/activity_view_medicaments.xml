@@ -1,44 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainViews.ViewRodents">
+    android:orientation="horizontal"
+    tools:context=".Medicaments.ViewMedicaments">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ACC5E1"
-        android:orientation="horizontal">
+
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="@+id/buttonAddMedicaments">
 
         <TextView
-            android:id="@+id/textViewEmpty_rodent"
+            android:id="@+id/textViewEmpty_med"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="100dp"
             android:layout_marginRight="30dp"
             android:gravity="center"
-            android:text="Nie ma żadnych pozycji w bazie danych. Aby dodać pupila, kliknij przycisk z plusikiem na górze ekranu."
+            android:text="Nie ma żadnych pozycji w bazie danych. Aby dodać nowe lekarstwo, kliknij przycisk z plusikiem na górze ekranu."
             android:textSize="26sp"
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewRodents"
+            android:id="@+id/recyclerViewMedicaments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="100dp" />
+
     </LinearLayout>
 
     <Button
-        android:id="@+id/buttonAddRodents"
+        android:id="@+id/buttonAddMedicaments"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:backgroundTint="#147EC5"
-        android:onClick="addNewRodent"
+        android:onClick="addNewMedicament"
         android:text="+"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +53,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:gravity="center|bottom"
         android:orientation="horizontal">
 
@@ -83,10 +88,11 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:background="@drawable/roundbutton"
+                    android:onClick="onClickRodents"
                     android:padding="15dp"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/ic_chinchilla"
-                    app:tint="#FFFFF1" />
+                    app:tint="#0A4A97" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -133,7 +139,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/imageButtonHealth"
+                    android:id="@+id/imageButtonMed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -141,18 +147,18 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:background="@drawable/roundbutton"
-                    android:onClick="onClickHealth"
                     android:padding="15dp"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/ic_health"
-                    app:tint="#0A4A97" />
+                    app:tint="#FFFFFF" />
 
                 <TextView
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Zdrowie" />
+                    android:text="Zdrowie"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <LinearLayout
@@ -187,5 +193,6 @@
         </LinearLayout>
 
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

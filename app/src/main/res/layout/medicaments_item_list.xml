@@ -10,141 +10,152 @@
     tools:context=".MainViews.ViewVets">
 
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Nazwa weterynarza:"
-        android:textColor="#77147A"
-        android:textColorHint="#77147A"
-        android:textSize="16sp" />
-
     <EditText
-        android:id="@+id/editTextName_vet"
+        android:id="@+id/editTextName_med"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
         android:layout_marginLeft="10dp"
+        android:hint="Nazwa leku"
         android:maxLines="2"
-        android:text="Nazwa"
-        android:textColor="#BE47FF"
+        android:textColor="#014D70"
         android:textSize="24sp"
         android:textStyle="bold" />
 
+
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewDate1_hidden"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="Adres"
-        android:textColor="#77147A"
-        android:textColorHint="#77147A"
-        android:textSize="16sp" />
+        android:text="TextView"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/textViewDate2_hidden"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone" />
 
     <EditText
-        android:id="@+id/editTextAddress_vet"
+        android:id="@+id/editTextDescription_med"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:hint="Opis"
         android:maxLines="3"
-        android:text="Adres"
-        android:textColor="#BE47FF"
+        android:textColor="#014D70"
         android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="126dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="Telefon"
-        android:textColor="#77147A"
-        android:textColorHint="#77147A"
-        android:textSize="16sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/editTextPhone_vet"
-            android:layout_width="305dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:hint="Telefon"
-            android:inputType="number"
-            android:maxLength="16"
-            android:textColor="#BE47FF"
-            android:textSize="24sp" />
-
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:backgroundTint="#448F33"
-            app:srcCompat="@android:drawable/stat_sys_speakerphone"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="Ewentualne notatki:"
-        android:textColor="#77147A"
-        android:textColorHint="#77147A"
-        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/editTextPeriodicity_med"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
-        android:text="Notatki"
-        android:textColor="#BE47FF"
+        android:hint="Dawkowanie"
+        android:textColor="#014D70"
         android:textSize="24sp" />
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewDateStart_med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="left"
+            android:text="Data rozpoczęcia dawkowania"
+            android:textColor="#014D70"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imageViewDate1_med"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+
+            android:gravity="left"
+            android:src="@android:drawable/arrow_down_float"
+            android:tint="#048FCD" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewDateEnd_med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="left"
+            android:text="Data zakończenia dawkowania"
+            android:textColor="#014D70"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imageViewDate2_med"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+
+            android:gravity="left"
+            android:src="@android:drawable/arrow_down_float"
+            android:tint="#048FCD" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/textViewRodentRelationsInfo_vet"
+        android:id="@+id/textViewRodentRelationsInfo_med"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_weight="1"
         android:ellipsize="none"
         android:maxLines="8"
-        android:text="Zwierzęta leczone przez weterynarza:"
-        android:textColor="#BE47FF"
+        android:text="Zwierzęta biorące lekarstwo:"
+        android:textColor="#014D70"
         android:textSize="17sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textViewRodentRelations_vet"
+        android:id="@+id/textViewRodentRelations_med"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_weight="1"
         android:ellipsize="none"
         android:maxLines="8"
-        android:textColor="#BE47FF"
+        android:textColor="#014D70"
         android:textSize="17sp" />
 
     <CheckBox
-        android:id="@+id/checkBoxVet"
+        android:id="@+id/checkBoxMed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Przypisać weterynarza do konkretnego pupila?"
+        android:text="Przypisać lekarstwo do konkretnego pupila?"
+        android:textColor="#014D70"
         android:textSize="16sp" />
 
     <ListView
-        android:id="@+id/ListViewVet"
-        android:layout_width="389dp"
-        android:layout_height="104dp"
+        android:id="@+id/listViewMed"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:overScrollMode="ifContentScrolls" />
 
     <LinearLayout
@@ -155,7 +166,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonEdit_vet"
+            android:id="@+id/buttonEdit_med"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -163,7 +174,7 @@
             android:text="Edytuj" />
 
         <Button
-            android:id="@+id/buttonAdd_vet"
+            android:id="@+id/buttonAdd_med"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -173,7 +184,7 @@
             android:visibility="visible" />
 
         <Button
-            android:id="@+id/buttonSaveEdit_vet"
+            android:id="@+id/buttonSaveEdit_med"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -183,7 +194,7 @@
             android:visibility="visible" />
 
         <Button
-            android:id="@+id/buttonDelete_vet"
+            android:id="@+id/buttonDelete_med"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"

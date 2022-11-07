@@ -5,6 +5,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.TypeConverters;
 
+import com.example.rodentshelper.Medicaments.MedicamentModel;
+import com.example.rodentshelper.ROOM.MTM.RodentMedModel;
 import com.example.rodentshelper.ROOM.MTM.RodentVetModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM.Vet.VetModel;
@@ -16,9 +18,24 @@ import java.util.List;
 public interface DAO {
 
 
+    @Insert
+    void insertRecordRodentMed(RodentMedModel rodents_medicaments);
 
-    //@Query("SELECT rodents.name FROM rodents JOIN vets ON vets.id_rodent = rodents.id WHERE vets.id = :id")
-    //List<String> getNameRelations_VetAndRodent(int id);
+
+    @Query ("SELECT rodents.name\n" +
+            "FROM rodents\n" +
+            "JOIN medicaments ON rodents_medicaments.id_med = medicaments.id\n" +
+            "JOIN rodents_medicaments ON rodents.id = rodents_medicaments.id_rodent\n" +
+            "WHERE medicaments.id = :id")
+    List<String> getAllRodentsMeds(int id);
+
+    @Query ("DELETE FROM rodents_medicaments WHERE id_med = :id")
+    void DeleteAllRodentsMedsByMed(int id);
+
+    @Query ("DELETE FROM rodents_medicaments WHERE id_rodent = :id")
+    void DeleteAllRodentsMedsByRodent(int id);
+
+
 
     @Insert
     void insertRecordRodentVet(RodentVetModel rodents_vets);
@@ -86,10 +103,31 @@ public interface DAO {
     @Query("UPDATE vets SET name = :name, address = :address, phone_number = :phone, notes = :notes WHERE id = :id")
     void updateVetById(int id, String name, String address, String phone, String notes);
 
-
-
     @Query("SELECT id FROM vets WHERE id = (SELECT MAX(id) FROM vets)")
     List<Integer> getLastIdVet();
+
+
+
+    /*****************/
+    /** MEDICAMENTS **/
+    /*****************/
+
+    @Insert
+    void insertRecordMed(MedicamentModel medicaments);
+
+    @Query("SELECT * FROM medicaments")
+    List<MedicamentModel> getAllMedicaments();
+
+    @Query("DELETE FROM medicaments WHERE id = :id")
+    void deleteMedById(int id);
+
+    @TypeConverters(Converters.class)
+    @Query("UPDATE medicaments SET id_vet = :id_vet, name = :name, description = :description, periodicity = :periodicity, date_start = :date_start, date_end = :date_end WHERE id = :id")
+    void updateMedById(int id, int id_vet, String name, String description, String periodicity, Date date_start, Date date_end);
+
+    @Query("SELECT id FROM medicaments WHERE id = (SELECT MAX(id) FROM medicaments)")
+    List<Integer> getLastIdMed();
+
 }
 
 

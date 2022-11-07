@@ -56,7 +56,7 @@ public class AddRodents extends Activity {
     RadioGroup radioGroup;
     RadioButton radioButton;
 
-    ImageView imageView_rodent, imageView1;
+    ImageView imageView_rodent, imageViewDate_rodent;
 
     private TextView textViewDate, textViewDate_hidden;
 
@@ -82,7 +82,9 @@ public class AddRodents extends Activity {
         buttonAdd_rodent = findViewById(R.id.buttonAdd_rodent);
         buttonEdit_rodent = findViewById(R.id.buttonSaveEdit_rodent);
 
+
         imageView_rodent = findViewById(R.id.imageView_rodent);
+        imageViewDate_rodent = findViewById(R.id.imageViewDate_rodent);
 
 
         textViewDate = findViewById(R.id.textViewDate);
@@ -111,21 +113,17 @@ public class AddRodents extends Activity {
         });
 
 
+        imageViewDate_rodent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onDateClick();
+            }
+        });
 
         textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog datePickerDialog = new DatePickerDialog(AddRodents.this,
-                        android.R.style.Theme_Holo_Dialog, dateSetListener, year, month, day);
-
-                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                datePickerDialog.show();
-
+                onDateClick();
             }
         });
 
@@ -228,6 +226,18 @@ public class AddRodents extends Activity {
 
     }
 
+    private void onDateClick() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(AddRodents.this,
+                android.R.style.Theme_Holo_Dialog, dateSetListener, year, month, day);
+
+        datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        datePickerDialog.show();
+    }
 
     private String getRealPathFromURI(Uri contentURI) {
 

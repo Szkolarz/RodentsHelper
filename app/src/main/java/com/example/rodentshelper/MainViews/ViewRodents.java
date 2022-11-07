@@ -66,9 +66,9 @@ public class ViewRodents extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onClickVet(android.view.View view)
+    public void onClickHealth(android.view.View view)
     {
-        Intent intent = new Intent(ViewRodents.this, ViewVets.class);
+        Intent intent = new Intent(ViewRodents.this, ViewHealth.class);
         startActivity(intent);
     }
 

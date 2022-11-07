@@ -18,13 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RodentsHelper"
         tools:targetApi="31">
-        <activity
-            android:name=".RodentEdit"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".MainViews.ViewRodents"
             android:exported="false"
@@ -57,6 +51,15 @@
             android:exported="true" />
         <activity
             android:name=".ROOM.Vet.AddVets"
+            android:exported="true" />
+        <activity
+            android:name=".Medicaments.ViewMedicaments"
+            android:exported="true" />
+        <activity
+            android:name=".Medicaments.AddMedicaments"
+            android:exported="true" />
+        <activity
+            android:name=".MainViews.ViewHealth"
             android:exported="true" />
     </application>
 

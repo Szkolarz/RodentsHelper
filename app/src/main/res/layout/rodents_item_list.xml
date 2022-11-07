@@ -59,15 +59,15 @@
         android:textColor="#014D70"
         android:textColorHint="#77147A"
         android:textSize="16sp"
-        android:layout_marginLeft="6dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         />
 
     <TextView
         android:id="@+id/textViewName_rodent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
         android:text="Imię"
         android:textColor="#014D70"
         android:textSize="24sp"
@@ -81,7 +81,7 @@
         android:textColor="#014D70"
         android:textColorHint="#77147A"
         android:textSize="16sp"
-        android:layout_marginLeft="6dp"
+        android:layout_marginLeft="20dp"
         />
 
     <TextView
@@ -91,7 +91,7 @@
         android:text="brak"
         android:textColor="#014D70"
         android:textSize="24sp"
-        android:layout_marginLeft="6dp"
+        android:layout_marginLeft="20dp"
         />
 
     <TextView
@@ -102,7 +102,7 @@
         android:textColor="#014D70"
         android:textColorHint="#77147A"
         android:textSize="16sp"
-        android:layout_marginLeft="6dp"
+        android:layout_marginLeft="20dp"
         />
 
     <TextView
@@ -112,7 +112,7 @@
         android:text="brak"
         android:textColor="#014D70"
         android:textSize="24sp"
-        android:layout_marginLeft="6dp"
+        android:layout_marginLeft="20dp"
         />
 
     <TextView
@@ -123,7 +123,7 @@
         android:textColor="#014D70"
         android:textColorHint="#77147A"
         android:textSize="16sp"
-        android:layout_marginLeft="6dp"
+        android:layout_marginLeft="20dp"
         />
 
     <TextView
@@ -133,7 +133,7 @@
         android:text="brak"
         android:textColor="#014D70"
         android:textSize="24sp"
-        android:layout_marginLeft="6dp"
+        android:layout_marginLeft="20dp"
         />
 
     <TextView
@@ -144,18 +144,17 @@
         android:textColor="#014D70"
         android:textColorHint="#77147A"
         android:textSize="16sp"
-        android:layout_marginLeft="6dp"
+        android:layout_marginLeft="20dp"
         />
 
     <TextView
         android:id="@+id/textViewNotes_rodent"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:text="brak"
         android:textColor="#014D70"
-        android:textSize="24sp"
-        android:layout_marginLeft="6dp"
-        />
+        android:textSize="24sp" />
 
     <LinearLayout
         android:layout_margin="6dp"
@@ -178,14 +177,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:layout_weight="1"
-            android:backgroundTint="#048FCD"
+            android:backgroundTint="#DC3E3E"
             android:text="Usuń" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="5dp"
         android:layout_margin="6dp"
-        android:background="#CA7A7A" />
+        android:background="#048FCD" />
 
 </LinearLayout>

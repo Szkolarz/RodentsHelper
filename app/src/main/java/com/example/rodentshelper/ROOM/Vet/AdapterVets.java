@@ -1,7 +1,6 @@
 package com.example.rodentshelper.ROOM.Vet;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -221,8 +220,6 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
     @Override
     public int getItemCount() {
 
-
-
         if (vetModel.isEmpty())
             System.out.println("dsf\n");
 
@@ -267,7 +264,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
                editTextName_vet = itemView.findViewById(R.id.editTextName_vet);
                editTextAddress_vet = itemView.findViewById(R.id.editTextAddress_vet);
                editTextPhone_vet = itemView.findViewById(R.id.editTextPhone_vet);
-               editTextNotes_vet = itemView.findViewById(R.id.editTextNotes_vet);
+               editTextNotes_vet = itemView.findViewById(R.id.editTextPeriodicity_med);
 
 
                buttonDelete_vet = itemView.findViewById(R.id.buttonDelete_vet);

@@ -73,7 +73,7 @@ public class AddVets extends AppCompatActivity {
         editTextName_vet = findViewById(R.id.editTextName_vet);
         editTextAddress_vet = findViewById(R.id.editTextAddress_vet);
         editTextPhone_vet = findViewById(R.id.editTextPhone_vet);
-        editTextNotes_vet = findViewById(R.id.editTextNotes_vet);
+        editTextNotes_vet = findViewById(R.id.editTextPeriodicity_med);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, arrayListLV);
 
@@ -218,7 +218,7 @@ public class AddVets extends AppCompatActivity {
         editTextName_vet = findViewById(R.id.editTextName_vet);
         editTextAddress_vet = findViewById(R.id.editTextAddress_vet);
         editTextPhone_vet = findViewById(R.id.editTextPhone_vet);
-        editTextNotes_vet = findViewById(R.id.editTextNotes_vet);
+        editTextNotes_vet = findViewById(R.id.editTextPeriodicity_med);
 
         String stringName = editTextName_vet.getText().toString();
         String stringAddress = editTextAddress_vet.getText().toString();
