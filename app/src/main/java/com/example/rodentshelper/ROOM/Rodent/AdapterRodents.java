@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,9 +67,11 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
               @Override
               public void onClick(View view) {
 
-                  AlertDialog.Builder alert = new AlertDialog.Builder(holder.buttonListDelete.getContext());
+                  AlertDialog.Builder alert = new AlertDialog.Builder(holder.buttonListDelete.getContext(), R.style.AlertDialogStyle);
                   alert.setTitle("Usuwanie pupila");
                   alert.setMessage("Czy na pewno chcesz usunąć pupila z listy?\n\nProces jest nieodwracalny!");
+
+
                   alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                       @Override
                       public void onClick(DialogInterface dialogInterface, int i) {
@@ -95,8 +99,8 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
                           Toast.makeText(holder.buttonListDelete.getContext(), "Anulowano", Toast.LENGTH_SHORT).show();
                       }
                   });
-                  alert.create().show();
 
+                  alert.create().show();
 
 
               }

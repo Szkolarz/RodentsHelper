@@ -60,6 +60,14 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
         holder.editTextName_med.setEnabled(false);
         holder.editTextDescription_med.setEnabled(false);
         holder.editTextPeriodicity_med.setEnabled(false);
+        holder.listViewMed.setVisibility(View.GONE);
+
+        holder.checkBoxMed.setVisibility(View.GONE);
+        holder.buttonAdd_med.setVisibility(View.GONE);
+        holder.buttonSaveEdit_med.setVisibility(View.GONE);
+        holder.imageViewDate1_med.setVisibility(View.GONE);
+        holder.imageViewDate2_med.setVisibility(View.GONE);
+
 
         holder.editTextName_med.setText(medicamentModel.get(position).getName());
         holder.editTextDescription_med.setText(medicamentModel.get(position).getDescription());
@@ -74,9 +82,6 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
             holder.textViewDateEnd_med.setText("nie podano");
         else
             holder.textViewDateEnd_med.setText(medicamentModel.get(position).getDate_end().toString());
-
-
-
 
 
 

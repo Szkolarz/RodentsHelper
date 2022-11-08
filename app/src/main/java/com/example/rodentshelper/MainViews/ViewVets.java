@@ -2,10 +2,12 @@ package com.example.rodentshelper.MainViews;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,8 +28,8 @@ import java.util.List;
 public class ViewVets extends AppCompatActivity {
 
     RecyclerView recyclerViewVets;
-    Button buttonAddVets;
-    TextView textViewEmpty_vet;
+    TextView textViewEmpty_vet, textView3_health;
+    ImageView imageButton3_health;
 
 
 
@@ -36,8 +38,10 @@ public class ViewVets extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_vets);
 
-
-        buttonAddVets = findViewById(R.id.buttonAddVets);
+        imageButton3_health = findViewById(R.id.imageButton3_health);
+        textView3_health = findViewById(R.id.textView3_health);
+        imageButton3_health.setColorFilter(Color.WHITE);
+        textView3_health.setTextColor(Color.WHITE);
 
         recyclerViewVets = findViewById(R.id.recyclerViewVets);
         recyclerViewVets.setLayoutManager(new LinearLayoutManager(this));
@@ -67,16 +71,30 @@ public class ViewVets extends AppCompatActivity {
         viewRodents();
     }
 
+    public void onClickNavHealth(View view)
+    {
+       viewHealth();
+    }
+
+    public void onClickNavRodent(View view)
+    {
+        viewRodents();
+    }
 
     public void viewRodents() {
         Intent intent = new Intent(ViewVets.this, ViewRodents.class);
         startActivity(intent);
     }
 
+    public void viewHealth() {
+        Intent intent = new Intent(ViewVets.this, ViewHealth.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            viewRodents();
+            viewHealth();
         }
         return super.onKeyDown(keyCode, event);
     }

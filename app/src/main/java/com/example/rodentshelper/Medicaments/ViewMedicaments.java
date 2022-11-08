@@ -2,10 +2,12 @@ package com.example.rodentshelper.Medicaments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.MainViews.ViewRodents;
 import com.example.rodentshelper.MainViews.ViewVets;
 import com.example.rodentshelper.R;
@@ -28,8 +31,8 @@ public class ViewMedicaments extends AppCompatActivity {
     RecyclerView recyclerViewMedicaments;
     Button buttonAddMedicaments;
 
-    TextView textViewEmpty_med;
-
+    TextView textViewEmpty_med, textView3_health;
+    ImageView imageButton3_health;
 
 
     @Override
@@ -37,6 +40,10 @@ public class ViewMedicaments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_medicaments);
 
+        imageButton3_health = findViewById(R.id.imageButton3_health);
+        textView3_health = findViewById(R.id.textView3_health);
+        imageButton3_health.setColorFilter(Color.WHITE);
+        textView3_health.setTextColor(Color.WHITE);
 
         buttonAddMedicaments = findViewById(R.id.buttonAddMedicaments);
 
@@ -63,12 +70,15 @@ public class ViewMedicaments extends AppCompatActivity {
         finish();
     }
 
-    public void onClickViewRodents(android.view.View view)
+
+
+    public void onClickNavHealth(View view)
     {
-        viewRodents();
+        viewHealth();
     }
 
-    public void onClickRodents(View view) {
+    public void onClickNavRodent(View view)
+    {
         viewRodents();
     }
 
@@ -77,10 +87,15 @@ public class ViewMedicaments extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void viewHealth() {
+        Intent intent = new Intent(ViewMedicaments.this, ViewHealth.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            viewRodents();
+            viewHealth();
         }
         return super.onKeyDown(keyCode, event);
     }

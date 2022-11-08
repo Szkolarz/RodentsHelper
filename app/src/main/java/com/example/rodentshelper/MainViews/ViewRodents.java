@@ -1,8 +1,10 @@
 package com.example.rodentshelper.MainViews;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,14 +27,18 @@ import java.util.List;
 public class ViewRodents extends AppCompatActivity {
 
     RecyclerView recyclerViewRodents;
-    TextView textViewEmpty_rodent;
+    TextView textViewEmpty_rodent, textView1_rodent;
+    ImageView imageButton1_rodent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_rodents);
 
-
+        imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
+        textView1_rodent = findViewById(R.id.textView1_rodent);
+        imageButton1_rodent.setColorFilter(Color.WHITE);
+        textView1_rodent.setTextColor(Color.WHITE);
 
         recyclerViewRodents = findViewById(R.id.recyclerViewRodents);
         recyclerViewRodents.setLayoutManager(new LinearLayoutManager(this));
@@ -66,11 +72,15 @@ public class ViewRodents extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onClickHealth(android.view.View view)
+
+
+    public void onClickNavHealth(View view)
     {
         Intent intent = new Intent(ViewRodents.this, ViewHealth.class);
         startActivity(intent);
     }
+
+    public void onClickNavRodent(View view) {}
 
     public List getListRodent(){
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),

@@ -265,6 +265,10 @@ public class AddRodents extends Activity {
             imageView_rodent.setImageDrawable(res);
             buttonEdit_rodent.setEnabled(false);
             buttonAdd_rodent.setEnabled(false);
+            buttonAdd_rodent.setBackgroundColor(Color.GRAY);
+            buttonAdd_rodent.setTextColor(Color.BLACK);
+            buttonEdit_rodent.setTextColor(Color.BLACK);
+            buttonEdit_rodent.setBackgroundColor(Color.GRAY);
 
             Thread thread = new Thread(() -> {
 
@@ -296,6 +300,11 @@ public class AddRodents extends Activity {
                         imageView_rodent.setImageBitmap(bitmapView);
                         buttonEdit_rodent.setEnabled(true);
                         buttonAdd_rodent.setEnabled(true);
+                        buttonAdd_rodent.setBackgroundColor(Color.parseColor("#5397DF"));
+                        buttonEdit_rodent.setBackgroundColor(Color.parseColor("#5397DF"));
+                        buttonAdd_rodent.setTextColor(Color.WHITE);
+                        buttonEdit_rodent.setTextColor(Color.WHITE);
+
                     }
                 });
 

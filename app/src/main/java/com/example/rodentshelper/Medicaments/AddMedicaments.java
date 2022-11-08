@@ -50,7 +50,8 @@ import java.util.List;
 public class AddMedicaments extends Activity {
 
     EditText editTextName_med, editTextDescription_med, editTextPeriodicity_med;
-    TextView textViewDateStart_med, textViewDateEnd_med, textViewDate1_hidden, textViewDate2_hidden;
+    TextView textViewDateStart_med, textViewDateEnd_med, textViewDate1_hidden, textViewDate2_hidden,
+            textViewRodentRelationsInfo_med, textViewRodentRelations_med;
     Button buttonEdit_med, buttonAdd_med, buttonSaveEdit_med, buttonDelete_med;
     ImageView imageViewDate1_med, imageViewDate2_med;
     ListView listViewMed;
@@ -89,6 +90,9 @@ public class AddMedicaments extends Activity {
         textViewDate1_hidden = findViewById(R.id.textViewDate1_hidden);
         textViewDate2_hidden = findViewById(R.id.textViewDate2_hidden);
 
+        textViewRodentRelations_med = findViewById(R.id.textViewRodentRelations_med);
+        textViewRodentRelationsInfo_med = findViewById(R.id.textViewRodentRelationsInfo_med);
+
         listViewMed = findViewById(R.id.listViewMed);
         listViewMed.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         listViewMed.setItemsCanFocus(false);
@@ -125,11 +129,17 @@ public class AddMedicaments extends Activity {
             buttonEdit_med.setVisibility(View.GONE);
             buttonDelete_med.setVisibility(View.GONE);
             buttonSaveEdit_med.setVisibility(View.GONE);
+
+            textViewRodentRelations_med.setVisibility(View.GONE);
+            textViewRodentRelationsInfo_med.setVisibility(View.GONE);
         } else {
             buttonAdd_med.setVisibility(View.GONE);
             buttonEdit_med.setVisibility(View.GONE);
             buttonDelete_med.setVisibility(View.GONE);
             buttonSaveEdit_med.setVisibility(View.VISIBLE);
+
+            textViewRodentRelations_med.setVisibility(View.GONE);
+            textViewRodentRelationsInfo_med.setVisibility(View.GONE);
 
 
             Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
@@ -353,7 +363,8 @@ public class AddMedicaments extends Activity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            viewRodents();
+            finish();
+            viewMedicaments();
         }
         return super.onKeyDown(keyCode, event);
     }

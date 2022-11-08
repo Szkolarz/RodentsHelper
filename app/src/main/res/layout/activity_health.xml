@@ -1,414 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:orientation="vertical"
     tools:context=".Medicaments.ViewMedicaments">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ACC5E1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
-            android:text="Zdrowie"
-            android:textColor="#014D70"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:id="@+id/viewLayout_0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
-                android:background="#5397DF" />
-        </LinearLayout>
+        android:gravity="bottom"
+        android:orientation="vertical">
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageButtonVet1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/roundbutton"
-                    android:padding="15dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_vet"
-                    app:tint="#0A4A97" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Weterynarz"
-                    android:textColor="#014D70" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pozwala zapisać nowego weterynarza na liście kontaktów wraz z jego danymi"
-                    android:textColor="#014D70" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/viewLayout_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <View
-                android:id="@+id/view15"
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
-                android:background="#5397DF" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageButtonMed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/roundbutton"
-                    android:onClick="onClickVet"
-                    android:padding="15dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_medicine"
-                    app:tint="#0A4A97" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Leki"
-                    android:textColor="#014D70" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Umożliwia dodawanie przepisanych leków do listy oraz pozwala określić częstotliwość ich podawania"
-                    android:textColor="#014D70" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/viewLayout_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
-                android:background="#5397DF" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageButtonVisit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/roundbutton"
-                    android:onClick="onClickVet"
-                    android:padding="15dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_calendar_vet"
-                    app:tint="#0A4A97" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Wizyty u weterynarza"
-                    android:textColor="#014D70" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginRight="15dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pozwala zapisać umówione wizyty z weterynarzem i ustawić przypomnienia"
-                    android:textColor="#014D70" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/viewLayout_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <View
-                android:id="@+id/view175"
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
-                android:background="#5397DF" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center|bottom"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/abv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginBottom="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/rounded"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            android:scaleType="fitCenter">
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <ImageButton
-                    android:id="@+id/imageButton3"
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/roundbutton"
-                    android:onClick="onClickRodent"
-                    android:padding="15dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_chinchilla"
-                    app:tint="#0A4A97" />
+                    android:orientation="vertical"
+                    tools:context=".Medicaments.ViewMedicaments">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Pupile" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#ACC5E1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/roundbutton"
-                    android:padding="15dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_encyclopedia"
-                    app:tint="#0A4A97" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginBottom="25dp"
+                            android:text="Zdrowie"
+                            android:textColor="#014D70"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Encyklopedia" />
-            </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/viewLayout_0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="#5397DF" />
+                        </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/imageButtonHealth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/roundbutton"
-                    android:padding="15dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_health"
-                    app:tint="#FFFFFF" />
 
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Zdrowie"
-                    android:textColor="#FFFFFF" />
-            </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/imageButton4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/roundbutton"
-                    android:padding="15dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_other"
-                    app:tint="#0A4A97" />
+                                <ImageView
+                                    android:id="@+id/imageButtonVet1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_weight="1"
+                                    android:adjustViewBounds="true"
+                                    android:background="@drawable/roundbutton"
+                                    android:padding="15dp"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_vet"
+                                    app:tint="#0A4A97" />
 
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Inne" />
-            </LinearLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Weterynarz"
+                                    android:textColor="#014D70" />
 
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pozwala zapisać nowego weterynarza na liście kontaktów wraz z jego danymi"
+                                    android:textColor="#014D70" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/viewLayout_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <View
+                                android:id="@+id/view15"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="#5397DF" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/imageButtonMed"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_weight="1"
+                                    android:adjustViewBounds="true"
+                                    android:background="@drawable/roundbutton"
+                                    android:onClick="onClickVet"
+                                    android:padding="15dp"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_medicine"
+                                    app:tint="#0A4A97" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Leki"
+                                    android:textColor="#014D70" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Umożliwia dodawanie przepisanych leków do listy oraz pozwala określić częstotliwość ich podawania"
+                                    android:textColor="#014D70" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/viewLayout_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="#5397DF" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/imageButtonVisit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_weight="1"
+                                    android:adjustViewBounds="true"
+                                    android:background="@drawable/roundbutton"
+                                    android:onClick="onClickVet"
+                                    android:padding="15dp"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_calendar_vet"
+                                    app:tint="#0A4A97" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Wizyty u weterynarza"
+                                    android:textColor="#014D70" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pozwala zapisać umówione wizyty z weterynarzem i ustawić przypomnienia"
+                                    android:textColor="#014D70" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/viewLayout_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <View
+                                android:id="@+id/view175"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="#5397DF" />
+
+                            <TextView
+                                android:id="@+id/textView14"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="gfdgfdgfd df gfdg dfg fdg dfg fdg dfg fdgfd dgfg fdg dfg dfg fdg dfg fdgfd gfd gfdg fdg fdg fdg fdg gfdgdg fdg fdg abc"
+                                android:textSize="60sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/bottom_navbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"></include>
         </LinearLayout>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

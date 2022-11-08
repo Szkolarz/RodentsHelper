@@ -1,212 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".MainViews.ViewVets">
-
-
-    <EditText
-        android:id="@+id/editTextName_med"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        android:layout_marginLeft="10dp"
-        android:hint="Nazwa leku"
-        android:maxLines="2"
-        android:textColor="#014D70"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-
-    <TextView
-        android:id="@+id/textViewDate1_hidden"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/textViewDate2_hidden"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:visibility="gone" />
-
-    <EditText
-        android:id="@+id/editTextDescription_med"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:hint="Opis"
-        android:maxLines="3"
-        android:textColor="#014D70"
-        android:textSize="24sp" />
-
-
-    <EditText
-        android:id="@+id/editTextPeriodicity_med"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:hint="Dawkowanie"
-        android:textColor="#014D70"
-        android:textSize="24sp" />
+    android:background="#ACC5E1">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:background="#ACC5E1"
+        android:orientation="vertical"
+        tools:context=".MainViews.ViewVets">
+
 
         <TextView
-            android:id="@+id/textViewDateStart_med"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:gravity="left"
-            android:text="Data rozpoczęcia dawkowania"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Nazwa lekarstwa:"
             android:textColor="#014D70"
-            android:textSize="20sp" />
+            android:textColorHint="#77147A"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/imageViewDate1_med"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
+        <EditText
+            android:id="@+id/editTextName_med"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:hint="Nazwa leku"
+            android:maxLines="2"
+            android:textColor="#014D70"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-            android:gravity="left"
-            android:src="@android:drawable/arrow_down_float"
-            android:tint="#048FCD" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textViewDateEnd_med"
-            android:layout_width="wrap_content"
+            android:id="@+id/textViewDate1_hidden"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:gravity="left"
-            android:text="Data zakończenia dawkowania"
+            android:text="TextView"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewDate2_hidden"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Opis:"
             android:textColor="#014D70"
-            android:textSize="20sp" />
+            android:textColorHint="#77147A"
+            android:textSize="16sp" />
 
-        <ImageView
-            android:id="@+id/imageViewDate2_med"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
+        <EditText
+            android:id="@+id/editTextDescription_med"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:hint="Opis"
+            android:maxLines="3"
+            android:textColor="#014D70"
+            android:textSize="24sp" />
 
-            android:gravity="left"
-            android:src="@android:drawable/arrow_down_float"
-            android:tint="#048FCD" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Dawkowanie:"
+            android:textColor="#014D70"
+            android:textColorHint="#77147A"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/editTextPeriodicity_med"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:hint="Dawkowanie"
+            android:textColor="#014D70"
+            android:textSize="24sp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Data rozpoczęcia dawkowania:"
+            android:textColor="#014D70"
+            android:textColorHint="#77147A"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewDateStart_med"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="left"
+                android:text="Data rozpoczęcia dawkowania"
+                android:textColor="#014D70"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imageViewDate1_med"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+
+                android:gravity="left"
+                android:src="@android:drawable/arrow_down_float"
+                android:backgroundTint="#048FCD" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Data zakończenia dawkowania:"
+            android:textColor="#014D70"
+            android:textColorHint="#77147A"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewDateEnd_med"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="left"
+                android:text="Data zakończenia dawkowania"
+                android:textColor="#014D70"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imageViewDate2_med"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+
+                android:gravity="left"
+                android:src="@android:drawable/arrow_down_float"
+                android:backgroundTint="#048FCD" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewRodentRelationsInfo_med"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:ellipsize="none"
+            android:maxLines="8"
+            android:text="Zwierzęta biorące lekarstwo:"
+            android:textColor="#014D70"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewRodentRelations_med"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:ellipsize="none"
+            android:maxLines="8"
+            android:textColor="#014D70"
+            android:textSize="17sp" />
+
+        <CheckBox
+            android:id="@+id/checkBoxMed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Przypisać lekarstwo do konkretnego pupila?"
+            android:textColor="#014D70"
+            android:textSize="16sp" />
+
+        <ListView
+            android:id="@+id/listViewMed"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:overScrollMode="ifContentScrolls" />
+
+        <LinearLayout
+            android:id="@+id/aaad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonEdit_med"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="#5397DF"
+                android:text="Edytuj"
+                android:textColor="#FFFFFF"
+                app:strokeColor="#0375a8"
+                app:strokeWidth="3dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonAdd_med"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="#5397DF"
+                android:text="Dodaj"
+                android:textColor="#FFFFFF"
+                android:visibility="visible"
+                app:strokeColor="#0375a8"
+                app:strokeWidth="3dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSaveEdit_med"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="#5397DF"
+                android:text="Zapisz"
+                android:textColor="#FFFFFF"
+                android:visibility="visible"
+                app:strokeColor="#0375a8"
+                app:strokeWidth="3dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonDelete_med"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="#DC3E3E"
+                android:text="Usuń"
+                android:textColor="#FFFFFF"
+                app:strokeColor="#9A2C2C"
+                app:strokeWidth="3dp" />
+        </LinearLayout>
+
 
         <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_margin="6dp"
+            android:background="#048FCD" />
+
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textViewRodentRelationsInfo_med"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_weight="1"
-        android:ellipsize="none"
-        android:maxLines="8"
-        android:text="Zwierzęta biorące lekarstwo:"
-        android:textColor="#014D70"
-        android:textSize="17sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textViewRodentRelations_med"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_weight="1"
-        android:ellipsize="none"
-        android:maxLines="8"
-        android:textColor="#014D70"
-        android:textSize="17sp" />
-
-    <CheckBox
-        android:id="@+id/checkBoxMed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Przypisać lekarstwo do konkretnego pupila?"
-        android:textColor="#014D70"
-        android:textSize="16sp" />
-
-    <ListView
-        android:id="@+id/listViewMed"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:overScrollMode="ifContentScrolls" />
-
-    <LinearLayout
-        android:id="@+id/aaad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/buttonEdit_med"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="1"
-            android:text="Edytuj" />
-
-        <Button
-            android:id="@+id/buttonAdd_med"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="1"
-            android:onClick="saveVet"
-            android:text="Dodaj"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/buttonSaveEdit_med"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="1"
-            android:onClick="saveVet"
-            android:text="Zapisz"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/buttonDelete_med"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="1"
-            android:text="Usuń" />
-    </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="6dp"
-        android:background="#CA7A7A" />
-
-</LinearLayout>
+</ScrollView>

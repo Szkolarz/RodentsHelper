@@ -10,136 +10,68 @@
     tools:context=".MainViews.ViewVets">
 
 
-    <Button
-        android:id="@+id/buttonAddVets"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginRight="10dp"
-        android:backgroundTint="#147EC5"
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="14dp"
+        android:background="@drawable/roundbutton"
         android:onClick="addNewVet"
         android:text="+"
-        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        app:backgroundTint="#5397DF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#0375a8"
+        app:strokeWidth="3dp" />
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-
-        app:layout_constraintTop_toTopOf="@+id/buttonAddVets">
-
-        <TextView
-            android:id="@+id/textViewEmpty_vet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="30dp"
-            android:gravity="center"
-            android:text="Nie ma żadnych pozycji w bazie danych. Aby dodać nowego weterynarza, kliknij przycisk z plusikiem na górze ekranu."
-            android:textSize="26sp"
-            android:visibility="gone" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewVets"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="100dp"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center|bottom"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginBottom="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/rounded"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            android:scaleType="fitCenter">
 
-            <ImageButton
-                android:id="@+id/imageButton1_vet"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:background="@drawable/roundbutton"
-                android:padding="15dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_chinchilla"
-                app:tint="#0A4A97"
-                android:onClick="onClickViewRodents"/>
+            android:background="#ACC5E1"
+            android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/imageButton2_vet"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/textViewEmpty_vet"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:background="@drawable/roundbutton"
-                android:padding="15dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_map"
-                app:tint="#0A4A97" />
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginRight="30dp"
+                android:gravity="center"
+                android:text="Nie ma żadnych pozycji w bazie danych. Aby dodać nowego weterynarza, kliknij przycisk z plusikiem na górze ekranu."
+                android:textColor="#5A5A5A"
+                android:textSize="26sp"
+                android:visibility="gone" />
 
-            <ImageButton
-                android:id="@+id/imageButton3_vet"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:background="@drawable/roundbutton"
-                android:backgroundTint="#048FCD"
-                android:padding="15dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_vet"
-                app:tint="#FFFFF1" />
-
-            <ImageButton
-                android:id="@+id/imageButton4_vet"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:background="@drawable/roundbutton"
-                android:padding="15dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_medicine"
-                app:tint="#0A4A97" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewVets"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent" />
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/bottom_navbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"></include>
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

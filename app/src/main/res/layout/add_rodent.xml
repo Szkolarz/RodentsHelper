@@ -110,7 +110,7 @@
 
                 android:gravity="left"
                 android:src="@android:drawable/arrow_down_float"
-                android:tint="#048FCD" />
+               />
 
             <View
                 android:id="@+id/view"
@@ -139,19 +139,27 @@
             android:textColor="#014D70"
             android:textColorHint="#014D70" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonAdd_rodent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:backgroundTint="#5397DF"
-            android:text="Zapisz" />
+            android:text="Zapisz"
+            android:textColor="#FFFFFF"
+            app:strokeColor="#0375a8"
+            app:strokeWidth="3dp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonSaveEdit_rodent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#048FCD"
-            android:text="Zapisz edycję" />
+            android:layout_margin="10dp"
+            android:backgroundTint="#5397DF"
+            android:text="Zapisz edycję"
+            android:textColor="#FFFFFF"
+            app:strokeColor="#0375a8"
+            app:strokeWidth="3dp" />
 
         <TextView
             android:id="@+id/textViewDate_hidden"

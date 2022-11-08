@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#ACC5E1"
     android:orientation="vertical"
     tools:context=".MainViews.ViewVets">
 
@@ -17,7 +18,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="Nazwa weterynarza:"
-        android:textColor="#77147A"
+        android:textColor="#014D70"
         android:textColorHint="#77147A"
         android:textSize="16sp" />
 
@@ -29,7 +30,7 @@
         android:layout_marginLeft="10dp"
         android:maxLines="2"
         android:text="Nazwa"
-        android:textColor="#BE47FF"
+        android:textColor="#014D70"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -39,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:text="Adres"
-        android:textColor="#77147A"
+        android:textColor="#014D70"
         android:textColorHint="#77147A"
         android:textSize="16sp" />
 
@@ -50,7 +51,7 @@
         android:layout_marginLeft="10dp"
         android:maxLines="3"
         android:text="Adres"
-        android:textColor="#BE47FF"
+        android:textColor="#014D70"
         android:textSize="24sp" />
 
     <TextView
@@ -59,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:text="Telefon"
-        android:textColor="#77147A"
+        android:textColor="#014D70"
         android:textColorHint="#77147A"
         android:textSize="16sp" />
 
@@ -76,7 +77,7 @@
             android:hint="Telefon"
             android:inputType="number"
             android:maxLength="16"
-            android:textColor="#BE47FF"
+            android:textColor="#014D70"
             android:textSize="24sp" />
 
         <ImageButton
@@ -97,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:text="Ewentualne notatki:"
-        android:textColor="#77147A"
+        android:textColor="#014D70"
         android:textColorHint="#77147A"
         android:textSize="16sp" />
 
@@ -107,7 +108,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:text="Notatki"
-        android:textColor="#BE47FF"
+        android:textColor="#014D70"
         android:textSize="24sp" />
 
     <TextView
@@ -119,7 +120,7 @@
         android:ellipsize="none"
         android:maxLines="8"
         android:text="Zwierzęta leczone przez weterynarza:"
-        android:textColor="#BE47FF"
+        android:textColor="#014D70"
         android:textSize="17sp"
         android:textStyle="bold" />
 
@@ -138,6 +139,7 @@
         android:id="@+id/checkBoxVet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:buttonTint="#0375a8"
         android:text="Przypisać weterynarza do konkretnego pupila?"
         android:textSize="16sp" />
 
@@ -154,15 +156,18 @@
         android:layout_margin="6dp"
         android:orientation="horizontal">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonEdit_vet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:layout_weight="1"
-            android:text="Edytuj" />
+            android:text="Edytuj"
+            app:backgroundTint="#5397DF"
+            app:strokeColor="#0375a8"
+            app:strokeWidth="3dp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonAdd_vet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -170,25 +175,34 @@
             android:layout_weight="1"
             android:onClick="saveVet"
             android:text="Dodaj"
-            android:visibility="visible" />
+            android:visibility="visible"
+            app:backgroundTint="#5397DF"
+            app:strokeColor="#0375a8"
+            app:strokeWidth="3dp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonSaveEdit_vet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:layout_weight="1"
             android:onClick="saveVet"
-            android:text="Zapisz"
-            android:visibility="visible" />
+            android:text="Zapisz edycję"
+            android:visibility="visible"
+            app:backgroundTint="#5397DF"
+            app:strokeColor="#0375a8"
+            app:strokeWidth="3dp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonDelete_vet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:layout_weight="1"
-            android:text="Usuń" />
+            android:backgroundTint="#DC3E3E"
+            android:text="Usuń"
+            app:strokeColor="#9A2C2C"
+            app:strokeWidth="3dp" />
     </LinearLayout>
 
 
