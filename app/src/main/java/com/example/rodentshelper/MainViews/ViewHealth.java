@@ -23,12 +23,13 @@ import com.example.rodentshelper.ROOM.DAO;
 import com.example.rodentshelper.ROOM.Rodent.AdapterRodents;
 import com.example.rodentshelper.ROOM.Rodent.AddRodents;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
+import com.example.rodentshelper.Visits.ViewVisits;
 
 import java.util.List;
 
 public class ViewHealth extends AppCompatActivity {
 
-    ImageView imageButtonVet1, imageButtonMed, imageButton3_health;
+    ImageView imageButtonVet1, imageButtonMed, imageButtonVisit, imageButton3_health;
     TextView textView3_health;
 
     @Override
@@ -39,6 +40,8 @@ public class ViewHealth extends AppCompatActivity {
 
         imageButtonVet1 = findViewById(R.id.imageButtonVet1);
         imageButtonMed = findViewById(R.id.imageButtonMed);
+        imageButtonVisit = findViewById(R.id.imageButtonVisit);
+
 
         imageButton3_health = findViewById(R.id.imageButton3_health);
         textView3_health = findViewById(R.id.textView3_health);
@@ -59,6 +62,14 @@ public class ViewHealth extends AppCompatActivity {
                 viewMeds();
             }
         });
+
+        imageButtonVisit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewVisits();
+            }
+        });
+
 
 
 
@@ -91,6 +102,12 @@ public class ViewHealth extends AppCompatActivity {
     public void viewMeds()
     {
         Intent intent = new Intent(ViewHealth.this, ViewMedicaments.class);
+        startActivity(intent);
+    }
+
+    public void viewVisits()
+    {
+        Intent intent = new Intent(ViewHealth.this, ViewVisits.class);
         startActivity(intent);
     }
 

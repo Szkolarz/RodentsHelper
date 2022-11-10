@@ -60,6 +60,12 @@
             android:name=".Medicaments.AddMedicaments"
             android:exported="true" />
         <activity
+            android:name=".Visits.ViewVisits"
+            android:exported="true" />
+        <activity
+            android:name=".Visits.AddVisits"
+            android:exported="true" />
+        <activity
             android:name=".MainViews.ViewHealth"
             android:exported="true" />
     </application>

@@ -280,12 +280,6 @@
                                 android:layout_marginBottom="5dp"
                                 android:background="#5397DF" />
 
-                            <TextView
-                                android:id="@+id/textView14"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="gfdgfdgfd df gfdg dfg fdg dfg fdg dfg fdgfd dgfg fdg dfg dfg fdg dfg fdgfd gfd gfdg fdg fdg fdg fdg gfdgdg fdg fdg abc"
-                                android:textSize="60sp" />
                         </LinearLayout>
 
                     </LinearLayout>

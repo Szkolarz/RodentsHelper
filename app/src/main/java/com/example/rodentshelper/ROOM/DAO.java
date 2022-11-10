@@ -10,12 +10,26 @@ import com.example.rodentshelper.ROOM.MTM.RodentMedModel;
 import com.example.rodentshelper.ROOM.MTM.RodentVetModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM.Vet.VetModel;
+import com.example.rodentshelper.Visits.VisitModel;
 
 import java.sql.Date;
 import java.util.List;
 
 @Dao
 public interface DAO {
+
+
+    @Query ("SELECT vets.name FROM vets WHERE vets.id = :id")
+    List<String> getAllVisitsVets(Integer id);
+
+    @Query ("SELECT vets.id FROM vets WHERE vets.id = :id")
+    Integer getIdofVet(Integer id);
+
+    @Query ("UPDATE visits SET id_vet = NULL WHERE id_vet = :id_vet")
+    void SetVisitsIdVetNull(Integer id_vet);
+
+    @Query ("UPDATE visits SET id_vet = :id_vet WHERE id = :id")
+    void SetVisitsIdVet(Integer id_vet, Integer id);
 
 
     @Insert
@@ -96,6 +110,9 @@ public interface DAO {
     @Query("SELECT * FROM vets")
     List<VetModel> getAllVets();
 
+    @Query("SELECT name FROM vets ORDER BY id ASC")
+    List<String> getAllNameVets();
+
     @Query("DELETE FROM vets WHERE id = :id")
     void deleteVetById(int id);
 
@@ -127,6 +144,27 @@ public interface DAO {
 
     @Query("SELECT id FROM medicaments WHERE id = (SELECT MAX(id) FROM medicaments)")
     List<Integer> getLastIdMed();
+
+
+    /************/
+    /** VISITS **/
+    /************/
+
+    @Insert
+    void insertRecordVisit(VisitModel visits);
+
+    @Query("SELECT * FROM visits")
+    List<VisitModel> getAllVisits();
+
+    @Query("DELETE FROM visits WHERE id = :id")
+    void deleteVisitById(int id);
+
+    @TypeConverters(Converters.class)
+    @Query("UPDATE visits SET id_vet = :id_vet, date = :date, time = :time, reason = :reason WHERE id = :id")
+    void updateVisitById(int id, Integer id_vet, Date date, String time, String reason);
+
+    @Query("SELECT id FROM medicaments WHERE id = (SELECT MAX(id) FROM medicaments)")
+    List<Integer> getLastIdVisit();
 
 }
 

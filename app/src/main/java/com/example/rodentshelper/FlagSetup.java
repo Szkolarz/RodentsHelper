@@ -8,6 +8,8 @@ public class FlagSetup {
 
     private static Integer flagMedAdd;
 
+    private static Integer flagVisitAdd;
+
 
     public FlagSetup() {
     }
@@ -34,5 +36,13 @@ public class FlagSetup {
 
     public static void setFlagMedAdd(Integer flagMedAdd) {
         FlagSetup.flagMedAdd = flagMedAdd;
+    }
+
+    public static Integer getFlagVisitAdd() {
+        return flagVisitAdd;
+    }
+
+    public static void setFlagVisitAdd(Integer flagVisitAdd) {
+        FlagSetup.flagVisitAdd = flagVisitAdd;
     }
 }

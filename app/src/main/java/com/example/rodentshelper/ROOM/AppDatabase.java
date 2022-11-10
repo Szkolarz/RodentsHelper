@@ -8,10 +8,12 @@ import com.example.rodentshelper.ROOM.MTM.RodentMedModel;
 import com.example.rodentshelper.ROOM.MTM.RodentVetModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM.Vet.VetModel;
+import com.example.rodentshelper.Visits.VisitModel;
 
 @Database(entities = {RodentModel.class,
         VetModel.class, RodentVetModel.class,
-        MedicamentModel.class, RodentMedModel.class},
+        MedicamentModel.class, RodentMedModel.class,
+        VisitModel.class},
         version = 3)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract DAO dao();

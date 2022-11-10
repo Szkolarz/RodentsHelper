@@ -139,13 +139,9 @@ public class AddVets extends AppCompatActivity {
                // aaaar.add(arrayListLV.get(j));
                 for(int i = 0; i < list.size(); i++) {
 
-                    System.out.println(arrayListLV.get(j) + "fds");
-                    System.out.println(list.get(i) + "qqq");
-
                     if (arrayListLV.get(j).equals(list.get(i))) {
 
-
-                        ListViewVet.setItemChecked(i, true);
+                        ListViewVet.setItemChecked(j, true);
                         checkBoxVet.setChecked(true);
                     }
 

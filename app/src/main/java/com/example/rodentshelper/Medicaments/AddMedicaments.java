@@ -59,7 +59,7 @@ public class AddMedicaments extends Activity {
 
 
     private DatePickerDialog.OnDateSetListener dateSetListener1, dateSetListener2;
-    private String dateFormat1 = null, dateFormat2 = null;
+    private Date dateFormat1 = null, dateFormat2 = null;
 
     //pelna lista zwierzat
     private ArrayList<String> arrayListLV;
@@ -150,15 +150,33 @@ public class AddMedicaments extends Activity {
             String date_startKey = getIntent().getStringExtra("date_startKey");
             String date_endKey = getIntent().getStringExtra("date_endKey");
 
+            System.out.println(textViewDate1_hidden.getText().toString() + " wwww");
+            System.out.println(textViewDate2_hidden.getText().toString() + " aaa");
+
+            if (date_startKey.equals("null")) {
+                date_startKey = "nie podano";
+                textViewDate1_hidden.setText(null);
+            }
+            else
+                textViewDate1_hidden.setText(date_startKey);
+
+            if (date_endKey.equals("null")) {
+                date_endKey = "nie podano";
+                textViewDate2_hidden.setText(null);
+            }
+            else
+                textViewDate2_hidden.setText(date_endKey);
+
+            System.out.println(textViewDate1_hidden.getText().toString() + " wwww");
+            System.out.println(textViewDate2_hidden.getText().toString() + " aaa");
 
             editTextName_med.setText(nameKey);
             editTextDescription_med.setText(descriptionKey);
             editTextPeriodicity_med.setText(periodicityKey);
 
             textViewDateStart_med.setText(date_startKey);
-            textViewDate1_hidden.setText(date_startKey);
             textViewDateEnd_med.setText(date_endKey);
-            textViewDate2_hidden.setText(date_endKey);
+
 
             DAO medDao = db.dao();
 
@@ -167,7 +185,7 @@ public class AddMedicaments extends Activity {
             for (int j = 0; j < arrayListLV.size(); j ++) {
                 for(int i = 0; i < list.size(); i++) {
                     if (arrayListLV.get(j).equals(list.get(i))) {
-                        listViewMed.setItemChecked(i, true);
+                        listViewMed.setItemChecked(j, true);
                         checkBoxMed.setChecked(true);
                     }
                 }
@@ -181,15 +199,25 @@ public class AddMedicaments extends Activity {
                 @Override
                 public void onClick(View view) {
 
-                    dateFormat1 = textViewDate1_hidden.getText().toString();
-                    dateFormat2 = textViewDate2_hidden.getText().toString();
+                    System.out.println(textViewDate1_hidden.getText().toString());
+
+                    if (textViewDate1_hidden.getText().toString().equals(""))
+                        dateFormat1 = null;
+                    else
+                        dateFormat1 = Date.valueOf(textViewDate1_hidden.getText().toString());
+                    if (textViewDate2_hidden.getText().toString().equals(""))
+                        dateFormat2 = null;
+                    else
+                        dateFormat2 = Date.valueOf(textViewDate2_hidden.getText().toString());
+
+
 
                     AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                             AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
                     DAO medDao = db.dao();
                     medDao.updateMedById(idKey, id_vetKey, editTextName_med.getText().toString(),
                             editTextDescription_med.getText().toString(), editTextPeriodicity_med.getText().toString(),
-                            Date.valueOf(dateFormat1), Date.valueOf(dateFormat2));
+                            dateFormat1, dateFormat2);
 
                     medDao.DeleteAllRodentsMedsByMed(idKey);
 
@@ -222,8 +250,8 @@ public class AddMedicaments extends Activity {
                 month += 1;
                 String date = day + "/" + month + "/" + year;
                 textViewDateStart_med.setText(date);
-                dateFormat1 = (year + "-" + month + "-" + day);
-                textViewDate1_hidden.setText(dateFormat1);
+                dateFormat1 = Date.valueOf((year + "-" + month + "-" + day));
+                textViewDate1_hidden.setText(dateFormat1.toString());
             }
         };
 
@@ -233,8 +261,8 @@ public class AddMedicaments extends Activity {
                 month += 1;
                 String date = day + "/" + month + "/" + year;
                 textViewDateEnd_med.setText(date);
-                dateFormat2 = (year + "-" + month + "-" + day);
-                textViewDate2_hidden.setText(dateFormat2);
+                dateFormat2 = Date.valueOf((year + "-" + month + "-" + day));
+                textViewDate2_hidden.setText(dateFormat2.toString());
             }
         };
 
@@ -282,16 +310,18 @@ public class AddMedicaments extends Activity {
         String stringName = editTextName_med.getText().toString();
         String stringDescription = editTextDescription_med.getText().toString();
         String stringPeriodicity = editTextPeriodicity_med.getText().toString();
-        String stringDate1 = dateFormat1;
-        String stringDate2 = dateFormat2;
+        Date stringDate1 = (dateFormat1);
+        Date stringDate2 = (dateFormat2);
 
         System.out.println(dateFormat1);
 
 
-        if (stringDate1 == (null))
-            stringDate1 = "NULL";
+        if (stringDate1 == (null)) {
+            stringDate1 = null;
+            System.out.println(stringDate1);
+        }
         if (stringDate2 == (null))
-            stringDate2 = "NULL";
+            stringDate2 = null;
 
 
 
@@ -314,7 +344,7 @@ public class AddMedicaments extends Activity {
                     AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
             DAO medDao = db.dao();
 
-            medDao.insertRecordMed(new MedicamentModel(1, stringName, stringDescription, stringPeriodicity, null, null));
+            medDao.insertRecordMed(new MedicamentModel(1, stringName, stringDescription, stringPeriodicity, (stringDate1), (stringDate2)));
 
             System.out.println("DODANO");
             getRodentMed(medDao);

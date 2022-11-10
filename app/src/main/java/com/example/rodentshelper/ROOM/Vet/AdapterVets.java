@@ -157,10 +157,12 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
                   vetDao.DeleteAllRodentsVetsByVet(vetModel.get(holder.getAdapterPosition()).getId());
                   vetDao.deleteVetById(vetModel.get(holder.getAdapterPosition()).getId());
 
+                  vetDao.SetVisitsIdVetNull(vetModel.get(holder.getAdapterPosition()).getId());
                   vetModel.remove(holder.getAdapterPosition());
 
 
                   notifyDataSetChanged();
+
 
                   Intent intent = new Intent(holder.buttonDelete_vet.getContext(), ViewVets.class);
                   holder.buttonDelete_vet.getContext().startActivity(intent);
