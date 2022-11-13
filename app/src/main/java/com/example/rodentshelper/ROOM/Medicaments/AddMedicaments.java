@@ -1,19 +1,13 @@
-package com.example.rodentshelper.Medicaments;
+package com.example.rodentshelper.ROOM.Medicaments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,24 +18,19 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.ImageCompress;
-import com.example.rodentshelper.MainViews.ViewRodents;
+import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
-import com.example.rodentshelper.ROOM.MTM.RodentMedModel;
+import com.example.rodentshelper.ROOM._MTM.RodentMedModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -150,8 +139,6 @@ public class AddMedicaments extends Activity {
             String date_startKey = getIntent().getStringExtra("date_startKey");
             String date_endKey = getIntent().getStringExtra("date_endKey");
 
-            System.out.println(textViewDate1_hidden.getText().toString() + " wwww");
-            System.out.println(textViewDate2_hidden.getText().toString() + " aaa");
 
             if (date_startKey.equals("null")) {
                 date_startKey = "nie podano";

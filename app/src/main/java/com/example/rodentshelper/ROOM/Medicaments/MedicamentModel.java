@@ -1,4 +1,4 @@
-package com.example.rodentshelper.Medicaments;
+package com.example.rodentshelper.ROOM.Medicaments;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

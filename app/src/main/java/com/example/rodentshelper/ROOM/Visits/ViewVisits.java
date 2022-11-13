@@ -1,4 +1,4 @@
-package com.example.rodentshelper.Visits;
+package com.example.rodentshelper.ROOM.Visits;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,10 +17,7 @@ import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.ViewHealth;
-import com.example.rodentshelper.MainViews.ViewRodents;
-import com.example.rodentshelper.Medicaments.AdapterMedicaments;
-import com.example.rodentshelper.Medicaments.AddMedicaments;
-import com.example.rodentshelper.Medicaments.MedicamentModel;
+import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
@@ -29,8 +26,8 @@ import java.util.List;
 
 public class ViewVisits extends AppCompatActivity {
 
-    RecyclerView recyclerViewVisits;
-    Button buttonAddVisits;
+    RecyclerView recyclerView;
+    Button buttonAddRecord;
 
     TextView textViewEmpty_visit, textView3_health;
     ImageView imageButton3_health;
@@ -39,29 +36,38 @@ public class ViewVisits extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_visits);
+        setContentView(R.layout.activity_view_recycler);
 
         imageButton3_health = findViewById(R.id.imageButton3_health);
         textView3_health = findViewById(R.id.textView3_health);
         imageButton3_health.setColorFilter(Color.WHITE);
         textView3_health.setTextColor(Color.WHITE);
 
-        buttonAddVisits = findViewById(R.id.buttonAddVisits);
+        buttonAddRecord = findViewById(R.id.buttonAddRecord);
 
-        recyclerViewVisits = findViewById(R.id.recyclerViewVisits);
-        recyclerViewVisits.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewVisits.setHasFixedSize(true);
+        recyclerView = findViewById(R.id.recyclerViewGlobal);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
 
         getRoomData();
 
-        textViewEmpty_visit = findViewById(R.id.textViewEmpty_visit);
+        textViewEmpty_visit = findViewById(R.id.textViewEmptyGlobal);
 
-        if (getListVisits().isEmpty())
+        if (getListVisits().isEmpty()) {
             textViewEmpty_visit.setVisibility(View.VISIBLE);
+            textViewEmpty_visit.setText("Nie ma żadnych pozycji w bazie danych. Aby dodać nową wizytę, kliknij przycisk z plusikiem na górze ekranu.");
+        }
+
+        buttonAddRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNewVisit();
+            }
+        });
 
     }
 
-    public void addNewVisit(View view)
+    public void addNewVisit()
     {
         //1 = nowy
         FlagSetup.setFlagVisitAdd(1);
@@ -113,12 +119,12 @@ public class ViewVisits extends AppCompatActivity {
 
     public void getRoomData()
     {
-        recyclerViewVisits = findViewById(R.id.recyclerViewVisits);
-        recyclerViewVisits.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = findViewById(R.id.recyclerViewGlobal);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         AdapterVisits adapter = new AdapterVisits(getListVisits());
 
-        recyclerViewVisits.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
     }
 
 }

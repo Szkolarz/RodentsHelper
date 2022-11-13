@@ -21,7 +21,7 @@
         >
 
         <activity
-            android:name=".MainViews.ViewRodents"
+            android:name=".ROOM.Rodent.ViewRodents"
             android:exported="false"
             android:noHistory="true">
             <meta-data
@@ -29,7 +29,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainViews.ViewVets"
+            android:name=".ROOM.Vet.ViewVets"
             android:exported="true" />
         <activity
             android:name=".MainViews.MainActivity"
@@ -54,19 +54,31 @@
             android:name=".ROOM.Vet.AddVets"
             android:exported="true" />
         <activity
-            android:name=".Medicaments.ViewMedicaments"
+            android:name=".ROOM.Medicaments.ViewMedicaments"
             android:exported="true" />
         <activity
-            android:name=".Medicaments.AddMedicaments"
+            android:name=".ROOM.Medicaments.AddMedicaments"
             android:exported="true" />
         <activity
-            android:name=".Visits.ViewVisits"
+            android:name=".ROOM.Visits.ViewVisits"
             android:exported="true" />
         <activity
-            android:name=".Visits.AddVisits"
+            android:name=".ROOM.Visits.AddVisits"
             android:exported="true" />
         <activity
             android:name=".MainViews.ViewHealth"
+            android:exported="true" />
+        <activity
+            android:name=".MainViews.ViewEncyclopedia"
+            android:exported="true" />
+        <activity
+            android:name=".MainViews.ViewPetHealth"
+            android:exported="true" />
+        <activity
+            android:name=".ROOM.Notes.ViewNotes"
+            android:exported="true" />
+        <activity
+            android:name=".ROOM.Notes.AddNotes"
             android:exported="true" />
     </application>
 

@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.MainViews.ViewVets;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
@@ -101,6 +100,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
 
 
         for (int j = 0; j < aaa.size(); j ++) {
+
             holder.arrayListSelected.add(aaa.get(j));
             for(int i = 0; i < list.size(); i++) {
 
@@ -223,7 +223,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
     public int getItemCount() {
 
         if (vetModel.isEmpty())
-            System.out.println("dsf\n");
+            System.out.println("empty\n");
 
         return vetModel.size();
     }
@@ -286,8 +286,6 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
 
                arrayListSelected = new ArrayList<>();
 
-
-               System.out.println(";lkijuhytrfghj");
 
            }
        }

@@ -3,19 +3,16 @@ package com.example.rodentshelper.ROOM.Rodent;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.KeyEvent;
@@ -23,47 +20,48 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.exifinterface.media.ExifInterface;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.ImageCompress;
-import com.example.rodentshelper.MainViews.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddRodents extends Activity {
 
     EditText editTextNotes, editTextName, editTextFur;
     Button buttonAdd_rodent, buttonEdit_rodent;
+    ImageView buttonDelete_rodent;
+    TextView textViewDelete_rodent, textViewDeleteImage_rodent;
     RadioButton radioButtonGender1, radioButtonGender2;
 
     RadioGroup radioGroup;
     RadioButton radioButton;
 
-    ImageView imageView_rodent, imageViewDate_rodent;
+    ImageButton imageButtonDate_rodent;
+    ImageView imageView_rodent;
 
+    private List<RodentModel> rodentModel;
     private TextView textViewDate, textViewDate_hidden;
 
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private String dateFormat;
 
-     static byte[] byteArray;
+    byte[] byteArray;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,10 +79,14 @@ public class AddRodents extends Activity {
 
         buttonAdd_rodent = findViewById(R.id.buttonAdd_rodent);
         buttonEdit_rodent = findViewById(R.id.buttonSaveEdit_rodent);
+        buttonDelete_rodent = findViewById(R.id.buttonDelete_rodent);
+        textViewDelete_rodent = findViewById(R.id.textViewDelete_rodent);
+        textViewDeleteImage_rodent = findViewById(R.id.textViewDeleteImage_rodent);
+
 
 
         imageView_rodent = findViewById(R.id.imageView_rodent);
-        imageViewDate_rodent = findViewById(R.id.imageViewDate_rodent);
+        imageButtonDate_rodent = findViewById(R.id.imageButtonDate_rodent);
 
 
         textViewDate = findViewById(R.id.textViewDate);
@@ -93,6 +95,8 @@ public class AddRodents extends Activity {
         if (FlagSetup.getFlagRodentAdd() == 1) {
             buttonAdd_rodent.setVisibility(View.VISIBLE);
             buttonEdit_rodent.setVisibility(View.GONE);
+            buttonDelete_rodent.setVisibility(View.GONE);
+            textViewDelete_rodent.setVisibility(View.GONE);
         }
         else {
             buttonAdd_rodent.setVisibility(View.GONE);
@@ -103,7 +107,7 @@ public class AddRodents extends Activity {
         imageView_rodent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // Intent intent = new Intent (Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                // Intent intent = new Intent (Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 Intent intent = new Intent (Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
 
@@ -112,8 +116,18 @@ public class AddRodents extends Activity {
             }
         });
 
+        textViewDeleteImage_rodent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imageView_rodent.setImageDrawable(getDrawable(R.drawable.ic_chinchilla));
+                byteArray = null;
+                textViewDeleteImage_rodent.setVisibility(View.GONE);
 
-        imageViewDate_rodent.setOnClickListener(new View.OnClickListener() {
+            }
+        });
+
+
+        imageButtonDate_rodent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onDateClick();
@@ -140,6 +154,47 @@ public class AddRodents extends Activity {
 
             }
         };
+
+        buttonDelete_rodent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(buttonDelete_rodent.getContext(), R.style.AlertDialogStyle);
+                alert.setTitle("Usuwanie pupila");
+                alert.setMessage("Czy na pewno chcesz usunąć pupila z listy?\n\nProces jest nieodwracalny!");
+
+                alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(getApplicationContext(), "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
+                        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+                        DAO rodentDao = db.dao();
+
+
+                        Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
+
+                        rodentDao.DeleteAllRodentsVetsByRodent(idKey);
+                        rodentDao.deleteRodentById(idKey);
+
+
+                        Intent intent = new Intent(getApplicationContext(), ViewRodents.class);
+                        buttonDelete_rodent.getContext().startActivity(intent);
+
+                    }
+                });
+                alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(getApplicationContext(), "Anulowano", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                alert.create().show();
+
+
+            }
+        });
 
 
         buttonAdd_rodent.setOnClickListener(new View.OnClickListener() {
@@ -182,6 +237,8 @@ public class AddRodents extends Activity {
 
             byteArray = byteImage;
 
+            checkImage();
+
             Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             imageView_rodent.setImageBitmap(bitmap);
 
@@ -201,6 +258,14 @@ public class AddRodents extends Activity {
 
 
                     dateFormat = textViewDate_hidden.getText().toString();
+
+                    if (byteArray == null) {
+                        Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                                R.drawable.ic_chinchilla);
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        byteArray = stream.toByteArray();
+                    }
 
                     AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                             AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
@@ -298,13 +363,14 @@ public class AddRodents extends Activity {
                     public void run() {
 
                         imageView_rodent.setImageBitmap(bitmapView);
+
                         buttonEdit_rodent.setEnabled(true);
                         buttonAdd_rodent.setEnabled(true);
                         buttonAdd_rodent.setBackgroundColor(Color.parseColor("#5397DF"));
                         buttonEdit_rodent.setBackgroundColor(Color.parseColor("#5397DF"));
                         buttonAdd_rodent.setTextColor(Color.WHITE);
                         buttonEdit_rodent.setTextColor(Color.WHITE);
-
+                        checkImage();
                     }
                 });
 
@@ -322,8 +388,10 @@ public class AddRodents extends Activity {
 
     }
 
-
-
+    private void checkImage() {
+        if (byteArray != null)
+        textViewDeleteImage_rodent.setVisibility(View.VISIBLE);
+    }
 
 
     public void saveRodent() {

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_weight="1"
     android:orientation="vertical"
-    tools:context=".MainViews.ViewHealth">
+    tools:context=".MainViews.ViewPetHealth">
 
 
     <LinearLayout
@@ -43,12 +43,14 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
+
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="25dp"
                             android:layout_marginBottom="25dp"
-                            android:text="Zdrowie"
+                            android:text="Zdrowie pupila: "
                             android:textColor="#014D70"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -69,6 +71,150 @@
                                 android:background="#5397DF" />
                         </LinearLayout>
 
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/imageButtonPetHealth_weight"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_weight="1"
+                                    android:adjustViewBounds="true"
+                                    android:background="@drawable/roundbutton"
+                                    android:padding="15dp"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_weight"
+                                    app:tint="#0A4A97" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Ważenie + wskaźnik zdrowia"
+                                    android:textColor="#014D70" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView1_petHealth"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Na podstawie wagi twojego pupila otrzymasz informacje o stanie zdrowia oraz małe porady dotyczące karmienia"
+                                    android:textColor="#014D70" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/viewLayout_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <View
+                                android:id="@+id/view15"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="#5397DF" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/imageButtonPetHealth_notes"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_weight="1"
+                                    android:adjustViewBounds="true"
+                                    android:background="@drawable/roundbutton"
+                                    android:padding="15dp"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_notes"
+                                    app:tint="#0A4A97" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Notatki/dzienniczek"
+                                    android:textColor="#014D70" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView2_petHealth"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Na podstawie wagi twojego pupila otrzymasz informacje o stanie zdrowia oraz małe porady dotyczące karmienia"
+                                    android:textColor="#014D70" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/viewLayout_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <View
+                                android:id="@+id/view15"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="#5397DF" />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -114,9 +260,10 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/textView3_petHealth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Pozwala zapisać nowego weterynarza na liście kontaktów wraz z jego danymi"
+                                    android:text="Pozwala zapisać i przejrzeć weterynarzy pupila. Lista ogólnych weterynarzy jest w zakładce u dołu: &quot;Zdrowie&quot;"
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -131,6 +278,77 @@
 
                             <View
                                 android:id="@+id/view15"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="#5397DF" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/imageButtonVisit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_weight="1"
+                                    android:adjustViewBounds="true"
+                                    android:background="@drawable/roundbutton"
+                                    android:onClick="onClickVet"
+                                    android:padding="15dp"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_calendar_vet"
+                                    app:tint="#0A4A97" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Wizyty u weterynarza"
+                                    android:textColor="#014D70" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView4_petHealth"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pozwala zapisać umówione wizyty z weterynarzem dla pupila: . Lista wszystkich wizyt jest u dołu ekrany w zakładce: &quot;Zdrowie&quot;"
+                                    android:textColor="#014D70" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/viewLayout_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <View
                                 android:layout_width="match_parent"
                                 android:layout_height="5dp"
                                 android:layout_marginLeft="10dp"
@@ -185,79 +403,10 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/textView5_petHealth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Umożliwia dodawanie przepisanych leków do listy oraz pozwala określić częstotliwość ich podawania"
-                                    android:textColor="#014D70" />
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/viewLayout_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginBottom="5dp"
-                                android:background="#5397DF" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:id="@+id/imageButtonVisit"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="5dp"
-                                    android:layout_marginBottom="5dp"
-                                    android:layout_weight="1"
-                                    android:adjustViewBounds="true"
-                                    android:background="@drawable/roundbutton"
-                                    android:onClick="onClickVet"
-                                    android:padding="15dp"
-                                    android:scaleType="fitCenter"
-                                    app:srcCompat="@drawable/ic_calendar_vet"
-                                    app:tint="#0A4A97" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Wizyty u weterynarza"
-                                    android:textColor="#014D70" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="15dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/textView4_petHealth"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Pozwala zapisać umówione wizyty z weterynarzem i ustawić przypomnienia"
+                                    android:text="Umożliwia dodawanie przepisanych leków wraz z ich dawkowaniem pupilowi: . Lista wszystkich twoich zapisanych leków znajduje się w zakładce &quot;Zdrowie&quot; u dołu ekranu"
                                     android:textColor="#014D70" />
 
                             </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.rodentshelper.Medicaments;
+package com.example.rodentshelper.ROOM.Medicaments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,8 +17,7 @@ import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.ViewHealth;
-import com.example.rodentshelper.MainViews.ViewRodents;
-import com.example.rodentshelper.MainViews.ViewVets;
+import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
@@ -28,8 +27,8 @@ import java.util.List;
 
 public class ViewMedicaments extends AppCompatActivity {
 
-    RecyclerView recyclerViewMedicaments;
-    Button buttonAddMedicaments;
+    RecyclerView recyclerView;
+    Button buttonAddRecord;
 
     TextView textViewEmpty_med, textView3_health;
     ImageView imageButton3_health;
@@ -38,29 +37,40 @@ public class ViewMedicaments extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_medicaments);
+        setContentView(R.layout.activity_view_recycler);
 
         imageButton3_health = findViewById(R.id.imageButton3_health);
         textView3_health = findViewById(R.id.textView3_health);
         imageButton3_health.setColorFilter(Color.WHITE);
         textView3_health.setTextColor(Color.WHITE);
 
-        buttonAddMedicaments = findViewById(R.id.buttonAddMedicaments);
+        buttonAddRecord = findViewById(R.id.buttonAddRecord);
 
-        recyclerViewMedicaments = findViewById(R.id.recyclerViewMedicaments);
-        recyclerViewMedicaments.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewMedicaments.setHasFixedSize(true);
+        recyclerView = findViewById(R.id.recyclerViewGlobal);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
 
         getRoomData();
 
-        textViewEmpty_med = findViewById(R.id.textViewEmpty_med);
+        textViewEmpty_med = findViewById(R.id.textViewEmptyGlobal);
 
-        if (getListMedicament().isEmpty())
+        if (getListMedicament().isEmpty()) {
             textViewEmpty_med.setVisibility(View.VISIBLE);
+            textViewEmpty_med.setText("Nie ma żadnych pozycji w bazie danych. Aby dodać nowy lek, kliknij przycisk z plusikiem na górze ekranu.");
+        }
+
+
+
+        buttonAddRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNewMedicament();
+            }
+        });
 
     }
 
-    public void addNewMedicament(View view)
+    public void addNewMedicament()
     {
         //1 = nowy
         FlagSetup.setFlagMedAdd(1);
@@ -113,12 +123,12 @@ public class ViewMedicaments extends AppCompatActivity {
 
     public void getRoomData()
     {
-        recyclerViewMedicaments = findViewById(R.id.recyclerViewMedicaments);
-        recyclerViewMedicaments.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = findViewById(R.id.recyclerViewGlobal);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         AdapterMedicaments adapter = new AdapterMedicaments(getListMedicament());
 
-        recyclerViewMedicaments.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
     }
 
 }

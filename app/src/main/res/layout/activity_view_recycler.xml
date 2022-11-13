@@ -7,24 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".MainViews.ViewVets">
-
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginRight="14dp"
-        android:background="@drawable/roundbutton"
-        android:onClick="addNewVet"
-        android:text="+"
-        android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        app:backgroundTint="#5397DF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="#0375a8"
-        app:strokeWidth="3dp" />
+   >
 
 
     <LinearLayout
@@ -41,22 +24,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textViewEmpty_vet"
+                android:id="@+id/textViewEmptyGlobal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="100dp"
                 android:layout_marginRight="30dp"
                 android:gravity="center"
-                android:text="Nie ma żadnych pozycji w bazie danych. Aby dodać nowego weterynarza, kliknij przycisk z plusikiem na górze ekranu."
+                android:text="Nie ma żadnych pozycji w bazie danych. Aby dodać nową pozycję, kliknij przycisk z plusikiem na górze ekranu."
                 android:textColor="#5A5A5A"
                 android:textSize="26sp"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewVets"
+                android:id="@+id/recyclerViewGlobal"
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -72,6 +55,23 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"></include>
         </LinearLayout>
+
     </LinearLayout>
 
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonAddRecord"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="14dp"
+        android:background="@drawable/roundbutton"
+        android:text="+"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        app:backgroundTint="#5397DF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#0375a8"
+        app:strokeWidth="3dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

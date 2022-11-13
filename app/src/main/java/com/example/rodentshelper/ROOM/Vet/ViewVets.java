@@ -1,4 +1,4 @@
-package com.example.rodentshelper.MainViews;
+package com.example.rodentshelper.ROOM.Vet;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,19 +15,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.example.rodentshelper.ROOM.Vet.AddVets;
+import com.example.rodentshelper.MainViews.ViewHealth;
+import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
-import com.example.rodentshelper.ROOM.Vet.AdapterVets;
-import com.example.rodentshelper.ROOM.Vet.VetModel;
 
 import java.util.List;
 
 public class ViewVets extends AppCompatActivity {
 
-    RecyclerView recyclerViewVets;
+    RecyclerView recyclerView;
+    Button buttonAddRecord;
     TextView textViewEmpty_vet, textView3_health;
     ImageView imageButton3_health;
 
@@ -36,27 +36,36 @@ public class ViewVets extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_vets);
+        setContentView(R.layout.activity_view_recycler);
 
         imageButton3_health = findViewById(R.id.imageButton3_health);
         textView3_health = findViewById(R.id.textView3_health);
         imageButton3_health.setColorFilter(Color.WHITE);
         textView3_health.setTextColor(Color.WHITE);
 
-        recyclerViewVets = findViewById(R.id.recyclerViewVets);
-        recyclerViewVets.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewVets.setHasFixedSize(true);
+        buttonAddRecord = findViewById(R.id.buttonAddRecord);
+
+        recyclerView = findViewById(R.id.recyclerViewGlobal);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
 
         getRoomData();
 
-        textViewEmpty_vet = findViewById(R.id.textViewEmpty_vet);
+        textViewEmpty_vet = findViewById(R.id.textViewEmptyGlobal);
 
-        if (getListVet().isEmpty())
+        if (getListVet().isEmpty()) {
             textViewEmpty_vet.setVisibility(View.VISIBLE);
-
+            textViewEmpty_vet.setText("Nie ma żadnych pozycji w bazie danych. Aby dodać nowego weterynarza, kliknij przycisk z plusikiem na górze ekranu.");
+        }
+        buttonAddRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNewVet();
+            }
+        });
     }
 
-    public void addNewVet(android.view.View view)
+    public void addNewVet()
     {
         //1 = nowy
         FlagSetup.setFlagVetAdd(1);
@@ -112,12 +121,12 @@ public class ViewVets extends AppCompatActivity {
 
     public void getRoomData()
     {
-        recyclerViewVets=findViewById(R.id.recyclerViewVets);
-        recyclerViewVets.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = findViewById(R.id.recyclerViewGlobal);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         AdapterVets adapter=new AdapterVets(getListVet());
 
-        recyclerViewVets.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
     }
 
 }

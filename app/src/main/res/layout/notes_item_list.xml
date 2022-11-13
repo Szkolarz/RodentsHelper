@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ACC5E1">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ACC5E1"
+        android:orientation="vertical"
+        tools:context=".ROOM.Notes.ViewNotes">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Temat:"
+            android:textColor="#014D70"
+            android:textColorHint="#77147A"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editTextTopic_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:hint="Temat notatki"
+            android:maxLines="2"
+            android:textColor="#014D70"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/textViewDate1_hidden"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewDate2_hidden"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Treść:"
+            android:textColor="#014D70"
+            android:textColorHint="#77147A"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/editTextContent_notes"
+            android:layout_width="match_parent"
+            android:layout_height="171dp"
+            android:layout_marginLeft="20dp"
+            android:hint="Treść notatki"
+            android:maxLines="15"
+            android:textColor="#014D70"
+            android:textSize="24sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonEdit_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="#5397DF"
+                android:text="Edytuj"
+                android:textColor="#FFFFFF"
+                app:strokeColor="#0375a8"
+                app:strokeWidth="3dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonAdd_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="#5397DF"
+                android:text="Dodaj"
+                android:textColor="#FFFFFF"
+                android:visibility="visible"
+                app:strokeColor="#0375a8"
+                app:strokeWidth="3dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSaveEdit_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="#5397DF"
+                android:text="Zapisz edycję"
+                android:textColor="#FFFFFF"
+                android:visibility="visible"
+                app:strokeColor="#0375a8"
+                app:strokeWidth="3dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonDelete_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="#DC3E3E"
+                android:text="Usuń"
+                android:textColor="#FFFFFF"
+                app:strokeColor="#9A2C2C"
+                app:strokeWidth="3dp" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_margin="6dp"
+            android:background="#048FCD" />
+
+    </LinearLayout>
+</ScrollView>

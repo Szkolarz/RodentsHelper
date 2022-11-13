@@ -4,150 +4,150 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainViews.ViewRodents"
+    tools:context=".ROOM.Rodent.ViewRodents"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center|bottom"
         android:orientation="horizontal">
 
+    <LinearLayout
+        android:id="@+id/abv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:background="@drawable/rounded"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:scaleType="fitCenter">
+
         <LinearLayout
-            android:id="@+id/abv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginBottom="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/rounded"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            android:scaleType="fitCenter"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <ImageButton
+                android:id="@+id/imageButton1_rodent"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:adjustViewBounds="true"
+                android:background="@drawable/roundbutton"
+                android:onClick="onClickNavRodent"
+                android:padding="15dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_chinchilla"
+                app:tint="#0A4A97" />
 
-                <ImageButton
-                    android:id="@+id/imageButton1_rodent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/roundbutton"
-                    android:onClick="onClickNavRodent"
-                    android:padding="15dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_chinchilla"
-                    app:tint="#0A4A97" />
-
-                <TextView
-                    android:id="@+id/textView1_rodent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Pupile" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView1_rodent"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/imageButton2_encyclopedia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/roundbutton"
-                    android:onClick="onClickNavEncyclopedia"
-                    android:padding="15dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_encyclopedia"
-                    app:tint="#0A4A97" />
-
-                <TextView
-                    android:id="@+id/textView2_encyclopedia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Encyklopedia" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/imageButton3_health"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/roundbutton"
-                    android:onClick="onClickNavHealth"
-                    android:padding="15dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_health"
-                    app:tint="#0A4A97" />
-
-                <TextView
-                    android:id="@+id/textView3_health"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Zdrowie" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/imageButton4_other"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/roundbutton"
-                    android:onClick="onClickNavOther"
-                    android:padding="15dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_other"
-                    app:tint="#0A4A97" />
-
-                <TextView
-                    android:id="@+id/textView4_other"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Inne" />
-            </LinearLayout>
-
+                android:text="Pupile" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/imageButton2_encyclopedia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@drawable/roundbutton"
+                android:onClick="onClickNavEncyclopedia"
+                android:padding="15dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_encyclopedia"
+                app:tint="#0A4A97" />
+
+            <TextView
+                android:id="@+id/textView2_encyclopedia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Encyklopedia" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/imageButton3_health"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@drawable/roundbutton"
+                android:onClick="onClickNavHealth"
+                android:padding="15dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_health"
+                app:tint="#0A4A97" />
+
+            <TextView
+                android:id="@+id/textView3_health"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Zdrowie" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/imageButton4_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@drawable/roundbutton"
+                android:onClick="onClickNavOther"
+                android:padding="15dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_other"
+                app:tint="#0A4A97" />
+
+            <TextView
+                android:id="@+id/textView4_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Inne" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     </LinearLayout>
 

@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
         android:background="#ACC5E1"
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -16,39 +17,123 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/view2"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="20dp"
-            android:elevation="32dp"
-            android:gravity="center"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
-            app:cardBackgroundColor="#A31A1A"
-            app:cardCornerRadius="60dp"
-            app:cardElevation="5dp">
-
-
-            <ImageView
-                android:id="@+id/imageView_rodent"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:background="@drawable/rounded_image_view"
-                android:cropToPadding="true"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                android:scaleType="centerCrop"
-                android:src="@android:drawable/ic_menu_camera" />
+                <TextView
+                    android:id="@+id/textViewDeleteImage_rodent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="Wyczyść zdjęcie..."
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="#014D70"
+                    android:textColorHint="#77147A"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+            </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|top"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/view2"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_centerVertical="true"
+                    android:elevation="32dp"
+                    android:gravity="center"
+
+                    app:cardBackgroundColor="#A31A1A"
+                    app:cardCornerRadius="60dp"
+                    app:cardElevation="5dp">
+
+
+                    <ImageView
+                        android:id="@+id/imageView_rodent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/rounded_image_view"
+                        android:cropToPadding="true"
+
+                        android:scaleType="centerCrop"
+                        android:src="@android:drawable/ic_menu_camera" />
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/buttonDelete_rodent"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="15dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_bin"
+                        android:tint="#DC3E3E" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewDelete_rodent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:text="Całkowite usunięcie pupila z urządzenia"
+                        android:textAlignment="textEnd"
+                        android:textColor="#014D70"
+                        android:textColorHint="#77147A"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
 
         <EditText
             android:id="@+id/editTextEditName"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_margin="8dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:ems="10"
             android:hint="Imię twojego pupila"
             android:maxLength="50"
@@ -64,6 +149,7 @@
                 android:id="@+id/radioEditGroup1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -96,21 +182,21 @@
                 android:id="@+id/textViewDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="5dp"
                 android:gravity="left"
                 android:text="Data urodzenia"
                 android:textColor="#014D70"
                 android:textSize="20sp" />
 
-            <ImageView
-                android:id="@+id/imageViewDate_rodent"
+            <ImageButton
+                android:id="@+id/imageButtonDate_rodent"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-
-                android:gravity="left"
-                android:src="@android:drawable/arrow_down_float"
-               />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/roundbutton_small"
+                android:padding="5dp"
+                android:src="@drawable/ic_calendar_vet1"
+                android:tint="#0A4A97" />
 
             <View
                 android:id="@+id/view"
@@ -122,7 +208,8 @@
         <EditText
             android:id="@+id/editTextEditFur"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:ems="10"
             android:hint="Umaszczenie"
             android:inputType="textPersonName"
@@ -132,8 +219,8 @@
         <EditText
             android:id="@+id/editTextEditNotes"
             android:layout_width="match_parent"
-            android:layout_height="116dp"
-            android:layout_margin="8dp"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
             android:ems="10"
             android:hint="Notatki..."
             android:textColor="#014D70"

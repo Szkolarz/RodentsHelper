@@ -1,4 +1,4 @@
-package com.example.rodentshelper.Visits;
+package com.example.rodentshelper.ROOM.Visits;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -27,14 +26,10 @@ import android.widget.Toast;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.MainViews.ViewRodents;
-import com.example.rodentshelper.Medicaments.MedicamentModel;
-import com.example.rodentshelper.Medicaments.ViewMedicaments;
+import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
-import com.example.rodentshelper.ROOM.MTM.RodentMedModel;
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM.Vet.VetModel;
 
 import java.sql.Date;

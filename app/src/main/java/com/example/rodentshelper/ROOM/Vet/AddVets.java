@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,11 +19,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.MainViews.ViewVets;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
-import com.example.rodentshelper.ROOM.MTM.RodentVetModel;
+import com.example.rodentshelper.ROOM._MTM.RodentVetModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class AddVets extends AppCompatActivity {
     ListView ListViewVet;
     CheckBox checkBoxVet;
     TextView textViewRodentRelationsInfo_vet;
-
+LinearLayout aaa1;
 
 
     //pelna lista zwierzat
@@ -79,6 +79,7 @@ public class AddVets extends AppCompatActivity {
 
         // on below line we are setting adapter for our list view.
         ListViewVet.setAdapter(adapter);
+
 
 
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),

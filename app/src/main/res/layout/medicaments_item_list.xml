@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:background="#ACC5E1"
         android:orientation="vertical"
-        tools:context=".MainViews.ViewVets">
+        tools:context=".ROOM.Vet.ViewVets">
 
 
         <TextView
@@ -86,7 +86,7 @@
         <EditText
             android:id="@+id/editTextPeriodicity_med"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:hint="Dawkowanie"
             android:textColor="#014D70"
@@ -210,7 +210,7 @@
         <ListView
             android:id="@+id/listViewMed"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:overScrollMode="ifContentScrolls" />
 

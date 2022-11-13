@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_weight="1"
     android:orientation="vertical"
-    tools:context=".MainViews.ViewHealth">
+    tools:context=".MainViews.ViewEncyclopedia">
 
 
     <LinearLayout
@@ -43,12 +43,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="25dp"
                             android:layout_marginBottom="25dp"
-                            android:text="Zdrowie"
+                            android:text="Encyklopedia"
                             android:textColor="#014D70"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -83,7 +84,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:id="@+id/imageButtonVet1"
+                                    android:id="@+id/imageButtonGeneral"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
@@ -93,14 +94,15 @@
                                     android:background="@drawable/roundbutton"
                                     android:padding="15dp"
                                     android:scaleType="fitCenter"
-                                    app:srcCompat="@drawable/ic_vet"
+                                    app:srcCompat="@drawable/ic_general"
                                     app:tint="#0A4A97" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="Weterynarz"
+                                    android:text="Ogólne informacje"
+                                    android:textAlignment="center"
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -116,7 +118,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Pozwala zapisać nowego weterynarza na liście kontaktów wraz z jego danymi"
+                                    android:text="Ogólny spis faktów o wybranym gatunku zwierzęcia."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -153,7 +155,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:id="@+id/imageButtonMed"
+                                    android:id="@+id/imageButtonFood"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
@@ -164,14 +166,15 @@
                                     android:onClick="onClickVet"
                                     android:padding="15dp"
                                     android:scaleType="fitCenter"
-                                    app:srcCompat="@drawable/ic_medicine"
+                                    app:srcCompat="@drawable/ic_food"
                                     app:tint="#0A4A97" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="Leki"
+                                    android:text="Pokarm"
+                                    android:textAlignment="center"
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -187,7 +190,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Umożliwia dodawanie przepisanych leków do listy oraz pozwala określić częstotliwość ich podawania"
+                                    android:text="Każdy gryzoń ma swój jadłospis. Ta kategoria pozwala dowiedzieć się co może, a czego nie może jeść twój pupil"
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -223,7 +226,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:id="@+id/imageButtonVisit"
+                                    android:id="@+id/imageButtonSupply"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
@@ -234,14 +237,16 @@
                                     android:onClick="onClickVet"
                                     android:padding="15dp"
                                     android:scaleType="fitCenter"
-                                    app:srcCompat="@drawable/ic_calendar_vet"
+                                    app:srcCompat="@drawable/ic_supply"
                                     app:tint="#0A4A97" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="Wizyty u weterynarza"
+                                    android:maxLines="2"
+                                    android:text="Wyposażenie klatki/woliery"
+                                    android:textAlignment="center"
                                     android:textColor="#014D70" />
                             </LinearLayout>
 
@@ -257,7 +262,7 @@
                                     android:id="@+id/textView4_petHealth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Pozwala zapisać umówione wizyty z weterynarzem i ustawić przypomnienia"
+                                    android:text="Każda woliera lub klatka potrzebuje odpowiedniego wyposażenia, aby zadowolić zwierzę. Tutaj dowiesz się, w co powinieneś się wyposażyć. "
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -272,6 +277,81 @@
 
                             <View
                                 android:id="@+id/view175"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="#5397DF" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/a1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/imageButtonSound"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_weight="1"
+                                    android:adjustViewBounds="true"
+                                    android:background="@drawable/roundbutton"
+                                    android:onClick="onClickVet"
+                                    android:padding="15dp"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_chat"
+                                    app:tint="#0A4A97" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:maxLines="2"
+                                    android:text="Dźwięki"
+                                    android:textAlignment="center"
+                                    android:textColor="#014D70" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView4_petHealth"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Ta kategoria pozwala dowiedzieć się co oznaczają różne dźwięki wydawane przez pupila"
+                                    android:textColor="#014D70" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/viewLayout_4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <View
+
                                 android:layout_width="match_parent"
                                 android:layout_height="5dp"
                                 android:layout_marginLeft="10dp"

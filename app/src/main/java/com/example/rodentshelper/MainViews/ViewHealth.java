@@ -2,30 +2,19 @@ package com.example.rodentshelper.MainViews;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.icu.text.RelativeDateTimeFormatter;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
-import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.Medicaments.ViewMedicaments;
+import com.example.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.R;
-import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAO;
-import com.example.rodentshelper.ROOM.Rodent.AdapterRodents;
-import com.example.rodentshelper.ROOM.Rodent.AddRodents;
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
-import com.example.rodentshelper.Visits.ViewVisits;
-
-import java.util.List;
+import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
+import com.example.rodentshelper.ROOM.Vet.ViewVets;
+import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 
 public class ViewHealth extends AppCompatActivity {
 

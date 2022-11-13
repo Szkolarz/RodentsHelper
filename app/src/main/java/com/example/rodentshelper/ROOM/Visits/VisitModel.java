@@ -1,4 +1,4 @@
-package com.example.rodentshelper.Visits;
+package com.example.rodentshelper.ROOM.Visits;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

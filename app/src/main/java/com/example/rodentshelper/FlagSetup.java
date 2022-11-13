@@ -10,6 +10,8 @@ public class FlagSetup {
 
     private static Integer flagVisitAdd;
 
+    private static Integer flagNotesAdd;
+
 
     public FlagSetup() {
     }
@@ -44,5 +46,13 @@ public class FlagSetup {
 
     public static void setFlagVisitAdd(Integer flagVisitAdd) {
         FlagSetup.flagVisitAdd = flagVisitAdd;
+    }
+
+    public static Integer getFlagNotesAdd() {
+        return flagNotesAdd;
+    }
+
+    public static void setFlagNotesAdd(Integer flagNotesAdd) {
+        FlagSetup.flagNotesAdd = flagNotesAdd;
     }
 }

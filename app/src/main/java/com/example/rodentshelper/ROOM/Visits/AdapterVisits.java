@@ -1,4 +1,4 @@
-package com.example.rodentshelper.Visits;
+package com.example.rodentshelper.ROOM.Visits;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,9 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.Medicaments.AddMedicaments;
-import com.example.rodentshelper.Medicaments.MedicamentModel;
-import com.example.rodentshelper.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;

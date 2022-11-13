@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="1"
+    android:layout_weight="0"
     android:orientation="vertical"
-    tools:context=".MainViews.ViewHealth">
+    tools:context=".ROOM.Medicaments.ViewMedicaments">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom"
+        android:layout_weight="1"
+        android:gravity="top"
         android:orientation="vertical">
 
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:orientation="vertical">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -280,29 +280,38 @@
                                 android:layout_marginBottom="5dp"
                                 android:background="#5397DF" />
 
+                            <TextView
+                                android:id="@+id/textView13"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="abc"
+                                android:textSize="96sp" />
+
                         </LinearLayout>
 
                     </LinearLayout>
 
                 </LinearLayout>
             </ScrollView>
-
         </LinearLayout>
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:adjustViewBounds="true"
+        android:gravity="bottom|center"
+        android:orientation="vertical">
+
+
+        <include
+            layout="@layout/bottom_navbar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-            <include
-                layout="@layout/bottom_navbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"></include>
-        </LinearLayout>
+            android:layout_gravity="bottom"></include>
 
     </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>
