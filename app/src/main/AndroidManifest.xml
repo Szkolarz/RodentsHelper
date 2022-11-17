@@ -80,6 +80,9 @@
         <activity
             android:name=".ROOM.Notes.AddNotes"
             android:exported="true" />
+        <activity
+            android:name=".MainViews.ViewOther"
+            android:exported="true" />
     </application>
 
 </manifest>

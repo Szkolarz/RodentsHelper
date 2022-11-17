@@ -96,7 +96,7 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(new Intent(holder.buttonRodentsPetHealth.getContext(), ViewPetHealth.class));
-                intent.putExtra("id_rodentKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId()));
+                intent.putExtra("idKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId()));
                 intent.putExtra("id_animalKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId_animal()));
                 intent.putExtra("nameKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getName()));
 

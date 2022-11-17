@@ -2,6 +2,7 @@ package com.example.rodentshelper.ROOM.Vet;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.rodentshelper.MainViews.ViewHealth;
+import com.example.rodentshelper.MainViews.ViewOther;
+import com.example.rodentshelper.ROOM.Notes.NotesModel;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
@@ -28,8 +31,8 @@ public class ViewVets extends AppCompatActivity {
 
     RecyclerView recyclerView;
     Button buttonAddRecord;
-    TextView textViewEmpty_vet, textView3_health;
-    ImageView imageButton3_health;
+    TextView textViewEmpty_vet, textView3_health, textView1_rodent;
+    ImageView imageButton3_health, imageButton1_rodent;
 
 
 
@@ -38,10 +41,19 @@ public class ViewVets extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recycler);
 
-        imageButton3_health = findViewById(R.id.imageButton3_health);
-        textView3_health = findViewById(R.id.textView3_health);
-        imageButton3_health.setColorFilter(Color.WHITE);
-        textView3_health.setTextColor(Color.WHITE);
+        if (FlagSetup.getFlagIsFromHealth() == true) {
+            imageButton3_health = findViewById(R.id.imageButton3_health);
+            textView3_health = findViewById(R.id.textView3_health);
+            imageButton3_health.setColorFilter(Color.WHITE);
+            textView3_health.setTextColor(Color.WHITE);
+        }
+
+        if (FlagSetup.getFlagIsFromHealth() == false) {
+            imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
+            textView1_rodent = findViewById(R.id.textView1_rodent);
+            imageButton1_rodent.setColorFilter(Color.WHITE);
+            textView1_rodent.setTextColor(Color.WHITE);
+        }
 
         buttonAddRecord = findViewById(R.id.buttonAddRecord);
 
@@ -67,12 +79,15 @@ public class ViewVets extends AppCompatActivity {
 
     public void addNewVet()
     {
+        if (FlagSetup.getFlagIsFromHealth() == true)
+            FlagSetup.setFlagVetAdd(1);
+        else
+            FlagSetup.setFlagVetAdd(2);
         //1 = nowy
-        FlagSetup.setFlagVetAdd(1);
+        //FlagSetup.setFlagVetAdd(1);
         final Context context = this;
         Intent intent = new Intent(context, AddVets.class);
         startActivity(intent);
-        finish();
     }
 
     public void onClickViewRodents(android.view.View view)
@@ -90,8 +105,18 @@ public class ViewVets extends AppCompatActivity {
         viewRodents();
     }
 
+    public void onClickNavOther(View view)
+    {
+        viewOther();
+    }
+
     public void viewRodents() {
         Intent intent = new Intent(ViewVets.this, ViewRodents.class);
+        startActivity(intent);
+    }
+
+    public void viewOther() {
+        Intent intent = new Intent(ViewVets.this, ViewOther.class);
         startActivity(intent);
     }
 
@@ -113,8 +138,23 @@ public class ViewVets extends AppCompatActivity {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAO vetDao = db.dao();
+        List<VetModel> vetModel = null;
 
-        List<VetModel> vetModel = vetDao.getAllVets();
+        FlagSetup flagSetup = new FlagSetup();
+        int flag = flagSetup.getFlagVetAdd();
+
+        System.out.println(flag);
+        System.out.println(flag);
+
+        if (flag == 2) {
+            SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
+            vetModel = vetDao.getAllVetsByRodentId(prefsGetRodentId.getInt("rodentId", 0));
+        }
+        else {
+            vetModel = vetDao.getAllVets();
+            FlagSetup.setFlagVetAdd(1);
+        }
+
         return vetModel;
     }
 

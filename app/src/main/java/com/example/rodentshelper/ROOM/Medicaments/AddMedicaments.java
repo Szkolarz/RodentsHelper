@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
 import com.example.rodentshelper.ROOM._MTM.RodentMedModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
+import com.example.rodentshelper.ROOM._MTM.RodentVetModel;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -113,23 +115,10 @@ public class AddMedicaments extends Activity {
         }
 
 
-        if (FlagSetup.getFlagMedAdd() == 1) {
-            buttonAdd_med.setVisibility(View.VISIBLE);
-            buttonEdit_med.setVisibility(View.GONE);
-            buttonDelete_med.setVisibility(View.GONE);
-            buttonSaveEdit_med.setVisibility(View.GONE);
+        setVisibilityByFlag();
 
-            textViewRodentRelations_med.setVisibility(View.GONE);
-            textViewRodentRelationsInfo_med.setVisibility(View.GONE);
-        } else {
-            buttonAdd_med.setVisibility(View.GONE);
-            buttonEdit_med.setVisibility(View.GONE);
-            buttonDelete_med.setVisibility(View.GONE);
-            buttonSaveEdit_med.setVisibility(View.VISIBLE);
 
-            textViewRodentRelations_med.setVisibility(View.GONE);
-            textViewRodentRelationsInfo_med.setVisibility(View.GONE);
-
+        if (FlagSetup.getFlagMedAdd() == 0) {
 
             Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
             Integer id_vetKey = Integer.parseInt(getIntent().getStringExtra("id_vetKey"));
@@ -154,8 +143,8 @@ public class AddMedicaments extends Activity {
             else
                 textViewDate2_hidden.setText(date_endKey);
 
-            System.out.println(textViewDate1_hidden.getText().toString() + " wwww");
-            System.out.println(textViewDate2_hidden.getText().toString() + " aaa");
+            //System.out.println(textViewDate1_hidden.getText().toString());
+            //System.out.println(textViewDate2_hidden.getText().toString());
 
             editTextName_med.setText(nameKey);
             editTextDescription_med.setText(descriptionKey);
@@ -211,6 +200,7 @@ public class AddMedicaments extends Activity {
                     getRodentMed(medDao);
 
                     viewMedicaments();
+                    finish();
 
                 }
             });
@@ -260,6 +250,7 @@ public class AddMedicaments extends Activity {
                     listViewMed.setVisibility(View.VISIBLE);
                 }
                 else {
+                    listViewMed.clearChoices();
                     listViewMed.setVisibility(View.GONE);
                 }
             }
@@ -335,12 +326,21 @@ public class AddMedicaments extends Activity {
 
             System.out.println("DODANO");
             getRodentMed(medDao);
+
             viewMedicaments();
         }
 
     }
 
     public void getRodentMed(DAO rodentMedDao) {
+
+        if (FlagSetup.getFlagMedAdd() == 2) {
+            SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
+            rodentMedDao.insertRecordRodentMed(new RodentMedModel(Integer.valueOf(prefsGetRodentId.getInt("rodentId", 0)), rodentMedDao.getLastIdMed().get(0)));
+
+
+        }
+
         int listViewLength = listViewMed.getCount();
         SparseBooleanArray checked = listViewMed.getCheckedItemPositions();
         for (int i = 0; i < listViewLength; i++)
@@ -348,9 +348,10 @@ public class AddMedicaments extends Activity {
                 arrayListSelected.add(i);
 
                 if (FlagSetup.getFlagMedAdd() == 1)
-                    rodentMedDao.insertRecordRodentMed(new RodentMedModel(arrayListID.get(i), rodentMedDao.getLastIdMed().get(0) ));
+                    rodentMedDao.insertRecordRodentMed(new RodentMedModel(arrayListID.get(i), rodentMedDao.getLastIdMed().get(0)));
                 else {
                     Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
+                    System.out.println("DZIKDSAKSAODKSA\ng\ng" + idKey);
                     rodentMedDao.insertRecordRodentMed(new RodentMedModel(arrayListID.get(i), idKey));
                 }
             }
@@ -372,16 +373,52 @@ public class AddMedicaments extends Activity {
             listViewMed.setSelected(true);
         }
         else {
+            listViewMed.clearChoices();
             listViewMed.setVisibility(View.GONE);
         }
     }
+
+
+    public void setVisibilityByFlag() {
+        //2 = static pet relation
+        if (FlagSetup.getFlagMedAdd() == 2) {
+            checkBoxMed.setVisibility(View.GONE);
+
+            buttonAdd_med.setVisibility(View.VISIBLE);
+            buttonEdit_med.setVisibility(View.GONE);
+            buttonDelete_med.setVisibility(View.GONE);
+            buttonSaveEdit_med.setVisibility(View.GONE);
+            textViewRodentRelations_med.setVisibility(View.GONE);
+            textViewRodentRelationsInfo_med.setVisibility(View.GONE);
+        }
+
+        // 1 = adding new vet
+        if (FlagSetup.getFlagMedAdd() == 1) {
+            buttonAdd_med.setVisibility(View.VISIBLE);
+            buttonEdit_med.setVisibility(View.GONE);
+            buttonDelete_med.setVisibility(View.GONE);
+            buttonSaveEdit_med.setVisibility(View.GONE);
+            textViewRodentRelations_med.setVisibility(View.GONE);
+            textViewRodentRelationsInfo_med.setVisibility(View.GONE);
+        }
+
+        // 0 = edit
+        if (FlagSetup.getFlagMedAdd() == 0) {
+            buttonAdd_med.setVisibility(View.GONE);
+            buttonEdit_med.setVisibility(View.GONE);
+            buttonDelete_med.setVisibility(View.GONE);
+            buttonSaveEdit_med.setVisibility(View.VISIBLE);
+            textViewRodentRelations_med.setVisibility(View.GONE);
+            textViewRodentRelationsInfo_med.setVisibility(View.GONE);
+        }
+    }
+
 
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             finish();
-            viewMedicaments();
         }
         return super.onKeyDown(keyCode, event);
     }

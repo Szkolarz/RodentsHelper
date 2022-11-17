@@ -2,6 +2,7 @@ package com.example.rodentshelper.ROOM.Vet;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
@@ -96,35 +97,16 @@ LinearLayout aaa1;
 
 
 
+        setVisibilityByFlag();
 
-
-        System.out.println(FlagSetup.getFlagVetAdd());
-
-        //0 = widok zwykłej listy (edytuj + usuń)
-        if (FlagSetup.getFlagVetAdd() == 0) {
-
-        }
-        // 1 = dodawanie nowego
-        if (FlagSetup.getFlagVetAdd() == 1) {
-            buttonAdd_vet.setVisibility(View.VISIBLE);
-            buttonEdit_vet.setVisibility(View.GONE);
-            buttonDelete_vet.setVisibility(View.GONE);
-            buttonSaveEdit_vet.setVisibility(View.GONE);
-        }
 
         if (FlagSetup.getFlagVetAdd() == 0) {
-            buttonSaveEdit_vet.setVisibility(View.VISIBLE);
-            buttonAdd_vet.setVisibility(View.GONE);
-            buttonEdit_vet.setVisibility(View.GONE);
-            buttonDelete_vet.setVisibility(View.GONE);
 
             Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
             String nameKey = getIntent().getStringExtra("nameKey");
             String addressKey = getIntent().getStringExtra("addressKey");
             String phoneKey = getIntent().getStringExtra("phoneKey");
             String notesKey = getIntent().getStringExtra("notesKey");
-
-            System.out.println(nameKey);
 
             editTextName_vet.setText(nameKey);
             editTextAddress_vet.setText(addressKey);
@@ -189,6 +171,7 @@ LinearLayout aaa1;
                     ListViewVet.setVisibility(View.VISIBLE);
                 }
                 else {
+                    ListViewVet.clearChoices();
                     ListViewVet.setVisibility(View.GONE);
                 }
 
@@ -210,7 +193,6 @@ LinearLayout aaa1;
 
 
     public void saveVet() {
-
 
         editTextName_vet = findViewById(R.id.editTextName_vet);
         editTextAddress_vet = findViewById(R.id.editTextAddress_vet);
@@ -237,10 +219,7 @@ LinearLayout aaa1;
 
             System.out.println("DODANO");
 
-
             getSelectedItems(rodentVetDao);
-
-
 
             viewVets();
         }
@@ -248,12 +227,21 @@ LinearLayout aaa1;
     }
 
     public void getSelectedItems(DAO rodentVetDao) {
+        if (FlagSetup.getFlagVetAdd() == 2) {
+            SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
+            rodentVetDao.insertRecordRodentVet(new RodentVetModel (Integer.valueOf(prefsGetRodentId.getInt("rodentId", 0)), rodentVetDao.getLastIdVet().get(0)));
+            System.out.println(";lkjhgtfrdfghj,");
+            return;
+        }
+
         int listViewLength = ListViewVet.getCount();
         SparseBooleanArray checked = ListViewVet.getCheckedItemPositions();
         for (int i = 0; i < listViewLength; i++)
             if (checked.get(i)) {
                 //String item = ArrayListLV.get(i);
                 arrayListSelected.add(i);
+
+
 
                 if (FlagSetup.getFlagVetAdd() == 1)
                     rodentVetDao.insertRecordRodentVet(new RodentVetModel(arrayListID.get(i), rodentVetDao.getLastIdVet().get(0) ));
@@ -278,7 +266,36 @@ LinearLayout aaa1;
 
         }
         else {
+            listViewVet.clearChoices();
             listViewVet.setVisibility(View.GONE);
+        }
+    }
+
+    public void setVisibilityByFlag() {
+        //2 = static pet relation
+        if (FlagSetup.getFlagVetAdd() == 2) {
+            checkBoxVet.setVisibility(View.GONE);
+            System.out.println("qqqq");
+            buttonAdd_vet.setVisibility(View.VISIBLE);
+            buttonEdit_vet.setVisibility(View.GONE);
+            buttonDelete_vet.setVisibility(View.GONE);
+            buttonSaveEdit_vet.setVisibility(View.GONE);
+        }
+
+        // 1 = adding new vet
+        if (FlagSetup.getFlagVetAdd() == 1) {
+            buttonAdd_vet.setVisibility(View.VISIBLE);
+            buttonEdit_vet.setVisibility(View.GONE);
+            buttonDelete_vet.setVisibility(View.GONE);
+            buttonSaveEdit_vet.setVisibility(View.GONE);
+        }
+
+        // 0 = edit
+        if (FlagSetup.getFlagVetAdd() == 0) {
+            buttonSaveEdit_vet.setVisibility(View.VISIBLE);
+            buttonAdd_vet.setVisibility(View.GONE);
+            buttonEdit_vet.setVisibility(View.GONE);
+            buttonDelete_vet.setVisibility(View.GONE);
         }
     }
 

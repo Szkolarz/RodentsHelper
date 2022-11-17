@@ -2,6 +2,8 @@ package com.example.rodentshelper;
 
 public class FlagSetup {
 
+    private static Boolean flagIsFromHealth;
+
     private static Integer flagVetAdd;
 
     private static Integer flagRodentAdd;
@@ -54,5 +56,13 @@ public class FlagSetup {
 
     public static void setFlagNotesAdd(Integer flagNotesAdd) {
         FlagSetup.flagNotesAdd = flagNotesAdd;
+    }
+
+    public static Boolean getFlagIsFromHealth() {
+        return flagIsFromHealth;
+    }
+
+    public static void setFlagIsFromHealth(Boolean flagIsFromHealth) {
+        FlagSetup.flagIsFromHealth = flagIsFromHealth;
     }
 }

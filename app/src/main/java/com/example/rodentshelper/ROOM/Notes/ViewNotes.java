@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
@@ -87,12 +88,32 @@ public class ViewNotes extends AppCompatActivity {
         viewRodents();
     }
 
+    public void onClickNavEncyclopedia(View view)
+    {
+        viewEncyclopedia();
+    }
+
+    public void onClickNavOther(View view)
+    {
+        viewOther();
+    }
+
     public void viewRodents() {
         Intent intent = new Intent(ViewNotes.this, ViewRodents.class);
         startActivity(intent);
     }
 
     public void viewHealth() {
+        Intent intent = new Intent(ViewNotes.this, ViewHealth.class);
+        startActivity(intent);
+    }
+
+    public void viewEncyclopedia() {
+        Intent intent = new Intent(ViewNotes.this, ViewEncyclopedia.class);
+        startActivity(intent);
+    }
+
+    public void viewOther() {
         Intent intent = new Intent(ViewNotes.this, ViewHealth.class);
         startActivity(intent);
     }

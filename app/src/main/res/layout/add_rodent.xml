@@ -109,20 +109,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textViewDelete_rodent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:text="Całkowite usunięcie pupila z urządzenia"
-                        android:textAlignment="textEnd"
-                        android:textColor="#014D70"
-                        android:textColorHint="#77147A"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                    android:orientation="vertical"/>
 
             </LinearLayout>
 

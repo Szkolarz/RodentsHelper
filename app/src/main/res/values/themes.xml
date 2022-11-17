@@ -19,8 +19,8 @@
         <item name="android:background">#5397DF</item>
         <item name="android:colorAccent">#ACC5E1</item>
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textColorPrimary">#02577d</item>
-        <item name="colorPrimary">#9A2C2C</item>
+        <item name="android:textColorPrimary">#004275</item>
+        <item name="colorPrimary">#91101f</item>
 
 
     </style>

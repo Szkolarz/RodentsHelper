@@ -60,7 +60,7 @@ public class AddNotes extends Activity {
 
 
             Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
-            String id_rodentKey = (getIntent().getStringExtra("id_rodentKey"));
+            String id_animalKey = (getIntent().getStringExtra("id_animalKey"));
             String topicKey = getIntent().getStringExtra("topicKey");
             String contentKey = getIntent().getStringExtra("contentKey");
 

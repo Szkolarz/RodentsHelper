@@ -13,7 +13,7 @@ import java.sql.Date;
 public class NotesModel {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private Integer id;
 
     @ColumnInfo(name = "id_rodent")
     private Integer id_rodent;
@@ -32,11 +32,11 @@ public class NotesModel {
     }
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

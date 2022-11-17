@@ -41,13 +41,13 @@ public interface DAO {
             "JOIN medicaments ON rodents_medicaments.id_med = medicaments.id\n" +
             "JOIN rodents_medicaments ON rodents.id = rodents_medicaments.id_rodent\n" +
             "WHERE medicaments.id = :id")
-    List<String> getAllRodentsMeds(int id);
+    List<String> getAllRodentsMeds(Integer id);
 
     @Query ("DELETE FROM rodents_medicaments WHERE id_med = :id")
-    void DeleteAllRodentsMedsByMed(int id);
+    void DeleteAllRodentsMedsByMed(Integer id);
 
     @Query ("DELETE FROM rodents_medicaments WHERE id_rodent = :id")
-    void DeleteAllRodentsMedsByRodent(int id);
+    void DeleteAllRodentsMedsByRodent(Integer id);
 
 
 
@@ -55,20 +55,22 @@ public interface DAO {
     void insertRecordRodentVet(RodentVetModel rodents_vets);
 
     //@Query("SELECT name FROM rodents where id = :id")
-    //List<RodentModel> getAllRodentsVets(int id);
+    //List<RodentModel> getAllRodentsVets(Integer id);
 
     @Query ("SELECT rodents.name\n" +
             "FROM rodents\n" +
             "JOIN vets ON rodents_vets.id_vet = vets.id\n" +
             "JOIN rodents_vets ON rodents.id = rodents_vets.id_rodent\n" +
             "WHERE vets.id = :id")
-    List<String> getAllRodentsVets(int id);
+    List<String> getAllRodentsVets(Integer id);
+
+
 
     @Query ("DELETE FROM  rodents_vets WHERE id_vet = :id")
-    void DeleteAllRodentsVetsByVet(int id);
+    void DeleteAllRodentsVetsByVet(Integer id);
 
     @Query ("DELETE FROM rodents_vets WHERE id_rodent = :id")
-    void DeleteAllRodentsVetsByRodent(int id);
+    void DeleteAllRodentsVetsByRodent(Integer id);
 
     /*************/
     /** RODENTS **/
@@ -78,7 +80,7 @@ public interface DAO {
     void insertRecordRodent(RodentModel rodents);
 
     /*@Query("SELECT EXISTS(SELECT * FROM rodents WHERE id = :id)")
-    Boolean is_exist(int id);*/
+    Boolean is_exist(Integer id);*/
 
     @Query("SELECT * FROM rodents ORDER BY id ASC")
     List<RodentModel> getAllRodents();
@@ -90,14 +92,29 @@ public interface DAO {
     //List<RodentModel> getAllIdRodents();
 
     @Query("DELETE FROM rodents WHERE id = :id")
-    void deleteRodentById(int id);
+    void deleteRodentById(Integer id);
 
     @TypeConverters(Converters.class)
     @Query("UPDATE rodents SET id_animal = :id_animal, name = :name, gender = :gender, birth = :date, fur = :fur, notes = :notes, image = :image WHERE id = :id")
-    void updateRodentById(int id, int id_animal, String name, String gender, Date date, String fur, String notes, byte[] image);
+    void updateRodentById(Integer id, Integer id_animal, String name, String gender, Date date, String fur, String notes, byte[] image);
 
     @Query("SELECT image FROM rodents WHERE id = :id")
-    byte[] getImageById(int id);
+    byte[] getImageById(Integer id);
+
+    @Query ("SELECT vets.id, vets.name, vets.address, vets.phone_number, vets.notes FROM vets\n" +
+            "LEFT JOIN rodents  ON (rodents_vets.id_vet = vets.id)\n" +
+            "LEFT JOIN rodents_vets ON (rodents.id = rodents_vets.id_rodent)\n" +
+            "WHERE rodents.id = :id")
+    List<VetModel> getAllVetsByRodentId(Integer id);
+
+    @Query ("SELECT medicaments.id, medicaments.id_vet, medicaments.name, medicaments.description," +
+            "medicaments.periodicity, medicaments.date_start, medicaments.date_end FROM medicaments\n" +
+            "LEFT JOIN rodents  ON (rodents_medicaments.id_med = medicaments.id)\n" +
+            "LEFT JOIN rodents_medicaments ON (rodents.id = rodents_medicaments.id_rodent)\n" +
+            "WHERE rodents.id = :id")
+    List<MedicamentModel> getAllMedsByRodentId(Integer id);
+
+
 
 
     /**************/
@@ -114,11 +131,11 @@ public interface DAO {
     List<String> getAllNameVets();
 
     @Query("DELETE FROM vets WHERE id = :id")
-    void deleteVetById(int id);
+    void deleteVetById(Integer id);
 
     @TypeConverters(Converters.class)
     @Query("UPDATE vets SET name = :name, address = :address, phone_number = :phone, notes = :notes WHERE id = :id")
-    void updateVetById(int id, String name, String address, String phone, String notes);
+    void updateVetById(Integer id, String name, String address, String phone, String notes);
 
     @Query("SELECT id FROM vets WHERE id = (SELECT MAX(id) FROM vets)")
     List<Integer> getLastIdVet();
@@ -136,11 +153,11 @@ public interface DAO {
     List<MedicamentModel> getAllMedicaments();
 
     @Query("DELETE FROM medicaments WHERE id = :id")
-    void deleteMedById(int id);
+    void deleteMedById(Integer id);
 
     @TypeConverters(Converters.class)
     @Query("UPDATE medicaments SET id_vet = :id_vet, name = :name, description = :description, periodicity = :periodicity, date_start = :date_start, date_end = :date_end WHERE id = :id")
-    void updateMedById(int id, int id_vet, String name, String description, String periodicity, Date date_start, Date date_end);
+    void updateMedById(Integer id, Integer id_vet, String name, String description, String periodicity, Date date_start, Date date_end);
 
     @Query("SELECT id FROM medicaments WHERE id = (SELECT MAX(id) FROM medicaments)")
     List<Integer> getLastIdMed();
@@ -157,11 +174,11 @@ public interface DAO {
     List<VisitModel> getAllVisits();
 
     @Query("DELETE FROM visits WHERE id = :id")
-    void deleteVisitById(int id);
+    void deleteVisitById(Integer id);
 
     @TypeConverters(Converters.class)
     @Query("UPDATE visits SET id_vet = :id_vet, date = :date, time = :time, reason = :reason WHERE id = :id")
-    void updateVisitById(int id, Integer id_vet, Date date, String time, String reason);
+    void updateVisitById(Integer id, Integer id_vet, Date date, String time, String reason);
 
     @Query("SELECT id FROM medicaments WHERE id = (SELECT MAX(id) FROM medicaments)")
     List<Integer> getLastIdVisit();

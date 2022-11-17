@@ -3,6 +3,7 @@ package com.example.rodentshelper.MainViews;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.health.HealthStats;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
@@ -25,6 +27,13 @@ public class ViewHealth extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
+
+        //flag reset for proper working
+        FlagSetup.setFlagIsFromHealth(true);
+        FlagSetup.setFlagRodentAdd(0);
+        FlagSetup.setFlagVetAdd(0);
+        FlagSetup.setFlagVisitAdd(0);
+        FlagSetup.setFlagMedAdd(0);
 
 
         imageButtonVet1 = findViewById(R.id.imageButtonVet1);
@@ -68,6 +77,16 @@ public class ViewHealth extends AppCompatActivity {
 
     public void onClickNavHealth(View view) {}
 
+    public void onClickNavEncyclopedia(View view)
+    {
+        viewEncyclopedia();
+    }
+
+    public void onClickNavOther(View view)
+    {
+        viewOther();
+    }
+
     public void onClickHealth(View view)
     {
         Intent intent = new Intent(ViewHealth.this, ViewVets.class);
@@ -76,11 +95,14 @@ public class ViewHealth extends AppCompatActivity {
 
     public void onClickNavRodent(View view)
     {
-        Intent intent = new Intent(ViewHealth.this, ViewRodents.class);
-        startActivity(intent);
+        viewRodents();
     }
 
 
+    public void viewEncyclopedia() {
+        Intent intent = new Intent(ViewHealth.this, ViewEncyclopedia.class);
+        startActivity(intent);
+    }
 
     public void viewVets()
     {
@@ -102,8 +124,12 @@ public class ViewHealth extends AppCompatActivity {
 
     public void viewRodents()
     {
-        finish();
         Intent intent = new Intent(ViewHealth.this, ViewRodents.class);
+        startActivity(intent);
+    }
+
+    public void viewOther() {
+        Intent intent = new Intent(ViewHealth.this, ViewOther.class);
         startActivity(intent);
     }
 

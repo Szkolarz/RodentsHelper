@@ -91,11 +91,19 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
     public void onClickNavEncyclopedia(View view) {}
 
+    public void onClickNavOther(View view) {}
+
 
 
     public void viewVets()
     {
         Intent intent = new Intent(ViewEncyclopedia.this, ViewVets.class);
+        startActivity(intent);
+    }
+
+    public void viewOther()
+    {
+        Intent intent = new Intent(ViewEncyclopedia.this, ViewOther.class);
         startActivity(intent);
     }
 

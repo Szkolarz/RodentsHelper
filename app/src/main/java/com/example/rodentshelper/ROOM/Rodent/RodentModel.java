@@ -13,9 +13,9 @@ import java.sql.Date;
 public class RodentModel {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private Integer id;
     @ColumnInfo(name = "id_animal")
-    private int id_animal;
+    private Integer id_animal;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -45,11 +45,11 @@ public class RodentModel {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -61,11 +61,11 @@ public class RodentModel {
         this.name = name;
     }
 
-    public int getId_animal() {
+    public Integer getId_animal() {
         return id_animal;
     }
 
-    public void setId_animal(int id_animal) {
+    public void setId_animal(Integer id_animal) {
         this.id_animal = id_animal;
     }
 

@@ -35,7 +35,7 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
     List<MedicamentModel> medicamentModel;
 
     List<String> aaa;
-    private boolean flag = false;
+
 
     public AdapterMedicaments(List<MedicamentModel> medicamentModel) {
         this.medicamentModel = medicamentModel;
@@ -57,6 +57,8 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
         holder.editTextDescription_med.setEnabled(false);
         holder.editTextPeriodicity_med.setEnabled(false);
         holder.listViewMed.setVisibility(View.GONE);
+        holder.textViewRodentRelationsInfo_med.setVisibility(View.GONE);
+        holder.textViewRodentRelations_med.setVisibility(View.GONE);
 
         holder.checkBoxMed.setVisibility(View.GONE);
         holder.buttonAdd_med.setVisibility(View.GONE);
@@ -64,6 +66,7 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
         holder.imageViewDate1_med.setVisibility(View.GONE);
         holder.imageViewDate2_med.setVisibility(View.GONE);
 
+        boolean flag = false;
 
         holder.editTextName_med.setText(medicamentModel.get(position).getName());
         holder.editTextDescription_med.setText(medicamentModel.get(position).getDescription());
@@ -80,6 +83,7 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
             holder.textViewDateEnd_med.setText(medicamentModel.get(position).getDate_end().toString());
 
 
+        System.out.println("333");
 
 
 
@@ -96,37 +100,28 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(holder.listViewMed.getContext(), android.R.layout.simple_list_item_multiple_choice, holder.arrayListSelected);
         holder.listViewMed.setAdapter(adapter);
 
-        List<String> list = dao.getAllRodentsMeds(medicamentModel.get(position).getId());
 
+            List<String> list = dao.getAllRodentsMeds(medicamentModel.get(position).getId());
 
-        for (int j = 0; j < aaa.size(); j ++) {
-            holder.arrayListSelected.add(aaa.get(j));
-            for(int i = 0; i < list.size(); i++) {
+            holder.textViewRodentRelations_med.setText(null);
+            for (int j = 0; j < aaa.size(); j++) {
+                holder.arrayListSelected.add(aaa.get(j));
+                for (int i = 0; i < list.size(); i++) {
 
-                if (aaa.get(j).equals(list.get(i))) {
+                    if (aaa.get(j).equals(list.get(i))) {
 
-                    if ((i + 1) < list.size())
-                        holder.textViewRodentRelations_med.append(list.get(i) + "\n");
-                    else
-                        holder.textViewRodentRelations_med.append(list.get(i));
+                        if ((i + 1) < list.size())
+                            holder.textViewRodentRelations_med.append(list.get(i) + "\n");
+                        else
+                            holder.textViewRodentRelations_med.append(list.get(i));
 
-                    holder.listViewMed.setItemChecked(i, true);
-                    holder.checkBoxMed.setChecked(true);
+                        holder.textViewRodentRelationsInfo_med.setVisibility(View.VISIBLE);
+                        holder.textViewRodentRelations_med.setVisibility(View.VISIBLE);
+                    }
                 }
             }
-        }
-
-        checkCheckBox(holder.checkBoxMed, holder.listViewMed,
-                holder.textViewRodentRelations_med, holder.textViewRodentRelationsInfo_med);
 
 
-        holder.checkBoxMed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkCheckBox(holder.checkBoxMed, holder.listViewMed,
-                        holder.textViewRodentRelations_med, holder.textViewRodentRelationsInfo_med);
-            }
-        });
 
 
         holder.buttonDelete_med.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +149,8 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
               }
           });
 
+         holder.arrayListSelected.clear();
+         db.close();
     }
 
     /** usuwanie **/
@@ -196,21 +193,6 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
     }
 
 
-    private void checkCheckBox(CheckBox checkBoxVet, ListView listViewVet, TextView textViewRodentRelations_vet, TextView textViewRodentRelationsInfo_vet) {
-        if (textViewRodentRelations_vet.getText() != "") {
-            listViewVet.setVisibility(View.GONE);
-            listViewVet.setSelected(true);
-
-            textViewRodentRelations_vet.setVisibility(View.VISIBLE);
-            textViewRodentRelationsInfo_vet.setVisibility(View.VISIBLE);
-        }
-        else {
-            listViewVet.setVisibility(View.GONE);
-
-            textViewRodentRelations_vet.setVisibility(View.GONE);
-            textViewRodentRelationsInfo_vet.setVisibility(View.GONE);
-        }
-    }
 
 
     class viewHolder extends RecyclerView.ViewHolder

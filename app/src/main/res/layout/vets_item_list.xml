@@ -38,9 +38,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
                 android:layout_marginLeft="10dp"
+                android:hint="Nazwa"
                 android:maxLength="50"
                 android:maxLines="2"
-                android:text="Nazwa"
                 android:textColor="#014D70"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -62,8 +62,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:hint="Adres"
                 android:maxLines="3"
-                android:text="Adres"
                 android:textColor="#014D70"
                 android:textSize="24sp" />
 
@@ -120,9 +120,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:hint="Notatki"
                 android:maxLength="300"
                 android:maxLines="5"
-                android:text="Notatki"
                 android:textColor="#014D70"
                 android:textSize="24sp" />
 
@@ -147,7 +147,7 @@
                 android:layout_weight="1"
                 android:ellipsize="none"
                 android:maxLines="8"
-                android:textColor="#BE47FF"
+                android:textColor="#014D70"
                 android:textSize="17sp" />
 
             <CheckBox
@@ -232,9 +232,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="5dp"
                 android:layout_margin="6dp"
-                android:background="#CA7A7A" />
+                android:background="#048FCD" />
 
         </LinearLayout>
 

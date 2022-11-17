@@ -16,6 +16,7 @@ import androidx.room.Room;
 import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
@@ -96,6 +97,13 @@ public class ViewRodents extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onClickNavOther(View view)
+    {
+        Intent intent = new Intent(ViewRodents.this, ViewOther.class);
+        startActivity(intent);
+    }
+
+
     public void onClickNavRodent(View view) {}
 
     public List getListRodent(){
@@ -104,6 +112,7 @@ public class ViewRodents extends AppCompatActivity {
         DAO rodentDao = db.dao();
 
         List<RodentModel> rodentModel = rodentDao.getAllRodents();
+
         return rodentModel;
     }
 

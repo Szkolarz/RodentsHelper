@@ -2,6 +2,7 @@ package com.example.rodentshelper.ROOM.Visits;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -17,10 +18,12 @@ import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.ViewHealth;
+import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM.Vet.ViewVets;
 
 import java.util.List;
 
@@ -29,8 +32,8 @@ public class ViewVisits extends AppCompatActivity {
     RecyclerView recyclerView;
     Button buttonAddRecord;
 
-    TextView textViewEmpty_visit, textView3_health;
-    ImageView imageButton3_health;
+    TextView textViewEmpty_visit, textView3_health, textView1_rodent;
+    ImageView imageButton3_health, imageButton1_rodent;
 
 
     @Override
@@ -38,10 +41,19 @@ public class ViewVisits extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recycler);
 
-        imageButton3_health = findViewById(R.id.imageButton3_health);
-        textView3_health = findViewById(R.id.textView3_health);
-        imageButton3_health.setColorFilter(Color.WHITE);
-        textView3_health.setTextColor(Color.WHITE);
+        if (FlagSetup.getFlagIsFromHealth() == true) {
+            imageButton3_health = findViewById(R.id.imageButton3_health);
+            textView3_health = findViewById(R.id.textView3_health);
+            imageButton3_health.setColorFilter(Color.WHITE);
+            textView3_health.setTextColor(Color.WHITE);
+        }
+
+        if (FlagSetup.getFlagIsFromHealth() == false) {
+            imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
+            textView1_rodent = findViewById(R.id.textView1_rodent);
+            imageButton1_rodent.setColorFilter(Color.WHITE);
+            textView1_rodent.setTextColor(Color.WHITE);
+        }
 
         buttonAddRecord = findViewById(R.id.buttonAddRecord);
 
@@ -69,8 +81,13 @@ public class ViewVisits extends AppCompatActivity {
 
     public void addNewVisit()
     {
+
+        if (FlagSetup.getFlagIsFromHealth() == true)
+            FlagSetup.setFlagVisitAdd(1);
+        else
+            FlagSetup.setFlagVisitAdd(2);
         //1 = nowy
-        FlagSetup.setFlagVisitAdd(1);
+        //FlagSetup.setFlagVisitAdd(1);
         final Context context = this;
         Intent intent = new Intent(context, AddVisits.class);
         startActivity(intent);
@@ -86,6 +103,16 @@ public class ViewVisits extends AppCompatActivity {
     public void onClickNavRodent(View view)
     {
         viewRodents();
+    }
+
+    public void onClickNavOther(View view)
+    {
+        viewOther();
+    }
+
+    public void viewOther() {
+        Intent intent = new Intent(ViewVisits.this, ViewOther.class);
+        startActivity(intent);
     }
 
     public void viewRodents() {
@@ -112,7 +139,19 @@ public class ViewVisits extends AppCompatActivity {
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAO visitDao = db.dao();
 
-        List<VisitModel> visitModel = visitDao.getAllVisits();
+        List<VisitModel> visitModel = null;
+
+        if (FlagSetup.getFlagVisitAdd() == 2) {
+            /** później ogarnij  (porównaj do ViewVets) */
+            //SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
+            //visitModel = visitDao.getAllVetsByRodentId(prefsGetRodentId.getInt("rodentId", 0));
+            visitModel = visitDao.getAllVisits();
+        }
+        else {
+            visitModel = visitDao.getAllVisits();
+            FlagSetup.setFlagVisitAdd(1);
+        }
+
         return visitModel;
     }
 

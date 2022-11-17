@@ -84,7 +84,7 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
               public void onClick(View view) {
                   Intent intent = new Intent(new Intent(holder.buttonEdit_notes.getContext(), AddNotes.class));
                   intent.putExtra("idKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).getId()));
-                  intent.putExtra("id_rodentKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).getId_rodent()));
+                  intent.putExtra("id_animalKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).getId_rodent()));
                   intent.putExtra("topicKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).getTopic()));
                   intent.putExtra("contentKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).getContent()));
 
@@ -94,6 +94,8 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
               }
           });
 
+        holder.arrayListSelected.clear();
+        db.close();
     }
 
     /** usuwanie **/

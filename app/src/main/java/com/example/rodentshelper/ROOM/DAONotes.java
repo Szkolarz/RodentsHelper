@@ -15,10 +15,10 @@ public interface DAONotes {
     List<NotesModel> getAllNotes(Integer id_rodent);
 
     @Query("DELETE FROM notes WHERE id = :id")
-    void deleteNotesById(int id);
+    void deleteNotesById(Integer id);
 
     @Query("UPDATE notes SET topic = :topic, content = :content WHERE id = :id")
-    void updatNotesById(int id, String topic, String content);
+    void updatNotesById(Integer id, String topic, String content);
 
     @Query("SELECT vets.name FROM vets WHERE vets.id = :id")
     List<String> getAllVisitsVets(Integer id);

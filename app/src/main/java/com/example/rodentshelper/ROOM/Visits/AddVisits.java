@@ -112,30 +112,15 @@ public class AddVisits extends Activity {
         }
 
 
-        if (FlagSetup.getFlagVisitAdd() == 1) {
-            buttonAdd_visit.setVisibility(View.VISIBLE);
-            buttonEdit_visit.setVisibility(View.GONE);
-            buttonDelete_visit.setVisibility(View.GONE);
-            buttonSaveEdit_visit.setVisibility(View.GONE);
+        setVisibilityByFlag();
 
-            textViewVetRelations_visit.setVisibility(View.GONE);
-            textViewVetRelationsInfo_visit.setVisibility(View.GONE);
-        } else {
-            buttonAdd_visit.setVisibility(View.GONE);
-            buttonEdit_visit.setVisibility(View.GONE);
-            buttonDelete_visit.setVisibility(View.GONE);
-            buttonSaveEdit_visit.setVisibility(View.VISIBLE);
-
-            textViewVetRelations_visit.setVisibility(View.GONE);
-            textViewVetRelationsInfo_visit.setVisibility(View.GONE);
-
+        if (FlagSetup.getFlagVisitAdd() == 0) {
 
             Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
             String id_vetKey = (getIntent().getStringExtra("id_vetKey"));
             String dateKey = getIntent().getStringExtra("dateKey");
             String timeKey = getIntent().getStringExtra("timeKey");
             String reasonKey = getIntent().getStringExtra("reasonKey");
-
 
             editTextReason_visit.setText(reasonKey);
             textViewTime_visit.setText(timeKey);
@@ -158,8 +143,8 @@ public class AddVisits extends Activity {
                     }
                 }
             }
-            checkCheckBox(checkBoxVisit1, listViewVisit);
 
+            checkCheckBox(checkBoxVisit1, listViewVisit);
 
 
             buttonSaveEdit_visit.setOnClickListener(new View.OnClickListener() {
@@ -350,8 +335,44 @@ public class AddVisits extends Activity {
             listViewVisit.setSelected(true);
         }
         else {
+            listViewVisit.clearChoices();
             listViewVisit.setVisibility(View.GONE);
 
+        }
+    }
+
+
+    public void setVisibilityByFlag() {
+        //2 = static pet relation
+        if (FlagSetup.getFlagVisitAdd() == 2) {
+            checkBoxVisit1.setVisibility(View.GONE);
+
+            buttonAdd_visit.setVisibility(View.VISIBLE);
+            buttonEdit_visit.setVisibility(View.GONE);
+            buttonDelete_visit.setVisibility(View.GONE);
+            buttonSaveEdit_visit.setVisibility(View.GONE);
+            textViewVetRelations_visit.setVisibility(View.GONE);
+            textViewVetRelationsInfo_visit.setVisibility(View.GONE);
+        }
+
+        // 1 = adding new vet
+        if (FlagSetup.getFlagVisitAdd() == 1) {
+            buttonAdd_visit.setVisibility(View.VISIBLE);
+            buttonEdit_visit.setVisibility(View.GONE);
+            buttonDelete_visit.setVisibility(View.GONE);
+            buttonSaveEdit_visit.setVisibility(View.GONE);
+            textViewVetRelations_visit.setVisibility(View.GONE);
+            textViewVetRelationsInfo_visit.setVisibility(View.GONE);
+        }
+
+        // 0 = edit
+        if (FlagSetup.getFlagVisitAdd() == 0) {
+            buttonAdd_visit.setVisibility(View.GONE);
+            buttonEdit_visit.setVisibility(View.GONE);
+            buttonDelete_visit.setVisibility(View.GONE);
+            buttonSaveEdit_visit.setVisibility(View.VISIBLE);
+            textViewVetRelations_visit.setVisibility(View.GONE);
+            textViewVetRelationsInfo_visit.setVisibility(View.GONE);
         }
     }
 

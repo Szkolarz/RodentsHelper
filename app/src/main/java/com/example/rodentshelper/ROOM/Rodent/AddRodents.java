@@ -46,7 +46,7 @@ public class AddRodents extends Activity {
     EditText editTextNotes, editTextName, editTextFur;
     Button buttonAdd_rodent, buttonEdit_rodent;
     ImageView buttonDelete_rodent;
-    TextView textViewDelete_rodent, textViewDeleteImage_rodent;
+    TextView textViewDeleteImage_rodent;
     RadioButton radioButtonGender1, radioButtonGender2;
 
     RadioGroup radioGroup;
@@ -80,7 +80,6 @@ public class AddRodents extends Activity {
         buttonAdd_rodent = findViewById(R.id.buttonAdd_rodent);
         buttonEdit_rodent = findViewById(R.id.buttonSaveEdit_rodent);
         buttonDelete_rodent = findViewById(R.id.buttonDelete_rodent);
-        textViewDelete_rodent = findViewById(R.id.textViewDelete_rodent);
         textViewDeleteImage_rodent = findViewById(R.id.textViewDeleteImage_rodent);
 
 
@@ -96,7 +95,6 @@ public class AddRodents extends Activity {
             buttonAdd_rodent.setVisibility(View.VISIBLE);
             buttonEdit_rodent.setVisibility(View.GONE);
             buttonDelete_rodent.setVisibility(View.GONE);
-            textViewDelete_rodent.setVisibility(View.GONE);
         }
         else {
             buttonAdd_rodent.setVisibility(View.GONE);

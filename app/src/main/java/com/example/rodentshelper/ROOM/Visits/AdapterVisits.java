@@ -54,8 +54,10 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
 
         holder.editTextReason_visit.setEnabled(false);
         holder.textViewTime_visit.setEnabled(false);
-
         holder.listViewVisit.setVisibility(View.GONE);
+
+        holder.textViewVetRelationsInfo_visit.setVisibility(View.GONE);
+        holder.textViewVetRelations_visit.setVisibility(View.GONE);
 
         holder.checkBoxVisit1.setVisibility(View.GONE);
         holder.checkBoxVisit2.setVisibility(View.GONE);
@@ -94,10 +96,9 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
         System.out.println(visitModel.get(position).getId_vet() + "kj");
 
         if (visitModel.get(position).getId_vet() != null) {
-
             List<String> list = dao.getAllVisitsVets(visitModel.get(position).getId_vet());
 
-
+            holder.textViewVetRelations_visit.setText(null);
             for (int j = 0; j < aaa.size(); j++) {
                 holder.arrayListSelected.add(aaa.get(j));
                 for (int i = 0; i < list.size(); i++) {
@@ -109,23 +110,13 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
                         else
                             holder.textViewVetRelations_visit.append(list.get(i));
 
-                        holder.listViewVisit.setItemChecked(i, true);
-                        holder.checkBoxVisit1.setChecked(true);
+                        holder.textViewVetRelationsInfo_visit.setVisibility(View.VISIBLE);
+                        holder.textViewVetRelations_visit.setVisibility(View.VISIBLE);
                     }
                 }
             }
         }
-        checkCheckBox(holder.checkBoxVisit1, holder.listViewVisit,
-                holder.textViewVetRelations_visit, holder.textViewVetRelationsInfo_visit);
 
-
-        holder.checkBoxVisit1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkCheckBox(holder.checkBoxVisit1, holder.listViewVisit,
-                        holder.textViewVetRelations_visit, holder.textViewVetRelationsInfo_visit);
-            }
-        });
 
 
         holder.buttonDelete_visit.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +126,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
               }
         });
 
-         holder.buttonEdit_visit.setOnClickListener(new View.OnClickListener() {
+        holder.buttonEdit_visit.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
                   Intent intent = new Intent(new Intent(holder.buttonEdit_visit.getContext(), AddVisits.class));
@@ -149,8 +140,10 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
                   FlagSetup.setFlagVisitAdd(0);
                   holder.buttonEdit_visit.getContext().startActivity(intent);
               }
-          });
+        });
 
+        holder.arrayListSelected.clear();
+        db.close();
     }
 
     /** usuwanie **/

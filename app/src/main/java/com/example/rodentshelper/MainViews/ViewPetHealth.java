@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Notes.ViewNotes;
@@ -37,6 +38,11 @@ public class ViewPetHealth extends AppCompatActivity {
         Integer id_animalKey = Integer.parseInt(getIntent().getStringExtra("id_animalKey"));
         String nameKey = getIntent().getStringExtra("nameKey");
 
+        //setting up flags for making proper relations (for ex. checkbox visibility: gone)
+        FlagSetup.setFlagIsFromHealth(false);
+        FlagSetup.setFlagVetAdd(2);
+        FlagSetup.setFlagVisitAdd(2);
+        FlagSetup.setFlagMedAdd(2);
 
         imageButtonVet1 = findViewById(R.id.imageButtonVet1);
         imageButtonMed = findViewById(R.id.imageButtonMed);
@@ -132,6 +138,18 @@ public class ViewPetHealth extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onClickNavEncyclopedia(View view)
+    {
+        Intent intent = new Intent(ViewPetHealth.this, ViewEncyclopedia.class);
+        startActivity(intent);
+    }
+
+    public void onClickNavOther(View view)
+    {
+        Intent intent = new Intent(ViewPetHealth.this, ViewOther.class);
+        startActivity(intent);
+    }
+
 
 
     public void viewVets()
@@ -169,13 +187,13 @@ public class ViewPetHealth extends AppCompatActivity {
 
 
 
-    @Override
+    /*@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             viewRodents();
         }
         return super.onKeyDown(keyCode, event);
-    }
+    }*/
 
 
 }

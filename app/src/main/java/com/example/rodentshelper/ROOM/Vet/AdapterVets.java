@@ -54,12 +54,13 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
     @Override
     public void onBindViewHolder(@NonNull @NotNull viewHolder holder, int position) {
 
-
-
         holder.editTextName_vet.setEnabled(false);
         holder.editTextAddress_vet.setEnabled(false);
         holder.editTextPhone_vet.setEnabled(false);
         holder.editTextNotes_vet.setEnabled(false);
+        holder.ListViewVet.setVisibility(View.GONE);
+        holder.textViewRodentRelationsInfo_vet.setVisibility(View.GONE);
+        holder.textViewRodentRelations_vet.setVisibility(View.GONE);
 
         holder.checkBoxVet.setVisibility(View.GONE);
         holder.buttonAdd_vet.setVisibility(View.GONE);
@@ -96,27 +97,23 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
             flag = true;
         }*/
 
+
+
         List<String> list = dao.getAllRodentsVets(vetModel.get(position).getId());
 
-
         for (int j = 0; j < aaa.size(); j ++) {
-
             holder.arrayListSelected.add(aaa.get(j));
             for(int i = 0; i < list.size(); i++) {
-
-
                 if (aaa.get(j).equals(list.get(i))) {
-
                     if ((i + 1) < list.size())
                         holder.textViewRodentRelations_vet.append(list.get(i) + "\n");
                     else
                         holder.textViewRodentRelations_vet.append(list.get(i));
 
+                    holder.textViewRodentRelationsInfo_vet.setVisibility(View.VISIBLE);
+                    holder.textViewRodentRelations_vet.setVisibility(View.VISIBLE);
 
-                    holder.ListViewVet.setItemChecked(i, true);
-                    holder.checkBoxVet.setChecked(true);
                 }
-
             }
         }
 
@@ -125,18 +122,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
         else
             holder.checkBoxVet.setChecked(true);*/
 
-        checkCheckBox(holder.checkBoxVet, holder.ListViewVet,
-                holder.textViewRodentRelations_vet, holder.textViewRodentRelationsInfo_vet);
 
-
-
-        holder.checkBoxVet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkCheckBox(holder.checkBoxVet, holder.ListViewVet,
-                        holder.textViewRodentRelations_vet, holder.textViewRodentRelationsInfo_vet);
-            }
-        });
 
         /*if (vetDao.getNameRelations_VetAndRodent(vetModel.get(position).getId()) != null)
             holder.editTextNotes_vet.setText(vetDao.getNameRelations_VetAndRodent(vetModel.get(position).getId()).toString());
@@ -214,9 +200,8 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
               }
           });
 
-
-
-
+        holder.arrayListSelected.clear();
+        db.close();
     }
 
     @Override
@@ -229,21 +214,6 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
     }
 
 
-    private void checkCheckBox(CheckBox checkBoxVet, ListView listViewVet, TextView textViewRodentRelations_vet, TextView textViewRodentRelationsInfo_vet) {
-        if (textViewRodentRelations_vet.getText() != "") {
-            listViewVet.setVisibility(View.GONE);
-            listViewVet.setSelected(true);
-
-            textViewRodentRelations_vet.setVisibility(View.VISIBLE);
-            textViewRodentRelationsInfo_vet.setVisibility(View.VISIBLE);
-        }
-        else {
-            listViewVet.setVisibility(View.GONE);
-
-            textViewRodentRelations_vet.setVisibility(View.GONE);
-            textViewRodentRelationsInfo_vet.setVisibility(View.GONE);
-        }
-    }
 
 
     class viewHolder extends RecyclerView.ViewHolder
