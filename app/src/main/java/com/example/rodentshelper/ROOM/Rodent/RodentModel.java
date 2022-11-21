@@ -13,11 +13,11 @@ import java.sql.Date;
 public class RodentModel {
 
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    private Integer id_rodent;
     @ColumnInfo(name = "id_animal")
     private Integer id_animal;
 
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "name1")
     private String name;
     @ColumnInfo(name = "gender")
     private String gender;
@@ -26,13 +26,15 @@ public class RodentModel {
     private Date birth;
     @ColumnInfo(name = "fur")
     private String fur;
-    @ColumnInfo(name = "notes")
+    @ColumnInfo(name = "notes1")
     private String notes;
 
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     private byte[] image;
 
+    public RodentModel() {
 
+    }
 
     public RodentModel(Integer id_animal, String name, String gender, Date birth, String fur, String notes, byte[] image) {
         this.id_animal = id_animal;
@@ -45,12 +47,21 @@ public class RodentModel {
 
     }
 
+    public Integer getId_rodent() {
+        return id_rodent;
+    }
+
+    public void setId_rodent(Integer id_rodent) {
+        this.id_rodent = id_rodent;
+    }
+
+
     public Integer getId() {
-        return id;
+        return id_rodent;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.id_rodent = id;
     }
 
     public String getName() {

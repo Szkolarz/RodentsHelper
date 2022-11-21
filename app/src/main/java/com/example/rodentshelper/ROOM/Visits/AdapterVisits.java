@@ -23,6 +23,9 @@ import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM.DAORelations;
+import com.example.rodentshelper.ROOM.DAOVets;
+import com.example.rodentshelper.ROOM.DAOVisits;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -52,6 +55,11 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
     @Override
     public void onBindViewHolder(@NonNull @NotNull viewHolder holder, int position) {
 
+        AppDatabase db = Room.databaseBuilder(holder.editTextReason_visit.getContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAOVets dao = db.daoVets();
+        DAOVisits daoVisits = db.daoVisits();
+
         holder.editTextReason_visit.setEnabled(false);
         holder.textViewTime_visit.setEnabled(false);
         holder.listViewVisit.setVisibility(View.GONE);
@@ -79,9 +87,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
 
 
 
-        AppDatabase db = Room.databaseBuilder(holder.editTextReason_visit.getContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAO dao = db.dao();
+
 
         if (flag == false) {
             aaa = dao.getAllNameVets();
@@ -96,7 +102,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
         System.out.println(visitModel.get(position).getId_vet() + "kj");
 
         if (visitModel.get(position).getId_vet() != null) {
-            List<String> list = dao.getAllVisitsVets(visitModel.get(position).getId_vet());
+            List<String> list = daoVisits.getAllVisitsVets(visitModel.get(position).getId_vet());
 
             holder.textViewVetRelations_visit.setText(null);
             for (int j = 0; j < aaa.size(); j++) {
@@ -122,7 +128,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
         holder.buttonDelete_visit.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
-                  deleteVisit(holder.buttonDelete_visit.getContext(), holder);
+                  deleteVisit(holder.buttonDelete_visit.getContext(), holder, daoVisits);
               }
         });
 
@@ -147,7 +153,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
     }
 
     /** usuwanie **/
-    private void deleteVisit(Context context, viewHolder holder) {
+    private void deleteVisit(Context context, viewHolder holder, DAOVisits daoVisits) {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Usuwanie wizyty");
@@ -156,11 +162,8 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(context, "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
-                AppDatabase db = Room.databaseBuilder(context,
-                        AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                DAO visitDao = db.dao();
 
-                visitDao.deleteVisitById(visitModel.get(holder.getAdapterPosition()).getId());
+                daoVisits.deleteVisitById(visitModel.get(holder.getAdapterPosition()).getId());
 
                 visitModel.remove(holder.getAdapterPosition());
 

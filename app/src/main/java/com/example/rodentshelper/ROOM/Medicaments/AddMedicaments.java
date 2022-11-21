@@ -25,13 +25,18 @@ import android.widget.Toast;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.ROOM.DAOMedicaments;
+import com.example.rodentshelper.ROOM.DAORodents;
+import com.example.rodentshelper.ROOM.DAOVets;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM._MTM.MedicamentWithRodentsCrossRef;
 import com.example.rodentshelper.ROOM._MTM.RodentMedModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM._MTM.RodentVetModel;
+import com.example.rodentshelper.ROOM._MTM.VetWithRodentsCrossRef;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -48,6 +53,22 @@ public class AddMedicaments extends Activity {
     ListView listViewMed;
     CheckBox checkBoxMed;
 
+
+    private AppDatabase getAppDatabase () {
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        return db;
+    }
+
+    private DAORodents getDaoRodents () {
+        DAORodents daoRodents = getAppDatabase().daoRodents();
+        return daoRodents;
+    }
+
+    private DAOMedicaments getDaoMedicaments () {
+        DAOMedicaments daoMedicaments = getAppDatabase().daoMedicaments();
+        return daoMedicaments;
+    }
 
     private DatePickerDialog.OnDateSetListener dateSetListener1, dateSetListener2;
     private Date dateFormat1 = null, dateFormat2 = null;
@@ -99,21 +120,15 @@ public class AddMedicaments extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, arrayListLV);
 
         // on below line we are setting adapter for our list view.
-        listViewMed.setAdapter(adapter);
 
 
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAO rodentDao = db.dao();
-
-
-        List<RodentModel> rodentModel = rodentDao.getAllRodents();
+        List<RodentModel> rodentModel = getDaoRodents().getAllRodents();
 
         for(int i = 0; i < rodentModel.size(); i++) {
             arrayListID.add(rodentModel.get(i).getId());
             arrayListLV.add(rodentModel.get(i).getName());
         }
-
+        listViewMed.setAdapter(adapter);
 
         setVisibilityByFlag();
 
@@ -154,20 +169,29 @@ public class AddMedicaments extends Activity {
             textViewDateEnd_med.setText(date_endKey);
 
 
-            DAO medDao = db.dao();
+            List<MedicamentWithRodentsCrossRef> medicamentModel = getDaoMedicaments().getMedsWithRodents();
 
-            List<String> list = medDao.getAllRodentsMeds(idKey);
+
+            checkBoxMed.setChecked(true);
+            checkCheckBox();
+
+            Integer positionKey = Integer.parseInt(getIntent().getStringExtra("positionKey"));
 
             for (int j = 0; j < arrayListLV.size(); j ++) {
-                for(int i = 0; i < list.size(); i++) {
-                    if (arrayListLV.get(j).equals(list.get(i))) {
-                        listViewMed.setItemChecked(j, true);
-                        checkBoxMed.setChecked(true);
+                try {
+                    for (int i = 0; i < medicamentModel.get(positionKey).rodents.size(); i++) {
+                        if (arrayListLV.get(j).equals(medicamentModel.get(positionKey).rodents.get(i).getName())) {
+                            listViewMed.setItemChecked(j, true);
+                            checkBoxMed.setChecked(true);
+                        }
                     }
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("There is no any rodent left in relation");
                 }
             }
 
-            checkCheckBox(checkBoxMed, listViewMed);
+
+
 
 
 
@@ -188,19 +212,17 @@ public class AddMedicaments extends Activity {
 
 
 
-                    AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                            AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                    DAO medDao = db.dao();
-                    medDao.updateMedById(idKey, id_vetKey, editTextName_med.getText().toString(),
+                    getDaoMedicaments().updateMedById(idKey, id_vetKey, editTextName_med.getText().toString(),
                             editTextDescription_med.getText().toString(), editTextPeriodicity_med.getText().toString(),
                             dateFormat1, dateFormat2);
 
-                    medDao.DeleteAllRodentsMedsByMed(idKey);
+                    getDaoMedicaments().DeleteAllRodentsMedsByMed(idKey);
 
-                    getRodentMed(medDao);
+                    getRodentMed(getDaoMedicaments());
 
-                    viewMedicaments();
                     finish();
+                    viewMedicaments();
+
 
                 }
             });
@@ -246,13 +268,7 @@ public class AddMedicaments extends Activity {
         checkBoxMed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkBoxMed.isChecked()) {
-                    listViewMed.setVisibility(View.VISIBLE);
-                }
-                else {
-                    listViewMed.clearChoices();
-                    listViewMed.setVisibility(View.GONE);
-                }
+                checkCheckBox();
             }
         });
 
@@ -318,27 +334,22 @@ public class AddMedicaments extends Activity {
         }
         else {
 
-            AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-            DAO medDao = db.dao();
-
-            medDao.insertRecordMed(new MedicamentModel(1, stringName, stringDescription, stringPeriodicity, (stringDate1), (stringDate2)));
+            getDaoMedicaments().insertRecordMed(new MedicamentModel(1, stringName, stringDescription, stringPeriodicity, (stringDate1), (stringDate2)));
 
             System.out.println("DODANO");
-            getRodentMed(medDao);
+            getRodentMed(getDaoMedicaments());
 
             viewMedicaments();
         }
 
     }
 
-    public void getRodentMed(DAO rodentMedDao) {
+    public void getRodentMed(DAOMedicaments rodentMedDao) {
 
         if (FlagSetup.getFlagMedAdd() == 2) {
             SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
             rodentMedDao.insertRecordRodentMed(new RodentMedModel(Integer.valueOf(prefsGetRodentId.getInt("rodentId", 0)), rodentMedDao.getLastIdMed().get(0)));
-
-
+            return;
         }
 
         int listViewLength = listViewMed.getCount();
@@ -351,7 +362,6 @@ public class AddMedicaments extends Activity {
                     rodentMedDao.insertRecordRodentMed(new RodentMedModel(arrayListID.get(i), rodentMedDao.getLastIdMed().get(0)));
                 else {
                     Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
-                    System.out.println("DZIKDSAKSAODKSA\ng\ng" + idKey);
                     rodentMedDao.insertRecordRodentMed(new RodentMedModel(arrayListID.get(i), idKey));
                 }
             }
@@ -367,7 +377,7 @@ public class AddMedicaments extends Activity {
         startActivity(new Intent(getApplicationContext(), ViewRodents.class));
     }
 
-    private void checkCheckBox(CheckBox checkBoxMed, ListView listViewMed) {
+    private void checkCheckBox() {
         if (checkBoxMed.isChecked()) {
             listViewMed.setVisibility(View.VISIBLE);
             listViewMed.setSelected(true);

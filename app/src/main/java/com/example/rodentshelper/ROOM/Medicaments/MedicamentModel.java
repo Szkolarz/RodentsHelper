@@ -13,7 +13,7 @@ import java.sql.Date;
 public class MedicamentModel {
 
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    private Integer id_medicament;
 
     @ColumnInfo(name = "id_vet")
     private Integer id_vet;
@@ -45,12 +45,12 @@ public class MedicamentModel {
         this.date_end = date_end;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getId_medicament() {
+        return id_medicament;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId_medicament(Integer id_medicament) {
+        this.id_medicament = id_medicament;
     }
 
     public Integer getId_vet() {

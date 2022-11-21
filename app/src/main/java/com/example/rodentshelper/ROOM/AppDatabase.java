@@ -18,6 +18,10 @@ import com.example.rodentshelper.ROOM.Visits.VisitModel;
         version = 4)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract DAO dao();
+    public abstract DAORodents daoRodents();
     public abstract DAONotes daoNotes();
+    public abstract DAOVets daoVets();
+    public abstract DAOVisits daoVisits();
+    public abstract DAOMedicaments daoMedicaments();
 }
 

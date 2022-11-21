@@ -19,6 +19,8 @@ import androidx.room.Room;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.MainViews.ViewOther;
+import com.example.rodentshelper.ROOM.DAOVets;
+import com.example.rodentshelper.ROOM.DAOVisits;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
@@ -35,6 +37,16 @@ public class ViewVisits extends AppCompatActivity {
     TextView textViewEmpty_visit, textView3_health, textView1_rodent;
     ImageView imageButton3_health, imageButton1_rodent;
 
+    private AppDatabase getAppDatabase () {
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        return db;
+    }
+
+    private DAOVisits getDaoVisits () {
+        DAOVisits daoVisits = getAppDatabase().daoVisits();
+        return daoVisits;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,9 +147,7 @@ public class ViewVisits extends AppCompatActivity {
 
 
     public List getListVisits(){
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAO visitDao = db.dao();
+
 
         List<VisitModel> visitModel = null;
 
@@ -145,10 +155,10 @@ public class ViewVisits extends AppCompatActivity {
             /** później ogarnij  (porównaj do ViewVets) */
             //SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
             //visitModel = visitDao.getAllVetsByRodentId(prefsGetRodentId.getInt("rodentId", 0));
-            visitModel = visitDao.getAllVisits();
+            visitModel = getDaoVisits().getAllVisits();
         }
         else {
-            visitModel = visitDao.getAllVisits();
+            visitModel = getDaoVisits().getAllVisits();
             FlagSetup.setFlagVisitAdd(1);
         }
 

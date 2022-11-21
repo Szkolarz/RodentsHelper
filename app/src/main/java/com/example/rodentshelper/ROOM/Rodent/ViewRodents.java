@@ -20,6 +20,7 @@ import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM.DAORodents;
 
 import java.util.List;
 
@@ -29,6 +30,16 @@ public class ViewRodents extends AppCompatActivity {
     TextView textViewEmpty_rodent, textView1_rodent;
     ImageView imageButton1_rodent;
     Button buttonAddRecord;
+
+    private DAORodents getDao () {
+         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+         DAORodents daoRodents = db.daoRodents();
+
+         return daoRodents;
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,11 +118,8 @@ public class ViewRodents extends AppCompatActivity {
     public void onClickNavRodent(View view) {}
 
     public List getListRodent(){
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAO rodentDao = db.dao();
-
-        List<RodentModel> rodentModel = rodentDao.getAllRodents();
+        DAORodents daoRodents = getDao();
+        List<RodentModel> rodentModel = daoRodents.getAllRodents();
 
         return rodentModel;
     }

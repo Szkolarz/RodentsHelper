@@ -20,10 +20,13 @@ import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.MainViews.ViewOther;
+import com.example.rodentshelper.ROOM.DAOMedicaments;
+import com.example.rodentshelper.ROOM.DAORodents;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM._MTM.MedicamentWithRodentsCrossRef;
 
 
 import java.util.List;
@@ -36,6 +39,16 @@ public class ViewMedicaments extends AppCompatActivity {
     TextView textViewEmpty_med, textView3_health, textView1_rodent;
     ImageView imageButton3_health, imageButton1_rodent;
 
+    private AppDatabase getAppDatabase () {
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        return db;
+    }
+
+    private DAOMedicaments getDaoMedicaments () {
+        DAOMedicaments daoMedicaments = getAppDatabase().daoMedicaments();
+        return daoMedicaments;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +62,7 @@ public class ViewMedicaments extends AppCompatActivity {
             textView3_health.setTextColor(Color.WHITE);
         }
         if (FlagSetup.getFlagIsFromHealth() == false) {
+            FlagSetup.setFlagMedAdd(2);
             imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
             textView1_rodent = findViewById(R.id.textView1_rodent);
             imageButton1_rodent.setColorFilter(Color.WHITE);
@@ -63,7 +77,7 @@ public class ViewMedicaments extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         getRoomData();
-        System.out.println("222");
+
         textViewEmpty_med = findViewById(R.id.textViewEmptyGlobal);
 
         if (getListMedicament().isEmpty()) {
@@ -138,30 +152,29 @@ public class ViewMedicaments extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
+    /*@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             viewHealth();
         }
         return super.onKeyDown(keyCode, event);
-    }
+    }*/
 
 
     public List getListMedicament(){
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAO medDao = db.dao();
-        List<MedicamentModel> medicamentModel = null;
+
+        List<MedicamentWithRodentsCrossRef> medicamentModel = null;
 
         if (FlagSetup.getFlagMedAdd() == 2) {
             SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
-            medicamentModel = medDao.getAllMedsByRodentId(prefsGetRodentId.getInt("rodentId", 0));
+            medicamentModel = getDaoMedicaments().getMedsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
         }
         else {
-            medicamentModel = medDao.getAllMedicaments();
+            medicamentModel = getDaoMedicaments().getMedsWithRodents();
             FlagSetup.setFlagMedAdd(1);
         }
-        db.close();
+        /** !!! **/
+        //db.close();
 
         System.out.println("111");
 

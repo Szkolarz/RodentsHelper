@@ -1,18 +1,25 @@
 package com.example.rodentshelper.ROOM._MTM;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.Junction;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
 
-@Entity(tableName = "rodents_vets")
+import com.example.rodentshelper.ROOM.Rodent.RodentModel;
+import com.example.rodentshelper.ROOM.Vet.VetModel;
+
+import java.util.List;
+
+@Entity(
+        primaryKeys = {"id_rodent", "id_vet"})
 public class RodentVetModel {
 
-    @PrimaryKey(autoGenerate = true)
-    private Integer id;
-
-    @ColumnInfo(name = "id_rodent")
+    @NonNull
     private Integer id_rodent;
-    @ColumnInfo(name = "id_vet")
+    @NonNull
     private Integer id_vet;
 
 
@@ -22,13 +29,7 @@ public class RodentVetModel {
         this.id_vet = id_vet;
     }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getId_rodent() {
         return id_rodent;
@@ -46,3 +47,4 @@ public class RodentVetModel {
         this.id_vet = id_vet;
     }
 }
+

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.ViewPetHealth;
 import com.example.rodentshelper.R;
+import com.example.rodentshelper.ROOM.DateFormat;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -59,12 +60,14 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
             holder.textViewNotes.setText(rodentModel.get(position).getNotes());
         }
 
+
         Bitmap bitmap = BitmapFactory.decodeByteArray(rodentModel.get(position).getImage(), 0, rodentModel.get(position).getImage().length);
         holder.imageViewList_rodent.setImageBitmap(bitmap);
 
         holder.textViewName.setText(rodentModel.get(position).getName());
         holder.textViewGender.setText(rodentModel.get(position).getGender());
-        holder.textViewDate.setText(rodentModel.get(position).getBirth().toString());
+
+        holder.textViewDate.setText( DateFormat.formatDate(rodentModel.get(position).getBirth()) );
 
         holder.textViewNotes.setText(rodentModel.get(position).getNotes());
 

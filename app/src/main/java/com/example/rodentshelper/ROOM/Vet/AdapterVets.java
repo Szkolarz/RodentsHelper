@@ -18,8 +18,8 @@ import androidx.room.Room;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAO;
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
+import com.example.rodentshelper.ROOM.DAOVets;
+import com.example.rodentshelper.ROOM._MTM.VetWithRodentsCrossRef;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -28,16 +28,12 @@ import java.util.List;
 
 public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
 {
-    List<VetModel> vetModel;
+    List<VetWithRodentsCrossRef> vetModel;
 
 
-    private ArrayList<String> arrayListAll;
-    private boolean flag = false;
-    private List<RodentModel> lisjtOfAllRodents;
-    List<String> aaa;
 
 
-    public AdapterVets(List<VetModel> vetModel) {
+    public AdapterVets(List<VetWithRodentsCrossRef> vetModel) {
         this.vetModel = vetModel;
     }
 
@@ -46,13 +42,16 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
     @Override
     public viewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.vets_item_list,parent,false);
-        flag = false;
 
         return new viewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull viewHolder holder, int position) {
+
+        AppDatabase db = Room.databaseBuilder(holder.editTextName_vet.getContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAOVets vetDao = db.daoVets();
 
         holder.editTextName_vet.setEnabled(false);
         holder.editTextAddress_vet.setEnabled(false);
@@ -67,10 +66,27 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
         holder.buttonSaveEdit_vet.setVisibility(View.GONE);
 
 
-        holder.editTextName_vet.setText(vetModel.get(position).getName());
-        holder.editTextAddress_vet.setText(vetModel.get(position).getAddress());
-        holder.editTextPhone_vet.setText(vetModel.get(position).getPhone_number());
-        holder.editTextNotes_vet.setText(vetModel.get(position).getNotes());
+        holder.editTextName_vet.append(vetModel.get(position).vetModel.getName());
+        holder.editTextAddress_vet.append(vetModel.get(position).vetModel.getAddress());
+        holder.editTextPhone_vet.append(vetModel.get(position).vetModel.getPhone_number());
+        holder.editTextNotes_vet.append(vetModel.get(position).vetModel.getNotes());
+
+
+
+
+        try {
+            for (int i = 0; i < vetModel.get(position).rodents.size(); i++) {
+                if ((i + 1) < vetModel.get(position).rodents.size())
+                    holder.textViewRodentRelations_vet.append(vetModel.get(position).rodents.get(i).getName() + "\n");
+                else
+                    holder.textViewRodentRelations_vet.append(vetModel.get(position).rodents.get(i).getName());
+                holder.textViewRodentRelationsInfo_vet.setVisibility(View.VISIBLE);
+                holder.textViewRodentRelations_vet.setVisibility(View.VISIBLE);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("There is no any rodent left in relation");
+        }
+
 
 
 
@@ -78,130 +94,42 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
         holder.ListViewVet.setAdapter(adapter);
 
 
+        holder.buttonDelete_vet.setOnClickListener(view -> onClickDelete(vetDao, holder));
 
-        AppDatabase db = Room.databaseBuilder(holder.editTextName_vet.getContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAO dao = db.dao();
+        holder.buttonEdit_vet.setOnClickListener(view -> onClickEdit(vetDao, holder));
 
-        if (flag == false) {
-            aaa = dao.getAllNameRodents();
-            flag = true;
-        }
-
-       /* if (flag == false) {
-
-            for(int i = 0; i < listOfAllRodents.size(); i++) {
-                System.out.println(i);
-                arrayListAll.add(listOfAllRodents.get(i).getName());
-            }
-            flag = true;
-        }*/
-
-
-
-        List<String> list = dao.getAllRodentsVets(vetModel.get(position).getId());
-
-        for (int j = 0; j < aaa.size(); j ++) {
-            holder.arrayListSelected.add(aaa.get(j));
-            for(int i = 0; i < list.size(); i++) {
-                if (aaa.get(j).equals(list.get(i))) {
-                    if ((i + 1) < list.size())
-                        holder.textViewRodentRelations_vet.append(list.get(i) + "\n");
-                    else
-                        holder.textViewRodentRelations_vet.append(list.get(i));
-
-                    holder.textViewRodentRelationsInfo_vet.setVisibility(View.VISIBLE);
-                    holder.textViewRodentRelations_vet.setVisibility(View.VISIBLE);
-
-                }
-            }
-        }
-
-        /*if (holder.arrayListSelected.isEmpty())
-            holder.checkBoxVet.setChecked(false);
-        else
-            holder.checkBoxVet.setChecked(true);*/
-
-
-
-        /*if (vetDao.getNameRelations_VetAndRodent(vetModel.get(position).getId()) != null)
-            holder.editTextNotes_vet.setText(vetDao.getNameRelations_VetAndRodent(vetModel.get(position).getId()).toString());
-        System.out.println(vetDao.getNameRelations_VetAndRodent(vetModel.get(position).getId()));*/
-
-
-
-        int id = vetModel.get(holder.getAdapterPosition()).getId();
-
-          holder.buttonDelete_vet.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-
-                  AppDatabase db = Room.databaseBuilder(holder.editTextName_vet.getContext(),
-                          AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                  DAO vetDao = db.dao();
-
-                  vetDao.DeleteAllRodentsVetsByVet(vetModel.get(holder.getAdapterPosition()).getId());
-                  vetDao.deleteVetById(vetModel.get(holder.getAdapterPosition()).getId());
-
-                  vetDao.SetVisitsIdVetNull(vetModel.get(holder.getAdapterPosition()).getId());
-                  vetModel.remove(holder.getAdapterPosition());
-
-
-                  notifyDataSetChanged();
-
-
-                  Intent intent = new Intent(holder.buttonDelete_vet.getContext(), ViewVets.class);
-                  holder.buttonDelete_vet.getContext().startActivity(intent);
-
-              }
-          });
-
-
-
-        holder.buttonEdit_vet.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-
-
-                  Intent intent = new Intent(new Intent(holder.buttonEdit_vet.getContext(), AddVets.class));
-                  intent.putExtra("idKey",String.valueOf(vetModel.get(holder.getAdapterPosition()).getId()));
-                  intent.putExtra("nameKey",String.valueOf(vetModel.get(holder.getAdapterPosition()).getName()));
-                  intent.putExtra("addressKey",String.valueOf(vetModel.get(holder.getAdapterPosition()).getAddress()));
-                  intent.putExtra("phoneKey",String.valueOf(vetModel.get(holder.getAdapterPosition()).getPhone_number()));
-                  intent.putExtra("notesKey",String.valueOf(vetModel.get(holder.getAdapterPosition()).getNotes()));
-
-                  //0 = edit
-                  FlagSetup.setFlagVetAdd(0);
-
-                  holder.buttonEdit_vet.getContext().startActivity(intent);
-
-
-
-                 /* AppDatabase db = Room.databaseBuilder(holder.editTextName_vet.getContext(),
-                          AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                  DAO vetDao = db.dao();
-
-                  System.out.println(  holder.editTextPhone_vet.getText().toString());
-                  System.out.println(  vetModel.get(holder.getAdapterPosition()).getId().toString());
-
-
-                  vetDao.updateVetById(vetModel.get(holder.getAdapterPosition()).getId(),
-                          holder.editTextName_vet.getText().toString(), holder.editTextAddress_vet.getText().toString(),
-                          holder.editTextPhone_vet.getText().toString(), holder.editTextNotes_vet.getText().toString());
-
-
-                  Intent intent = new Intent(holder.editTextName_vet.getContext(), ViewVets.class);
-                  holder.editTextName_vet.getContext().startActivity(intent);*/
-
-
-                  //0 = edit
-
-
-              }
-          });
 
         holder.arrayListSelected.clear();
         db.close();
+    }
+
+    private void onClickDelete(DAOVets vetDao, viewHolder holder) {
+
+        //vetDao.DeleteAllRodentsVetsByVet(vetModel.get(holder.getAdapterPosition()).getId());
+        vetDao.deleteVetById(vetModel.get(holder.getAdapterPosition()).vetModel.getId());
+
+        //vetDao.SetVisitsIdVetNull(vetModel.get(holder.getAdapterPosition()).getId());
+        vetModel.remove(holder.getAdapterPosition());
+
+        notifyDataSetChanged();
+
+        Intent intent = new Intent(holder.buttonDelete_vet.getContext(), ViewVets.class);
+        holder.buttonDelete_vet.getContext().startActivity(intent);
+    }
+
+    private void onClickEdit(DAOVets vetDao, viewHolder holder) {
+        Intent intent = new Intent(new Intent(holder.buttonEdit_vet.getContext(), AddVets.class));
+        intent.putExtra("idKey",String.valueOf(vetModel.get(holder.getAdapterPosition()).vetModel.getId()));
+        intent.putExtra("nameKey",String.valueOf(vetModel.get(holder.getAdapterPosition()).vetModel.getName()));
+        intent.putExtra("addressKey",String.valueOf(vetModel.get(holder.getAdapterPosition()).vetModel.getAddress()));
+        intent.putExtra("phoneKey",String.valueOf(vetModel.get(holder.getAdapterPosition()).vetModel.getPhone_number()));
+        intent.putExtra("notesKey",String.valueOf(vetModel.get(holder.getAdapterPosition()).vetModel.getNotes()));
+
+        intent.putExtra("positionKey",String.valueOf(vetDao.getRealPositionFromVet( vetModel.get(holder.getAdapterPosition()).vetModel.getId()) -1 ));
+        //0 = edit
+        FlagSetup.setFlagVetAdd(0);
+
+        holder.buttonEdit_vet.getContext().startActivity(intent);
     }
 
     @Override

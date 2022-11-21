@@ -1,6 +1,5 @@
 package com.example.rodentshelper.ROOM.Vet;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,9 +21,11 @@ import androidx.room.Room;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM.DAORodents;
+import com.example.rodentshelper.ROOM.DAOVets;
 import com.example.rodentshelper.ROOM._MTM.RodentVetModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
+import com.example.rodentshelper.ROOM._MTM.VetWithRodentsCrossRef;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,8 @@ public class AddVets extends AppCompatActivity {
     ListView ListViewVet;
     CheckBox checkBoxVet;
     TextView textViewRodentRelationsInfo_vet;
-LinearLayout aaa1;
+    LinearLayout aaa1;
+
 
 
     //pelna lista zwierzat
@@ -45,8 +47,23 @@ LinearLayout aaa1;
     private ArrayList<Integer> arrayListID;
     //koncowa lista z zaznaczonymi zwierzetami
     private ArrayList<Integer> arrayListSelected;
-    private Context context;
-    private ArrayList<String> aaaar;
+
+    private AppDatabase getAppDatabase () {
+         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+         return db;
+    }
+
+    private DAORodents getDaoRodents () {
+        DAORodents daoRodents = getAppDatabase().daoRodents();
+        return daoRodents;
+    }
+
+    private DAOVets getDaoVets () {
+        DAOVets daoVets = getAppDatabase().daoVets();
+        return daoVets;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,22 +95,18 @@ LinearLayout aaa1;
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, arrayListLV);
 
-        // on below line we are setting adapter for our list view.
-        ListViewVet.setAdapter(adapter);
 
 
+        List<RodentModel> rodentModel = getDaoRodents().getAllRodents();
 
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAO rodentDao = db.dao();
-
-
-        List<RodentModel> rodentModel = rodentDao.getAllRodents();
+        //List<RodentModel> list = rodentDao.getAllRodentsVets(idKey);
 
         for(int i = 0; i < rodentModel.size(); i++) {
             arrayListID.add(rodentModel.get(i).getId());
             arrayListLV.add(rodentModel.get(i).getName());
         }
+
+        ListViewVet.setAdapter(adapter);
 
 
 
@@ -114,12 +127,44 @@ LinearLayout aaa1;
             editTextNotes_vet.setText(notesKey);
 
 
-            DAO vetDao = db.dao();
+            List<VetWithRodentsCrossRef> vetModel = getDaoVets().getVetsWithRodents();
 
-            List<String> list = vetDao.getAllRodentsVets(idKey);
+
+            checkBoxVet.setChecked(true);
+            checkCheckBox();
+
+            Integer positionKey = Integer.parseInt(getIntent().getStringExtra("positionKey"));
 
             for (int j = 0; j < arrayListLV.size(); j ++) {
-               // aaaar.add(arrayListLV.get(j));
+                try {
+                    for (int i = 0; i < vetModel.get(positionKey).rodents.size(); i++) {
+                        if (arrayListLV.get(j).equals(vetModel.get(positionKey).rodents.get(i).getName())) {
+                            ListViewVet.setItemChecked(j, true);
+                            checkBoxVet.setChecked(true);
+                        }
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("There is no any rodent left in relation");
+                }
+            }
+
+          /*  List<String> list = vetDao.getAllRodentsVets(idKey);
+
+
+
+
+
+            try {
+                for (int k = 0; k < vetModel.get(2).rodents.size(); k++) {
+                       textViewRodentRelations_vet.append(vetModel.get(2).rodents.get(k).getName());
+                }
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("There is no any rodent left in relation");
+            }
+
+
+            for (int j = 0; j < arrayListLV.size(); j ++) {
+                // aaaar.add(arrayListLV.get(j));
                 for(int i = 0; i < list.size(); i++) {
 
                     if (arrayListLV.get(j).equals(list.get(i))) {
@@ -131,7 +176,7 @@ LinearLayout aaa1;
                 }
             }
 
-            checkCheckBox(checkBoxVet, ListViewVet);
+            checkCheckBox(checkBoxVet, ListViewVet);*/
 
 
 
@@ -142,7 +187,7 @@ LinearLayout aaa1;
 
                     AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                             AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                    DAO vetDao = db.dao();
+                    DAOVets vetDao = db.daoVets();
 
 
                     vetDao.updateVetById(idKey, editTextName_vet.getText().toString(),
@@ -153,7 +198,9 @@ LinearLayout aaa1;
 
                     getSelectedItems(vetDao);
 
+                    finish();
                     viewVets();
+
                 }
             });
 
@@ -166,15 +213,7 @@ LinearLayout aaa1;
         checkBoxVet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (checkBoxVet.isChecked()) {
-                    ListViewVet.setVisibility(View.VISIBLE);
-                }
-                else {
-                    ListViewVet.clearChoices();
-                    ListViewVet.setVisibility(View.GONE);
-                }
-
+                checkCheckBox();
             }
         });
 
@@ -182,7 +221,7 @@ LinearLayout aaa1;
         buttonAdd_vet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             saveVet();
+                saveVet();
             }
         });
     }
@@ -213,24 +252,23 @@ LinearLayout aaa1;
 
             AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                     AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-            DAO vetDao = db.dao();
-            DAO rodentVetDao = db.dao();
+            DAOVets vetDao = db.daoVets();
+
             vetDao.insertRecordVet(new VetModel(stringName, stringAddress, stringPhone, stringNotes));
 
             System.out.println("DODANO");
 
-            getSelectedItems(rodentVetDao);
+            getSelectedItems(vetDao);
 
             viewVets();
         }
 
     }
 
-    public void getSelectedItems(DAO rodentVetDao) {
+    public void getSelectedItems(DAOVets rodentVetDao) {
         if (FlagSetup.getFlagVetAdd() == 2) {
             SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
             rodentVetDao.insertRecordRodentVet(new RodentVetModel (Integer.valueOf(prefsGetRodentId.getInt("rodentId", 0)), rodentVetDao.getLastIdVet().get(0)));
-            System.out.println(";lkjhgtfrdfghj,");
             return;
         }
 
@@ -240,8 +278,6 @@ LinearLayout aaa1;
             if (checked.get(i)) {
                 //String item = ArrayListLV.get(i);
                 arrayListSelected.add(i);
-
-
 
                 if (FlagSetup.getFlagVetAdd() == 1)
                     rodentVetDao.insertRecordRodentVet(new RodentVetModel(arrayListID.get(i), rodentVetDao.getLastIdVet().get(0) ));
@@ -259,15 +295,15 @@ LinearLayout aaa1;
     }
 
 
-    private void checkCheckBox(CheckBox checkBoxVet, ListView listViewVet) {
+    private void checkCheckBox() {
         if (checkBoxVet.isChecked()) {
-            listViewVet.setVisibility(View.VISIBLE);
-            listViewVet.setSelected(true);
+            ListViewVet.setVisibility(View.VISIBLE);
+            ListViewVet.setSelected(true);
 
         }
         else {
-            listViewVet.clearChoices();
-            listViewVet.setVisibility(View.GONE);
+            ListViewVet.clearChoices();
+            ListViewVet.setVisibility(View.GONE);
         }
     }
 

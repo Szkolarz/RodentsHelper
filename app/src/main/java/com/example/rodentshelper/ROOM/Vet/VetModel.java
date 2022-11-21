@@ -13,7 +13,7 @@ import java.sql.Date;
 public class VetModel {
 
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    private Integer id_vet;
     @ColumnInfo(name = "name")
     private String name;
     @ColumnInfo(name = "address")
@@ -23,6 +23,7 @@ public class VetModel {
     @ColumnInfo(name = "notes")
     private String notes;
 
+    public VetModel() {}
 
     public VetModel(String name, String address, String phone_number, String notes) {
         this.name = name;
@@ -32,12 +33,20 @@ public class VetModel {
     }
 
 
+    public Integer getId_vet() {
+        return id_vet;
+    }
+
+    public void setId_vet(Integer id_vet) {
+        this.id_vet = id_vet;
+    }
+
     public Integer getId() {
-        return id;
+        return id_vet;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.id_vet = id;
     }
 
 

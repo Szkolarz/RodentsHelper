@@ -26,6 +26,11 @@ import android.widget.Toast;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.ROOM.DAONotes;
+import com.example.rodentshelper.ROOM.DAORelations;
+import com.example.rodentshelper.ROOM.DAORodents;
+import com.example.rodentshelper.ROOM.DAOVets;
+import com.example.rodentshelper.ROOM.DAOVisits;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
@@ -47,6 +52,22 @@ public class AddVisits extends Activity {
     //ImageView imageViewDate1_med, imageViewDate2_med;
     ListView listViewVisit;
     CheckBox checkBoxVisit1, checkBoxVisit2;
+
+    private AppDatabase getAppDatabase () {
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        return db;
+    }
+
+    private DAOVisits getDaoVisits () {
+        DAOVisits daoVisits = getAppDatabase().daoVisits();
+        return daoVisits;
+    }
+
+    private DAOVets getDaoVets () {
+        DAOVets daoVets = getAppDatabase().daoVets();
+        return daoVets;
+    }
 
 
     private DatePickerDialog.OnDateSetListener dateSetListener1;
@@ -99,12 +120,8 @@ public class AddVisits extends Activity {
         listViewVisit.setAdapter(adapter);
 
 
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAO vetDao = db.dao();
 
-
-        List<VetModel> vetModel = vetDao.getAllVets();
+        List<VetModel> vetModel = getDaoVets().getAllVets();
 
         for(int i = 0; i < vetModel.size(); i++) {
             arrayListID.add(vetModel.get(i).getId());
@@ -129,10 +146,9 @@ public class AddVisits extends Activity {
             textViewDate1_visitHidden.setText(dateKey);
 
 
-            DAO visitDao = db.dao();
 
             if (!(id_vetKey).equals("null")) {
-                List<String> list = visitDao.getAllVisitsVets(Integer.valueOf(id_vetKey));
+                List<String> list = getDaoVisits().getAllVisitsVets(Integer.valueOf(id_vetKey));
 
                 for (int j = 0; j < arrayListLV.size(); j++) {
                     for (int i = 0; i < list.size(); i++) {
@@ -154,21 +170,19 @@ public class AddVisits extends Activity {
                     dateFormat1 = textViewDate1_visitHidden.getText().toString();
 
 
-                    AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                            AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                    DAO visitDao = db.dao();
-                    visitDao.updateVisitById(idKey, null,  Date.valueOf(dateFormat1),
+
+                    getDaoVisits().updateVisitById(idKey, null,  Date.valueOf(dateFormat1),
                             textViewTime_visit.getText().toString(), editTextReason_visit.getText().toString());
 
                     // visitDao.SetVisitsIdVetNull(idKey);
 
 
                     if (checkBoxVisit1.isChecked()) {
-                        visitDao.SetVisitsIdVet(getVisitVet(visitDao), idKey);
+                        getDaoVisits().SetVisitsIdVet(getVisitVet(getDaoVets()), idKey);
                     }
                     else {
-                        if (getVisitVet(visitDao) != null)
-                            visitDao.SetVisitsIdVetNull(Integer.valueOf(id_vetKey));
+                        if (getVisitVet(getDaoVets()) != null)
+                            getDaoVisits().SetVisitsIdVetNull(Integer.valueOf(id_vetKey));
                     }
                     viewVisits();
 
@@ -280,23 +294,19 @@ public class AddVisits extends Activity {
         }
         else {
 
-            AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-            DAO visitDao = db.dao();
+            Integer id_vetKey = getVisitVet(getDaoVets());
 
-            Integer id_vetKey = getVisitVet(visitDao);
-
-            visitDao.insertRecordVisit(new VisitModel(id_vetKey, Date.valueOf(stringDate1),
+            getDaoVisits().insertRecordVisit(new VisitModel(id_vetKey, Date.valueOf(stringDate1),
                     timeKey, reasonKey));
 
             System.out.println("DODANO");
-            getVisitVet(visitDao);
+            getVisitVet(getDaoVets());
             viewVisits();
         }
 
     }
 
-    public Integer getVisitVet(DAO visitVetDao) {
+    public Integer getVisitVet(DAOVets visitVetDao) {
         int listViewLength = listViewVisit.getCount();
         Integer id_vet = null;
         SparseBooleanArray checked = listViewVisit.getCheckedItemPositions();

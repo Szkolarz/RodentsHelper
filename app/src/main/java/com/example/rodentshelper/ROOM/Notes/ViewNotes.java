@@ -22,6 +22,7 @@ import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotes;
+import com.example.rodentshelper.ROOM._MTM.RodentWithNotes;
 
 import java.util.List;
 
@@ -125,9 +126,10 @@ public class ViewNotes extends AppCompatActivity {
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAONotes dao = db.daoNotes();
 
+
         SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
 
-        List<NotesModel> notesModel = dao.getAllNotes(prefsGetRodentId.getInt("rodentId", 0));
+        List<RodentWithNotes> notesModel = dao.getRodentWithNotes(prefsGetRodentId.getInt("rodentId", 0));
         return notesModel;
     }
 

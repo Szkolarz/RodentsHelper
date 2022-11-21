@@ -34,6 +34,7 @@ import com.example.rodentshelper.ImageCompress;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM.DAORodents;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -55,6 +56,7 @@ public class AddRodents extends Activity {
     ImageButton imageButtonDate_rodent;
     ImageView imageView_rodent;
 
+
     private List<RodentModel> rodentModel;
     private TextView textViewDate, textViewDate_hidden;
 
@@ -63,10 +65,21 @@ public class AddRodents extends Activity {
 
     byte[] byteArray;
 
+
+    private DAORodents getDao () {
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAORodents daoRodents = db.daoRodents();
+
+        return daoRodents;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_rodent);
+
+        DAORodents daoRodents = getDao();
 
         editTextName = findViewById(R.id.editTextEditName);
         editTextFur = findViewById(R.id.editTextEditFur);
@@ -165,15 +178,13 @@ public class AddRodents extends Activity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(getApplicationContext(), "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
-                        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                        DAO rodentDao = db.dao();
+
 
 
                         Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
 
-                        rodentDao.DeleteAllRodentsVetsByRodent(idKey);
-                        rodentDao.deleteRodentById(idKey);
+                        //rodentDao.DeleteAllRodentsVetsByRodent(idKey);
+                        daoRodents.deleteRodentById(idKey);
 
 
                         Intent intent = new Intent(getApplicationContext(), ViewRodents.class);
@@ -220,11 +231,8 @@ public class AddRodents extends Activity {
                 radioButtonGender2.setChecked(true);
 
 
-            AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-            DAO rodentDao = db.dao();
 
-            byte[] byteImage = rodentDao.getImageById(idKey);
+            byte[] byteImage = daoRodents.getImageById(idKey);
 
 
             editTextName.setText(nameKey);
@@ -265,10 +273,7 @@ public class AddRodents extends Activity {
                         byteArray = stream.toByteArray();
                     }
 
-                    AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                            AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                    DAO rodentDao = db.dao();
-                    rodentDao.updateRodentById(idKey, id_animalKey, editTextName.getText().toString(),
+                    daoRodents.updateRodentById(idKey, id_animalKey, editTextName.getText().toString(),
                             stringGender, Date.valueOf(dateFormat),
                             editTextFur.getText().toString(), editTextNotes.getText().toString(), byteArray);
 
@@ -299,6 +304,7 @@ public class AddRodents extends Activity {
                 android.R.style.Theme_Holo_Dialog, dateSetListener, year, month, day);
 
         datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         datePickerDialog.show();
     }
 
@@ -393,8 +399,10 @@ public class AddRodents extends Activity {
 
 
     public void saveRodent() {
-        String stringName = editTextName.getText().toString();
 
+        DAORodents daoRodents = getDao();
+
+        String stringName = editTextName.getText().toString();
         String stringDate = dateFormat;
         String stringFur = editTextFur.getText().toString();
         String stringNotes = editTextNotes.getText().toString();
@@ -432,11 +440,6 @@ public class AddRodents extends Activity {
         }
         else {
 
-
-            AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-            DAO rodentDao = db.dao();
-
             if (byteArray == null) {
                 Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
                         R.drawable.ic_chinchilla);
@@ -445,7 +448,7 @@ public class AddRodents extends Activity {
                 byteArray = stream.toByteArray();
             }
 
-            rodentDao.insertRecordRodent(new RodentModel(1, stringName, stringGender, Date.valueOf(stringDate), stringFur, stringNotes, byteArray));
+            daoRodents.insertRecordRodent(new RodentModel(1, stringName, stringGender, Date.valueOf(stringDate), stringFur, stringNotes, byteArray));
 
             System.out.println("DODANO");
             viewRodents();

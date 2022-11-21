@@ -18,12 +18,12 @@ import androidx.room.Room;
 
 import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.MainViews.ViewOther;
-import com.example.rodentshelper.ROOM.Notes.NotesModel;
+import com.example.rodentshelper.ROOM.DAOVets;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM._MTM.VetWithRodentsCrossRef;
 
 import java.util.List;
 
@@ -34,7 +34,16 @@ public class ViewVets extends AppCompatActivity {
     TextView textViewEmpty_vet, textView3_health, textView1_rodent;
     ImageView imageButton3_health, imageButton1_rodent;
 
+    private AppDatabase getAppDatabase () {
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        return db;
+    }
 
+    private DAOVets getDaoVets () {
+        DAOVets daoVets = getAppDatabase().daoVets();
+        return daoVets;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +58,7 @@ public class ViewVets extends AppCompatActivity {
         }
 
         if (FlagSetup.getFlagIsFromHealth() == false) {
+            FlagSetup.setFlagVetAdd(2);
             imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
             textView1_rodent = findViewById(R.id.textView1_rodent);
             imageButton1_rodent.setColorFilter(Color.WHITE);
@@ -125,21 +135,42 @@ public class ViewVets extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
+    /*@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             viewHealth();
         }
         return super.onKeyDown(keyCode, event);
-    }
+    }*/
 
 
     public List getListVet(){
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAO vetDao = db.dao();
-        List<VetModel> vetModel = null;
 
+
+        List<VetWithRodentsCrossRef> vetModel = null;
+
+
+        if (FlagSetup.getFlagVetAdd() == 2) {
+            SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
+            vetModel = getDaoVets().getVetsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
+        }
+        else {
+            vetModel = getDaoVets().getVetsWithRodents();
+            FlagSetup.setFlagVetAdd(1);
+        }
+
+        /*for (int i = 0; i < vetModel.size(); i++) {
+            System.out.println(vetModel.get(i).rodents.get(i).getName()+ " ggh");
+            System.out.println(d.get(i) + " aggah");
+        }*/
+
+
+      /*  List<RodentWithVets> rodentModel = null;
+
+        rodentModel = dao.getaaa();*/
+
+
+/*
         FlagSetup flagSetup = new FlagSetup();
         int flag = flagSetup.getFlagVetAdd();
 
@@ -153,7 +184,7 @@ public class ViewVets extends AppCompatActivity {
         else {
             vetModel = vetDao.getAllVets();
             FlagSetup.setFlagVetAdd(1);
-        }
+        }*/
 
         return vetModel;
     }
@@ -164,7 +195,7 @@ public class ViewVets extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewGlobal);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        AdapterVets adapter=new AdapterVets(getListVet());
+        AdapterVets adapter = new AdapterVets(getListVet());
 
         recyclerView.setAdapter(adapter);
     }

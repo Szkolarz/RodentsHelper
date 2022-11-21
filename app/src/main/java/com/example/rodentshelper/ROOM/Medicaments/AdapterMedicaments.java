@@ -24,6 +24,9 @@ import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM.DAOMedicaments;
+import com.example.rodentshelper.ROOM.DAORodents;
+import com.example.rodentshelper.ROOM._MTM.MedicamentWithRodentsCrossRef;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,12 +35,9 @@ import java.util.List;
 
 public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.viewHolder>
 {
-    List<MedicamentModel> medicamentModel;
+    private List<MedicamentWithRodentsCrossRef> medicamentModel;
 
-    List<String> aaa;
-
-
-    public AdapterMedicaments(List<MedicamentModel> medicamentModel) {
+    public AdapterMedicaments(List<MedicamentWithRodentsCrossRef> medicamentModel) {
         this.medicamentModel = medicamentModel;
     }
 
@@ -53,6 +53,11 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
     @Override
     public void onBindViewHolder(@NonNull @NotNull viewHolder holder, int position) {
 
+        AppDatabase db = Room.databaseBuilder(holder.editTextName_med.getContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAORodents daoRodents = db.daoRodents();
+        DAOMedicaments daoMedicaments = db.daoMedicaments();
+
         holder.editTextName_med.setEnabled(false);
         holder.editTextDescription_med.setEnabled(false);
         holder.editTextPeriodicity_med.setEnabled(false);
@@ -66,34 +71,35 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
         holder.imageViewDate1_med.setVisibility(View.GONE);
         holder.imageViewDate2_med.setVisibility(View.GONE);
 
-        boolean flag = false;
 
-        holder.editTextName_med.setText(medicamentModel.get(position).getName());
-        holder.editTextDescription_med.setText(medicamentModel.get(position).getDescription());
-        holder.editTextPeriodicity_med.setText(medicamentModel.get(position).getPeriodicity());
+        holder.editTextName_med.setText(medicamentModel.get(position).medicamentModel.getName());
+        holder.editTextDescription_med.setText(medicamentModel.get(position).medicamentModel.getDescription());
+        holder.editTextPeriodicity_med.setText(medicamentModel.get(position).medicamentModel.getPeriodicity());
 
-        if (medicamentModel.get(position).getDate_start() == null)
+        if (medicamentModel.get(position).medicamentModel.getDate_start() == null)
             holder.textViewDateStart_med.setText("nie podano");
         else
-            holder.textViewDateStart_med.setText(medicamentModel.get(position).getDate_start().toString());
+            holder.textViewDateStart_med.setText(medicamentModel.get(position).medicamentModel.getDate_start().toString());
 
-        if (medicamentModel.get(position).getDate_end() == null)
+        if (medicamentModel.get(position).medicamentModel.getDate_end() == null)
             holder.textViewDateEnd_med.setText("nie podano");
         else
-            holder.textViewDateEnd_med.setText(medicamentModel.get(position).getDate_end().toString());
-
-
-        System.out.println("333");
+            holder.textViewDateEnd_med.setText(medicamentModel.get(position).medicamentModel.getDate_end().toString());
 
 
 
-        AppDatabase db = Room.databaseBuilder(holder.editTextName_med.getContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAO dao = db.dao();
-
-        if (flag == false) {
-            aaa = dao.getAllNameRodents();
-            flag = true;
+      //  holder.textViewRodentRelations_med.setText(null);
+        try {
+            for (int i = 0; i < medicamentModel.get(position).rodents.size(); i++) {
+                if ((i + 1) < medicamentModel.get(position).rodents.size())
+                    holder.textViewRodentRelations_med.append(medicamentModel.get(position).rodents.get(i).getName() + "\n");
+                else
+                    holder.textViewRodentRelations_med.append(medicamentModel.get(position).rodents.get(i).getName());
+                holder.textViewRodentRelationsInfo_med.setVisibility(View.VISIBLE);
+                holder.textViewRodentRelations_med.setVisibility(View.VISIBLE);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("There is no any rodent left in relation");
         }
 
 
@@ -101,60 +107,33 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
         holder.listViewMed.setAdapter(adapter);
 
 
-            List<String> list = dao.getAllRodentsMeds(medicamentModel.get(position).getId());
+        holder.buttonDelete_med.setOnClickListener(view -> onClickDeleteMed(holder.buttonDelete_med.getContext(), holder, daoMedicaments));
 
-            holder.textViewRodentRelations_med.setText(null);
-            for (int j = 0; j < aaa.size(); j++) {
-                holder.arrayListSelected.add(aaa.get(j));
-                for (int i = 0; i < list.size(); i++) {
-
-                    if (aaa.get(j).equals(list.get(i))) {
-
-                        if ((i + 1) < list.size())
-                            holder.textViewRodentRelations_med.append(list.get(i) + "\n");
-                        else
-                            holder.textViewRodentRelations_med.append(list.get(i));
-
-                        holder.textViewRodentRelationsInfo_med.setVisibility(View.VISIBLE);
-                        holder.textViewRodentRelations_med.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
+        holder.buttonEdit_med.setOnClickListener(view -> onClickEditMed(daoMedicaments, holder));
 
 
+        holder.arrayListSelected.clear();
+        db.close();
+    }
 
+    private void onClickEditMed(DAOMedicaments daoMedicaments, viewHolder holder) {
+        Intent intent = new Intent(new Intent(holder.buttonEdit_med.getContext(), AddMedicaments.class));
+        intent.putExtra("idKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_medicament()));
+        intent.putExtra("id_vetKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_vet()));
+        intent.putExtra("nameKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getName()));
+        intent.putExtra("descriptionKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getDescription()));
+        intent.putExtra("periodicityKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getPeriodicity()));
+        intent.putExtra("date_startKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getDate_start()));
+        intent.putExtra("date_endKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getDate_end()));
 
-        holder.buttonDelete_med.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                  deleteMed(holder.buttonDelete_med.getContext(), holder);
-              }
-        });
-
-         holder.buttonEdit_med.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                  Intent intent = new Intent(new Intent(holder.buttonEdit_med.getContext(), AddMedicaments.class));
-                  intent.putExtra("idKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).getId()));
-                  intent.putExtra("id_vetKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).getId_vet()));
-                  intent.putExtra("nameKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).getName()));
-                  intent.putExtra("descriptionKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).getDescription()));
-                  intent.putExtra("periodicityKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).getPeriodicity()));
-                  intent.putExtra("date_startKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).getDate_start()));
-                  intent.putExtra("date_endKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).getDate_end()));
-
-                  //0 = edit
-                  FlagSetup.setFlagMedAdd(0);
-                  holder.buttonEdit_med.getContext().startActivity(intent);
-              }
-          });
-
-         holder.arrayListSelected.clear();
-         db.close();
+        intent.putExtra("positionKey",String.valueOf(daoMedicaments.getRealPositionFromMed(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_medicament()) -1 ));
+        //0 = edit
+        FlagSetup.setFlagMedAdd(0);
+        holder.buttonEdit_med.getContext().startActivity(intent);
     }
 
     /** usuwanie **/
-    private void deleteMed(Context context, viewHolder holder) {
+    private void onClickDeleteMed(Context context, viewHolder holder, DAOMedicaments daoMedicaments) {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Usuwanie lekarstwa");
@@ -163,12 +142,9 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(context, "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
-                AppDatabase db = Room.databaseBuilder(context,
-                        AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                DAO medDao = db.dao();
 
-                medDao.DeleteAllRodentsMedsByMed(medicamentModel.get(holder.getAdapterPosition()).getId());
-                medDao.deleteMedById(medicamentModel.get(holder.getAdapterPosition()).getId());
+                daoMedicaments.DeleteAllRodentsMedsByMed(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_medicament());
+                daoMedicaments.deleteMedById(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_medicament());
 
                 medicamentModel.remove(holder.getAdapterPosition());
 
