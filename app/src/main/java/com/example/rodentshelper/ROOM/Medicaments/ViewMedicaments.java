@@ -176,8 +176,6 @@ public class ViewMedicaments extends AppCompatActivity {
         /** !!! **/
         //db.close();
 
-        System.out.println("111");
-
         return medicamentModel;
     }
 

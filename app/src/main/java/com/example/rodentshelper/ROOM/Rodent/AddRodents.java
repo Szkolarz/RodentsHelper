@@ -1,5 +1,6 @@
 package com.example.rodentshelper.ROOM.Rodent;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -392,6 +393,7 @@ public class AddRodents extends Activity {
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private void checkImage() {
         if (byteArray != null)
         textViewDeleteImage_rodent.setVisibility(View.VISIBLE);

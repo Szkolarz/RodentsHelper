@@ -38,4 +38,18 @@ public class Alerts {
     }
 
 
+    public void simpleError (String title, String message, Context context) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle(title);
+        alert.setMessage(message);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(context, "Błąd", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alert.create().show();
+    }
+
+
 }

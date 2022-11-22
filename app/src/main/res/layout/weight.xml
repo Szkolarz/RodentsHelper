@@ -6,9 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ROOM.Rodent.AddRodents">
 
+    <TextView
+        android:id="@+id/textViewDateWeight_hidden"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="#ACC5E1"
         android:gravity="center_horizontal"
@@ -19,7 +27,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_marginTop="15dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
@@ -29,7 +37,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:orientation="vertical"/>
+                android:orientation="vertical" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart_weight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </com.github.mikephil.charting.charts.LineChart>
 
         </LinearLayout>
 
@@ -44,7 +59,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_weight="1"
                 android:text="Info"
                 android:textColor="#014D70"
                 android:textColorHint="#77147A"
@@ -67,13 +81,14 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editTextPhone_vet2"
-                        android:layout_width="120dp"
+                        android:id="@+id/editTextWeight"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:hint="Waga"
                         android:inputType="number"
-                        android:maxLength="16"
+                        android:maxLength="4"
+                        android:maxLines="1"
                         android:textColor="#014D70"
                         android:textSize="24sp" />
 
@@ -113,7 +128,7 @@
                         android:textSize="20sp" />
 
                     <ImageButton
-                        android:id="@+id/imageButtonDate_rodent"
+                        android:id="@+id/imageButtonDate_weight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -124,7 +139,7 @@
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonAdd_rodent"
+                    android:id="@+id/buttonAdd_weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -136,11 +151,18 @@
 
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp" />
+            </LinearLayout>
 
         </LinearLayout>
 

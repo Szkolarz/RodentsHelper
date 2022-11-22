@@ -99,7 +99,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
         holder.listViewVisit.setAdapter(adapter);
 
 
-        System.out.println(visitModel.get(position).getId_vet() + "kj");
+        System.out.println(visitModel.get(position).getId_vet() + "test");
 
         if (visitModel.get(position).getId_vet() != null) {
             List<String> list = daoVisits.getAllVisitsVets(visitModel.get(position).getId_vet());

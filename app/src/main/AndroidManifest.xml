@@ -83,6 +83,9 @@
         <activity
             android:name=".MainViews.ViewOther"
             android:exported="true" />
+        <activity
+            android:name=".ROOM.Weights.WeightView"
+            android:exported="true" />
     </application>
 
 </manifest>

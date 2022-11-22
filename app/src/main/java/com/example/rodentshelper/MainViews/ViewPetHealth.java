@@ -21,10 +21,11 @@ import com.example.rodentshelper.ROOM.Notes.ViewNotes;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.ROOM.Vet.ViewVets;
 import com.example.rodentshelper.ROOM.Visits.ViewVisits;
+import com.example.rodentshelper.ROOM.Weights.WeightView;
 
 public class ViewPetHealth extends AppCompatActivity {
 
-    ImageView imageButtonVet1, imageButtonMed, imageButtonVisit, imageButton1_rodent, imageButtonPetHealth_notes;
+    ImageView imageButtonVet1, imageButtonMed, imageButtonVisit, imageButton1_rodent, imageButtonPetHealth_notes, imageButtonPetHealth_weight;
     TextView textView1_rodent, textView1_petHealth, textView2_petHealth, textView3_petHealth, textView4_petHealth, textView5_petHealth;
 
 
@@ -48,6 +49,7 @@ public class ViewPetHealth extends AppCompatActivity {
         imageButtonMed = findViewById(R.id.imageButtonMed);
         imageButtonVisit = findViewById(R.id.imageButtonVisit);
         imageButtonPetHealth_notes = findViewById(R.id.imageButtonPetHealth_notes);
+        imageButtonPetHealth_weight = findViewById(R.id.imageButtonPetHealth_weight);
 
         textView1_petHealth = findViewById(R.id.textView1_petHealth);
         textView2_petHealth = findViewById(R.id.textView2_petHealth);
@@ -113,6 +115,13 @@ public class ViewPetHealth extends AppCompatActivity {
             }
         });
 
+        imageButtonPetHealth_weight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewWeight();
+            }
+        });
+
 
 
 
@@ -155,6 +164,12 @@ public class ViewPetHealth extends AppCompatActivity {
     public void viewVets()
     {
         Intent intent = new Intent(ViewPetHealth.this, ViewVets.class);
+        startActivity(intent);
+    }
+
+    public void viewWeight()
+    {
+        Intent intent = new Intent(ViewPetHealth.this, WeightView.class);
         startActivity(intent);
     }
 

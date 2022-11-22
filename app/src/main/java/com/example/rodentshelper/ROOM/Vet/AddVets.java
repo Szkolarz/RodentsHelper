@@ -311,7 +311,6 @@ public class AddVets extends AppCompatActivity {
         //2 = static pet relation
         if (FlagSetup.getFlagVetAdd() == 2) {
             checkBoxVet.setVisibility(View.GONE);
-            System.out.println("qqqq");
             buttonAdd_vet.setVisibility(View.VISIBLE);
             buttonEdit_vet.setVisibility(View.GONE);
             buttonDelete_vet.setVisibility(View.GONE);
