@@ -22,7 +22,7 @@ import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotes;
-import com.example.rodentshelper.ROOM._MTM.RodentWithNotes;
+import com.example.rodentshelper.ROOM._MTM._RodentNotes.RodentWithNotes;
 
 import java.util.List;
 

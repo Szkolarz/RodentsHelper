@@ -23,9 +23,9 @@ import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAORodents;
 import com.example.rodentshelper.ROOM.DAOVets;
-import com.example.rodentshelper.ROOM._MTM.RodentVetModel;
+import com.example.rodentshelper.ROOM._MTM._RodentVet.RodentVetModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
-import com.example.rodentshelper.ROOM._MTM.VetWithRodentsCrossRef;
+import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 
 import java.util.ArrayList;
 import java.util.List;

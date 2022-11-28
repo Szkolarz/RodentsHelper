@@ -8,8 +8,8 @@ import androidx.room.TypeConverters;
 
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM.Vet.VetModel;
-import com.example.rodentshelper.ROOM._MTM.RodentVetModel;
-import com.example.rodentshelper.ROOM._MTM.VetWithRodentsCrossRef;
+import com.example.rodentshelper.ROOM._MTM._RodentVet.RodentVetModel;
+import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 
 import java.util.List;
 

@@ -22,10 +22,10 @@ import androidx.room.Room;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAO;
-import com.example.rodentshelper.ROOM.DAORelations;
 import com.example.rodentshelper.ROOM.DAOVets;
 import com.example.rodentshelper.ROOM.DAOVisits;
+import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
+import com.example.rodentshelper.ROOM._MTM._RodentVisit.VisitsWithRodentsCrossRef;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -34,12 +34,12 @@ import java.util.List;
 
 public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder>
 {
-    List<VisitModel> visitModel;
+    private List<VisitsWithRodentsCrossRef> visitModel;
 
-    List<String> aaa;
+
     private boolean flag = false;
 
-    public AdapterVisits(List<VisitModel> visitModel) {
+    public AdapterVisits(List<VisitsWithRodentsCrossRef> visitModel) {
         this.visitModel = visitModel;
     }
 
@@ -57,7 +57,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
 
         AppDatabase db = Room.databaseBuilder(holder.editTextReason_visit.getContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAOVets dao = db.daoVets();
+        DAOVets daoVets = db.daoVets();
         DAOVisits daoVisits = db.daoVisits();
 
         holder.editTextReason_visit.setEnabled(false);
@@ -66,6 +66,8 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
 
         holder.textViewVetRelationsInfo_visit.setVisibility(View.GONE);
         holder.textViewVetRelations_visit.setVisibility(View.GONE);
+        holder.textViewVetRelationsInfo_visit2.setVisibility(View.GONE);
+        holder.textViewVetRelations_visit2.setVisibility(View.GONE);
 
         holder.checkBoxVisit1.setVisibility(View.GONE);
         holder.checkBoxVisit2.setVisibility(View.GONE);
@@ -76,33 +78,53 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
         //holder.imageViewDate2_med.setVisibility(View.GONE);
 
 
-        holder.editTextReason_visit.setText(visitModel.get(position).getReason());
-        holder.textViewTime_visit.setText(visitModel.get(position).getTime());
+        holder.editTextReason_visit.setText(visitModel.get(position).visitModel.getReason());
+        holder.textViewTime_visit.setText(visitModel.get(position).visitModel.getTime());
 
 
-        if (visitModel.get(position).getDate() == null)
+        if (visitModel.get(position).visitModel.getDate() == null)
             holder.textViewDate_visit.setText("nie podano");
         else
-            holder.textViewDate_visit.setText(visitModel.get(position).getDate().toString());
+            holder.textViewDate_visit.setText(visitModel.get(position).visitModel.getDate().toString());
 
 
-
-
-
-        if (flag == false) {
-            aaa = dao.getAllNameVets();
-            flag = true;
-        }
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(holder.listViewVisit.getContext(), android.R.layout.simple_list_item_multiple_choice, holder.arrayListSelected);
         holder.listViewVisit.setAdapter(adapter);
 
 
-        System.out.println(visitModel.get(position).getId_vet() + "test");
+        System.out.println(visitModel.get(position).visitModel.getId_vet() + "test");
 
-        if (visitModel.get(position).getId_vet() != null) {
-            List<String> list = daoVisits.getAllVisitsVets(visitModel.get(position).getId_vet());
+
+        try {
+            for (int i = 0; i < visitModel.get(position).rodents.size(); i++) {
+                if ((i + 1) < visitModel.get(position).rodents.size())
+                    holder.textViewVetRelations_visit2.append(visitModel.get(position).rodents.get(i).getName() + "\n");
+                else
+                    holder.textViewVetRelations_visit2.append(visitModel.get(position).rodents.get(i).getName());
+                holder.textViewVetRelationsInfo_visit2.setVisibility(View.VISIBLE);
+                holder.textViewVetRelations_visit2.setVisibility(View.VISIBLE);
+
+               // holder.textViewVetRelations_visit.append(daoVisits.getVetByVisitId(visitModel.get(position).visitModel.getId_vet()));
+            }
+
+
+
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            System.out.println("There is no any rodent left in relation");
+        }
+
+
+        if (visitModel.get(position).visitModel.getId_vet() != null) {
+            holder.textViewVetRelationsInfo_visit.setVisibility(View.VISIBLE);
+            holder.textViewVetRelations_visit.setVisibility(View.VISIBLE);
+
+            holder.textViewVetRelations_visit.append(daoVisits.getVetByVisitId(visitModel.get(position).visitModel.getId_vet()));
+        }
+
+      /*  if (visitModel.get(position).visitModel.getId_vet() != null) {
+            List<String> list = daoVisits.getAllVisitsVets(visitModel.get(position).visitModel.getId_vet());
 
             holder.textViewVetRelations_visit.setText(null);
             for (int j = 0; j < aaa.size(); j++) {
@@ -121,31 +143,24 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
                     }
                 }
             }
-        }
+        }*/
 
 
 
-        holder.buttonDelete_visit.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                  deleteVisit(holder.buttonDelete_visit.getContext(), holder, daoVisits);
-              }
-        });
+        holder.buttonDelete_visit.setOnClickListener(view -> deleteVisit(holder.buttonDelete_visit.getContext(), holder, daoVisits));
 
-        holder.buttonEdit_visit.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                  Intent intent = new Intent(new Intent(holder.buttonEdit_visit.getContext(), AddVisits.class));
-                  intent.putExtra("idKey",String.valueOf(visitModel.get(holder.getAdapterPosition()).getId()));
-                  intent.putExtra("id_vetKey",String.valueOf(visitModel.get(holder.getAdapterPosition()).getId_vet()));
-                  intent.putExtra("dateKey",String.valueOf(visitModel.get(holder.getAdapterPosition()).getDate()));
-                  intent.putExtra("timeKey",String.valueOf(visitModel.get(holder.getAdapterPosition()).getTime()));
-                  intent.putExtra("reasonKey",String.valueOf(visitModel.get(holder.getAdapterPosition()).getReason()));
+        holder.buttonEdit_visit.setOnClickListener(view -> {
+            Intent intent = new Intent(new Intent(holder.buttonEdit_visit.getContext(), AddVisits.class));
+            intent.putExtra("idKey",String.valueOf(visitModel.get(holder.getAdapterPosition()).visitModel.getId_visit()));
+            intent.putExtra("id_vetKey",String.valueOf(visitModel.get(holder.getAdapterPosition()).visitModel.getId_vet()));
+            intent.putExtra("dateKey",String.valueOf(visitModel.get(holder.getAdapterPosition()).visitModel.getDate()));
+            intent.putExtra("timeKey",String.valueOf(visitModel.get(holder.getAdapterPosition()).visitModel.getTime()));
+            intent.putExtra("reasonKey",String.valueOf(visitModel.get(holder.getAdapterPosition()).visitModel.getReason()));
 
-                  //0 = edit
-                  FlagSetup.setFlagVisitAdd(0);
-                  holder.buttonEdit_visit.getContext().startActivity(intent);
-              }
+            intent.putExtra("positionKey",String.valueOf(daoVisits.getRealPositionFromVisit(visitModel.get(holder.getAdapterPosition()).visitModel.getId_visit()) -1 ));
+            //0 = edit
+            FlagSetup.setFlagVisitAdd(0);
+            holder.buttonEdit_visit.getContext().startActivity(intent);
         });
 
         holder.arrayListSelected.clear();
@@ -163,7 +178,8 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(context, "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
 
-                daoVisits.deleteVisitById(visitModel.get(holder.getAdapterPosition()).getId());
+                daoVisits.DeleteAllRodentsVisitsByVisit(visitModel.get(holder.getAdapterPosition()).visitModel.getId_visit());
+                daoVisits.deleteVisitById(visitModel.get(holder.getAdapterPosition()).visitModel.getId_visit());
 
                 visitModel.remove(holder.getAdapterPosition());
 
@@ -188,31 +204,17 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
     }
 
 
-    private void checkCheckBox(CheckBox checkBoxVet, ListView listViewVisit, TextView textViewVetRelations_visit, TextView textViewVetRelationsInfo_visit) {
-        if (textViewVetRelations_visit.getText() != "") {
-            listViewVisit.setVisibility(View.GONE);
-            listViewVisit.setSelected(true);
-
-            textViewVetRelations_visit.setVisibility(View.VISIBLE);
-            textViewVetRelationsInfo_visit.setVisibility(View.VISIBLE);
-        }
-        else {
-            listViewVisit.setVisibility(View.GONE);
-
-            textViewVetRelations_visit.setVisibility(View.GONE);
-            textViewVetRelationsInfo_visit.setVisibility(View.GONE);
-        }
-    }
 
 
     class viewHolder extends RecyclerView.ViewHolder
     {
 
            EditText editTextReason_visit;
-           TextView textViewDate_visit, textViewTime_visit, textViewVetRelationsInfo_visit, textViewVetRelations_visit;
+           TextView textViewDate_visit, textViewTime_visit, textViewVetRelationsInfo_visit, textViewVetRelations_visit,
+                    textViewVetRelationsInfo_visit2, textViewVetRelations_visit2;
            Button buttonEdit_visit, buttonAdd_visit, buttonSaveEdit_visit, buttonDelete_visit;
-           ListView listViewVisit;
-           CheckBox checkBoxVisit1, checkBoxVisit2;
+           ListView listViewVisit, listViewVisit2;
+           CheckBox checkBoxVisit1, checkBoxVisit2, checkBoxVisit3;
 
 
         private ArrayList<String> arrayListSelected;
@@ -233,11 +235,18 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
             listViewVisit = itemView.findViewById(R.id.listViewVisit);
             listViewVisit.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
             listViewVisit.setItemsCanFocus(false);
+            listViewVisit2 = itemView.findViewById(R.id.listViewVisit2);
+            listViewVisit2.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            listViewVisit2.setItemsCanFocus(false);
 
             checkBoxVisit1 = itemView.findViewById(R.id.checkBoxVisit1);
             checkBoxVisit2 = itemView.findViewById(R.id.checkBoxVisit2);
+            checkBoxVisit3 = itemView.findViewById(R.id.checkBoxVisit3);
+
             textViewVetRelationsInfo_visit = itemView.findViewById(R.id.textViewVetRelationsInfo_visit);
             textViewVetRelations_visit = itemView.findViewById(R.id.textViewVetRelations_visit);
+            textViewVetRelationsInfo_visit2 = itemView.findViewById(R.id.textViewVetRelationsInfo_visit2);
+            textViewVetRelations_visit2 = itemView.findViewById(R.id.textViewVetRelations_visit2);
 
             arrayListSelected = new ArrayList<>();
 

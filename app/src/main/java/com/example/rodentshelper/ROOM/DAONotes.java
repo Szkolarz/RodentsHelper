@@ -6,7 +6,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import com.example.rodentshelper.ROOM.Notes.NotesModel;
-import com.example.rodentshelper.ROOM._MTM.RodentWithNotes;
+import com.example.rodentshelper.ROOM._MTM._RodentNotes.RodentWithNotes;
 
 import java.util.List;
 

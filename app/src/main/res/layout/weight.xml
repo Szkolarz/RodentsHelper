@@ -27,7 +27,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="220dp"
             android:layout_marginTop="15dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
@@ -42,7 +42,9 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/lineChart_weight"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp">
 
             </com.github.mikephil.charting.charts.LineChart>
 
@@ -52,13 +54,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/imageButtonQuestion_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/roundbutton_small"
+                android:padding="5dp"
+                android:src="@drawable/ic_question_mark"
+                android:tint="#0A4A97" />
+
             <TextView
+                android:id="@+id/textViewInfo_weight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:maxLines="6"
                 android:text="Info"
                 android:textColor="#014D70"
                 android:textColorHint="#77147A"
@@ -82,7 +98,7 @@
 
                     <EditText
                         android:id="@+id/editTextWeight"
-                        android:layout_width="100dp"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:hint="Waga"
@@ -90,6 +106,7 @@
                         android:maxLength="4"
                         android:maxLines="1"
                         android:textColor="#014D70"
+                        android:textColorHint="#717171"
                         android:textSize="24sp" />
 
                     <TextView
@@ -115,6 +132,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
@@ -142,11 +160,27 @@
                     android:id="@+id/buttonAdd_weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:backgroundTint="#5397DF"
-                    android:text="Zapisz"
+                    android:text="Dodaj"
                     android:textColor="#FFFFFF"
                     app:strokeColor="#0375a8"
+                    app:strokeWidth="3dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonSaveEdit_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#C6BD13"
+                    android:text="Edytuj"
+                    android:textColor="#FFFFFF"
+                    android:visibility="gone"
+                    app:strokeColor="#958E0F"
                     app:strokeWidth="3dp" />
 
             </LinearLayout>
@@ -188,7 +222,7 @@
                 android:textSize="16sp" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/spinner2"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp" />

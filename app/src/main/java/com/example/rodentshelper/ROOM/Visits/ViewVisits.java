@@ -26,6 +26,8 @@ import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
 import com.example.rodentshelper.ROOM.Vet.ViewVets;
+import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
+import com.example.rodentshelper.ROOM._MTM._RodentVisit.VisitsWithRodentsCrossRef;
 
 import java.util.List;
 
@@ -149,16 +151,14 @@ public class ViewVisits extends AppCompatActivity {
     public List getListVisits(){
 
 
-        List<VisitModel> visitModel = null;
+        List<VisitsWithRodentsCrossRef> visitModel = null;
 
         if (FlagSetup.getFlagVisitAdd() == 2) {
-            /** później ogarnij  (porównaj do ViewVets) */
-            //SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
-            //visitModel = visitDao.getAllVetsByRodentId(prefsGetRodentId.getInt("rodentId", 0));
-            visitModel = getDaoVisits().getAllVisits();
+            SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
+            visitModel = getDaoVisits().getVisitsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
         }
         else {
-            visitModel = getDaoVisits().getAllVisits();
+            visitModel = getDaoVisits().getVisitsWithRodents();
             FlagSetup.setFlagVisitAdd(1);
         }
 

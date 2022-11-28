@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -23,26 +22,11 @@ import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAO;
-import com.example.rodentshelper.ROOM.DAONotes;
 import com.example.rodentshelper.ROOM.DAOWeight;
 import com.example.rodentshelper.ROOM.DateFormat;
-import com.example.rodentshelper.ROOM.Notes.AdapterNotes;
-import com.example.rodentshelper.ROOM.Notes.NotesModel;
-import com.example.rodentshelper.ROOM.Notes.ViewNotes;
-import com.example.rodentshelper.ROOM.Rodent.AddRodents;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
-import com.example.rodentshelper.ROOM._MTM.RodentWeight.RodentWithWeights;
-import com.example.rodentshelper.ROOM._MTM.RodentWithNotes;
-import com.example.rodentshelper.ROOM._MTM.VetWithRodentsCrossRef;
+import com.example.rodentshelper.ROOM._MTM._RodentWeight.RodentWithWeights;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 
 import java.text.SimpleDateFormat;
@@ -58,9 +42,9 @@ public class WeightView extends Activity {
     RecyclerView recyclerView;
 
     EditText editTextWeight;
-    TextView textViewDate, textViewDateWeight_hidden;
-    Button buttonAdd_weight;
-    ImageButton imageButtonDate_weight;
+    TextView textViewDate, textViewDateWeight_hidden, textViewInfo_weight;
+    Button buttonAdd_weight, buttonSaveEdit_weight;
+    ImageButton imageButtonDate_weight, imageButtonQuestion_weight;
     LineChart lineChart_weight;
 
 
@@ -75,14 +59,40 @@ public class WeightView extends Activity {
 
         editTextWeight = findViewById(R.id.editTextWeight);
         textViewDate = findViewById(R.id.textViewDate);
+        textViewInfo_weight = findViewById(R.id.textViewInfo_weight);
 
         textViewDateWeight_hidden = findViewById(R.id.textViewDateWeight_hidden);
 
         buttonAdd_weight = findViewById(R.id.buttonAdd_weight);
+        buttonSaveEdit_weight = findViewById(R.id.buttonSaveEdit_weight);
         imageButtonDate_weight = findViewById(R.id.imageButtonDate_weight);
+        imageButtonQuestion_weight = findViewById(R.id.imageButtonQuestion_weight);
 
         lineChart_weight = findViewById(R.id.lineChart_weight);
-        lineChart_weight.setNoDataText("Brak danych. Potrzeba minimum dwóch pomiarów.");
+
+
+
+        if (FlagSetup.getFlagWeightAdd() == 0) {
+            buttonAdd_weight.setVisibility(View.GONE);
+            buttonSaveEdit_weight.setVisibility(View.VISIBLE);
+            String weightKey = getIntent().getStringExtra("weightKey");
+            String dateKey = getIntent().getStringExtra("dateKey");
+            imageButtonDate_weight.setEnabled(false);
+
+            System.out.println(dateKey);
+
+            editTextWeight.setText(weightKey);
+            textViewDate.setText(DateFormat.formatDate(java.sql.Date.valueOf(dateKey)));
+            textViewDateWeight_hidden.setText(dateKey);
+
+        } else {
+            Date dateGet = Calendar.getInstance().getTime();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String formattedDate = df.format(dateGet);
+            textViewDateWeight_hidden.setText(formattedDate);
+            textViewDate.setText(DateFormat.formatDate(java.sql.Date.valueOf(formattedDate)));
+        }
+
 
         /** setting up chart */
         WeightChart weightChart = new WeightChart();
@@ -90,15 +100,38 @@ public class WeightView extends Activity {
 
 
 
-        Date dateGet = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String formattedDate = df.format(dateGet);
-        textViewDateWeight_hidden.setText(formattedDate);
-        textViewDate.setText(DateFormat.formatDate(java.sql.Date.valueOf(formattedDate)));
+
+
 
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOWeight daoWeight = db.daoWeight();
+
+
+
+
+        SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
+        List<RodentWithWeights> theLastWeight = daoWeight.getLastWeightByRodentId(prefsGetRodentId.getInt("rodentId", 0));
+
+        AgeCalculator ageCalculator = new AgeCalculator();
+
+        try {
+
+            Date birth = java.sql.Date.valueOf( theLastWeight.get(0).rodents.get(0).getBirth().toString());
+
+            List<Integer> listAge = new ArrayList<>();
+            listAge = ageCalculator.calculateAge(birth);
+            //list.get(0) = days list.get(1) = months; list.get(2) = years
+
+            System.out.println( theLastWeight.get(0).weightModel.getWeight() + " agaha");
+
+            WeightPetHealthInfo weightPetHealthInfo = new WeightPetHealthInfo();
+            weightPetHealthInfo.getPreference(getApplicationContext(), listAge.get(2), listAge.get(1), listAge.get(0),
+                    theLastWeight.get(0).weightModel.getWeight(), textViewInfo_weight);
+
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e);
+        }
 
         getRoomData();
 
@@ -108,6 +141,16 @@ public class WeightView extends Activity {
                 onDateClick();
             }
         });
+
+        imageButtonQuestion_weight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WeightPetHealthInfo weightPetHealthInfo = new WeightPetHealthInfo();
+                weightPetHealthInfo.tableInfo(WeightView.this);
+            }
+        });
+
+
 
         dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -128,6 +171,13 @@ public class WeightView extends Activity {
             }
         });
 
+        buttonSaveEdit_weight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveEditWeight();
+            }
+        });
+
 
     }
 
@@ -143,6 +193,24 @@ public class WeightView extends Activity {
         datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         datePickerDialog.show();
+    }
+
+    public void saveEditWeight() {
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAOWeight daoWeight = db.daoWeight();
+
+        SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
+        Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
+
+        daoWeight.updateWeightById(idKey, Integer.valueOf(editTextWeight.getText().toString()),
+                java.sql.Date.valueOf(textViewDateWeight_hidden.getText().toString()));
+
+        FlagSetup.setFlagWeightAdd(1);
+
+
+        viewWeight();
+        test();
     }
 
     public void saveWeight() {
@@ -181,7 +249,10 @@ public class WeightView extends Activity {
 
     private void viewWeight() {
         finish();
-        startActivity(new Intent(getApplicationContext(), WeightView.class));
+        Intent intent = new Intent(WeightView.this, WeightView.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+
     }
 
     private void viewRodents() {
@@ -212,6 +283,10 @@ public class WeightView extends Activity {
     }
 
 
+    public void test (){
+
+        recyclerView.getAdapter().notifyDataSetChanged();
+    }
 
 
     public void getRoomData()

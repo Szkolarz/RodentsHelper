@@ -23,10 +23,9 @@ import androidx.room.Room;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAO;
 import com.example.rodentshelper.ROOM.DAOMedicaments;
 import com.example.rodentshelper.ROOM.DAORodents;
-import com.example.rodentshelper.ROOM._MTM.MedicamentWithRodentsCrossRef;
+import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,9 +1,8 @@
-package com.example.rodentshelper.ROOM._MTM.RodentWeight;
+package com.example.rodentshelper.ROOM._MTM._RodentWeight;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import com.example.rodentshelper.ROOM.Notes.NotesModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM.Weights.WeightModel;
 

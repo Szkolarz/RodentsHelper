@@ -1,23 +1,24 @@
-package com.example.rodentshelper.ROOM._MTM;
+package com.example.rodentshelper.ROOM._MTM._RodentVisit;
 
 import androidx.room.Embedded;
 import androidx.room.Junction;
 import androidx.room.Relation;
 
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
-import com.example.rodentshelper.ROOM.Vet.VetModel;
+import com.example.rodentshelper.ROOM.Visits.VisitModel;
+
 
 import java.util.List;
 
-public class VetWithRodentsCrossRef {
+public class VisitsWithRodentsCrossRef {
 
 
     @Embedded
-    public VetModel vetModel;
+    public VisitModel visitModel;
     @Relation(
-            parentColumn = "id_vet",
+            parentColumn = "id_visit",
             entityColumn = "id_rodent",
-            associateBy = @Junction(RodentVetModel.class)
+            associateBy = @Junction(RodentVisitModel.class)
     )
     public List<RodentModel> rodents;
 

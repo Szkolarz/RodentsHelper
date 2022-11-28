@@ -14,6 +14,8 @@ public class FlagSetup {
 
     private static Integer flagNotesAdd;
 
+    private static Integer flagWeightAdd;
+
 
     public FlagSetup() {
     }
@@ -64,5 +66,13 @@ public class FlagSetup {
 
     public static void setFlagIsFromHealth(Boolean flagIsFromHealth) {
         FlagSetup.flagIsFromHealth = flagIsFromHealth;
+    }
+
+    public static Integer getFlagWeightAdd() {
+        return flagWeightAdd;
+    }
+
+    public static void setFlagWeightAdd(Integer flagWeightAdd) {
+        FlagSetup.flagWeightAdd = flagWeightAdd;
     }
 }

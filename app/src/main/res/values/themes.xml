@@ -21,8 +21,14 @@
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textColorPrimary">#004275</item>
         <item name="colorPrimary">#91101f</item>
+    </style>
 
-
+    <style name="InfoDialogStyle" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:background">#5397DF</item>
+        <item name="android:colorAccent">#ACC5E1</item>
+        <item name="android:textColor">#004275</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="colorPrimary">#004275</item>
     </style>
 
 </resources>

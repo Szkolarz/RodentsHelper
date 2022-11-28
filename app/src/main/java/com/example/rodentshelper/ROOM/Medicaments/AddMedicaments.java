@@ -27,16 +27,12 @@ import androidx.room.Room;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.ROOM.DAOMedicaments;
 import com.example.rodentshelper.ROOM.DAORodents;
-import com.example.rodentshelper.ROOM.DAOVets;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAO;
-import com.example.rodentshelper.ROOM._MTM.MedicamentWithRodentsCrossRef;
-import com.example.rodentshelper.ROOM._MTM.RodentMedModel;
+import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
+import com.example.rodentshelper.ROOM._MTM._RodentMed.RodentMedModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
-import com.example.rodentshelper.ROOM._MTM.RodentVetModel;
-import com.example.rodentshelper.ROOM._MTM.VetWithRodentsCrossRef;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -119,15 +115,14 @@ public class AddMedicaments extends Activity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, arrayListLV);
 
-        // on below line we are setting adapter for our list view.
-
-
         List<RodentModel> rodentModel = getDaoRodents().getAllRodents();
 
         for(int i = 0; i < rodentModel.size(); i++) {
             arrayListID.add(rodentModel.get(i).getId());
             arrayListLV.add(rodentModel.get(i).getName());
         }
+
+        // on below line we are setting adapter for our list view.
         listViewMed.setAdapter(adapter);
 
         setVisibilityByFlag();
@@ -172,8 +167,7 @@ public class AddMedicaments extends Activity {
             List<MedicamentWithRodentsCrossRef> medicamentModel = getDaoMedicaments().getMedsWithRodents();
 
 
-            checkBoxMed.setChecked(true);
-            checkCheckBox();
+
 
             Integer positionKey = Integer.parseInt(getIntent().getStringExtra("positionKey"));
 
@@ -189,7 +183,7 @@ public class AddMedicaments extends Activity {
                     System.out.println("There is no any rodent left in relation");
                 }
             }
-
+            checkCheckBox();
 
 
 

@@ -7,9 +7,8 @@ import androidx.room.Transaction;
 import androidx.room.TypeConverters;
 
 import com.example.rodentshelper.ROOM.Medicaments.MedicamentModel;
-import com.example.rodentshelper.ROOM._MTM.MedicamentWithRodentsCrossRef;
-import com.example.rodentshelper.ROOM._MTM.RodentMedModel;
-import com.example.rodentshelper.ROOM._MTM.VetWithRodentsCrossRef;
+import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
+import com.example.rodentshelper.ROOM._MTM._RodentMed.RodentMedModel;
 
 import java.sql.Date;
 import java.util.List;

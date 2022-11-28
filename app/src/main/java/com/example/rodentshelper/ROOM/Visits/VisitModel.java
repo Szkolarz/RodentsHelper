@@ -13,7 +13,7 @@ import java.sql.Date;
 public class VisitModel {
 
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    private Integer id_visit;
 
     @ColumnInfo(name = "id_vet")
     private Integer id_vet;
@@ -37,12 +37,12 @@ public class VisitModel {
     }
 
 
-    public Integer getId() {
-        return id;
+    public Integer getId_visit() {
+        return id_visit;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId_visit(Integer id_visit) {
+        this.id_visit = id_visit;
     }
 
     public Integer getId_vet() {

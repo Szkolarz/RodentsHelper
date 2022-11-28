@@ -1,19 +1,6 @@
 package com.example.rodentshelper.ROOM;
 
 import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.Query;
-import androidx.room.TypeConverters;
-
-import com.example.rodentshelper.ROOM.Medicaments.MedicamentModel;
-import com.example.rodentshelper.ROOM._MTM.RodentMedModel;
-import com.example.rodentshelper.ROOM._MTM.RodentVetModel;
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
-import com.example.rodentshelper.ROOM.Vet.VetModel;
-import com.example.rodentshelper.ROOM.Visits.VisitModel;
-
-import java.sql.Date;
-import java.util.List;
 
 @Dao
 public interface DAO {

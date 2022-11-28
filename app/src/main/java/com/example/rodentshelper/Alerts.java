@@ -24,7 +24,7 @@ public class Alerts {
     }
 
     public void alertLackOfData (String message, Context context) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        AlertDialog.Builder alert = new AlertDialog.Builder(context, R.style.AlertDialogStyle);
         alert.setTitle("Nie wpisano wymaganych opcji");
         //alert.setMessage("Należy podać nazwę leku");
         alert.setMessage(message);
@@ -39,7 +39,8 @@ public class Alerts {
 
 
     public void simpleError (String title, String message, Context context) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        //AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        AlertDialog.Builder alert = new AlertDialog.Builder(context, R.style.InfoDialogStyle);
         alert.setTitle(title);
         alert.setMessage(message);
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -51,5 +52,18 @@ public class Alerts {
         alert.create().show();
     }
 
+    public void simpleInfo (String title, String message, Context context) {
+        //AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        AlertDialog.Builder alert = new AlertDialog.Builder(context, R.style.InfoDialogStyle);
+        alert.setTitle(title);
+        alert.setMessage(message);
+        alert.setPositiveButton("Rozumiem", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        alert.create().show();
+    }
 
 }

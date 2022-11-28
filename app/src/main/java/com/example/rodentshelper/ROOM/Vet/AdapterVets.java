@@ -19,7 +19,7 @@ import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOVets;
-import com.example.rodentshelper.ROOM._MTM.VetWithRodentsCrossRef;
+import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 
 import org.jetbrains.annotations.NotNull;
 

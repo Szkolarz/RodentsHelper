@@ -1,4 +1,4 @@
-package com.example.rodentshelper.ROOM._MTM;
+package com.example.rodentshelper.ROOM._MTM._RodentNotes;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;

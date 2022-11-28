@@ -169,7 +169,9 @@ public class ViewPetHealth extends AppCompatActivity {
 
     public void viewWeight()
     {
+        FlagSetup.setFlagWeightAdd(1);
         Intent intent = new Intent(ViewPetHealth.this, WeightView.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 
@@ -202,13 +204,14 @@ public class ViewPetHealth extends AppCompatActivity {
 
 
 
-    /*@Override
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
             viewRodents();
         }
         return super.onKeyDown(keyCode, event);
-    }*/
+    }
 
 
 }

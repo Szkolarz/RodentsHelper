@@ -19,4 +19,15 @@ public class DateFormat {
         return dateFormat.format(c.getTimeInMillis());
     }
 
+    public static String formatDateToCalculate(Date date) {
+        SimpleDateFormat dateFormat;
+        // Apply desired format here
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        Calendar c = Calendar.getInstance();
+        dateFormat.setTimeZone(TimeZone.getDefault());
+        c.setTimeInMillis(date.getTime());
+        return dateFormat.format(c.getTimeInMillis());
+    }
+
 }

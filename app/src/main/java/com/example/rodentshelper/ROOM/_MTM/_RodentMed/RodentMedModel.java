@@ -1,4 +1,4 @@
-package com.example.rodentshelper.ROOM._MTM;
+package com.example.rodentshelper.ROOM._MTM._RodentMed;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

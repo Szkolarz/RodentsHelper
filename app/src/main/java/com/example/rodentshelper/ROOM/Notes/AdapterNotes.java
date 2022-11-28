@@ -15,12 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotes;
-import com.example.rodentshelper.ROOM._MTM.RodentWithNotes;
+import com.example.rodentshelper.ROOM._MTM._RodentNotes.RodentWithNotes;
 
 
 import org.jetbrains.annotations.NotNull;

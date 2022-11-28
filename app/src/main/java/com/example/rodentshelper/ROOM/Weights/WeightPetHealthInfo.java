@@ -1,4 +1,170 @@
 package com.example.rodentshelper.ROOM.Weights;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.rodentshelper.Alerts;
+import com.example.rodentshelper.ROOM.Rodent.AddRodents;
+
+import org.w3c.dom.Text;
+
 public class WeightPetHealthInfo {
+
+
+    public void getPreference(Context context, Integer ageYear, Integer ageMonth, Integer ageDay, Integer weight, TextView textViewInfo_weight) {
+        SharedPreferences prefsFirstStart = context.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
+
+
+        if (prefsFirstStart.getInt("prefsFirstStart", 0) == 3) {
+            petHealth3(ageYear, ageMonth, ageDay, weight, textViewInfo_weight);
+        }
+    }
+
+    public void petHealth3(Integer ageYear, Integer ageMonth, Integer ageDay, Integer weight, TextView textViewInfo_weight) {
+        //30g - 100g
+        if (ageYear == 0 && ageMonth == 0 && ageDay < 14) {
+            if (weight >= 30 && weight <= 100)
+                properWeight(textViewInfo_weight, 30, 100);
+            if (weight < 30)
+                tooLowWeight(textViewInfo_weight, 30, 100);
+            if (weight > 100)
+                tooHighWeight(textViewInfo_weight, 30, 100);
+            return;
+        }
+
+
+        //100g - 250g
+        if (ageYear == 0 && ageMonth <= 2 ) {
+
+            //70g - 150g
+            if (ageMonth == 0 && ageDay >= 14) {
+                if (weight >= 70 && weight <= 150)
+                    properWeight(textViewInfo_weight, 70, 150);
+                if (weight < 70)
+                    tooLowWeight(textViewInfo_weight, 70, 150);
+                if (weight > 150)
+                    tooHighWeight(textViewInfo_weight, 70, 150);
+                return;
+            }
+
+            if (weight >= 100 && weight <= 250)
+                properWeight(textViewInfo_weight, 100, 250);
+            if (weight < 100)
+                tooLowWeight(textViewInfo_weight, 100, 250);
+            if (weight > 250)
+                tooHighWeight(textViewInfo_weight, 100, 250);
+            return;
+        }
+
+        //200g - 350g
+        if (ageYear == 0 && (ageMonth >= 2 && ageMonth <= 4)) {
+            if (weight >= 200 && weight <= 350)
+                properWeight(textViewInfo_weight, 200, 350);
+            if (weight < 200)
+                tooLowWeight(textViewInfo_weight, 200, 350);
+            if (weight > 350)
+                tooHighWeight(textViewInfo_weight, 200, 350);
+            return;
+        }
+
+        //300g - 420g
+        if (ageYear == 0 && (ageMonth >= 4 && ageMonth <= 7)) {
+            if (weight >= 300 && weight <= 420)
+                properWeight(textViewInfo_weight, 300, 420);
+            if (weight < 300)
+                tooLowWeight(textViewInfo_weight, 400, 550);
+            if (weight > 420)
+                tooHighWeight(textViewInfo_weight, 400, 550);
+            return;
+        }
+
+        //400g - 550g
+        if (ageYear == 0 && (ageMonth >= 7 && ageMonth < 12)) {
+            if (weight >= 400 && weight <= 550)
+                properWeight(textViewInfo_weight, 400, 550);
+            if (weight < 400)
+                tooLowWeight(textViewInfo_weight, 400, 550);
+            if (weight > 550)
+                tooHighWeight(textViewInfo_weight, 400, 550);
+            return;
+        }
+
+        //470g - 780g
+        if (ageYear >= 1) {
+            if (weight >= 470 && weight <= 780)
+                properWeight(textViewInfo_weight, 470, 780);
+            if (weight < 470)
+                tooLowWeight(textViewInfo_weight, 470, 780);
+            if (weight > 780)
+                tooHighWeight(textViewInfo_weight, 470, 780);
+        }
+
+    }
+
+    private void properWeight (TextView textViewInfo_weight, Integer weight1, Integer weight2) {
+
+        SpannableString bold = boldText("Twój pupil jest w bardzo dobrej kondycji wagowej.");
+        textViewInfo_weight.setText(bold);
+
+        textViewInfo_weight.append("\nPrawidłowy przedział wagowy dla twojego zwierzęcia w aktualnym wieku wynosi:\n" +
+                weight1 + "g - " + weight2 +"g.");
+    }
+
+    private void tooLowWeight (TextView textViewInfo_weight, Integer weight1, Integer weight2) {
+        SpannableString bold = boldText("Twój pupil ma zbyt niską wagę.");
+        textViewInfo_weight.setText(bold);
+
+        textViewInfo_weight.append("\nPrawidłowy przedział wagowy dla twojego zwierzęcia w aktualnym wieku wynosi:\n" +
+                weight1 + "g - " + weight2 +"g.");
+    }
+
+    private void tooHighWeight (TextView textViewInfo_weight, Integer weight1, Integer weight2) {
+        SpannableString bold = boldText("Twój pupil ma zbyt dużą wagę.");
+        textViewInfo_weight.setText(bold);
+
+        textViewInfo_weight.append("\nPrawidłowy przedział wagowy dla twojego zwierzęcia w aktualnym wieku wynosi:\n" +
+                weight1 + "g - " + weight2 +"g.");
+    }
+
+
+    public void tableInfo (Context context) {
+        Alerts alert = new Alerts();
+        alert.simpleInfo("Prawidłowa waga szynszyla",
+                "Prawidłowa waga szynszyla na podstawie jego wieku (opracowanie własne według różnych źródeł):\n" +
+                "\n" +
+                "30g - 100g:  od narodzin do 14 dni\n" +
+                "70g - 150g:  od 14 dni do miesiąca\n" +
+                "100g - 250g: 1 - 2 miesiące\n" +
+                "200g - 350g: 2 - 4 miesiące\n" +
+                "300g - 420g: 4 - 7 miesięcy\n" +
+                "400g - 550g: 7 - 12 miesięcy\n" +
+                "470g - 780g: powyżej jednego roku życia\n" +
+                "\n\n" +
+                "Pamiętaj, że przedstawiona powyżej rozpiska prawidłowej wagi pupila jest kwestią umowną i zależy często od genów, czy od hodowli, z której pochodzi zwierzę.\n" +
+                "Dlatego ewentualne, minimalne odbieganie wagi twojego zwierzęcia od normy nie powinno cię niepokoić.\n\n" +
+                "Jeśli zauważysz jednak coś niepokojącego w wadze twojego zwierzęcia, udaj się koniecznie do weterynarza.",
+                context);
+
+    }
+
+
+    private SpannableString boldText(String boldText) {
+        SpannableString str = new SpannableString(boldText);
+        str.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return str;
+    }
+
+
+
+
 }

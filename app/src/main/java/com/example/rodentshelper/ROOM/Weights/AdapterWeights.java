@@ -1,29 +1,27 @@
 package com.example.rodentshelper.ROOM.Weights;
 
-import static android.content.Context.MODE_PRIVATE;
-
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.MainViews.ViewPetHealth;
 import com.example.rodentshelper.R;
+import com.example.rodentshelper.ROOM.AppDatabase;
+import com.example.rodentshelper.ROOM.DAOWeight;
 import com.example.rodentshelper.ROOM.DateFormat;
-import com.example.rodentshelper.ROOM.Rodent.AddRodents;
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
-import com.example.rodentshelper.ROOM._MTM.RodentWeight.RodentWithWeights;
+import com.example.rodentshelper.ROOM._MTM._RodentWeight.RodentWithWeights;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -49,38 +47,73 @@ public class AdapterWeights extends RecyclerView.Adapter<AdapterWeights.viewHold
     @Override
     public void onBindViewHolder(@NonNull @NotNull viewHolder holder, int position) {
 
-
-
         holder.textViewWeight_view.setText(weightModel.get(position).weightModel.getWeight().toString());
         holder.textViewDate_view.setText( DateFormat.formatDate(weightModel.get(position).weightModel.getDate()) );
 
 
-
-
-        /*holder.buttonEdit_weight.setOnClickListener(new View.OnClickListener() {
+        holder.buttonDelete_weight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               *//* Intent intent = new Intent(new Intent(holder.buttonEdit_rodent.getContext(), AddRodents.class));
-                intent.putExtra("idKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId()));
-                intent.putExtra("id_animalKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId_animal()));
-                intent.putExtra("nameKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getName()));
-                intent.putExtra("genderKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getGender()));
-                intent.putExtra("birthKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getBirth()));
-                intent.putExtra("furKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getFur()));
-                intent.putExtra("notesKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getNotes()));
-
-
-                //0 = edit
-                FlagSetup.setFlagRodentAdd(0);
-                holder.buttonEdit_weight.getContext().startActivity(intent);*//*
+                deleteWeight(holder.buttonDelete_weight.getContext(), holder);
             }
-        });*/
+        });
+
+        holder.buttonEdit_weight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editWeight(holder);
+            }
+        });
 
 
 
+    }
 
+    private void deleteWeight(Context context, viewHolder holder) {
 
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle("Usuwanie wagi");
+        alert.setMessage("Czy na pewno chcesz usunąć wagę z listy?\n\nProces jest nieodwracalny!");
 
+        alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(context, "Pomyślnie usunięto wagę", Toast.LENGTH_SHORT).show();
+
+                AppDatabase db = Room.databaseBuilder(context,
+                        AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+                DAOWeight daoWeight = db.daoWeight();
+
+                daoWeight.deleteWeightById(weightModel.get(holder.getAdapterPosition()).weightModel.getId_weight());
+
+                weightModel.remove(holder.getAdapterPosition());
+
+                Intent intent = new Intent(context, WeightView.class);
+                context.startActivity(intent);
+
+                notifyDataSetChanged();
+
+            }
+        });
+        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alert.create().show();
+
+    }
+
+    private void editWeight(viewHolder holder) {
+        Intent intent = new Intent(new Intent(holder.buttonEdit_weight.getContext(), WeightView.class));
+        intent.putExtra("idKey",String.valueOf(weightModel.get(holder.getAdapterPosition()).weightModel.getId_weight()));
+        intent.putExtra("weightKey",String.valueOf(weightModel.get(holder.getAdapterPosition()).weightModel.getWeight()));
+        intent.putExtra("dateKey",String.valueOf(weightModel.get(holder.getAdapterPosition()).weightModel.getDate()));
+        //0 = edit
+        FlagSetup.setFlagWeightAdd(0);
+
+        holder.buttonEdit_weight.getContext().startActivity(intent);
     }
 
     @Override

@@ -158,6 +158,28 @@
             android:textColor="#014D70"
             android:textSize="17sp" />
 
+        <TextView
+            android:id="@+id/textViewVetRelationsInfo_visit2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:ellipsize="none"
+            android:maxLines="8"
+            android:text="Zwierzęta zapisane na wizytę:"
+            android:textColor="#014D70"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewVetRelations_visit2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:ellipsize="none"
+            android:maxLines="8"
+            android:textColor="#014D70"
+            android:textSize="17sp" />
+
         <CheckBox
             android:id="@+id/checkBoxVisit1"
             android:layout_width="match_parent"
@@ -170,12 +192,28 @@
         <ListView
             android:id="@+id/listViewVisit"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:overScrollMode="ifContentScrolls" />
 
         <CheckBox
             android:id="@+id/checkBoxVisit2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Przypisać zwierzę do wizyty?"
+            android:textColor="#014D70"
+            android:textSize="16sp" />
+
+        <ListView
+            android:id="@+id/listViewVisit2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:overScrollMode="ifContentScrolls" />
+
+        <CheckBox
+            android:id="@+id/checkBoxVisit3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
