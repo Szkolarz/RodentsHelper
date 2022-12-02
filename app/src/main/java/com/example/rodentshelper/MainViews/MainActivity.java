@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         Querries dbQuerries = new Querries();
 
-        text1 = (TextView) findViewById(R.id.textView);
+        text1 = (TextView) findViewById(R.id.textViewRequired_rodent);
         text2 = (TextView) findViewById(R.id.textView2);
         button1=(Button) findViewById(R.id.button);
 

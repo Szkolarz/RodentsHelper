@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import androidx.room.Room;
 
+import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.ImageCompress;
 import com.example.rodentshelper.R;
@@ -48,7 +49,7 @@ public class AddRodents extends Activity {
     EditText editTextNotes, editTextName, editTextFur;
     Button buttonAdd_rodent, buttonEdit_rodent;
     ImageView buttonDelete_rodent;
-    TextView textViewDeleteImage_rodent;
+    TextView textViewDeleteImage_rodent, textViewRequired_rodent1, textViewRequired_rodent2;
     RadioButton radioButtonGender1, radioButtonGender2;
 
     RadioGroup radioGroup;
@@ -95,7 +96,8 @@ public class AddRodents extends Activity {
         buttonEdit_rodent = findViewById(R.id.buttonSaveEdit_rodent);
         buttonDelete_rodent = findViewById(R.id.buttonDelete_rodent);
         textViewDeleteImage_rodent = findViewById(R.id.textViewDeleteImage_rodent);
-
+        textViewRequired_rodent1 = findViewById(R.id.textViewRequired_rodent1);
+        textViewRequired_rodent2 = findViewById(R.id.textViewRequired_rodent2);
 
 
         imageView_rodent = findViewById(R.id.imageView_rodent);
@@ -254,32 +256,8 @@ public class AddRodents extends Activity {
                 @Override
                 public void onClick(View view) {
 
-                    int selectedRadio = radioGroup.getCheckedRadioButtonId();
-                    radioButton = (RadioButton) findViewById(selectedRadio);
+                    onClickSaveEdit(daoRodents, idKey, id_animalKey);
 
-                    String stringGender;
-                    if (!radioButtonGender1.isChecked() && !radioButtonGender2.isChecked())
-                        stringGender = "nie podano";
-                    else
-                        stringGender = radioButton.getText().toString();
-
-
-                    dateFormat = textViewDate_hidden.getText().toString();
-
-                    if (byteArray == null) {
-                        Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                                R.drawable.ic_chinchilla);
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                        byteArray = stream.toByteArray();
-                    }
-
-                    daoRodents.updateRodentById(idKey, id_animalKey, editTextName.getText().toString(),
-                            stringGender, Date.valueOf(dateFormat),
-                            editTextFur.getText().toString(), editTextNotes.getText().toString(), byteArray);
-
-
-                    viewRodents();
 
                 }
             });
@@ -388,7 +366,6 @@ public class AddRodents extends Activity {
             //imageView_rodent.setImageBitmap( bitmap1);
 
 
-
         }
 
     }
@@ -423,25 +400,15 @@ public class AddRodents extends Activity {
 
 
         if (stringName.length() <= 0 || stringDate == null) {
+            textViewRequired_rodent1.setVisibility(View.VISIBLE);
+            textViewRequired_rodent2.setVisibility(View.VISIBLE);
 
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setTitle("Nie wpisano wymaganych opcji");
-            alert.setMessage("Do poprawnego działania aplikacji należy " +
+            Alerts alert = new Alerts();
+            alert.alertLackOfData("Do poprawnego działania aplikacji należy " +
                     "podać imię oraz wiek pupila.\n\nJeśli nie znasz dokładnej " +
-                    "daty urodzenia zwierzęcia, możesz podać przybliżoną datę :)");
-            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(AddRodents.this, "Wprowadź wymagane dane", Toast.LENGTH_SHORT).show();
-                }
-            });
-            alert.create().show();
-
-
-
+                    "daty urodzenia zwierzęcia, możesz podać przybliżoną datę.", this);
         }
         else {
-
             if (byteArray == null) {
                 Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
                         R.drawable.ic_chinchilla);
@@ -453,6 +420,47 @@ public class AddRodents extends Activity {
             daoRodents.insertRecordRodent(new RodentModel(1, stringName, stringGender, Date.valueOf(stringDate), stringFur, stringNotes, byteArray));
 
             System.out.println("DODANO");
+            viewRodents();
+        }
+
+    }
+
+    private void onClickSaveEdit(DAORodents daoRodents, Integer idKey, Integer id_animalKey) {
+
+        if (editTextName.getText().toString().length() <= 0) {
+            textViewRequired_rodent1.setVisibility(View.VISIBLE);
+            textViewRequired_rodent2.setVisibility(View.VISIBLE);
+
+            Alerts alert = new Alerts();
+            alert.alertLackOfData("Do poprawnego działania aplikacji należy " +
+                    "podać imię pupila.", this);
+        } else {
+
+            int selectedRadio = radioGroup.getCheckedRadioButtonId();
+            radioButton = (RadioButton) findViewById(selectedRadio);
+
+            String stringGender;
+            if (!radioButtonGender1.isChecked() && !radioButtonGender2.isChecked())
+                stringGender = "nie podano";
+            else
+                stringGender = radioButton.getText().toString();
+
+
+            dateFormat = textViewDate_hidden.getText().toString();
+
+            if (byteArray == null) {
+                Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                        R.drawable.ic_chinchilla);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byteArray = stream.toByteArray();
+            }
+
+            daoRodents.updateRodentById(idKey, id_animalKey, editTextName.getText().toString(),
+                    stringGender, Date.valueOf(dateFormat),
+                    editTextFur.getText().toString(), editTextNotes.getText().toString(), byteArray);
+
+
             viewRodents();
         }
 

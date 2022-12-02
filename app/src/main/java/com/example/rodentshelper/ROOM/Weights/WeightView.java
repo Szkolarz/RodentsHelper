@@ -123,7 +123,6 @@ public class WeightView extends Activity {
             listAge = ageCalculator.calculateAge(birth);
             //list.get(0) = days list.get(1) = months; list.get(2) = years
 
-            System.out.println( theLastWeight.get(0).weightModel.getWeight() + " agaha");
 
             WeightPetHealthInfo weightPetHealthInfo = new WeightPetHealthInfo();
             weightPetHealthInfo.getPreference(getApplicationContext(), listAge.get(2), listAge.get(1), listAge.get(0),

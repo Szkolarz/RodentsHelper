@@ -32,6 +32,12 @@ public class VetModel {
         this.notes = notes;
     }
 
+    public VetModel(String name, String address, String phone_number) {
+        this.name = name;
+        this.address = address;
+        this.phone_number = phone_number;
+    }
+
 
     public Integer getId_vet() {
         return id_vet;
