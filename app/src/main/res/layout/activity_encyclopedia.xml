@@ -173,7 +173,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="Pokarm"
+                                    android:text="Smakołyki"
                                     android:textAlignment="center"
                                     android:textColor="#014D70" />
 

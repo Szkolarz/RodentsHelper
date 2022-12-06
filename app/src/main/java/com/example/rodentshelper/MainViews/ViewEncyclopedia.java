@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rodentshelper.Encyclopedia.InternetCheckEncyclopedia;
+import com.example.rodentshelper.Encyclopedia.Treats.ViewTreats;
 import com.example.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
@@ -39,6 +41,8 @@ public class ViewEncyclopedia extends AppCompatActivity {
         imageButton2_encyclopedia.setColorFilter(Color.WHITE);
         textView2_encyclopedia.setTextColor(Color.WHITE);
 
+        InternetCheckEncyclopedia internetCheckEncyclopedia = new InternetCheckEncyclopedia();
+        internetCheckEncyclopedia.checkInternet(ViewEncyclopedia.this);
 
         imageButtonGeneral.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +54,7 @@ public class ViewEncyclopedia extends AppCompatActivity {
         imageButtonFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewMeds();
+                viewTreats();
             }
         });
 
@@ -98,6 +102,12 @@ public class ViewEncyclopedia extends AppCompatActivity {
     public void viewVets()
     {
         Intent intent = new Intent(ViewEncyclopedia.this, ViewVets.class);
+        startActivity(intent);
+    }
+
+    public void viewTreats()
+    {
+        Intent intent = new Intent(ViewEncyclopedia.this, ViewTreats.class);
         startActivity(intent);
     }
 

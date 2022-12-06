@@ -95,6 +95,9 @@
         <activity
             android:name=".MainViews.GoogleMaps.GoogleMaps"
             android:exported="true" />
+        <activity
+            android:name=".Encyclopedia.Treats.ViewTreats"
+            android:exported="true" />
     </application>
 
 </manifest>

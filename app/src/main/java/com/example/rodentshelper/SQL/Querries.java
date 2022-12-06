@@ -21,10 +21,28 @@ public class Querries implements ConnectionSQL{
         }
     }
 
-    public ResultSet checkVersion() throws SQLException {
+    /*public ResultSet checkVersion() throws SQLException {
         {
             Statement stat = connectToVPS().createStatement();
             ResultSet myres = stat.executeQuery("SELECT * FROM `Version`");
+            return myres;
+        }
+    }*/
+
+    public ResultSet checkVersion3() throws SQLException {
+        {
+            Statement stat = connectToVPS().createStatement();
+            ResultSet myres = stat.executeQuery("SELECT * FROM `Version3`");
+            return myres;
+        }
+    }
+
+
+
+    public ResultSet selectTreats3() throws SQLException {
+        {
+            Statement stat = connectToVPS().createStatement();
+            ResultSet myres = stat.executeQuery("SELECT * from `Treats` WHERE id_animal = 3");
             return myres;
         }
     }

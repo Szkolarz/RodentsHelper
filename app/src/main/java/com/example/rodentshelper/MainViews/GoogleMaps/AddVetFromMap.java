@@ -32,11 +32,11 @@ public class AddVetFromMap {
         if (isAlreadyAdded == false) {
             daoVets.insertRecordVet(new VetModel(name, address, phone, ""));
             alert.simpleInfo("Dodano weterynarza", "Pomyślnie dodano weterynarza do twojej listy!\n\n" +
-                    "Listę weterynarzy możesz przejrzeć w: 'Zdrowie' > 'Weterynarze'.", context);
+                    "Listę weterynarzy możesz przejrzeć w: 'Zdrowie' > 'Weterynarz'.", context);
         } else {
             alert.simpleError("Weterynarz już istnieje", "Nie udało się dodać weterynarza do listy! Weterynarz z takimi " +
                     "danymi znajduje się już na twojej liście.\n\n" +
-                    "Listę weterynarzy możesz przejrzeć w: 'Zdrowie' > 'Weterynarze'.", context);
+                    "Listę weterynarzy możesz przejrzeć w: 'Zdrowie' > 'Weterynarz'.", context);
         }
 
 
