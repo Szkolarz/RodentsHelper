@@ -98,6 +98,9 @@
         <activity
             android:name=".Encyclopedia.Treats.ViewTreats"
             android:exported="true" />
+        <activity
+            android:name=".ROOM.Weights.WeightInfo"
+            android:exported="true" />
     </application>
 
 </manifest>

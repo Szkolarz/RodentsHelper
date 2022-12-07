@@ -4,9 +4,11 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import androidx.room.Room;
 
+import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOEncyclopedia;
@@ -69,9 +71,7 @@ public class VersionCodeCheck {
 
 
             if (!sharedPreferencesDBVersion.equals(DBversion)) {
-
                 readDataFromVPS(context, dbQuerries, prefsFirstStart);
-
                 SharedPreferences.Editor editorFirstDownload = prefsFirstDownload.edit();
                 editorFirstDownload.putBoolean("firstDownload", false);
                 editorFirstDownload.apply();
@@ -79,17 +79,21 @@ public class VersionCodeCheck {
                 SharedPreferences.Editor editorDB = prefsDB.edit();
                 editorDB.putString("dbversion", DBversion);
                 editorDB.apply();
+                Toast.makeText(context, "Pomyślnie pobrano dane", Toast.LENGTH_SHORT).show();
             }
 
 
         } catch (Exception e) {
-            System.out.println(e);
+            Alerts alert = new Alerts();
+            alert.simpleInfo("Brak internetu", "Nie masz połączenia z internetem. " +
+                    "Użyj innej sieci lub spróbuj ponownie później.", context);
         }
 
     }
 
 
     public void readDataFromVPS (Context context, Querries dbQuerries, SharedPreferences prefsFirstStart) {
+
 
         try {
 

@@ -54,7 +54,7 @@
                         android:layout_marginBottom="25dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Ładowanie..."
+                        android:text="Pobieranie..."
                         android:textColor="#014D70"
                         android:textSize="20sp"
                         android:textStyle="bold"

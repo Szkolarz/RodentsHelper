@@ -5,6 +5,7 @@ import static android.content.Context.MODE_PRIVATE;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.text.Spannable;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.ROOM.Rodent.AddRodents;
+import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
 import org.w3c.dom.Text;
 
@@ -138,23 +140,7 @@ public class WeightPetHealthInfo {
 
 
     public void tableInfo (Context context) {
-        Alerts alert = new Alerts();
-        alert.simpleInfo("Prawidłowa waga szynszyla",
-                "Prawidłowa waga szynszyla na podstawie jego wieku (opracowanie własne według różnych źródeł):\n" +
-                "\n" +
-                "30g - 100g:  od narodzin do 14 dni\n" +
-                "70g - 150g:  od 14 dni do miesiąca\n" +
-                "100g - 250g: 1 - 2 miesiące\n" +
-                "200g - 350g: 2 - 4 miesiące\n" +
-                "300g - 420g: 4 - 7 miesięcy\n" +
-                "400g - 550g: 7 - 12 miesięcy\n" +
-                "470g - 780g: powyżej jednego roku życia\n" +
-                "\n\n" +
-                "Pamiętaj, że przedstawiona powyżej rozpiska prawidłowej wagi pupila jest kwestią umowną i zależy często od genów, czy od hodowli, z której pochodzi zwierzę.\n" +
-                "Dlatego ewentualne, minimalne odbieganie wagi twojego zwierzęcia od normy nie powinno cię niepokoić.\n\n" +
-                "Jeśli zauważysz jednak coś niepokojącego w wadze twojego zwierzęcia, udaj się koniecznie do weterynarza.",
-                context);
-
+        context.startActivity(new Intent(context, WeightInfo.class));
     }
 
 

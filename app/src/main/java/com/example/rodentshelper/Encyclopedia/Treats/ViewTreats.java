@@ -42,12 +42,14 @@ public class ViewTreats extends AppCompatActivity  {
     };
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.treats);
 
         ViewPager2 pager = findViewById(R.id.pager);
+        pager.setUserInputEnabled(false);
 
 
 
