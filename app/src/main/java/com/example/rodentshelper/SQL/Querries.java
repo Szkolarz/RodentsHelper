@@ -1,5 +1,6 @@
 package com.example.rodentshelper.SQL;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,20 +30,20 @@ public class Querries implements ConnectionSQL{
         }
     }*/
 
-    public ResultSet checkVersion3() throws SQLException {
+    public ResultSet checkVersion(Integer id_animal) throws SQLException {
         {
             Statement stat = connectToVPS().createStatement();
-            ResultSet myres = stat.executeQuery("SELECT * FROM `Version3`");
+            ResultSet myres = stat.executeQuery("SELECT * FROM `Version` WHERE id_animal = " + id_animal);
             return myres;
         }
     }
 
 
 
-    public ResultSet selectTreats3() throws SQLException {
+    public ResultSet selectTreats(Integer id_animal) throws SQLException {
         {
             Statement stat = connectToVPS().createStatement();
-            ResultSet myres = stat.executeQuery("SELECT * from `Treats` WHERE id_animal = 3");
+            ResultSet myres = stat.executeQuery("SELECT * from `Treats` WHERE id_animal = " + id_animal);
             return myres;
         }
     }

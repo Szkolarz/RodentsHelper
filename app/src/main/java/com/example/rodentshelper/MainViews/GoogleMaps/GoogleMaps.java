@@ -310,6 +310,10 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
                                                 lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                            } else {
+                                map.moveCamera(CameraUpdateFactory
+                                        .newLatLngZoom(defaultLocation, FAR_ZOOM));
+                                map.getUiSettings().setMyLocationButtonEnabled(false);
                             }
                         } else {
                             Alerts alert = new Alerts();

@@ -55,18 +55,21 @@ public class AdapterTreats extends RecyclerView.Adapter<AdapterTreats.viewHolder
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull viewHolder holder, int position) {
-        if ( FragmentFlag.getFragmentFlag() == 0 &&
-                treatsModel.get(position).getIs_healthy() == false) {
-            holder.linearLayout_treats.setVisibility(View.GONE);
+        if (FragmentFlag.getFragmentFlag() == 0) {
+            holder.linearLayout_treats.setBackgroundColor(Color.parseColor("#a1e3b3"));
+            holder.view_treats.setBackgroundColor(Color.parseColor("#6dd188"));
+            if (treatsModel.get(position).getIs_healthy() == false)
+                holder.linearLayout_treats.setVisibility(View.GONE);
         }
-        else if ( FragmentFlag.getFragmentFlag() == 1 &&
-                treatsModel.get(position).getIs_healthy() == true)
-            holder.linearLayout_treats.setVisibility(View.GONE);
+        else if (FragmentFlag.getFragmentFlag() == 1) {
+            holder.linearLayout_treats.setBackgroundColor(Color.parseColor("#e3a6b1"));
+            holder.view_treats.setBackgroundColor(Color.parseColor("#d18492"));
+            if (treatsModel.get(position).getIs_healthy() == true)
+                holder.linearLayout_treats.setVisibility(View.GONE);
+        }
 
-        if (FragmentFlag.getFragmentFlag() == 0)
-            holder.linearLayout_treats.setBackgroundColor(Color.parseColor("#87d49c"));
-        else
-            holder.linearLayout_treats.setBackgroundColor(Color.parseColor("#d48795"));
+
+
 
             holder.textViewName_treats.setText(treatsModel.get(position).getName());
             holder.textViewDesc_treats.setText(treatsModel.get(position).getDescription());
@@ -99,6 +102,7 @@ public class AdapterTreats extends RecyclerView.Adapter<AdapterTreats.viewHolder
            ImageView imageView_treats;
            CardView cardView_treats;
            LinearLayout linearLayout_treats, linearLayoutGlobal_treats;
+           View view_treats;
 
            ImageButton delbtn,edbtn;
            public viewHolder(@NonNull @NotNull View itemView) {
@@ -111,6 +115,7 @@ public class AdapterTreats extends RecyclerView.Adapter<AdapterTreats.viewHolder
                cardView_treats = itemView.findViewById(R.id.cardView_treats);
 
                linearLayout_treats = itemView.findViewById(R.id.linearLayout_treats);
+               view_treats = itemView.findViewById(R.id.view_treats);
 
            }
        }

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,10 +20,15 @@ import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.ROOM.Vet.ViewVets;
 import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 
+import java.sql.SQLException;
+
 public class ViewEncyclopedia extends AppCompatActivity {
 
     ImageView imageButtonGeneral, imageButtonFood, imageButtonSupply, imageButtonSound, imageButton2_encyclopedia;
-    TextView textView2_encyclopedia;
+    TextView textView2_encyclopedia, textViewProgress_encyclopedia;
+
+    ProgressBar progressBar_encyclopedia;
+    LinearLayout linearLayout_encyclopedia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +41,25 @@ public class ViewEncyclopedia extends AppCompatActivity {
         imageButtonSupply = findViewById(R.id.imageButtonSupply);
         imageButtonSound = findViewById(R.id.imageButtonSound);
 
-
-
         imageButton2_encyclopedia = findViewById(R.id.imageButton2_encyclopedia);
         textView2_encyclopedia = findViewById(R.id.textView2_encyclopedia);
         imageButton2_encyclopedia.setColorFilter(Color.WHITE);
         textView2_encyclopedia.setTextColor(Color.WHITE);
 
+        textViewProgress_encyclopedia = findViewById(R.id.textViewProgress_encyclopedia);
+        progressBar_encyclopedia = findViewById(R.id.progressBar_encyclopedia);
+        linearLayout_encyclopedia = findViewById(R.id.linearLayout_encyclopedia);
+
+        ViewEncyclopedia viewEncyclopedia;
+        viewEncyclopedia = ViewEncyclopedia.this;
+
         InternetCheckEncyclopedia internetCheckEncyclopedia = new InternetCheckEncyclopedia();
-        internetCheckEncyclopedia.checkInternet(ViewEncyclopedia.this);
+        try {
+            internetCheckEncyclopedia.checkInternet(viewEncyclopedia, linearLayout_encyclopedia,
+                    progressBar_encyclopedia, textViewProgress_encyclopedia);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         imageButtonGeneral.setOnClickListener(new View.OnClickListener() {
             @Override

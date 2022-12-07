@@ -35,12 +35,12 @@ public class ViewTreats extends AppCompatActivity  {
         return data;
     }
 
-    final List<String> colors = new ArrayList<String>(){
-        {
-            add("#87d49c");
-            add("#d48795");
-        }
+
+    int[] myImageList = new int[]{
+          R.drawable.check,
+          R.drawable.cancel
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +63,12 @@ public class ViewTreats extends AppCompatActivity  {
                     @Override
                     public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
 
-                        tab.view.setBackgroundColor(Color.parseColor(colors.get(position)));
+                      //  tab.view.setBackgroundColor(Color.parseColor(colors.get(position)));
                         tab.setText(data[position]);
-                        tab.setIcon(R.drawable.ic_chinchilla);
+
+                        tab.setIcon(myImageList[position]);
+                        //tab.setIcon(R.id.)
+
                     }
                 }
         ).attach();

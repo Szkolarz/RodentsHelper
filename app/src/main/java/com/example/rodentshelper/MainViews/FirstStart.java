@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.example.rodentshelper.AsyncActivity;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
@@ -31,7 +32,8 @@ public class FirstStart extends AppCompatActivity {
         //3 = chinchilla
         SharedPreferences spFirstStart = getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
         //int firstStart = spFirstStart.getInt("firstStart", 1);
-
+        AsyncActivity internetAsyncCheck = new AsyncActivity();
+        internetAsyncCheck.execute();
 
         imageButtonHamster.setOnClickListener(view -> {
 

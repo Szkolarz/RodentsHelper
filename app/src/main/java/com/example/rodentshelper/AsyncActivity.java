@@ -24,7 +24,7 @@ public class AsyncActivity extends AsyncTask<Void, Boolean, Boolean> {
     @Override
     protected Boolean doInBackground(Void... arg0) {
         try {
-            int timeoutMs = 2000;
+            int timeoutMs = 3000;
             Socket socket = new Socket();
             SocketAddress socketAddress = new InetSocketAddress("8.8.8.8", 53);
 
