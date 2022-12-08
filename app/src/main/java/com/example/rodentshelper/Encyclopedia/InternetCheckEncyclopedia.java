@@ -99,8 +99,12 @@ public class InternetCheckEncyclopedia {
                     thread.start();
 
                 });
-                alert.setNegativeButton("Nie", (dialogInterface, i) ->
-                        Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show());
+
+                alert.setNegativeButton("Nie", (dialogInterface, i) -> {
+                    Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show();
+                    viewEncyclopedia.startActivity(new Intent(viewEncyclopedia, ViewRodents.class));
+                    viewEncyclopedia.finish();
+                });
 
                 alert.setOnCancelListener(new AlertDialog.OnCancelListener() {
                     @Override
@@ -162,6 +166,8 @@ public class InternetCheckEncyclopedia {
             });
             alert.setNegativeButton("Nie", (dialogInterface, i) -> {
                 Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show();
+                viewEncyclopedia.startActivity(new Intent(viewEncyclopedia, ViewRodents.class));
+                viewEncyclopedia.finish();
             });
 
             alert.setOnCancelListener(new AlertDialog.OnCancelListener() {

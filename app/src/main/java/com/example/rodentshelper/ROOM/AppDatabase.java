@@ -3,6 +3,7 @@ package com.example.rodentshelper.ROOM;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
+import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
 import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.ROOM.Medicaments.MedicamentModel;
 import com.example.rodentshelper.ROOM.Weights.WeightModel;
@@ -18,7 +19,8 @@ import com.example.rodentshelper.ROOM._MTM._RodentVisit.RodentVisitModel;
         VetModel.class, RodentVetModel.class,
         MedicamentModel.class, RodentMedModel.class,
         VisitModel.class, NotesModel.class, WeightModel.class,
-        RodentVisitModel.class, TreatsModel.class},
+        RodentVisitModel.class, TreatsModel.class,
+        CageSupplyModel.class},
         version = 4)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract DAO dao();

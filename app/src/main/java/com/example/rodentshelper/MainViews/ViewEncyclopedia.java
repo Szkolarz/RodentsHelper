@@ -12,8 +12,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rodentshelper.Encyclopedia.FragmentFlag;
 import com.example.rodentshelper.Encyclopedia.InternetCheckEncyclopedia;
-import com.example.rodentshelper.Encyclopedia.Treats.ViewTreats;
+import com.example.rodentshelper.Encyclopedia.Common.ViewTreats;
 import com.example.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
@@ -78,7 +79,7 @@ public class ViewEncyclopedia extends AppCompatActivity {
         imageButtonSupply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewVisits();
+                viewCageSupply();
             }
         });
 
@@ -124,6 +125,14 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
     public void viewTreats()
     {
+        FragmentFlag.setEncyclopediaTypeFlag(2);
+        Intent intent = new Intent(ViewEncyclopedia.this, ViewTreats.class);
+        startActivity(intent);
+    }
+
+    public void viewCageSupply()
+    {
+        FragmentFlag.setEncyclopediaTypeFlag(3);
         Intent intent = new Intent(ViewEncyclopedia.this, ViewTreats.class);
         startActivity(intent);
     }

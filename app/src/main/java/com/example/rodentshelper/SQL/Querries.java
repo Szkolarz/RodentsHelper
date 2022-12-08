@@ -41,11 +41,16 @@ public class Querries implements ConnectionSQL{
 
 
     public ResultSet selectTreats(Integer id_animal) throws SQLException {
-        {
-            Statement stat = connectToVPS().createStatement();
-            ResultSet myres = stat.executeQuery("SELECT * from `Treats` WHERE id_animal = " + id_animal);
-            return myres;
-        }
+        Statement stat = connectToVPS().createStatement();
+        ResultSet myres = stat.executeQuery("SELECT * from `Treats` WHERE id_animal = " + id_animal);
+        return myres;
+
+    }
+
+    public ResultSet selectCageSupply(Integer id_animal) throws SQLException {
+        Statement stat = connectToVPS().createStatement();
+        ResultSet myres = stat.executeQuery("SELECT * from `CageSupply` WHERE id_animal = " + id_animal);
+        return myres;
     }
 
 

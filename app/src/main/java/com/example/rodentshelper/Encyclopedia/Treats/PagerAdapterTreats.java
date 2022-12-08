@@ -1,23 +1,14 @@
 package com.example.rodentshelper.Encyclopedia.Treats;
 
-import android.app.Activity;
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.room.Room;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.rodentshelper.R;
-import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAORodents;
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
-
-import java.util.List;
+import com.example.rodentshelper.Encyclopedia.Common.ViewTreats;
+import com.example.rodentshelper.Encyclopedia.Common.TreatsTab1;
 
 public class PagerAdapterTreats extends FragmentStateAdapter {
 

@@ -1,4 +1,4 @@
-package com.example.rodentshelper.Encyclopedia.Treats;
+package com.example.rodentshelper.Encyclopedia.Common;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -16,6 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.rodentshelper.Encyclopedia.CageSupply.AdapterCageSupply;
+import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
+import com.example.rodentshelper.Encyclopedia.FragmentFlag;
+import com.example.rodentshelper.Encyclopedia.Treats.AdapterTreats;
+import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOEncyclopedia;
@@ -32,17 +37,26 @@ public class TreatsTab1 extends Fragment {
     private RecyclerView recyclerView;
 
 
-    public List getListTreats(Context context){
+    public List getListOfRecords(Context context){
         AppDatabase db = Room.databaseBuilder(context,
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOEncyclopedia daoEncyclopedia = db.daoEncyclopedia();
 
         SharedPreferences prefsFirstStart = context.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
+        List<TreatsModel> treatsModel;
+        List<CageSupplyModel> cageSupplyModel;
 
-        List<TreatsModel> treatsModel = daoEncyclopedia.getAllTreats3(prefsFirstStart.getInt("prefsFirstStart", 0));
+        if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
+            treatsModel = daoEncyclopedia.getAllTreats3(prefsFirstStart.getInt("prefsFirstStart", 0));
+            return treatsModel;
+        }
+        if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
+            cageSupplyModel = daoEncyclopedia.getAllCageSupplies(prefsFirstStart.getInt("prefsFirstStart", 0));
+            return cageSupplyModel;
+        }
 
-        return treatsModel;
+        return null;
     }
 
 
@@ -69,11 +83,15 @@ public class TreatsTab1 extends Fragment {
         recyclerView = root.findViewById(R.id.recyclerView_treats);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        AdapterTreats adapter = new AdapterTreats(getListTreats(context));
+        if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
+            AdapterTreats adapter = new AdapterTreats(getListOfRecords(context));
+            recyclerView.setAdapter(adapter);
+        }
 
-        recyclerView.setAdapter(adapter);
-
-
+        if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
+            AdapterCageSupply adapter = new AdapterCageSupply(getListOfRecords(context));
+            recyclerView.setAdapter(adapter);
+        }
 
         return root;
 

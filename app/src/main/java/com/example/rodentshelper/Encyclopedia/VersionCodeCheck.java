@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
+import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
 import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOEncyclopedia;
@@ -98,6 +99,7 @@ public class VersionCodeCheck {
         try {
 
             ResultSet resultSetTreats = dbQuerries.selectTreats(prefsFirstStart.getInt("prefsFirstStart", 0));
+            ResultSet resultSetCageSupply = dbQuerries.selectCageSupply(prefsFirstStart.getInt("prefsFirstStart", 0));
 
             AppDatabase db = Room.databaseBuilder(context,
                     AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
@@ -113,13 +115,17 @@ public class VersionCodeCheck {
                         resultSetTreats.getBytes("image"), resultSetTreats.getBoolean("is_healthy")
                 ));
 
-                /* CAGE SUPPLY */
-                /*daoEncyclopedia.insertRecordCageSupply(new TreatsModel(
-                        resultSetTreats.getInt("id_animal"), resultSetTreats.getString("name"), resultSetTreats.getString("description"),
-                        resultSetTreats.getBytes("image"), resultSetTreats.getBoolean("is_healthy")
-                ));*/
-
             }
+
+            while (resultSetCageSupply.next()) {
+                /* CAGE SUPPLY */
+                daoEncyclopedia.insertRecordCageSupply(new CageSupplyModel(
+                        resultSetCageSupply.getInt("id_animal"), resultSetCageSupply.getString("name"), resultSetCageSupply.getString("description"),
+                        resultSetCageSupply.getBytes("image"), resultSetCageSupply.getBoolean("is_good")
+                ));
+            }
+
+
 
             db.close();
 

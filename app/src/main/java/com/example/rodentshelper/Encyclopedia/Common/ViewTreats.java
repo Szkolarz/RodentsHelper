@@ -1,8 +1,13 @@
-package com.example.rodentshelper.Encyclopedia.Treats;
+package com.example.rodentshelper.Encyclopedia.Common;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
+import com.example.rodentshelper.Encyclopedia.Treats.InsertRecords;
+import com.example.rodentshelper.Encyclopedia.Treats.PagerAdapterTreats;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAORodents;
@@ -30,7 +38,17 @@ public class ViewTreats extends AppCompatActivity  {
 
     RecyclerView recyclerView;
 
-    public static String[] data = {"'Zdrowe'", "Niezdrowe"};
+    public static String[] data;
+
+    private void getProperDataValues() {
+
+        if (FragmentFlag.getEncyclopediaTypeFlag() == 2)
+            data = new String[]{"'Zdrowe'", "Niezdrowe"};
+        if (FragmentFlag.getEncyclopediaTypeFlag() == 3)
+            data = new String[]{"Potrzebne", "Złe"};
+    }
+
+
     public static String[] getData() {
         return data;
     }
@@ -48,9 +66,24 @@ public class ViewTreats extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.treats);
 
+        getProperDataValues();
+
         ViewPager2 pager = findViewById(R.id.pager);
         pager.setUserInputEnabled(false);
 
+        ImageView imageView_encyclopedia = findViewById(R.id.imageView_encyclopedia);
+        TextView textViewInfo_encyclopedia = findViewById(R.id.textViewInfo_encyclopedia);
+
+        InsertRecords insertRecords = new InsertRecords();
+        if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
+            List<CageSupplyModel> cageSupplyModel = insertRecords.getListOfRecords(getApplicationContext());
+            textViewInfo_encyclopedia.setText(cageSupplyModel.get(0).getDescription());
+
+            imageView_encyclopedia.setVisibility(View.VISIBLE);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(cageSupplyModel.get(0).getImage(),
+                    0, cageSupplyModel.get(0).getImage().length);
+            imageView_encyclopedia.setImageBitmap(bitmap);
+        }
 
 
         pager.setAdapter(
