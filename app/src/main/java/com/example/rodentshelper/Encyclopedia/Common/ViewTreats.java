@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -73,13 +74,14 @@ public class ViewTreats extends AppCompatActivity  {
 
         ImageView imageView_encyclopedia = findViewById(R.id.imageView_encyclopedia);
         TextView textViewInfo_encyclopedia = findViewById(R.id.textViewInfo_encyclopedia);
+        LinearLayout linearLayout_encyclopedia = findViewById(R.id.linearLayout_encyclopedia);
 
         InsertRecords insertRecords = new InsertRecords();
         if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
             List<CageSupplyModel> cageSupplyModel = insertRecords.getListOfRecords(getApplicationContext());
             textViewInfo_encyclopedia.setText(cageSupplyModel.get(0).getDescription());
 
-            imageView_encyclopedia.setVisibility(View.VISIBLE);
+            linearLayout_encyclopedia.setVisibility(View.VISIBLE);
             Bitmap bitmap = BitmapFactory.decodeByteArray(cageSupplyModel.get(0).getImage(),
                     0, cageSupplyModel.get(0).getImage().length);
             imageView_encyclopedia.setImageBitmap(bitmap);

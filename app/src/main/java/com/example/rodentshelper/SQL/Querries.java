@@ -8,13 +8,13 @@ import java.sql.Statement;
 //pusta klasa do korzystania z interfejsu
 public class Querries implements ConnectionSQL{
 
-    public ResultSet getVPSVersion() throws SQLException {
+    public ResultSet getVPSVersion() throws SQLException, InterruptedException {
         Statement stat = connectToVPS().createStatement();
         ResultSet myres = stat.executeQuery("SELECT * FROM `Version`");
         return myres;
     }
 
-    public ResultSet testSelect() throws SQLException {
+    public ResultSet testSelect() throws SQLException, InterruptedException {
         {
             Statement stat = connectToVPS().createStatement();
             ResultSet myres = stat.executeQuery("select * from `test`");
@@ -30,24 +30,32 @@ public class Querries implements ConnectionSQL{
         }
     }*/
 
-    public ResultSet checkVersion(Integer id_animal) throws SQLException {
+    public ResultSet checkVersion(Integer id_animal) throws SQLException, InterruptedException {
         {
             Statement stat = connectToVPS().createStatement();
+            System.out.println("SFDFDS");
             ResultSet myres = stat.executeQuery("SELECT * FROM `Version` WHERE id_animal = " + id_animal);
             return myres;
         }
     }
 
 
+    public ResultSet selectVersion() throws SQLException, InterruptedException {
+        Statement stat = connectToVPS().createStatement();
+        ResultSet myres = stat.executeQuery("SELECT * from `Version`");
+        return myres;
 
-    public ResultSet selectTreats(Integer id_animal) throws SQLException {
+    }
+
+
+    public ResultSet selectTreats(Integer id_animal) throws SQLException, InterruptedException {
         Statement stat = connectToVPS().createStatement();
         ResultSet myres = stat.executeQuery("SELECT * from `Treats` WHERE id_animal = " + id_animal);
         return myres;
 
     }
 
-    public ResultSet selectCageSupply(Integer id_animal) throws SQLException {
+    public ResultSet selectCageSupply(Integer id_animal) throws SQLException, InterruptedException {
         Statement stat = connectToVPS().createStatement();
         ResultSet myres = stat.executeQuery("SELECT * from `CageSupply` WHERE id_animal = " + id_animal);
         return myres;

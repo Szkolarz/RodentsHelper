@@ -6,12 +6,36 @@ import androidx.room.Query;
 
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
 import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
+import com.example.rodentshelper.Encyclopedia.Version.VersionModel;
 import com.example.rodentshelper.ROOM.Medicaments.MedicamentModel;
 
 import java.util.List;
 
 @Dao
 public interface DAOEncyclopedia {
+
+
+    /*************/
+    /** Version **/
+    /*************/
+
+    @Insert
+    void insertRecordVersion(VersionModel Version);
+
+    @Query("SELECT code FROM Version WHERE id_animal = :id_animal")
+    String getVersionCode(Integer id_animal);
+
+
+    @Query("SELECT COUNT(id_animal) FROM Treats WHERE id_animal = :id_animal")
+    Integer getTreatsCountTest(Integer id_animal);
+
+    @Query("DELETE FROM Version")
+    void deleteVersion();
+    @Query("DELETE FROM Treats WHERE id_animal = :id_animal")
+    void deleteTreats(Integer id_animal);
+    @Query("DELETE FROM CageSupply WHERE id_animal = :id_animal")
+    void deleteCageSupply(Integer id_animal);
+
 
 
     /******************/
@@ -44,8 +68,6 @@ public interface DAOEncyclopedia {
 
     @Query("SELECT * FROM CageSupply WHERE name ='Info' AND id_animal = :id_animal")
     List<CageSupplyModel> getCageSupplyAdditionalInfo(Integer id_animal);
-
-
 
 
 

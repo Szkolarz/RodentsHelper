@@ -7,39 +7,79 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/imageButtonHamster"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="30dp"
-        android:contentDescription="Chomik"
-        tools:layout_editor_absoluteX="10dp"
-        tools:layout_editor_absoluteY="321dp"
-        tools:srcCompat="@android:drawable/alert_dark_frame" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/imageButtonRabbit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="30dp"
-        android:contentDescription="Królik"
-        tools:layout_editor_absoluteX="10dp"
-        tools:layout_editor_absoluteY="321dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Chomik" />
 
-    <ImageButton
-        android:id="@+id/imageButtonChinchilla"
+        <ImageButton
+            android:id="@+id/imageButtonHamster"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
+            android:contentDescription="Chomik"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="321dp"
+            tools:srcCompat="@android:drawable/alert_dark_frame" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="30dp"
-        android:contentDescription="Szynszyla"
-        tools:layout_editor_absoluteX="10dp"
-        tools:layout_editor_absoluteY="321dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Szczur" />
+
+        <ImageButton
+            android:id="@+id/imageButtonRat"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:contentDescription="Królik"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="321dp"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Szynszyla" />
+
+        <ImageButton
+            android:id="@+id/imageButtonChinchilla"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:contentDescription="Szynszyla"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="321dp"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    </LinearLayout>
+
 </LinearLayout>

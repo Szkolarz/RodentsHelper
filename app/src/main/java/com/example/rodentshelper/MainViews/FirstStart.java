@@ -24,7 +24,7 @@ public class FirstStart extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         imageButtonHamster = findViewById(R.id.imageButtonHamster);
-        imageButtonRabbit = findViewById(R.id.imageButtonRabbit);
+        imageButtonRabbit = findViewById(R.id.imageButtonRat);
         imageButtonChinchilla = findViewById(R.id.imageButtonChinchilla);
 
         //1 = hamster
