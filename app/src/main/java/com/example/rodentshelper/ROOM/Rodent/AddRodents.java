@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -417,7 +418,9 @@ public class AddRodents extends Activity {
                 byteArray = stream.toByteArray();
             }
 
-            daoRodents.insertRecordRodent(new RodentModel(1, stringName, stringGender, Date.valueOf(stringDate), stringFur, stringNotes, byteArray));
+            SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
+
+            daoRodents.insertRecordRodent(new RodentModel(prefsFirstStart.getInt("prefsFirstStart", 0), stringName, stringGender, Date.valueOf(stringDate), stringFur, stringNotes, byteArray));
 
             System.out.println("DODANO");
             viewRodents();

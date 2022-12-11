@@ -33,7 +33,6 @@ public class Querries implements ConnectionSQL{
     public ResultSet checkVersion(Integer id_animal) throws SQLException, InterruptedException {
         {
             Statement stat = connectToVPS().createStatement();
-            System.out.println("SFDFDS");
             ResultSet myres = stat.executeQuery("SELECT * FROM `Version` WHERE id_animal = " + id_animal);
             return myres;
         }

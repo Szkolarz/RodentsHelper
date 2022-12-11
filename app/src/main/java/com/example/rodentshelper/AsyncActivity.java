@@ -35,7 +35,7 @@ public class AsyncActivity extends AsyncTask<Void, Boolean, Boolean> {
             return true;
         } catch (IOException e) {
             setInternetConnectionInfo(false);
-            System.out.println("falseee");
+            System.out.println("false");
             return false; }
     }
 

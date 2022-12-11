@@ -95,9 +95,9 @@ public class AddVets extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, arrayListLV);
 
+        SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
-
-        List<RodentModel> rodentModel = getDaoRodents().getAllRodents();
+        List<RodentModel> rodentModel = getDaoRodents().getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
 
         //List<RodentModel> list = rodentDao.getAllRodentsVets(idKey);
 

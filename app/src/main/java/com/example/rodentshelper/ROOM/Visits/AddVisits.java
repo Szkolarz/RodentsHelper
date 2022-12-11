@@ -138,7 +138,8 @@ public class AddVisits extends Activity {
         List<VetModel> vetModel = getDaoVets().getAllVets();
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, arrayListLV2);
-        List<RodentModel> rodentModel = getDaoRodents().getAllRodents();
+        SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
+        List<RodentModel> rodentModel = getDaoRodents().getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
 
         for(int i = 0; i < vetModel.size(); i++) {
             arrayListID.add(vetModel.get(i).getId());

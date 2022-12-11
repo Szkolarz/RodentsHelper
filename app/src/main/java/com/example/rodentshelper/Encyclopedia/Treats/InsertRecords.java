@@ -34,7 +34,6 @@ public class InsertRecords {
             return treatsModel;
         }
         if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
-            System.out.println("AUHDSAIUJOSDA");
             cageSupplyModel = daoEncyclopedia.getCageSupplyAdditionalInfo(prefsFirstStart.getInt("prefsFirstStart", 0));
             return cageSupplyModel;
         }

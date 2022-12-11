@@ -1,6 +1,7 @@
 package com.example.rodentshelper.ROOM.Rodent;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -31,13 +32,6 @@ public class ViewRodents extends AppCompatActivity {
     ImageView imageButton1_rodent;
     Button buttonAddRecord;
 
-    private DAORodents getDao () {
-         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-         DAORodents daoRodents = db.daoRodents();
-
-         return daoRodents;
-    }
 
 
 
@@ -57,12 +51,12 @@ public class ViewRodents extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        getRoomData();
+        getRoomData(ViewRodents.this);
 
 
         textViewEmpty_rodent = findViewById(R.id.textViewEmptyGlobal);
 
-        if (getListRodent().isEmpty()) {
+        if (getListRodent(ViewRodents.this).isEmpty()) {
             textViewEmpty_rodent.setVisibility(View.VISIBLE);
             textViewEmpty_rodent.setText("Nie ma żadnych pozycji w bazie danych. Aby dodać nowego pupila, kliknij przycisk z plusikiem na górze ekranu.");
         }
@@ -117,20 +111,25 @@ public class ViewRodents extends AppCompatActivity {
 
     public void onClickNavRodent(View view) {}
 
-    public List getListRodent(){
-        DAORodents daoRodents = getDao();
-        List<RodentModel> rodentModel = daoRodents.getAllRodents();
+    public List getListRodent(ViewRodents viewRodents){
+        SharedPreferences prefsFirstStart = viewRodents.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
+
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAORodents daoRodents = db.daoRodents();
+
+        List<RodentModel> rodentModel = daoRodents.getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
 
         return rodentModel;
     }
 
 
-    public void getRoomData()
+    public void getRoomData(ViewRodents viewRodents)
     {
         recyclerView = findViewById(R.id.recyclerViewGlobal);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        AdapterRodents adapter = new AdapterRodents(getListRodent());
+        AdapterRodents adapter = new AdapterRodents(getListRodent(viewRodents));
 
         recyclerView.setAdapter(adapter);
     }

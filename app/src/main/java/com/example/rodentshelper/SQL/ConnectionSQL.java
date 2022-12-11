@@ -19,20 +19,14 @@ public interface ConnectionSQL {
 
             DriverManager.setLoginTimeout(3);
 
-            System.out.println(DriverManager.getLoginTimeout() + "time");
-            System.out.println(" dddd");
             try {
 
                 final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.mikr.us:3306/db_x266?", "x266", "489F_39b783");
                 System.out.println(con + " connection");
 
-
-                System.out.println(" gfdgfddgf");
                 return con;
             } catch (Exception e) {
-                System.out.println(" ciiiiiii");
             }
-            System.out.println(" ggggg");
             return null;
 
         }

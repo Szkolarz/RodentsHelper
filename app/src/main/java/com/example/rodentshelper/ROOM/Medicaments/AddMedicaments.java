@@ -115,7 +115,9 @@ public class AddMedicaments extends Activity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, arrayListLV);
 
-        List<RodentModel> rodentModel = getDaoRodents().getAllRodents();
+        SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
+
+        List<RodentModel> rodentModel = getDaoRodents().getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
 
         for(int i = 0; i < rodentModel.size(); i++) {
             arrayListID.add(rodentModel.get(i).getId());

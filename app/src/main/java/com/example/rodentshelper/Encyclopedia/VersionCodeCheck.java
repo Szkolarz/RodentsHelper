@@ -116,7 +116,6 @@ public class VersionCodeCheck {
 
             try {
                 String DBversion = checkDbVersionFromVPS(context, dbQuerries);
-                System.out.println(DBversion + "qqq");
 
                 SharedPreferences prefsDB = context.getSharedPreferences("prefsDB", context.MODE_PRIVATE);
                 String sharedPreferencesDBVersion = prefsDB.getString("dbversion", "0");

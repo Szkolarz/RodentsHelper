@@ -39,14 +39,8 @@ public class InternetCheckEncyclopedia {
 
         Querries dbQuerries = new Querries();
 
-        System.out.println( isNetworkConnected(viewEncyclopedia) + " qqqqqqqqqqqqqq");
-
         AsyncActivity internetAsyncCheck = new AsyncActivity();
         //internetAsyncCheck.execute();
-
-
-
-
 
 
         SharedPreferences prefsFirstDownload = viewEncyclopedia.getSharedPreferences("prefsFirstDownload", Context.MODE_PRIVATE);

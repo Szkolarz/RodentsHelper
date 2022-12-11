@@ -105,7 +105,7 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vet_map);
 
-        MapsInitializer.initialize(this);
+
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
@@ -124,8 +124,29 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
 
 
         new Handler().postDelayed(() -> {
+            MapsInitializer.initialize(this);
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.vetMap);
+
+            mapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    map = googleMap;
+
+                    Thread thread = new Thread(() -> {
+
+                        getLocationPermission();
+                        getDeviceLocation();
+
+                        runOnUiThread(() -> {
+                            updateLocationUI();
+                            loadMarkers();
+                        });
+                    });
+
+                    thread.start();
+                }
+            });
 
             assert mapFragment != null;
             mapFragment.getMapAsync(GoogleMaps.this);
@@ -193,25 +214,6 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady (@NonNull GoogleMap googleMap){
-        this.map = googleMap;
-
-        Thread thread = new Thread(() -> {
-
-            getLocationPermission();
-            getDeviceLocation();
-
-            runOnUiThread(() -> {
-                updateLocationUI();
-                loadMarkers();
-            });
-        });
-
-        thread.start();
-
-
-
-
-
 
     }
 
