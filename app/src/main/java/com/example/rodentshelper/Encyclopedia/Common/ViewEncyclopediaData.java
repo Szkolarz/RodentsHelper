@@ -2,7 +2,6 @@ package com.example.rodentshelper.Encyclopedia.Common;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -12,9 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
@@ -22,19 +19,12 @@ import com.example.rodentshelper.Encyclopedia.FragmentFlag;
 import com.example.rodentshelper.Encyclopedia.Treats.InsertRecords;
 import com.example.rodentshelper.Encyclopedia.Treats.PagerAdapterTreats;
 import com.example.rodentshelper.R;
-import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAORodents;
-import com.example.rodentshelper.ROOM.DAOWeight;
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
-import com.example.rodentshelper.ROOM.Weights.AdapterWeights;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
-public class ViewTreats extends AppCompatActivity  {
+public class ViewEncyclopediaData extends AppCompatActivity  {
 
 
     RecyclerView recyclerView;
@@ -44,9 +34,9 @@ public class ViewTreats extends AppCompatActivity  {
     private void getProperDataValues() {
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 2)
-            data = new String[]{"'Zdrowe'", "Niezdrowe"};
+            data = new String[]{"Zdrowe", "Niezdrowe"};
         if (FragmentFlag.getEncyclopediaTypeFlag() == 3)
-            data = new String[]{"Potrzebne", "Złe"};
+            data = new String[]{"Potrzebne", "Nieodpowiednie"};
     }
 
 

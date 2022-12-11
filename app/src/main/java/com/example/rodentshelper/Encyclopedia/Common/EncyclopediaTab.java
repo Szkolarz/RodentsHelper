@@ -24,17 +24,13 @@ import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOEncyclopedia;
-import com.example.rodentshelper.ROOM.DAORodents;
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 
 import java.util.List;
 
 
-public class TreatsTab1 extends Fragment {
+public class EncyclopediaTab extends Fragment {
 
-    private String title;
-
-    private RecyclerView recyclerView;
+    private final String title;
 
 
     public List getListOfRecords(Context context){
@@ -62,7 +58,7 @@ public class TreatsTab1 extends Fragment {
 
 
 
-    public TreatsTab1(String title) {
+    public EncyclopediaTab(String title) {
         this.title = title;
     }
 
@@ -80,7 +76,7 @@ public class TreatsTab1 extends Fragment {
         Context context = getActivity();
 
 
-        recyclerView = root.findViewById(R.id.recyclerView_treats);
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerView_treats);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {

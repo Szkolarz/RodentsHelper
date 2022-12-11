@@ -96,7 +96,7 @@
             android:name=".MainViews.GoogleMaps.GoogleMaps"
             android:exported="true" />
         <activity
-            android:name=".Encyclopedia.Common.ViewTreats"
+            android:name=".Encyclopedia.Common.ViewEncyclopediaData"
             android:exported="true" />
         <activity
             android:name=".ROOM.Weights.WeightInfo"

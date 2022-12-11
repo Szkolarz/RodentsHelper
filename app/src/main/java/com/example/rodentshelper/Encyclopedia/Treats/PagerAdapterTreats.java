@@ -7,8 +7,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.rodentshelper.Encyclopedia.Common.ViewTreats;
-import com.example.rodentshelper.Encyclopedia.Common.TreatsTab1;
+import com.example.rodentshelper.Encyclopedia.Common.ViewEncyclopediaData;
+import com.example.rodentshelper.Encyclopedia.Common.EncyclopediaTab;
 
 public class PagerAdapterTreats extends FragmentStateAdapter {
 
@@ -34,7 +34,7 @@ public class PagerAdapterTreats extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
 
 
-        return new TreatsTab1(ViewTreats.getData()[position]);
+        return new EncyclopediaTab(ViewEncyclopediaData.getData()[position]);
 
     }
 
