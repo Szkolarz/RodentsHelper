@@ -6,6 +6,8 @@ public class FragmentFlag {
 
     private static Integer encyclopediaTypeFlag;
 
+    private static Boolean isGoogleMapsFirstStartFlag;
+
 
     public static Integer getFragmentFlag() {
         return fragmentFlag;
@@ -22,4 +24,6 @@ public class FragmentFlag {
     public static void setEncyclopediaTypeFlag(Integer encyclopediaTypeFlag) {
         FragmentFlag.encyclopediaTypeFlag = encyclopediaTypeFlag;
     }
+
+
 }

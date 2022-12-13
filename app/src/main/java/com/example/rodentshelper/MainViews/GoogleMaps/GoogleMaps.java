@@ -1,15 +1,20 @@
 package com.example.rodentshelper.MainViews.GoogleMaps;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -20,6 +25,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.rodentshelper.ImageCompress;
+import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -34,6 +41,8 @@ import com.google.android.gms.maps.model.Marker;
 
 import com.google.android.gms.tasks.Task;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 
@@ -98,8 +107,6 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
 
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +120,7 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
             //CameraPosition cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
 
-        tt = findViewById(R.id.tt);
+
         textViewName_map = findViewById(R.id.textViewName_map);
         textViewAddress_map = findViewById(R.id.textViewAddress_map);
         textViewPhone_map = findViewById(R.id.textViewPhone_map);
@@ -123,33 +130,48 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
         linearLayoutData_map.setVisibility(View.GONE);
 
 
+
         new Handler().postDelayed(() -> {
             MapsInitializer.initialize(this);
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.vetMap);
 
-            mapFragment.getMapAsync(new OnMapReadyCallback() {
-                @Override
-                public void onMapReady(GoogleMap googleMap) {
-                    map = googleMap;
+            Thread thread = new Thread(() -> {
 
-                    Thread thread = new Thread(() -> {
+                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.vetMap);
 
-                        getLocationPermission();
-                        getDeviceLocation();
+                runOnUiThread(() -> {
+                    assert mapFragment != null;
+                    mapFragment.getMapAsync(googleMap -> {
+                        map = googleMap;
 
-                        runOnUiThread(() -> {
-                            updateLocationUI();
-                            loadMarkers();
+                        map.setOnMapClickListener(position -> linearLayoutData_map.setVisibility(View.GONE));
+
+                        Thread thread1 = new Thread(() -> {
+
+                            getLocationPermission();
+                            getDeviceLocation();
+
+                            runOnUiThread(() -> {
+                                updateLocationUI();
+                                loadMarkers();
+                            });
                         });
-                    });
 
-                    thread.start();
-                }
+                        thread1.start();
+                        assert mapFragment != null;
+                        mapFragment.getMapAsync(GoogleMaps.this);  });
+                });
+
             });
 
-            assert mapFragment != null;
-            mapFragment.getMapAsync(GoogleMaps.this);
+            thread.start();
+
+
+
+
+
+
+
 
         }, 500);
 
@@ -329,10 +351,17 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
     }
 
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            viewOther();
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
-
-    private void viewMap() {
-        Intent intent = new Intent(GoogleMaps.this, ViewRodents.class);
+    private void viewOther() {
+        Intent intent = new Intent(GoogleMaps.this, ViewOther.class);
         startActivity(intent);
     }
 

@@ -1,11 +1,14 @@
 package com.example.rodentshelper.MainViews;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,8 +39,25 @@ public class ViewOther extends AppCompatActivity {
 
 
     private void viewMap() {
-        Intent intent = new Intent(ViewOther.this, GoogleMaps.class);
-        startActivity(intent);
+
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Ładowanie mapy...");
+        progress.setMessage("Proszę czekać...");
+
+        progress.show();
+
+
+        Thread thread = new Thread(() -> {
+            Intent intent = new Intent(ViewOther.this, GoogleMaps.class);
+            startActivity(intent);
+            finish();
+        });
+
+        thread.start();
+
+
+
+
     }
 
 

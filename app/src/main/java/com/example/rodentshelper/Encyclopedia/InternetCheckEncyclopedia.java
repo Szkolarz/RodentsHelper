@@ -3,6 +3,7 @@ package com.example.rodentshelper.Encyclopedia;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -41,7 +42,8 @@ public class InternetCheckEncyclopedia {
 
         AsyncActivity internetAsyncCheck = new AsyncActivity();
         //internetAsyncCheck.execute();
-
+        AlertDialog.Builder alert = new AlertDialog.Builder(viewEncyclopedia, R.style.AlertDialogStyleUpdate);
+        Alerts alertInfo = new Alerts();
 
         SharedPreferences prefsFirstDownload = viewEncyclopedia.getSharedPreferences("prefsFirstDownload", Context.MODE_PRIVATE);
         boolean firstDownload = prefsFirstDownload.getBoolean("firstDownload", true);
@@ -73,7 +75,7 @@ public class InternetCheckEncyclopedia {
 
                         if(!versionCodeCheck.isVersionUpToDate(viewEncyclopedia, dbQuerries)) {
                             alertUpdate.cancel();
-                            AlertDialog.Builder alert = new AlertDialog.Builder(viewEncyclopedia, R.style.AlertDialogStyleUpdate);
+
                             alert.setTitle("Aktualizacja danych dostępna!");
                             alert.setMessage("W internetowej bazie danych pojawiła się aktualizacja. " +
                                     "Oznacza to poprawki w formie informacji naniesionych na sekcję 'Encyklopedia'.\n\n" +
@@ -113,8 +115,17 @@ public class InternetCheckEncyclopedia {
 
                     } else {
                         alertUpdate.cancel();
-                        Toast.makeText(viewEncyclopedia, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show();
+
+                        alert.setTitle("Brak połączenia z internetem");
+                        alert.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
+
+                        alert.setPositiveButton("Rozumiem", (dialogInterface, i) -> {
+                            Toast.makeText(viewEncyclopedia, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show();
+                            closeEncyclopedia(viewEncyclopedia);
+                        });
+                        alert.show();
                     }
+
                 } catch (ExecutionException | InterruptedException | SQLException e) {
                     e.printStackTrace();
                 }
@@ -139,7 +150,6 @@ public class InternetCheckEncyclopedia {
         if (firstDownload) {
             alertUpdate.dismiss();
 
-            AlertDialog.Builder alert = new AlertDialog.Builder(viewEncyclopedia, R.style.AlertDialogStyleUpdate);
             alert.setTitle("Pobieranie danych");
             alert.setMessage("Encyklopedia jest modułem, który musi zostać pobrany z internetu. " +
                     "Proces jest jednorazowy, raz pobrana baza danych może być później odczytywana bez internetu.\n\n" +
@@ -155,44 +165,47 @@ public class InternetCheckEncyclopedia {
 
 
 
-                Thread thread = new Thread(() -> {
-                    //declaring connection policy
-                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
-                    StrictMode.setThreadPolicy(policy);
-                    if (internetCheck) { //==true
-                        try {
+                Thread thread = new Thread(() -> viewEncyclopedia.runOnUiThread(() -> {
+                //declaring connection policy
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+
+                    try {
+                        if (new AsyncActivity().execute().get()) {
+                            //==true
                             versionCodeCheck.makeAnUpdate(viewEncyclopedia, dbQuerries, prefsFirstDownload);
-                        } catch (ExecutionException | InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        Alerts alert1 = new Alerts();
-                        alert1.simpleInfo("Brak internetu", "Nie masz połączenia z internetem. " +
-                                "Użyj innej sieci lub spróbuj ponownie później.", viewEncyclopedia);
+                        } else {
+                            AlertDialog.Builder alert1 = new AlertDialog.Builder(viewEncyclopedia, R.style.AlertDialogStyleUpdate);
+                            alert1.setTitle("Brak połączenia z internetem");
+                            alert1.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
+
+                            alert1.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> {
+                                Toast.makeText(viewEncyclopedia, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show();
+                                closeEncyclopedia(viewEncyclopedia);
+                            });
+                            alert1.show();
+                       }
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
                     }
 
-                    viewEncyclopedia.runOnUiThread(() -> {
 
-
-                        textViewProgress_encyclopedia.setVisibility(View.GONE);
-                        progressBar_encyclopedia.setVisibility(View.GONE);
-                        linearLayout_encyclopedia.setVisibility(View.VISIBLE);
-                    });
-
-                });
+                    textViewProgress_encyclopedia.setVisibility(View.GONE);
+                    progressBar_encyclopedia.setVisibility(View.GONE);
+                    linearLayout_encyclopedia.setVisibility(View.VISIBLE);
+                }));
 
                 thread.start();
 
             });
             alert.setNegativeButton("Nie", (dialogInterface, i) -> {
                 Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show();
-                viewEncyclopedia.startActivity(new Intent(viewEncyclopedia, ViewRodents.class));
-                viewEncyclopedia.finish();
+                closeEncyclopedia(viewEncyclopedia);
             });
 
             alert.setOnCancelListener(dialogInterface -> {
-                viewEncyclopedia.startActivity(new Intent(viewEncyclopedia, ViewRodents.class));
-                viewEncyclopedia.finish();
+                Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show();
+                closeEncyclopedia(viewEncyclopedia);
             });
 
             alert.create().show();
@@ -200,13 +213,13 @@ public class InternetCheckEncyclopedia {
         }
 
 
-
-
-
     }
 
 
-
+    private void closeEncyclopedia(ViewEncyclopedia viewEncyclopedia) {
+        viewEncyclopedia.startActivity(new Intent(viewEncyclopedia, ViewRodents.class));
+        viewEncyclopedia.finish();
+    }
 
 
 
