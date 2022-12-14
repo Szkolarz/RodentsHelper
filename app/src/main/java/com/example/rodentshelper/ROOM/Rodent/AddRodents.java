@@ -191,8 +191,7 @@ public class AddRodents extends Activity {
                         daoRodents.deleteRodentById(idKey);
 
 
-                        Intent intent = new Intent(getApplicationContext(), ViewRodents.class);
-                        buttonDelete_rodent.getContext().startActivity(intent);
+                        viewRodents();
 
                     }
                 });
@@ -422,7 +421,7 @@ public class AddRodents extends Activity {
 
             daoRodents.insertRecordRodent(new RodentModel(prefsFirstStart.getInt("prefsFirstStart", 0), stringName, stringGender, Date.valueOf(stringDate), stringFur, stringNotes, byteArray));
 
-            System.out.println("DODANO");
+            Toast.makeText(getApplicationContext(), "Pomyślnie dodano", Toast.LENGTH_SHORT).show();
             viewRodents();
         }
 

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -78,8 +79,6 @@ public class ViewEncyclopedia extends AppCompatActivity {
             thread.start();
 
 
-
-
         imageButtonGeneral.setOnClickListener(view -> viewVets());
 
         imageButtonFood.setOnClickListener(view -> viewTreats());
@@ -88,27 +87,29 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
         imageButtonSound.setOnClickListener(view -> viewVisits());
 
-
-
     }
 
-    //public void onClickNavHealth(View view) {}
 
-    public void onClickNavHealth(View view)
-    {
-        Intent intent = new Intent(ViewEncyclopedia.this, ViewHealth.class);
-        startActivity(intent);
-    }
 
-    public void onClickNavRodent(View view)
-    {
+    public void onClickNavRodent(View view) {
         Intent intent = new Intent(ViewEncyclopedia.this, ViewRodents.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
     public void onClickNavEncyclopedia(View view) {}
 
-    public void onClickNavOther(View view) {}
+    public void onClickNavHealth(View view) {
+        Intent intent = new Intent(ViewEncyclopedia.this, ViewHealth.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavOther(View view) {
+        Intent intent = new Intent(ViewEncyclopedia.this, ViewOther.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 
 
 
@@ -159,13 +160,15 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
 
 
-    /*@Override
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            viewRodents();
+            Intent intent = new Intent(ViewEncyclopedia.this, ViewRodents.class);
+            startActivity(intent);
+            finish();
         }
         return super.onKeyDown(keyCode, event);
-    }*/
+    }
 
 
 }

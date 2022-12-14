@@ -1,7 +1,9 @@
 package com.example.rodentshelper.Encyclopedia.Common;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,11 +18,16 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
-import com.example.rodentshelper.Encyclopedia.Treats.InsertRecords;
 import com.example.rodentshelper.Encyclopedia.Treats.PagerAdapterTreats;
+import com.example.rodentshelper.MainViews.ViewEncyclopedia;
+import com.example.rodentshelper.MainViews.ViewHealth;
+import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
+import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -56,6 +63,14 @@ public class ViewEncyclopediaData extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.treats);
+
+        ImageView imageButton2_encyclopedia;
+        TextView textView2_encyclopedia;
+
+        imageButton2_encyclopedia = findViewById(R.id.imageButton2_encyclopedia);
+        textView2_encyclopedia = findViewById(R.id.textView2_encyclopedia);
+        imageButton2_encyclopedia.setColorFilter(Color.WHITE);
+        textView2_encyclopedia.setTextColor(Color.WHITE);
 
         getProperDataValues();
 
@@ -121,6 +136,30 @@ public class ViewEncyclopediaData extends AppCompatActivity  {
     }
 
 
+
+    public void onClickNavRodent(View view) {
+        Intent intent = new Intent(ViewEncyclopediaData.this, ViewRodents.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavEncyclopedia(View view) {
+        Intent intent = new Intent(ViewEncyclopediaData.this, ViewEncyclopedia.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavHealth(View view) {
+        Intent intent = new Intent(ViewEncyclopediaData.this, ViewHealth.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavOther(View view) {
+        Intent intent = new Intent(ViewEncyclopediaData.this, ViewOther.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 
 
 

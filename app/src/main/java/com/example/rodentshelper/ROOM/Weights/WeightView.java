@@ -20,11 +20,15 @@ import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.MainViews.ViewEncyclopedia;
+import com.example.rodentshelper.MainViews.ViewHealth;
+import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOWeight;
 import com.example.rodentshelper.ROOM.DateFormat;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
+import com.example.rodentshelper.ROOM.Vet.ViewVets;
 import com.example.rodentshelper.ROOM._MTM._RodentWeight.RodentWithWeights;
 import com.github.mikephil.charting.charts.LineChart;
 
@@ -56,6 +60,14 @@ public class WeightView extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weight);
+
+        ImageButton imageButton1_rodent;
+        TextView textView1_rodent;
+
+        imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
+        textView1_rodent = findViewById(R.id.textView1_rodent);
+        imageButton1_rodent.setColorFilter(Color.WHITE);
+        textView1_rodent.setTextColor(Color.WHITE);
 
         editTextWeight = findViewById(R.id.editTextWeight);
         textViewDate = findViewById(R.id.textViewDate);
@@ -94,11 +106,9 @@ public class WeightView extends Activity {
         }
 
 
-        /** setting up chart */
+        /** Setting up chart */
         WeightChart weightChart = new WeightChart();
         weightChart.runChart(lineChart_weight, getApplicationContext());
-
-
 
 
 
@@ -296,6 +306,31 @@ public class WeightView extends Activity {
         AdapterWeights adapter = new AdapterWeights(getListWeight());
 
         recyclerView.setAdapter(adapter);
+    }
+
+
+    public void onClickNavRodent(View view) {
+        Intent intent = new Intent(WeightView.this, ViewRodents.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavEncyclopedia(View view) {
+        Intent intent = new Intent(WeightView.this, ViewEncyclopedia.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavHealth(View view) {
+        Intent intent = new Intent(WeightView.this, ViewHealth.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavOther(View view) {
+        Intent intent = new Intent(WeightView.this, ViewOther.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 }

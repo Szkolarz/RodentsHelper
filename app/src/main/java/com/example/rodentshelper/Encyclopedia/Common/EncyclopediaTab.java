@@ -67,7 +67,7 @@ public class EncyclopediaTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_treats_tab1, container, false);
+        View root = inflater.inflate(R.layout.fragment_encyclopedia_tab, container, false);
 
         TextView textViewTreats = root.findViewById(R.id.textViewTreats);
 

@@ -28,8 +28,7 @@
 
         <activity
             android:name=".ROOM.Rodent.ViewRodents"
-            android:exported="false"
-            android:noHistory="true">
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -42,7 +41,8 @@
             android:exported="true" />
         <activity
             android:name=".MainViews.FirstStart"
-            android:exported="true">
+            android:exported="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

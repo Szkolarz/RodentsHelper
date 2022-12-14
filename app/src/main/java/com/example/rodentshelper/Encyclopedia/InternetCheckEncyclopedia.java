@@ -65,9 +65,6 @@ public class InternetCheckEncyclopedia {
         if (!firstDownload && internetCheck ) {
 
             Thread thread1 = new Thread(() -> viewEncyclopedia.runOnUiThread(() -> {
-                //declaring connection policy
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
 
                 try {
                     if (new AsyncActivity().execute().get()) {
@@ -166,9 +163,7 @@ public class InternetCheckEncyclopedia {
 
 
                 Thread thread = new Thread(() -> viewEncyclopedia.runOnUiThread(() -> {
-                //declaring connection policy
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
+
 
                     try {
                         if (new AsyncActivity().execute().get()) {
@@ -180,8 +175,8 @@ public class InternetCheckEncyclopedia {
                             alert1.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
 
                             alert1.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> {
-                                Toast.makeText(viewEncyclopedia, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show();
                                 closeEncyclopedia(viewEncyclopedia);
+                                Toast.makeText(viewEncyclopedia, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show();
                             });
                             alert1.show();
                        }
@@ -199,13 +194,14 @@ public class InternetCheckEncyclopedia {
 
             });
             alert.setNegativeButton("Nie", (dialogInterface, i) -> {
-                Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show();
                 closeEncyclopedia(viewEncyclopedia);
+                Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show();
             });
 
             alert.setOnCancelListener(dialogInterface -> {
-                Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show();
                 closeEncyclopedia(viewEncyclopedia);
+                Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show();
+
             });
 
             alert.create().show();

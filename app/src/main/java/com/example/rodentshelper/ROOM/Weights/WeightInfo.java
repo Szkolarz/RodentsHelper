@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,6 +22,7 @@ import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOWeight;
@@ -55,6 +57,16 @@ public class WeightInfo extends Activity {
                 "Jeśli zauważysz jednak coś niepokojącego w wadze twojego zwierzęcia, udaj się koniecznie do weterynarza.");
 
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+            Intent intent = new Intent(WeightInfo.this, WeightView.class);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

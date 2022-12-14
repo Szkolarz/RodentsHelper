@@ -14,7 +14,7 @@ import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
 public class FirstStart extends AppCompatActivity {
 
-    private ImageButton imageButtonHamster, imageButtonRabbit, imageButtonChinchilla;
+    private ImageButton imageButtonHamster, imageButtonRat, imageButtonChinchilla;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +24,11 @@ public class FirstStart extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         imageButtonHamster = findViewById(R.id.imageButtonHamster);
-        imageButtonRabbit = findViewById(R.id.imageButtonRat);
+        imageButtonRat = findViewById(R.id.imageButtonRat);
         imageButtonChinchilla = findViewById(R.id.imageButtonChinchilla);
 
         //1 = hamster
-        //2 = rabbit
+        //2 = rat
         //3 = chinchilla
         SharedPreferences spFirstStart = getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
         //int firstStart = spFirstStart.getInt("firstStart", 1);
@@ -46,7 +46,7 @@ public class FirstStart extends AppCompatActivity {
 
         });
 
-        imageButtonRabbit.setOnClickListener(view -> {
+        imageButtonRat.setOnClickListener(view -> {
 
             SharedPreferences.Editor spEitorFirstStart = spFirstStart.edit();
             spEitorFirstStart.putInt("prefsFirstStart", 2);
@@ -65,6 +65,7 @@ public class FirstStart extends AppCompatActivity {
 
             Intent intent = new Intent(FirstStart.this, ViewRodents.class);
             startActivity(intent);
+            finish();
 
         });
 

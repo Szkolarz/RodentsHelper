@@ -41,6 +41,10 @@ public class VersionCodeCheck {
 
     public Integer getTestCountRecords (ViewEncyclopedia context) {
 
+        //declaring connection policy
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         AppDatabase db = Room.databaseBuilder(context,
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOEncyclopedia daoEncyclopedia = db.daoEncyclopedia();
@@ -55,6 +59,10 @@ public class VersionCodeCheck {
 
 
     private String checkDbVersionFromVPS (Context context, Querries dbQuerries) throws SQLException, InterruptedException {
+        //declaring connection policy
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         String versionCodeFromVPS = "";
         SharedPreferences prefsFirstStart = context.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
@@ -70,11 +78,12 @@ public class VersionCodeCheck {
 
     //pierwszy po aktualizacji
     public Boolean isVersionUpToDate (Context context, Querries dbQuerries) throws SQLException {
+        //declaring connection policy
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         SharedPreferences prefsFirstStart = context.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
 
         AppDatabase db = Room.databaseBuilder(context,
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
@@ -104,7 +113,9 @@ public class VersionCodeCheck {
 
     //odpala sie pierwszy przy pierwszym uruchomieniu
     public void makeAnUpdate (ViewEncyclopedia context, Querries dbQuerries, SharedPreferences prefsFirstDownload) throws ExecutionException, InterruptedException {
-
+       //declaring connection policy
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         String versionCodeFromVPS = "";
 
         SharedPreferences prefsFirstStart = context.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
@@ -174,7 +185,9 @@ public class VersionCodeCheck {
 
 
     public void readDataFromVPS (Context context, Querries dbQuerries, SharedPreferences prefsFirstStart) {
-
+        //declaring connection policy
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         try {
 
             ResultSet resultSetTreats = dbQuerries.selectTreats(prefsFirstStart.getInt("prefsFirstStart", 0));

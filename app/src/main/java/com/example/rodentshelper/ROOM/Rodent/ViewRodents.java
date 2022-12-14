@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -80,36 +83,37 @@ public class ViewRodents extends AppCompatActivity {
 
     }
 
+    boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+
+        Toast.makeText(this, "Naciśnij jeszcze raz, aby zamknąć aplikację", Toast.LENGTH_SHORT).show();
+
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+    }
+
+
     public void addNewRodent()
     {
         //1 = nowy
         FlagSetup.setFlagRodentAdd(1);
+        finish();
         Intent intent = new Intent(ViewRodents.this, AddRodents.class);
         startActivity(intent);
     }
-
-
-
-    public void onClickNavHealth(View view)
-    {
-        Intent intent = new Intent(ViewRodents.this, ViewHealth.class);
-        startActivity(intent);
-    }
-
-    public void onClickNavEncyclopedia(View view)
-    {
-        Intent intent = new Intent(ViewRodents.this, ViewEncyclopedia.class);
-        startActivity(intent);
-    }
-
-    public void onClickNavOther(View view)
-    {
-        Intent intent = new Intent(ViewRodents.this, ViewOther.class);
-        startActivity(intent);
-    }
-
-
-    public void onClickNavRodent(View view) {}
 
     public List getListRodent(ViewRodents viewRodents){
         SharedPreferences prefsFirstStart = viewRodents.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
@@ -133,5 +137,32 @@ public class ViewRodents extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
     }
+
+
+
+
+    public void onClickNavRodent(View view) {
+
+    }
+
+    public void onClickNavEncyclopedia(View view) {
+        Intent intent = new Intent(ViewRodents.this, ViewEncyclopedia.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavHealth(View view) {
+        Intent intent = new Intent(ViewRodents.this, ViewHealth.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavOther(View view) {
+        Intent intent = new Intent(ViewRodents.this, ViewOther.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+
 
 }

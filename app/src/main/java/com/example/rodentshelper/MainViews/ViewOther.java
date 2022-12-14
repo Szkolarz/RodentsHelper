@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,47 +62,38 @@ public class ViewOther extends AppCompatActivity {
     }
 
 
-    public void onClickNavHealth(View view)
-    {
-        viewHealth();
-    }
-
-    public void onClickNavRodent(View view)
-    {
-        viewRodents();
-    }
-
-
-    public void onClickNavEncyclopedia(View view)
-    {
-        viewEncyclopedia();
-    }
-
-    public void viewRodents() {
+    public void onClickNavRodent(View view) {
         Intent intent = new Intent(ViewOther.this, ViewRodents.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
-    public void viewHealth() {
-        Intent intent = new Intent(ViewOther.this, ViewHealth.class);
-        startActivity(intent);
-    }
-
-    public void viewEncyclopedia() {
+    public void onClickNavEncyclopedia(View view) {
         Intent intent = new Intent(ViewOther.this, ViewEncyclopedia.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
+    public void onClickNavHealth(View view) {
+        Intent intent = new Intent(ViewOther.this, ViewHealth.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavOther(View view) {
+
+    }
 
 
-
-    /*@Override
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            viewRodents();
+            Intent intent = new Intent(ViewOther.this, ViewRodents.class);
+            startActivity(intent);
+            finish();
         }
         return super.onKeyDown(keyCode, event);
-    }*/
+    }
 
 
 }

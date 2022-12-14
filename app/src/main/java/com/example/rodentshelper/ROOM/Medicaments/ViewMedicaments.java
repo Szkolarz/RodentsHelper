@@ -23,6 +23,7 @@ import com.example.rodentshelper.ROOM.DAOMedicaments;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
+import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
 
 
@@ -109,45 +110,7 @@ public class ViewMedicaments extends AppCompatActivity {
 
 
 
-    public void onClickNavHealth(View view)
-    {
-        viewHealth();
-    }
 
-    public void onClickNavRodent(View view)
-    {
-        viewRodents();
-    }
-
-    public void onClickNavOther(View view)
-    {
-        viewOther();
-    }
-
-    public void onClickNavEncyclopedia(View view)
-    {
-        viewEncyclopedia();
-    }
-
-    public void viewRodents() {
-        Intent intent = new Intent(ViewMedicaments.this, ViewRodents.class);
-        startActivity(intent);
-    }
-
-    public void viewHealth() {
-        Intent intent = new Intent(ViewMedicaments.this, ViewHealth.class);
-        startActivity(intent);
-    }
-
-    public void viewEncyclopedia() {
-        Intent intent = new Intent(ViewMedicaments.this, ViewEncyclopedia.class);
-        startActivity(intent);
-    }
-
-    public void viewOther() {
-        Intent intent = new Intent(ViewMedicaments.this, ViewOther.class);
-        startActivity(intent);
-    }
 
     /*@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -185,6 +148,31 @@ public class ViewMedicaments extends AppCompatActivity {
         AdapterMedicaments adapter = new AdapterMedicaments(getListMedicament());
 
         recyclerView.setAdapter(adapter);
+    }
+
+
+    public void onClickNavRodent(View view) {
+        Intent intent = new Intent(ViewMedicaments.this, ViewRodents.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavEncyclopedia(View view) {
+        Intent intent = new Intent(ViewMedicaments.this, ViewEncyclopedia.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavHealth(View view) {
+        Intent intent = new Intent(ViewMedicaments.this, ViewHealth.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavOther(View view) {
+        Intent intent = new Intent(ViewMedicaments.this, ViewOther.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 }

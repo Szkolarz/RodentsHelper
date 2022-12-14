@@ -18,6 +18,7 @@ import androidx.room.Room;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.MainViews.ViewHealth;
+import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
@@ -57,15 +58,11 @@ public class ViewNotes extends AppCompatActivity {
 
         if (getListNotes().isEmpty()) {
             textViewEmpty.setVisibility(View.VISIBLE);
-            textViewEmpty.setText("Nie ma żadnych pozycji w bazie danych. Aby dodać nową notatkę, kliknij przycisk z plusikiem na górze ekranu.");
+            textViewEmpty.setText("Nie ma żadnych pozycji w bazie danych. Aby dodać nową notatkę, " +
+                    "kliknij przycisk z plusikiem na górze ekranu.");
         }
 
-        buttonAddRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addNewNote();
-            }
-        });
+        buttonAddRecord.setOnClickListener(view -> addNewNote());
     }
 
     public void addNewNote()
@@ -79,45 +76,6 @@ public class ViewNotes extends AppCompatActivity {
 
 
 
-    public void onClickNavHealth(View view)
-    {
-        viewHealth();
-    }
-
-    public void onClickNavRodent(View view)
-    {
-        viewRodents();
-    }
-
-    public void onClickNavEncyclopedia(View view)
-    {
-        viewEncyclopedia();
-    }
-
-    public void onClickNavOther(View view)
-    {
-        viewOther();
-    }
-
-    public void viewRodents() {
-        Intent intent = new Intent(ViewNotes.this, ViewRodents.class);
-        startActivity(intent);
-    }
-
-    public void viewHealth() {
-        Intent intent = new Intent(ViewNotes.this, ViewHealth.class);
-        startActivity(intent);
-    }
-
-    public void viewEncyclopedia() {
-        Intent intent = new Intent(ViewNotes.this, ViewEncyclopedia.class);
-        startActivity(intent);
-    }
-
-    public void viewOther() {
-        Intent intent = new Intent(ViewNotes.this, ViewHealth.class);
-        startActivity(intent);
-    }
 
 
 
@@ -129,8 +87,8 @@ public class ViewNotes extends AppCompatActivity {
 
         SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
 
-        List<RodentWithNotes> notesModel = dao.getRodentWithNotes(prefsGetRodentId.getInt("rodentId", 0));
-        return notesModel;
+        //List<RodentWithNotes> notesModel = dao.getRodentWithNotes(prefsGetRodentId.getInt("rodentId", 0));
+        return dao.getRodentWithNotes(prefsGetRodentId.getInt("rodentId", 0));
     }
 
 
@@ -142,6 +100,31 @@ public class ViewNotes extends AppCompatActivity {
         AdapterNotes adapter = new AdapterNotes(getListNotes());
 
         recyclerView.setAdapter(adapter);
+    }
+
+
+    public void onClickNavRodent(View view) {
+        Intent intent = new Intent(ViewNotes.this, ViewRodents.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavEncyclopedia(View view) {
+        Intent intent = new Intent(ViewNotes.this, ViewEncyclopedia.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavHealth(View view) {
+        Intent intent = new Intent(ViewNotes.this, ViewHealth.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavOther(View view) {
+        Intent intent = new Intent(ViewNotes.this, ViewOther.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 }

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.ROOM.DAOVets;
@@ -109,43 +110,7 @@ public class ViewVisits extends AppCompatActivity {
 
 
 
-    public void onClickNavHealth(View view)
-    {
-        viewHealth();
-    }
 
-    public void onClickNavRodent(View view)
-    {
-        viewRodents();
-    }
-
-    public void onClickNavOther(View view)
-    {
-        viewOther();
-    }
-
-    public void viewOther() {
-        Intent intent = new Intent(ViewVisits.this, ViewOther.class);
-        startActivity(intent);
-    }
-
-    public void viewRodents() {
-        Intent intent = new Intent(ViewVisits.this, ViewRodents.class);
-        startActivity(intent);
-    }
-
-    public void viewHealth() {
-        Intent intent = new Intent(ViewVisits.this, ViewHealth.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            viewHealth();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 
 
     public List getListVisits(){
@@ -174,6 +139,31 @@ public class ViewVisits extends AppCompatActivity {
         AdapterVisits adapter = new AdapterVisits(getListVisits());
 
         recyclerView.setAdapter(adapter);
+    }
+
+
+    public void onClickNavRodent(View view) {
+        Intent intent = new Intent(ViewVisits.this, ViewRodents.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavEncyclopedia(View view) {
+        Intent intent = new Intent(ViewVisits.this, ViewEncyclopedia.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavHealth(View view) {
+        Intent intent = new Intent(ViewVisits.this, ViewHealth.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavOther(View view) {
+        Intent intent = new Intent(ViewVisits.this, ViewOther.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 }

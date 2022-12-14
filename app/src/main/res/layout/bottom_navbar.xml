@@ -46,8 +46,8 @@
                 android:onClick="onClickNavRodent"
                 android:padding="15dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_chinchilla"
-                app:tint="#0A4A97" />
+                android:src="@drawable/ic_chinchilla"
+                android:tint="#0A4A97" />
 
             <TextView
                 android:id="@+id/textView1_rodent"
@@ -76,8 +76,8 @@
                 android:onClick="onClickNavEncyclopedia"
                 android:padding="15dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_encyclopedia"
-                app:tint="#0A4A97" />
+                android:src="@drawable/ic_encyclopedia"
+                android:tint="#0A4A97" />
 
             <TextView
                 android:id="@+id/textView2_encyclopedia"
@@ -106,8 +106,8 @@
                 android:onClick="onClickNavHealth"
                 android:padding="15dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_health"
-                app:tint="#0A4A97" />
+                android:src="@drawable/ic_health"
+                android:tint="#0A4A97" />
 
             <TextView
                 android:id="@+id/textView3_health"
@@ -136,8 +136,8 @@
                 android:onClick="onClickNavOther"
                 android:padding="15dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_other"
-                app:tint="#0A4A97" />
+                android:src="@drawable/ic_other"
+                android:tint="#0A4A97" />
 
             <TextView
                 android:id="@+id/textView4_other"

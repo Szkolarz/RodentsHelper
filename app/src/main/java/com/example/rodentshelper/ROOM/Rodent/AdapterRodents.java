@@ -2,6 +2,7 @@ package com.example.rodentshelper.ROOM.Rodent;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -79,6 +80,7 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
         holder.buttonEdit_rodent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((Activity)holder.buttonEdit_rodent.getContext()).finish();
                 Intent intent = new Intent(new Intent(holder.buttonEdit_rodent.getContext(), AddRodents.class));
                 intent.putExtra("idKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId()));
                 intent.putExtra("id_animalKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId_animal()));

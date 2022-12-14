@@ -1,4 +1,4 @@
-package com.example.rodentshelper.Encyclopedia.Treats;
+package com.example.rodentshelper.Encyclopedia.Common;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -10,6 +10,7 @@ import androidx.room.Room;
 
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
+import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOEncyclopedia;
 

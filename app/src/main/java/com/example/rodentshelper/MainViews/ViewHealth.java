@@ -75,34 +75,28 @@ public class ViewHealth extends AppCompatActivity {
 
     }
 
-    public void onClickNavHealth(View view) {}
-
-    public void onClickNavEncyclopedia(View view)
-    {
-        viewEncyclopedia();
-    }
-
-    public void onClickNavOther(View view)
-    {
-        viewOther();
-    }
-
-    public void onClickHealth(View view)
-    {
-        Intent intent = new Intent(ViewHealth.this, ViewVets.class);
+    public void onClickNavRodent(View view) {
+        Intent intent = new Intent(ViewHealth.this, ViewRodents.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
-    public void onClickNavRodent(View view)
-    {
-        viewRodents();
-    }
-
-
-    public void viewEncyclopedia() {
+    public void onClickNavEncyclopedia(View view) {
         Intent intent = new Intent(ViewHealth.this, ViewEncyclopedia.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
+    public void onClickNavHealth(View view) {
+
+    }
+
+    public void onClickNavOther(View view) {
+        Intent intent = new Intent(ViewHealth.this, ViewOther.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
 
     public void viewVets()
     {
@@ -122,23 +116,15 @@ public class ViewHealth extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void viewRodents()
-    {
-        Intent intent = new Intent(ViewHealth.this, ViewRodents.class);
-        startActivity(intent);
-    }
-
-    public void viewOther() {
-        Intent intent = new Intent(ViewHealth.this, ViewOther.class);
-        startActivity(intent);
-    }
 
 
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            viewRodents();
+            Intent intent = new Intent(ViewHealth.this, ViewRodents.class);
+            startActivity(intent);
+            finish();
         }
         return super.onKeyDown(keyCode, event);
     }

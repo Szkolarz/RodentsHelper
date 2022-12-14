@@ -201,7 +201,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="Smakołyki"
+                                    android:text="Przysmaki"
                                     android:textAlignment="center"
                                     android:textColor="#014D70" />
 
@@ -273,7 +273,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:maxLines="2"
-                                    android:text="Wyposażenie klatki/woliery"
+                                    android:text="Wyposażenie klatki"
                                     android:textAlignment="center"
                                     android:textColor="#014D70" />
                             </LinearLayout>
@@ -348,7 +348,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:maxLines="2"
-                                    android:text="Dźwięki"
+                                    android:text="Choroby"
                                     android:textAlignment="center"
                                     android:textColor="#014D70" />
                             </LinearLayout>

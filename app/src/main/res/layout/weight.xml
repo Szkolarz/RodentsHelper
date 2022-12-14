@@ -1,277 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ROOM.Rodent.AddRodents">
+    android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/textViewDateWeight_hidden"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="#ACC5E1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
 
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:orientation="vertical" />
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChart_weight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp">
-
-            </com.github.mikephil.charting.charts.LineChart>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/imageButtonQuestion_weight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/roundbutton_small"
-                android:padding="5dp"
-                android:src="@drawable/ic_question_mark"
-                android:tint="#0A4A97" />
-
-            <TextView
-                android:id="@+id/textViewInfo_weight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:maxLines="6"
-                android:text="Info"
-                android:textColor="#014D70"
-                android:textColorHint="#77147A"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:gravity="bottom"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/editTextWeight"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:hint="Waga"
-                        android:inputType="number"
-                        android:maxLength="4"
-                        android:maxLines="1"
-                        android:textColor="#014D70"
-                        android:textColorHint="#717171"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="g"
-                        android:textColor="#014D70"
-                        android:textColorHint="#77147A"
-                        android:textSize="24sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:text="Data ważenia:"
-                    android:textColor="#014D70"
-                    android:textColorHint="#77147A"
-                    android:textSize="16sp" />
+                    android:background="#ACC5E1"
+                    android:foregroundGravity="bottom"
+                    android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textViewDateWeight_hidden"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </LinearLayout>
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/lineChart_weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp">
+
+                        </com.github.mikephil.charting.charts.LineChart>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/imageButtonQuestion_weight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/roundbutton_small"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_question_mark"
+                            android:tint="#0A4A97" />
+
+                        <TextView
+                            android:id="@+id/textViewInfo_weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:maxLines="6"
+                            android:text="Info"
+                            android:textColor="#014D70"
+                            android:textColorHint="#77147A"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <EditText
+                                    android:id="@+id/editTextWeight"
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:hint="Waga"
+                                    android:inputType="number"
+                                    android:maxLength="4"
+                                    android:maxLines="1"
+                                    android:textColor="#014D70"
+                                    android:textColorHint="#717171"
+                                    android:textSize="24sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="g"
+                                    android:textColor="#014D70"
+                                    android:textColorHint="#77147A"
+                                    android:textSize="24sp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="1"
+                                android:text="Data ważenia:"
+                                android:textColor="#014D70"
+                                android:textColorHint="#77147A"
+                                android:textSize="16sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/textViewDate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:gravity="left"
+                                    android:text="Data ważenia"
+                                    android:textColor="#014D70"
+                                    android:textSize="20sp" />
+
+                                <ImageButton
+                                    android:id="@+id/imageButtonDate_weight"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@drawable/roundbutton_small"
+                                    android:padding="5dp"
+                                    android:src="@drawable/ic_calendar_vet1"
+                                    android:tint="#0A4A97" />
+                            </LinearLayout>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonAdd_weight"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:backgroundTint="#5397DF"
+                                android:text="Dodaj"
+                                android:textColor="#FFFFFF"
+                                app:strokeColor="#0375a8"
+                                app:strokeWidth="3dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonSaveEdit_weight"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:backgroundTint="#C6BD13"
+                                android:text="Edytuj"
+                                android:textColor="#FFFFFF"
+                                android:visibility="gone"
+                                app:strokeColor="#958E0F"
+                                app:strokeWidth="3dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:orientation="horizontal">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView_weight"
+                                android:layout_width="match_parent"
+                                android:layout_height="180dp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="10dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_margin="6dp"
+                        android:background="#048FCD" />
 
                     <TextView
-                        android:id="@+id/textViewDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="left"
-                        android:text="Data ważenia"
-                        android:textColor="#014D70"
-                        android:textSize="20sp" />
+                        android:id="@+id/textViewDate_hidden"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="8dp"
+                        android:text="data"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:visibility="gone" />
 
-                    <ImageButton
-                        android:id="@+id/imageButtonDate_weight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/roundbutton_small"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_calendar_vet1"
-                        android:tint="#0A4A97" />
                 </LinearLayout>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonAdd_weight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="#5397DF"
-                    android:text="Dodaj"
-                    android:textColor="#FFFFFF"
-                    app:strokeColor="#0375a8"
-                    app:strokeWidth="3dp" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonSaveEdit_weight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="#C6BD13"
-                    android:text="Edytuj"
-                    android:textColor="#FFFFFF"
-                    android:visibility="gone"
-                    app:strokeColor="#958E0F"
-                    app:strokeWidth="3dp" />
-
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:orientation="horizontal">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_weight"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_margin="6dp"
-            android:background="#048FCD" />
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="bottom"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteY="558dp">
 
-            <CheckBox
-                android:id="@+id/checkBoxMed2"
+            <include
+                layout="@layout/bottom_navbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_weight="1"
-                android:text="Powiadomienia o profilaktycznym ważeniu"
-                android:textColor="#014D70"
-                android:textSize="16sp" />
+                android:layout_gravity="bottom"></include>
 
-            <Spinner
-                android:id="@+id/spinner2"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp" />
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_margin="6dp"
-            android:background="#048FCD" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/checkBoxMed2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_weight="1"
-                android:text="Powiadomienia przypominające o karmieniu"
-                android:textColor="#014D70"
-                android:textSize="16sp" />
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp" />
-        </LinearLayout>
-
-        <View
-            android:id="@+id/view6"
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_margin="6dp"
-            android:background="#048FCD" />
-
-        <TextView
-            android:id="@+id/textViewDate_hidden"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="8dp"
-            android:text="data"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:visibility="gone" />
-
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

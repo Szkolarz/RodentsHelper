@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.ROOM.DAOVets;
@@ -22,6 +23,7 @@ import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
+import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 
 import java.util.List;
@@ -99,40 +101,7 @@ public class ViewVets extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onClickViewRodents(android.view.View view)
-    {
-        viewRodents();
-    }
 
-    public void onClickNavHealth(View view)
-    {
-       viewHealth();
-    }
-
-    public void onClickNavRodent(View view)
-    {
-        viewRodents();
-    }
-
-    public void onClickNavOther(View view)
-    {
-        viewOther();
-    }
-
-    public void viewRodents() {
-        Intent intent = new Intent(ViewVets.this, ViewRodents.class);
-        startActivity(intent);
-    }
-
-    public void viewOther() {
-        Intent intent = new Intent(ViewVets.this, ViewOther.class);
-        startActivity(intent);
-    }
-
-    public void viewHealth() {
-        Intent intent = new Intent(ViewVets.this, ViewHealth.class);
-        startActivity(intent);
-    }
 
     /*@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -197,6 +166,31 @@ public class ViewVets extends AppCompatActivity {
         AdapterVets adapter = new AdapterVets(getListVet());
 
         recyclerView.setAdapter(adapter);
+    }
+
+
+    public void onClickNavRodent(View view) {
+        Intent intent = new Intent(ViewVets.this, ViewRodents.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavEncyclopedia(View view) {
+        Intent intent = new Intent(ViewVets.this, ViewEncyclopedia.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavHealth(View view) {
+        Intent intent = new Intent(ViewVets.this, ViewHealth.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onClickNavOther(View view) {
+        Intent intent = new Intent(ViewVets.this, ViewOther.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 }

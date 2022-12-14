@@ -136,21 +136,9 @@ public class AddNotes extends Activity {
         startActivity(new Intent(getApplicationContext(), ViewNotes.class));
     }
 
-    private void viewRodents() {
-        finish();
-        startActivity(new Intent(getApplicationContext(), ViewRodents.class));
-    }
 
 
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            finish();
-            viewNotes();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 
 
 
