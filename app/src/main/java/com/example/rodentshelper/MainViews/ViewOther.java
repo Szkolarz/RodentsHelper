@@ -17,6 +17,8 @@ import com.example.rodentshelper.MainViews.GoogleMaps.GoogleMaps;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
+import java.io.Serializable;
+
 public class ViewOther extends AppCompatActivity {
 
     ImageView imageButton4_other, imageButtonOther_map;
@@ -38,21 +40,25 @@ public class ViewOther extends AppCompatActivity {
 
     }
 
+    ProgressDialog progress;
+    private boolean flagForProgressDialog = false;
 
     private void viewMap() {
 
-        final ProgressDialog progress = new ProgressDialog(this);
+
+
+        progress = new ProgressDialog(this);
         progress.setTitle("Ładowanie mapy...");
         progress.setMessage("Proszę czekać...");
 
         progress.show();
+        flagForProgressDialog = true;
 
+        Thread thread = new Thread(() -> runOnUiThread(() -> {
+            GoogleMaps googleMaps = new GoogleMaps();
+            googleMaps.closeProgressDialog(ViewOther.this, progress);
 
-        Thread thread = new Thread(() -> {
-            Intent intent = new Intent(ViewOther.this, GoogleMaps.class);
-            startActivity(intent);
-            finish();
-        });
+        }));
 
         thread.start();
 
@@ -60,6 +66,14 @@ public class ViewOther extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (flagForProgressDialog)
+            progress.dismiss();
+    }
+
 
 
     public void onClickNavRodent(View view) {

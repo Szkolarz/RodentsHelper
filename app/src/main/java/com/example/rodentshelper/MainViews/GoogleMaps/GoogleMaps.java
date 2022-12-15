@@ -1,6 +1,7 @@
 package com.example.rodentshelper.MainViews.GoogleMaps;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -43,6 +44,7 @@ import com.google.android.gms.tasks.Task;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Objects;
 
 
@@ -74,6 +76,7 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
+    ProgressDialog progressDialog;
 
 
     /** Called when the user clicks a marker. */
@@ -106,12 +109,17 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
     }
 
 
+    public void closeProgressDialog(ViewOther viewOther, ProgressDialog progress) {
+
+        Intent intent = new Intent(viewOther, GoogleMaps.class);
+        viewOther.startActivity(intent);
+        progressDialog = progress;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vet_map);
-
 
 
         // Retrieve location and camera position from saved instance state.

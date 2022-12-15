@@ -1,7 +1,9 @@
 package com.example.rodentshelper.MainViews;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -59,12 +61,18 @@ public class ViewEncyclopedia extends AppCompatActivity {
         InternetCheckEncyclopedia internetCheckEncyclopedia = new InternetCheckEncyclopedia();
 
 
-        final ProgressDialog progress = new ProgressDialog(this);
-        progress.setTitle("Sprawdzanie aktualizacji...");
-        progress.setMessage("Proszę czekać...");
+        SharedPreferences prefsFirstDownload = viewEncyclopedia.getSharedPreferences("prefsFirstDownload", Context.MODE_PRIVATE);
 
-        if (internetCheckEncyclopedia.isNetworkConnected(ViewEncyclopedia.this))
-            progress.show();
+        final ProgressDialog progress = new ProgressDialog(this);
+        if (!prefsFirstDownload.getBoolean("firstDownload", true))
+        {
+
+            progress.setTitle("Sprawdzanie aktualizacji...");
+            progress.setMessage("Proszę czekać...");
+
+            if (internetCheckEncyclopedia.isNetworkConnected(ViewEncyclopedia.this))
+                progress.show();
+        }
 
 
             Thread thread = new Thread(() -> runOnUiThread(() -> {
