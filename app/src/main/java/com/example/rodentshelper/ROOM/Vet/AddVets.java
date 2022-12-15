@@ -198,7 +198,6 @@ public class AddVets extends AppCompatActivity {
 
                     getSelectedItems(vetDao);
 
-                    finish();
                     viewVets();
 
                 }
@@ -290,8 +289,8 @@ public class AddVets extends AppCompatActivity {
 
 
     public void viewVets() {
-        finish();
         startActivity(new Intent(getApplicationContext(), ViewVets.class));
+        finish();
     }
 
 

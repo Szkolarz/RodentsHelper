@@ -16,6 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
 import com.example.rodentshelper.Encyclopedia.Treats.PagerAdapterTreats;
@@ -64,10 +68,19 @@ public class ViewEncyclopediaData extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.treats);
 
-        ImageView imageButton2_encyclopedia;
+        ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
         TextView textView2_encyclopedia;
-
+        imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
         imageButton2_encyclopedia = findViewById(R.id.imageButton2_encyclopedia);
+        imageButton3_health = findViewById(R.id.imageButton3_health);
+        imageButton4_other = findViewById(R.id.imageButton4_other);
+
+        imageButton1_rodent.setOnClickListener(new ActivityRodents());
+        imageButton2_encyclopedia.setOnClickListener(new ActivityEncyclopedia());
+        imageButton3_health.setOnClickListener(new ActivityHealth());
+        imageButton4_other.setOnClickListener(new ActivityOther());
+
+
         textView2_encyclopedia = findViewById(R.id.textView2_encyclopedia);
         imageButton2_encyclopedia.setColorFilter(Color.WHITE);
         textView2_encyclopedia.setTextColor(Color.WHITE);
@@ -136,41 +149,6 @@ public class ViewEncyclopediaData extends AppCompatActivity  {
     }
 
 
-
-    public void onClickNavRodent(View view) {
-        Intent intent = new Intent(ViewEncyclopediaData.this, ViewRodents.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void onClickNavEncyclopedia(View view) {
-        Intent intent = new Intent(ViewEncyclopediaData.this, ViewEncyclopedia.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void onClickNavHealth(View view) {
-        Intent intent = new Intent(ViewEncyclopediaData.this, ViewHealth.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void onClickNavOther(View view) {
-        Intent intent = new Intent(ViewEncyclopediaData.this, ViewOther.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            finish();
-
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 
 
 }

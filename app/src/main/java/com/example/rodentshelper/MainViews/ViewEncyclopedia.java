@@ -15,6 +15,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
 import com.example.rodentshelper.Encyclopedia.InternetCheckEncyclopedia;
 import com.example.rodentshelper.Encyclopedia.Common.ViewEncyclopediaData;
@@ -29,7 +33,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ViewEncyclopedia extends AppCompatActivity {
 
-    ImageView imageButtonGeneral, imageButtonFood, imageButtonSupply, imageButtonSound, imageButton2_encyclopedia;
+    ImageView imageButtonGeneral, imageButtonFood, imageButtonSupply, imageButtonSound;
     TextView textView2_encyclopedia, textViewProgress_encyclopedia;
 
     ProgressBar progressBar_encyclopedia;
@@ -40,13 +44,22 @@ public class ViewEncyclopedia extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encyclopedia);
 
+        ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
+
+        imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
+        imageButton2_encyclopedia = findViewById(R.id.imageButton2_encyclopedia);
+        imageButton3_health = findViewById(R.id.imageButton3_health);
+        imageButton4_other = findViewById(R.id.imageButton4_other);
+
+        imageButton1_rodent.setOnClickListener(new ActivityRodents());
+        imageButton3_health.setOnClickListener(new ActivityHealth());
+        imageButton4_other.setOnClickListener(new ActivityOther());
 
         imageButtonGeneral = findViewById(R.id.imageButtonGeneral);
         imageButtonFood = findViewById(R.id.imageButtonFood);
         imageButtonSupply = findViewById(R.id.imageButtonSupply);
         imageButtonSound = findViewById(R.id.imageButtonSound);
 
-        imageButton2_encyclopedia = findViewById(R.id.imageButton2_encyclopedia);
         textView2_encyclopedia = findViewById(R.id.textView2_encyclopedia);
         imageButton2_encyclopedia.setColorFilter(Color.WHITE);
         textView2_encyclopedia.setTextColor(Color.WHITE);
@@ -99,26 +112,6 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
 
 
-    public void onClickNavRodent(View view) {
-        Intent intent = new Intent(ViewEncyclopedia.this, ViewRodents.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void onClickNavEncyclopedia(View view) {}
-
-    public void onClickNavHealth(View view) {
-        Intent intent = new Intent(ViewEncyclopedia.this, ViewHealth.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void onClickNavOther(View view) {
-        Intent intent = new Intent(ViewEncyclopedia.this, ViewOther.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
 
 
     public void viewVets()
@@ -161,9 +154,9 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
     public void viewRodents()
     {
-        finish();
         Intent intent = new Intent(ViewEncyclopedia.this, ViewRodents.class);
         startActivity(intent);
+        finish();
     }
 
 

@@ -254,31 +254,13 @@ public class WeightView extends Activity {
 
 
 
-
-
     private void viewWeight() {
-        finish();
         Intent intent = new Intent(WeightView.this, WeightView.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
-
-    }
-
-    private void viewRodents() {
         finish();
-        startActivity(new Intent(getApplicationContext(), ViewRodents.class));
     }
 
-
-
-    /*@Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            finish();
-            viewWeight();
-        }
-        return super.onKeyDown(keyCode, event);
-    }*/
 
     public List getListWeight(){
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -308,29 +290,5 @@ public class WeightView extends Activity {
         recyclerView.setAdapter(adapter);
     }
 
-
-    public void onClickNavRodent(View view) {
-        Intent intent = new Intent(WeightView.this, ViewRodents.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void onClickNavEncyclopedia(View view) {
-        Intent intent = new Intent(WeightView.this, ViewEncyclopedia.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void onClickNavHealth(View view) {
-        Intent intent = new Intent(WeightView.this, ViewHealth.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void onClickNavOther(View view) {
-        Intent intent = new Intent(WeightView.this, ViewOther.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
 
 }

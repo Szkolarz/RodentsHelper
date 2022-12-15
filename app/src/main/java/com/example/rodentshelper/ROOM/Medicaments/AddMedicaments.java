@@ -216,8 +216,8 @@ public class AddMedicaments extends Activity {
 
                     getRodentMed(getDaoMedicaments());
 
-                    finish();
                     viewMedicaments();
+                    finish();
 
 
                 }
@@ -364,14 +364,10 @@ public class AddMedicaments extends Activity {
     }
 
     private void viewMedicaments() {
-        finish();
         startActivity(new Intent(getApplicationContext(), ViewMedicaments.class));
+        finish();
     }
 
-    private void viewRodents() {
-        finish();
-        startActivity(new Intent(getApplicationContext(), ViewRodents.class));
-    }
 
     private void checkCheckBox() {
         if (checkBoxMed.isChecked()) {
@@ -420,14 +416,6 @@ public class AddMedicaments extends Activity {
     }
 
 
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            finish();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 
 
 

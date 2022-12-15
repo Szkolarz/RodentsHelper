@@ -80,7 +80,6 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
         holder.buttonEdit_rodent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((Activity)holder.buttonEdit_rodent.getContext()).finish();
                 Intent intent = new Intent(new Intent(holder.buttonEdit_rodent.getContext(), AddRodents.class));
                 intent.putExtra("idKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId()));
                 intent.putExtra("id_animalKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId_animal()));
@@ -94,6 +93,7 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
                 //0 = edit
                 FlagSetup.setFlagRodentAdd(0);
                 holder.buttonEdit_rodent.getContext().startActivity(intent);
+                ((Activity)holder.buttonEdit_rodent.getContext()).finish();
             }
         });
 

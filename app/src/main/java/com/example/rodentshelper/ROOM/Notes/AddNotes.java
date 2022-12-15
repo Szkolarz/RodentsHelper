@@ -132,8 +132,8 @@ public class AddNotes extends Activity {
 
 
     private void viewNotes() {
-        finish();
         startActivity(new Intent(getApplicationContext(), ViewNotes.class));
+        finish();
     }
 
 

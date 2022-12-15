@@ -13,6 +13,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.MainViews.GoogleMaps.GoogleMaps;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
@@ -21,7 +25,7 @@ import java.io.Serializable;
 
 public class ViewOther extends AppCompatActivity {
 
-    ImageView imageButton4_other, imageButtonOther_map;
+    ImageView imageButtonOther_map;
     TextView textView4_other;
 
     @Override
@@ -29,7 +33,17 @@ public class ViewOther extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other);
 
+        ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
+
+        imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
+        imageButton2_encyclopedia = findViewById(R.id.imageButton2_encyclopedia);
+        imageButton3_health = findViewById(R.id.imageButton3_health);
         imageButton4_other = findViewById(R.id.imageButton4_other);
+
+        imageButton1_rodent.setOnClickListener(new ActivityRodents());
+        imageButton2_encyclopedia.setOnClickListener(new ActivityEncyclopedia());
+        imageButton3_health.setOnClickListener(new ActivityHealth());
+
         textView4_other = findViewById(R.id.textView4_other);
         imageButton4_other.setColorFilter(Color.WHITE);
         textView4_other.setTextColor(Color.WHITE);
@@ -76,27 +90,6 @@ public class ViewOther extends AppCompatActivity {
 
 
 
-    public void onClickNavRodent(View view) {
-        Intent intent = new Intent(ViewOther.this, ViewRodents.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void onClickNavEncyclopedia(View view) {
-        Intent intent = new Intent(ViewOther.this, ViewEncyclopedia.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void onClickNavHealth(View view) {
-        Intent intent = new Intent(ViewOther.this, ViewHealth.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void onClickNavOther(View view) {
-
-    }
 
 
     @Override

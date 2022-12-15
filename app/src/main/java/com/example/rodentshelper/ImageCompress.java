@@ -42,7 +42,9 @@ public class ImageCompress extends Thread {
     }
 
 
-    public static Bitmap rectifyImage(Bitmap originalBitmap , Context context, Uri uri){
+    //method to properly rotate the image
+    //(there is a bug where image is bad rotated after converting - that's why this method is needed)
+    private static Bitmap rectifyImage(Bitmap originalBitmap , Context context, Uri uri){
 
         try{
 

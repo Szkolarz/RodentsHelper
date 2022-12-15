@@ -14,6 +14,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.R;
@@ -35,6 +39,17 @@ public class ViewPetHealth extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_health);
 
+        ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
+
+        imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
+        imageButton2_encyclopedia = findViewById(R.id.imageButton2_encyclopedia);
+        imageButton3_health = findViewById(R.id.imageButton3_health);
+        imageButton4_other = findViewById(R.id.imageButton4_other);
+
+        imageButton1_rodent.setOnClickListener(new ActivityRodents());
+        imageButton2_encyclopedia.setOnClickListener(new ActivityEncyclopedia());
+        imageButton3_health.setOnClickListener(new ActivityHealth());
+        imageButton4_other.setOnClickListener(new ActivityOther());
 
         Integer id_animalKey = Integer.parseInt(getIntent().getStringExtra("id_animalKey"));
         String nameKey = getIntent().getStringExtra("nameKey");
@@ -81,7 +96,6 @@ public class ViewPetHealth extends AppCompatActivity {
         textView5_petHealth.append(". Lista wszystkich twoich zapisanych leków znajduje się w zakładce 'Zdrowie' u dołu ekranu.");
 
 
-        imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
         textView1_rodent = findViewById(R.id.textView1_rodent);
         imageButton1_rodent.setColorFilter(Color.WHITE);
         textView1_rodent.setTextColor(Color.WHITE);
@@ -135,29 +149,6 @@ public class ViewPetHealth extends AppCompatActivity {
         return str;
     }
 
-    public void onClickNavHealth(View view) {
-        Intent intent = new Intent(ViewPetHealth.this, ViewHealth.class);
-        startActivity(intent);
-    }
-
-
-    public void onClickNavRodent(View view)
-    {
-        Intent intent = new Intent(ViewPetHealth.this, ViewRodents.class);
-        startActivity(intent);
-    }
-
-    public void onClickNavEncyclopedia(View view)
-    {
-        Intent intent = new Intent(ViewPetHealth.this, ViewEncyclopedia.class);
-        startActivity(intent);
-    }
-
-    public void onClickNavOther(View view)
-    {
-        Intent intent = new Intent(ViewPetHealth.this, ViewOther.class);
-        startActivity(intent);
-    }
 
 
 
@@ -189,9 +180,9 @@ public class ViewPetHealth extends AppCompatActivity {
 
     public void viewRodents()
     {
-        finish();
         Intent intent = new Intent(ViewPetHealth.this, ViewRodents.class);
         startActivity(intent);
+        finish();
     }
 
     public void viewNotes()
@@ -207,8 +198,8 @@ public class ViewPetHealth extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            finish();
             viewRodents();
+            finish();
         }
         return super.onKeyDown(keyCode, event);
     }

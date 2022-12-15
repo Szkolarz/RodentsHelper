@@ -31,8 +31,6 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
     List<VetWithRodentsCrossRef> vetModel;
 
 
-
-
     public AdapterVets(List<VetWithRodentsCrossRef> vetModel) {
         this.vetModel = vetModel;
     }

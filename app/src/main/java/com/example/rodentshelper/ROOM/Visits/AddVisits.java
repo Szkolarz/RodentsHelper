@@ -355,7 +355,6 @@ public class AddVisits extends Activity {
 
         getRodentVisit(getDaoVisits(), arrayListSelected2, arrayListID2);
 
-        finish();
         viewVisits();
     }
 
@@ -408,14 +407,10 @@ public class AddVisits extends Activity {
 
 
     private void viewVisits() {
-        finish();
         startActivity(new Intent(getApplicationContext(), ViewVisits.class));
+        finish();
     }
 
-    private void viewRodents() {
-        finish();
-        startActivity(new Intent(getApplicationContext(), ViewRodents.class));
-    }
 
     private void checkCheckBox() {
         if (checkBoxVisit1.isChecked()) {

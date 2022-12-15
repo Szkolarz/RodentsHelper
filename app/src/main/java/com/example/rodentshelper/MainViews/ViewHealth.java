@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.R;
@@ -20,13 +24,24 @@ import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 
 public class ViewHealth extends AppCompatActivity {
 
-    ImageView imageButtonVet1, imageButtonMed, imageButtonVisit, imageButton3_health;
+    ImageView imageButtonVet1, imageButtonMed, imageButtonVisit;
     TextView textView3_health;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
+
+        ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
+
+        imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
+        imageButton2_encyclopedia = findViewById(R.id.imageButton2_encyclopedia);
+        imageButton3_health = findViewById(R.id.imageButton3_health);
+        imageButton4_other = findViewById(R.id.imageButton4_other);
+
+        imageButton1_rodent.setOnClickListener(new ActivityRodents());
+        imageButton2_encyclopedia.setOnClickListener(new ActivityEncyclopedia());
+        imageButton4_other.setOnClickListener(new ActivityOther());
 
         //flag reset for proper working
         FlagSetup.setFlagIsFromHealth(true);
@@ -41,7 +56,6 @@ public class ViewHealth extends AppCompatActivity {
         imageButtonVisit = findViewById(R.id.imageButtonVisit);
 
 
-        imageButton3_health = findViewById(R.id.imageButton3_health);
         textView3_health = findViewById(R.id.textView3_health);
         imageButton3_health.setColorFilter(Color.WHITE);
         textView3_health.setTextColor(Color.WHITE);
@@ -75,27 +89,6 @@ public class ViewHealth extends AppCompatActivity {
 
     }
 
-    public void onClickNavRodent(View view) {
-        Intent intent = new Intent(ViewHealth.this, ViewRodents.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void onClickNavEncyclopedia(View view) {
-        Intent intent = new Intent(ViewHealth.this, ViewEncyclopedia.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void onClickNavHealth(View view) {
-
-    }
-
-    public void onClickNavOther(View view) {
-        Intent intent = new Intent(ViewHealth.this, ViewOther.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
 
 
     public void viewVets()

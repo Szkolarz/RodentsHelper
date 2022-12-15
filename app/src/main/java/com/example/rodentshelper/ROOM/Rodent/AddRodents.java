@@ -469,8 +469,8 @@ public class AddRodents extends Activity {
     }
 
     private void viewRodents() {
-        finish();
         startActivity(new Intent(getApplicationContext(), ViewRodents.class));
+        finish();
     }
 
 
