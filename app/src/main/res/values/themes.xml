@@ -39,4 +39,12 @@
         <item name="colorPrimary">#004275</item>
     </style>
 
+    <style name="AlertWhiteButtons" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:background">#5397DF</item>
+        <item name="android:colorAccent">#ACC5E1</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColorPrimary">#d9d9d9</item>
+        <item name="colorPrimary">#FFFFFF</item>
+    </style>
+
 </resources>

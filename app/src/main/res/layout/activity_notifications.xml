@@ -75,17 +75,34 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1"
-                            android:text="(utaw częstotliwość obok)"
+                            android:buttonTint="#0375a8"
+                            android:text="Wyłączone"
                             android:textColor="#014D70"
                             android:textSize="16sp" />
 
-                        <Spinner
-                            android:id="@+id/spinner2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            tools:layout_editor_absoluteX="16dp"
-                            tools:layout_editor_absoluteY="374dp" />
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView1_notifications"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:text="Częstotliwość: "
+                        android:textColor="#014D70"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/textView2_notifications"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:text="Godzina wysłania powiadomienia: "
+                        android:textColor="#014D70"
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -135,19 +152,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
+                        android:buttonTint="#0375a8"
                         android:text="(utaw częstotliwość obok)"
                         android:textColor="#014D70"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/textView2_notifications"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
-                        android:text="Pozwala zapisać nowego weterynarza na liście kontaktów wraz z jego danymi"
-                        android:textColor="#014D70" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

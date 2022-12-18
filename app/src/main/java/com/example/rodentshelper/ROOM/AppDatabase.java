@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase;
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
 import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.Encyclopedia.Version.VersionModel;
+import com.example.rodentshelper.Notifications.NotificationsModel;
 import com.example.rodentshelper.ROOM.Medicaments.MedicamentModel;
 import com.example.rodentshelper.ROOM.Weights.WeightModel;
 import com.example.rodentshelper.ROOM._MTM._RodentMed.RodentMedModel;
@@ -21,6 +22,7 @@ import com.example.rodentshelper.ROOM._MTM._RodentVisit.RodentVisitModel;
         MedicamentModel.class, RodentMedModel.class,
         VisitModel.class, NotesModel.class, WeightModel.class,
         RodentVisitModel.class, VersionModel.class,
+        NotificationsModel.class,
         TreatsModel.class, CageSupplyModel.class},
         version = 4)
 public abstract class AppDatabase extends RoomDatabase {
@@ -32,5 +34,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract DAOMedicaments daoMedicaments();
     public abstract DAOWeight daoWeight();
     public abstract DAOEncyclopedia daoEncyclopedia();
+    public abstract DAONotifications daoNotifications();
 }
 

@@ -1,43 +1,41 @@
 package com.example.rodentshelper.Notifications;
 
-import static android.content.ContentValues.TAG;
-
 import android.Manifest;
-import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.room.Room;
 
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
+import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.R;
+import com.example.rodentshelper.ROOM.AppDatabase;
+import com.example.rodentshelper.ROOM.DAONotifications;
+import com.example.rodentshelper.ROOM.DAOVets;
+import com.example.rodentshelper.ROOM.Vet.VetModel;
 
 
-import java.util.Calendar;
 import java.util.Locale;
 
 public class NotificationsActivity extends AppCompatActivity {
@@ -47,13 +45,13 @@ public class NotificationsActivity extends AppCompatActivity {
     ImageButton imageButtonQuestion_notifications1, imageButtonQuestion_notifications2,
                 imageButtonQuestion_notifications3, imageButtonVisit_notifications;
     CheckBox checkBoxNotifications1, checkBoxNotifications2;
-    TextView textView4_other, textView2_notifications;
+    TextView textView4_other, textView1_notifications, textView2_notifications;
 
     ProgressBar progressBar_encyclopedia;
     LinearLayout linearLayout_encyclopedia;
 
     private int hour, minute;
-
+    private boolean ifTimeSet = false;
 
 
 
@@ -78,10 +76,10 @@ public class NotificationsActivity extends AppCompatActivity {
         imageButton4_other.setColorFilter(Color.WHITE);
         textView4_other.setTextColor(Color.WHITE);
 
+        textView1_notifications = findViewById(R.id.textView1_notifications);
         textView2_notifications = findViewById(R.id.textView2_notifications);
         checkBoxNotifications1 = findViewById(R.id.checkBoxNotifications1);
         checkBoxNotifications2 = findViewById(R.id.checkBoxNotifications2);
-
 
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
@@ -89,13 +87,36 @@ public class NotificationsActivity extends AppCompatActivity {
         boolean areNotificationsEnabled = managerCompat.areNotificationsEnabled();
 
         if (!areNotificationsEnabled) {
-            System.out.println("dsfdfs");
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.POST_NOTIFICATIONS},
-                    POST_NOTIFICATIONS);
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(NotificationsActivity.this, R.style.AlertDialogStyleUpdate);
+            alert.setTitle("Uprawnienia powiadomień");
+            alert.setMessage("Android 13 oraz wyższe wersje wymagają odpowiednich uprawnień w ustawieniach telefonu, "+
+                    "aby móc wyświetlać powiadomienia. W następnym okienku musisz zezwolić na uprawnienia, "+
+                    "by móc korzystać z tego modułu.\n\nW przypadku odmówienia uprawnień możesz je przypisać "+
+                    "ręcznie w ustawieniach systemu Android.");
+
+            alert.setPositiveButton("Rozumiem", (dialogInterface, i) -> {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                        POST_NOTIFICATIONS);
+            });
+            alert.show();
         }
 
 
+        SharedPreferences prefsNotificationWeight = getSharedPreferences("prefsNotificationWeight", MODE_PRIVATE);
+        SharedPreferences prefsNotificationFeeding = getSharedPreferences("prefsNotificationFeeding", MODE_PRIVATE);
+
+        //if = true
+        if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
+            checkBoxNotifications1.setChecked(true);
+        }
+        if (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false)) {
+            checkBoxNotifications2.setChecked(true);
+        }
+
+        SetUpNotifications setUpNotifications = new SetUpNotifications();
+        setUpNotifications.setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, NotificationsActivity.this);
 
         checkBoxNotifications1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,37 +126,27 @@ public class NotificationsActivity extends AppCompatActivity {
                 //notifications1.showNotification(NotificationsActivity.this);
 
 
-                Notifications1 notifications1 = new Notifications1();
-                notifications1.showNotification(NotificationsActivity.this);
 
+                if (checkBoxNotifications1.isChecked()) {
+                    checkBoxNotifications1.setText("Włączone");
+                    setUpNotifications.notificationWeight(NotificationsActivity.this, textView1_notifications,
+                            textView2_notifications, checkBoxNotifications1);
 
+                } else {
+                    SharedPreferences.Editor prefsEditorNotificationWeight = prefsNotificationWeight.edit();
+                    prefsEditorNotificationWeight.putBoolean("prefsNotificationWeight", false);
+                    prefsEditorNotificationWeight.apply();
 
-                TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        hour = selectedHour;
-                        minute = selectedMinute;
-                        textView2_notifications.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+                    NotificationWeight notificationWeight = new NotificationWeight();
+                    //it's turning off alarm in 'if'
+                    notificationWeight.setUpNotificationWeight(NotificationsActivity.this);
+                    setUpNotifications.setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, NotificationsActivity.this);
+                }
 
-                    }
-                };
-                TimePickerDialog timePickerDialog = new TimePickerDialog(NotificationsActivity.this, onTimeSetListener, hour, minute, true);
-
-                timePickerDialog.setTitle("Wybierz godzinę");
-                timePickerDialog.show();
             }
+
         });
 
-
-
-
-
-
-
-
     }
-
-
-
 
 }

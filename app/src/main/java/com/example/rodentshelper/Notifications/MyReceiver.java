@@ -21,14 +21,11 @@ public class MyReceiver extends BroadcastReceiver {
         //Intent intent1 = new Intent(context, Notifications1.class);
 
 
-            //Intent serviceIntent = new Intent ( context, BackupService.class );
-            System.out.println("not boort");
-            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(BackupWorker.class).addTag("BACKUP_WORKER_TAG").build();
-            WorkManager.getInstance(context).enqueue(request);
+        //Intent serviceIntent = new Intent ( context, BackupService.class );
+        System.out.println("not boot");
+        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(BackupWorker.class).addTag("BACKUP_WORKER_TAG").build();
+        WorkManager.getInstance(context).enqueue(request);
 
-            Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            // Vibrate for 300 milliseconds
-            v.vibrate(300);
 
        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             context.startService ( intent1 );
