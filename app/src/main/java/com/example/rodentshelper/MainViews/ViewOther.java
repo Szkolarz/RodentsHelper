@@ -1,31 +1,26 @@
 package com.example.rodentshelper.MainViews;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
-import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.MainViews.GoogleMaps.GoogleMaps;
+import com.example.rodentshelper.Notifications.NotificationsActivity;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
-import java.io.Serializable;
-
 public class ViewOther extends AppCompatActivity {
 
-    ImageView imageButtonOther_map;
+    ImageView imageButtonOther_map, imageButtonOther_notifications;
     TextView textView4_other;
 
     @Override
@@ -49,8 +44,10 @@ public class ViewOther extends AppCompatActivity {
         textView4_other.setTextColor(Color.WHITE);
 
         imageButtonOther_map = findViewById(R.id.imageButtonOther_map);
+        imageButtonOther_notifications = findViewById(R.id.imageButtonOther_notifications);
 
         imageButtonOther_map.setOnClickListener(view -> viewMap());
+        imageButtonOther_notifications.setOnClickListener(view -> viewNotifications());
 
     }
 
@@ -58,7 +55,6 @@ public class ViewOther extends AppCompatActivity {
     private boolean flagForProgressDialog = false;
 
     private void viewMap() {
-
 
 
         progress = new ProgressDialog(this);
@@ -77,8 +73,6 @@ public class ViewOther extends AppCompatActivity {
         thread.start();
 
 
-
-
     }
 
     @Override
@@ -88,7 +82,11 @@ public class ViewOther extends AppCompatActivity {
             progress.dismiss();
     }
 
-
+    private void viewNotifications()
+    {
+        Intent intent = new Intent(ViewOther.this, NotificationsActivity.class);
+        startActivity(intent);
+    }
 
 
 

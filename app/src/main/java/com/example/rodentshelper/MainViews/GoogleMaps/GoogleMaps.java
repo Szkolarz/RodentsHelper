@@ -137,52 +137,46 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
         linearLayoutData_map = findViewById(R.id.linearLayoutData_map);
         linearLayoutData_map.setVisibility(View.GONE);
 
+        Thread threadPrepare = new Thread(() -> runOnUiThread(() -> {
 
+            new Handler().postDelayed(() -> {
+                MapsInitializer.initialize(this);
 
-        new Handler().postDelayed(() -> {
-            MapsInitializer.initialize(this);
+                Thread thread = new Thread(() -> {
 
-            Thread thread = new Thread(() -> {
+                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                            .findFragmentById(R.id.vetMap);
 
-                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.vetMap);
-
-                runOnUiThread(() -> {
-                    assert mapFragment != null;
-                    mapFragment.getMapAsync(googleMap -> {
-                        map = googleMap;
-
-                        map.setOnMapClickListener(position -> linearLayoutData_map.setVisibility(View.GONE));
-
-                        Thread thread1 = new Thread(() -> {
-
-                            getLocationPermission();
-                            getDeviceLocation();
-
-                            runOnUiThread(() -> {
-                                updateLocationUI();
-                                loadMarkers();
-                            });
-                        });
-
-                        thread1.start();
+                    runOnUiThread(() -> {
                         assert mapFragment != null;
-                        mapFragment.getMapAsync(GoogleMaps.this);  });
+                        mapFragment.getMapAsync(googleMap -> {
+                            map = googleMap;
+
+                            map.setOnMapClickListener(position -> linearLayoutData_map.setVisibility(View.GONE));
+
+                            Thread thread1 = new Thread(() -> {
+
+                                getLocationPermission();
+                                getDeviceLocation();
+
+                                runOnUiThread(() -> {
+                                    updateLocationUI();
+                                    loadMarkers();
+                                });
+                            });
+
+                            thread1.start();
+                            assert mapFragment != null;
+                            mapFragment.getMapAsync(GoogleMaps.this);  });
+                    });
+
                 });
 
-            });
+                thread.start();
 
-            thread.start();
-
-
-
-
-
-
-
-
-        }, 500);
-
+            }, 500);
+        }));
+        threadPrepare.start();
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(GoogleMaps.this);
 

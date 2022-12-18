@@ -11,6 +11,7 @@ public class Querries implements ConnectionSQL{
     public ResultSet getVPSVersion() throws SQLException, InterruptedException {
         Statement stat = connectToVPS().createStatement();
         ResultSet myres = stat.executeQuery("SELECT * FROM `Version`");
+        connectToVPS().close();
         return myres;
     }
 
@@ -18,6 +19,7 @@ public class Querries implements ConnectionSQL{
         {
             Statement stat = connectToVPS().createStatement();
             ResultSet myres = stat.executeQuery("select * from `test`");
+            connectToVPS().close();
             return myres;
         }
     }
@@ -34,6 +36,7 @@ public class Querries implements ConnectionSQL{
         {
             Statement stat = connectToVPS().createStatement();
             ResultSet myres = stat.executeQuery("SELECT * FROM `Version` WHERE id_animal = " + id_animal);
+            connectToVPS().close();
             return myres;
         }
     }
@@ -42,6 +45,7 @@ public class Querries implements ConnectionSQL{
     public ResultSet selectVersion() throws SQLException, InterruptedException {
         Statement stat = connectToVPS().createStatement();
         ResultSet myres = stat.executeQuery("SELECT * from `Version`");
+        connectToVPS().close();
         return myres;
 
     }
@@ -50,6 +54,7 @@ public class Querries implements ConnectionSQL{
     public ResultSet selectTreats(Integer id_animal) throws SQLException, InterruptedException {
         Statement stat = connectToVPS().createStatement();
         ResultSet myres = stat.executeQuery("SELECT * from `Treats` WHERE id_animal = " + id_animal);
+        connectToVPS().close();
         return myres;
 
     }
@@ -57,6 +62,7 @@ public class Querries implements ConnectionSQL{
     public ResultSet selectCageSupply(Integer id_animal) throws SQLException, InterruptedException {
         Statement stat = connectToVPS().createStatement();
         ResultSet myres = stat.executeQuery("SELECT * from `CageSupply` WHERE id_animal = " + id_animal);
+        connectToVPS().close();
         return myres;
     }
 
