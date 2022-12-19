@@ -41,6 +41,7 @@ public class ViewHealth extends AppCompatActivity {
 
         imageButton1_rodent.setOnClickListener(new ActivityRodents());
         imageButton2_encyclopedia.setOnClickListener(new ActivityEncyclopedia());
+        imageButton3_health.setOnClickListener(new ActivityHealth());
         imageButton4_other.setOnClickListener(new ActivityOther());
 
         //flag reset for proper working

@@ -94,7 +94,7 @@ public class ViewRodents extends AppCompatActivity {
             Toast.makeText(this, "Nie ma nic w bazie", Toast.LENGTH_SHORT).show();
             System.out.println("NIE MA NIC W BAZIE");
         }*/
-      //imageButton1_rodent.setOnClickListener(new ActivityRodents());
+        imageButton1_rodent.setOnClickListener(new ActivityRodents());
         imageButton2_encyclopedia.setOnClickListener(new ActivityEncyclopedia());
         imageButton3_health.setOnClickListener(new ActivityHealth());
         imageButton4_other.setOnClickListener(new ActivityOther());

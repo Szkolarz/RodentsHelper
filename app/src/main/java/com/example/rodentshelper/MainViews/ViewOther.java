@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.MainViews.GoogleMaps.GoogleMaps;
 import com.example.rodentshelper.Notifications.NotificationsActivity;
@@ -38,6 +39,7 @@ public class ViewOther extends AppCompatActivity {
         imageButton1_rodent.setOnClickListener(new ActivityRodents());
         imageButton2_encyclopedia.setOnClickListener(new ActivityEncyclopedia());
         imageButton3_health.setOnClickListener(new ActivityHealth());
+        imageButton4_other.setOnClickListener(new ActivityOther());
 
         textView4_other = findViewById(R.id.textView4_other);
         imageButton4_other.setColorFilter(Color.WHITE);

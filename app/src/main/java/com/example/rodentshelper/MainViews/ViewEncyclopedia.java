@@ -52,6 +52,7 @@ public class ViewEncyclopedia extends AppCompatActivity {
         imageButton4_other = findViewById(R.id.imageButton4_other);
 
         imageButton1_rodent.setOnClickListener(new ActivityRodents());
+        imageButton2_encyclopedia.setOnClickListener(new ActivityEncyclopedia());
         imageButton3_health.setOnClickListener(new ActivityHealth());
         imageButton4_other.setOnClickListener(new ActivityOther());
 
