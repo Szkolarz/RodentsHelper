@@ -1,9 +1,11 @@
 package com.example.rodentshelper.MainViews.GoogleMaps;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -27,6 +29,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.rodentshelper.ImageCompress;
+import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
@@ -51,8 +54,8 @@ import java.util.Objects;
 public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     TextView tt, textViewName_map, textViewAddress_map, textViewPhone_map;
-    Button buttonAddVet_map;
-    LinearLayout linearLayoutData_map;
+    Button buttonAddVet_map, buttonLoadMap_map;
+    LinearLayout linearLayoutData_map, linearLayoutMap_map;
 
 
     private GoogleMap map;
@@ -129,14 +132,49 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
         }
 
 
+
         textViewName_map = findViewById(R.id.textViewName_map);
         textViewAddress_map = findViewById(R.id.textViewAddress_map);
         textViewPhone_map = findViewById(R.id.textViewPhone_map);
         buttonAddVet_map = findViewById(R.id.buttonAddVet_map);
+        buttonLoadMap_map = findViewById(R.id.buttonLoadMap_map);
+
+
+        SharedPreferences prefsLoadMap = getApplicationContext().getSharedPreferences("prefsLoadMap", Context.MODE_PRIVATE);
+
+        linearLayoutMap_map = findViewById(R.id.linearLayoutMap_map);
 
         linearLayoutData_map = findViewById(R.id.linearLayoutData_map);
         linearLayoutData_map.setVisibility(View.GONE);
 
+
+        buttonLoadMap_map.setOnClickListener(view -> {
+            buttonLoadMap_map.setVisibility(View.GONE);
+            linearLayoutMap_map.setVisibility(View.VISIBLE);
+            SharedPreferences.Editor prefsEditorLoadMap = prefsLoadMap.edit();
+            prefsEditorLoadMap.putBoolean("prefsLoadMap", true);
+            prefsEditorLoadMap.apply();
+            loadMapToActivity();
+        });
+
+
+
+
+        //true
+        if (prefsLoadMap.getBoolean("prefsLoadMap", false)) {
+            loadMapToActivity();
+        } else {
+            buttonLoadMap_map.setVisibility(View.VISIBLE);
+            linearLayoutMap_map.setVisibility(View.GONE);
+        }
+
+
+
+    }
+
+    private void loadMapToActivity () {
+
+        System.out.println("MAPA");
         Thread threadPrepare = new Thread(() -> runOnUiThread(() -> {
 
             new Handler().postDelayed(() -> {
@@ -151,11 +189,11 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
                         assert mapFragment != null;
                         mapFragment.getMapAsync(googleMap -> {
                             map = googleMap;
-
+                            System.out.println("MAPA2");
                             map.setOnMapClickListener(position -> linearLayoutData_map.setVisibility(View.GONE));
 
                             Thread thread1 = new Thread(() -> {
-
+                                System.out.println("MAPA1");
                                 getLocationPermission();
                                 getDeviceLocation();
 
@@ -167,7 +205,8 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
 
                             thread1.start();
                             assert mapFragment != null;
-                            mapFragment.getMapAsync(GoogleMaps.this);  });
+                            mapFragment.getMapAsync(GoogleMaps.this);
+                        });
                     });
 
                 });
@@ -177,9 +216,9 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
             }, 500);
         }));
         threadPrepare.start();
+
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(GoogleMaps.this);
-
     }
 
 
@@ -351,6 +390,7 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
 
         }
     }
+
 
 
     @Override

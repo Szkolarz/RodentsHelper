@@ -2,6 +2,7 @@ package com.example.rodentshelper.Notifications;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.view.View;
@@ -95,7 +96,6 @@ public class SetUpNotifications {
                 });
 
 
-
                 timePickerDialog.setTitle("Wybierz godzinę, o której dostaniesz powiadomienia");
                 timePickerDialog.show();
 
@@ -137,7 +137,7 @@ public class SetUpNotifications {
             textView2_notifications.setVisibility(View.GONE);
             checkbox.setText("Wyłączone");
 
-            SharedPreferences prefsNotificationWeight = notificationsActivity.getSharedPreferences("prefsNotificationWeight", notificationsActivity.MODE_PRIVATE);
+            SharedPreferences prefsNotificationWeight = notificationsActivity.getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
             SharedPreferences.Editor prefsEditorNotificationWeight = prefsNotificationWeight.edit();
             prefsEditorNotificationWeight.putBoolean("prefsNotificationWeight", false);
             prefsEditorNotificationWeight.apply();
@@ -150,7 +150,6 @@ public class SetUpNotifications {
             Integer minute = daoNotifications.getMinuteFromNotificationWeight();
             String periodicity = daoNotifications.getPeriodicityFromNotificationWeight();
             Long nextNotificationTime = daoNotifications.getNextNotificationTimeWeight();
-
 
             textView1_notifications.setText("Częstotliwość: " + periodicity);
             textView2_notifications.setText("Godzina wysyłania powiadomienia: ~" + String.format(Locale.getDefault(), "%02d:%02d", hour, minute) +
