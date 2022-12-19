@@ -30,11 +30,11 @@ public interface DAONotifications {
     String getPeriodicityFromNotificationWeight();
 
     @Query("SELECT unix_timestamps FROM Notification WHERE notification_type = 'weight'")
-    String getUnixTimestampsFromNotificationWeight();
+    Long getUnixTimestampsFromNotificationWeight();
 
 
     @Query("UPDATE Notification SET unix_timestamps = :unix_timestamps WHERE notification_type = 'weight'")
-    void updateUnixTimestamp(String unix_timestamps);
+    void updateUnixTimestamp(Long unix_timestamps);
 
 
 

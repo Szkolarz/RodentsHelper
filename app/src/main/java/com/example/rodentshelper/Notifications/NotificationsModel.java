@@ -28,7 +28,7 @@ public class NotificationsModel {
     private String periodicity;
 
     @ColumnInfo(name = "unix_timestamps")
-    private String unix_timestamps;
+    private Long unix_timestamps;
 
 
     //weight
@@ -39,7 +39,7 @@ public class NotificationsModel {
 
 
 
-    public NotificationsModel(Integer id_rodent, Integer hour, Integer minute, String periodicity, String unix_timestamps, String notification_type) {
+    public NotificationsModel(Integer id_rodent, Integer hour, Integer minute, String periodicity, Long unix_timestamps, String notification_type) {
         this.id_rodent = id_rodent;
         this.hour = hour;
         this.minute = minute;
@@ -88,11 +88,11 @@ public class NotificationsModel {
         this.periodicity = periodicity;
     }
 
-    public String getUnix_timestamps() {
+    public Long getUnix_timestamps() {
         return unix_timestamps;
     }
 
-    public void setUnix_timestamps(String unix_timestamps) {
+    public void setUnix_timestamps(Long unix_timestamps) {
         this.unix_timestamps = unix_timestamps;
     }
 

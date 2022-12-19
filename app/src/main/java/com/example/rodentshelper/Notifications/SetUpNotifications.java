@@ -62,7 +62,7 @@ public class SetUpNotifications {
 
                         daoNotifications.deleteNotificationWeight();
                         daoNotifications.insertRecordNotification(new NotificationsModel(null, hour, minute,
-                                mSpinner.getSelectedItem().toString(), String.valueOf(System.currentTimeMillis()), "weight"));
+                                mSpinner.getSelectedItem().toString(), System.currentTimeMillis(), "weight"));
                         db.close();
                         Alerts alert = new Alerts();
                         alert.simpleInfo("Dodano nowe powiadomienie", "Pomyślnie dodano nowe powiadomienie!", notificationsActivity);

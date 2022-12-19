@@ -11,17 +11,19 @@ import android.os.Vibrator;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.room.Room;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.rodentshelper.R;
+import com.example.rodentshelper.ROOM.AppDatabase;
+import com.example.rodentshelper.ROOM.DAONotifications;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
 public class BackupWorker extends Worker {
 
     private static final String TAG = "BackupWorker";
 
-    private Context context;
 
     public BackupWorker (@NonNull Context context, @NonNull WorkerParameters workerParams ) {
         super ( context, workerParams );
@@ -62,19 +64,22 @@ public class BackupWorker extends Worker {
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
 
         managerCompat.notify(3, builder.build());
-        vibrationsOn();
+
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAONotifications daoNotifications = db.daoNotifications();
+
+        daoNotifications.updateUnixTimestamp(System.currentTimeMillis());
 
         NotificationWeight notificationWeight = new NotificationWeight();
+        notificationWeight.setUpNotificationWeight(getApplicationContext());
 
-        notificationWeight.setUpNotificationWeight(context);
-
+        Vibrator v = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(300);
 
         return Result.success ();
     }
 
-    private void vibrationsOn () {
-        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(300);
-    }
+
 
 }

@@ -54,9 +54,9 @@ public class NotificationWeight {
            Integer hour = daoNotifications.getHourFromNotificationWeight();
            Integer minute = daoNotifications.getMinuteFromNotificationWeight();
            String periodicity = daoNotifications.getPeriodicityFromNotificationWeight();
-           String unixTimeStamps = daoNotifications.getUnixTimestampsFromNotificationWeight();
+           Long unixTimeStamps = daoNotifications.getUnixTimestampsFromNotificationWeight();
 
-           calendar.setTimeInMillis(Long.parseLong(unixTimeStamps));
+           calendar.setTimeInMillis(unixTimeStamps);
 
            db.close();
 
@@ -70,7 +70,7 @@ public class NotificationWeight {
 
            if (periodicity.equals("Codziennie")) {
                Log.e(TAG, "Alarm will schedule for next day!");
-              // calendar.add(Calendar.DAY_OF_YEAR, 1); // add, not set!
+               calendar.add(Calendar.DAY_OF_YEAR, 1); // add, not set!
            } else if (periodicity.equals("Co tydzień")) {
                Log.e(TAG, "Alarm will schedule for next week!");
                calendar.add(Calendar.DAY_OF_YEAR, 7);
@@ -89,10 +89,10 @@ public class NotificationWeight {
            calendar.set(Calendar.MINUTE, minute);
            calendar.set(Calendar.SECOND, 0);
 
-           System.out.println(calendar.getTimeInMillis() + " time in mini");
+           System.out.println(calendar.getTimeInMillis() + " time in milli");
 
            alarmManager.setWindow(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                   AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+                   1000 * 60, pendingIntent);
 
 
 
@@ -107,7 +107,7 @@ public class NotificationWeight {
 
                 /*alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,  System.currentTimeMillis(),
                         1000 * 60, pendingIntent);*/
-       //1000 * 60 * 60 * 24
+       //1000 * 60 * 60 * 24    600000
    }
 
 
