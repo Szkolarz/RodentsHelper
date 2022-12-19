@@ -19,6 +19,17 @@ public class DateFormat {
         return dateFormat.format(c.getTimeInMillis());
     }
 
+    public static String formatTimestampToDate(Long timestamp) {
+        SimpleDateFormat dateFormat;
+        // Apply desired format here
+        dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+        dateFormat.setTimeZone(TimeZone.getDefault());
+
+        return dateFormat.format(timestamp);
+    }
+
+
+
     public static String formatDateToCalculate(Date date) {
         SimpleDateFormat dateFormat;
         // Apply desired format here

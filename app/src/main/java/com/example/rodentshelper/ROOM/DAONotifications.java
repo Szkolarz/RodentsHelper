@@ -29,12 +29,21 @@ public interface DAONotifications {
     @Query("SELECT periodicity FROM Notification WHERE notification_type = 'weight'")
     String getPeriodicityFromNotificationWeight();
 
+    @TypeConverters(Converters.class)
     @Query("SELECT unix_timestamps FROM Notification WHERE notification_type = 'weight'")
     Long getUnixTimestampsFromNotificationWeight();
 
+    @TypeConverters(Converters.class)
+    @Query("SELECT next_notification_time FROM Notification WHERE notification_type = 'weight'")
+    Long getNextNotificationTimeWeight();
 
+    @TypeConverters(Converters.class)
     @Query("UPDATE Notification SET unix_timestamps = :unix_timestamps WHERE notification_type = 'weight'")
     void updateUnixTimestamp(Long unix_timestamps);
+
+    @TypeConverters(Converters.class)
+    @Query("UPDATE Notification SET next_notification_time = :next_notification_time WHERE notification_type = 'weight'")
+    void updateNextNotificationTime(Long next_notification_time);
 
 
 

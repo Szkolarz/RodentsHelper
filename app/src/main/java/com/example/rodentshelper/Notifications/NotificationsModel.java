@@ -27,8 +27,13 @@ public class NotificationsModel {
     @ColumnInfo(name = "periodicity")
     private String periodicity;
 
+    @TypeConverters(Converters.class)
     @ColumnInfo(name = "unix_timestamps")
     private Long unix_timestamps;
+
+    @TypeConverters(Converters.class)
+    @ColumnInfo(name = "next_notification_time")
+    private Long next_notification_time;
 
 
     //weight
@@ -38,13 +43,14 @@ public class NotificationsModel {
     private String notification_type;
 
 
-
-    public NotificationsModel(Integer id_rodent, Integer hour, Integer minute, String periodicity, Long unix_timestamps, String notification_type) {
+    public NotificationsModel(Integer id_rodent, Integer hour, Integer minute, String periodicity,
+                              Long unix_timestamps, Long next_notification_time, String notification_type) {
         this.id_rodent = id_rodent;
         this.hour = hour;
         this.minute = minute;
         this.periodicity = periodicity;
         this.unix_timestamps = unix_timestamps;
+        this.next_notification_time = next_notification_time;
         this.notification_type = notification_type;
     }
 
@@ -94,6 +100,14 @@ public class NotificationsModel {
 
     public void setUnix_timestamps(Long unix_timestamps) {
         this.unix_timestamps = unix_timestamps;
+    }
+
+    public Long getNext_notification_time() {
+        return next_notification_time;
+    }
+
+    public void setNext_notification_time(Long next_notification_time) {
+        this.next_notification_time = next_notification_time;
     }
 
     public String getNotification_type() {

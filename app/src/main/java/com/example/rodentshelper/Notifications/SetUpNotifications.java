@@ -17,6 +17,7 @@ import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
+import com.example.rodentshelper.ROOM.DateFormat;
 
 import java.util.Locale;
 
@@ -62,7 +63,7 @@ public class SetUpNotifications {
 
                         daoNotifications.deleteNotificationWeight();
                         daoNotifications.insertRecordNotification(new NotificationsModel(null, hour, minute,
-                                mSpinner.getSelectedItem().toString(), System.currentTimeMillis(), "weight"));
+                                mSpinner.getSelectedItem().toString(), System.currentTimeMillis(), null,"weight"));
                         db.close();
                         Alerts alert = new Alerts();
                         alert.simpleInfo("Dodano nowe powiadomienie", "Pomyślnie dodano nowe powiadomienie!", notificationsActivity);
@@ -143,13 +144,19 @@ public class SetUpNotifications {
         } else {
             textView1_notifications.setVisibility(View.VISIBLE);
             textView2_notifications.setVisibility(View.VISIBLE);
+            checkbox.setText("Włączone");
 
             Integer hour = daoNotifications.getHourFromNotificationWeight();
             Integer minute = daoNotifications.getMinuteFromNotificationWeight();
             String periodicity = daoNotifications.getPeriodicityFromNotificationWeight();
+            Long nextNotificationTime = daoNotifications.getNextNotificationTimeWeight();
+
 
             textView1_notifications.setText("Częstotliwość: " + periodicity);
-            textView2_notifications.setText("Godzina wysyłania powiadomienia: ~" + String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+            textView2_notifications.setText("Godzina wysyłania powiadomienia: ~" + String.format(Locale.getDefault(), "%02d:%02d", hour, minute) +
+                    "\nNastępne powiadomienie: " + DateFormat.formatTimestampToDate(nextNotificationTime));
+
+            System.out.println(nextNotificationTime + " KTÓRY");
 
         }
         db.close();

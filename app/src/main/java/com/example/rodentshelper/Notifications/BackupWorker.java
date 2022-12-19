@@ -44,8 +44,7 @@ public class BackupWorker extends Worker {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "info");
         builder.setContentTitle("Czas ważenia!");
-        builder.setContentText("Czas zważyć twojego pupila/pupile! Wagę możesz zapisać w aplikacji, w zakładce 'Opieka'" +
-                " znajdującej się na liście twoich pupili.");
+        builder.setContentText("Czas zważyć twojego pupila! Wagę możesz zapisać w aplikacji, w zakładce 'Opieka'");
         builder.setSmallIcon(R.drawable.rodent_notification);
         builder.setAutoCancel(true);
 
@@ -70,6 +69,7 @@ public class BackupWorker extends Worker {
         DAONotifications daoNotifications = db.daoNotifications();
 
         daoNotifications.updateUnixTimestamp(System.currentTimeMillis());
+        db.close();
 
         NotificationWeight notificationWeight = new NotificationWeight();
         notificationWeight.setUpNotificationWeight(getApplicationContext());

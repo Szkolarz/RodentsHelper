@@ -24,7 +24,7 @@ public class NotificationWeight {
 
    public void setUpNotificationWeight(Context notificationsActivity) {
 
-       Intent notifyIntent = new Intent(notificationsActivity, MyReceiver.class);
+       Intent notifyIntent = new Intent(notificationsActivity, NotificationReceiver.class);
 
        SharedPreferences prefsNotificationWeight = notificationsActivity.getSharedPreferences("prefsNotificationWeight", notificationsActivity.MODE_PRIVATE);
 
@@ -42,7 +42,6 @@ public class NotificationWeight {
        if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
 
 
-           // every day at 9 am
            Calendar calendar = Calendar.getInstance();
 
 
@@ -58,7 +57,7 @@ public class NotificationWeight {
 
            calendar.setTimeInMillis(unixTimeStamps);
 
-           db.close();
+
 
        /*if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= hour) {
            Log.e(TAG, "Alarm will schedule for next day!");
@@ -91,10 +90,16 @@ public class NotificationWeight {
 
            System.out.println(calendar.getTimeInMillis() + " time in milli");
 
-           alarmManager.setWindow(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                   1000 * 60, pendingIntent);
+           //setWindows unfortunately sometimes does not want to fire
+           //so we need to swap it to 'setExact' to be sura that
+           //it will work on every device
+           /*alarmManager.setWindow(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                   10000 * 60, pendingIntent);*/
+           alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    pendingIntent);
 
-
+           daoNotifications.updateNextNotificationTime(calendar.getTimeInMillis());
+           db.close();
 
            System.out.println("Włączono alarm");
        } else {

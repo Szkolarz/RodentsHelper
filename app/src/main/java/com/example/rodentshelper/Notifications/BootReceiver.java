@@ -34,6 +34,7 @@ public class BootReceiver extends BroadcastReceiver {
             prefsAfterRebootEditorNotificationWeight.putBoolean("prefsAfterRebootNotificationWeight", true);
             prefsAfterRebootEditorNotificationWeight.apply();*/
 
+
             NotificationWeight notificationWeight = new NotificationWeight();
             notificationWeight.setUpNotificationWeight(context);
 

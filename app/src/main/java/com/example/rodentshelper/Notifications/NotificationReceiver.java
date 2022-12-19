@@ -3,16 +3,12 @@ package com.example.rodentshelper.Notifications;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Vibrator;
 
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-public class MyReceiver extends BroadcastReceiver {
-    public MyReceiver() {
+public class NotificationReceiver extends BroadcastReceiver {
+    public NotificationReceiver() {
     }
 
     @Override

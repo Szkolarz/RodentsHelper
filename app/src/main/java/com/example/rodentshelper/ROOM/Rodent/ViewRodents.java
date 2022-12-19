@@ -22,6 +22,7 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.Notifications.UpdateNotification;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAORodents;
@@ -41,6 +42,14 @@ public class ViewRodents extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recycler);
+
+
+        UpdateNotification updateNotification = new UpdateNotification();
+        updateNotification.checkIfUserHasMissedNotification(ViewRodents.this);
+        updateNotification.checkNotificationPreferences(ViewRodents.this);
+
+
+
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
 
