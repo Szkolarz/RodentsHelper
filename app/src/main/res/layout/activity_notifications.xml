@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:background="#ACC5E1"
@@ -52,10 +52,9 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="15dp"
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
                         android:text="Powiadomienia o profilaktycznym ważeniu"
@@ -71,7 +70,7 @@
 
                         <CheckBox
                             android:id="@+id/checkBoxNotifications1"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1"
@@ -86,7 +85,7 @@
                         android:id="@+id/textView1_notifications"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="15dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
                         android:text="Częstotliwość: "
@@ -97,7 +96,7 @@
                         android:id="@+id/textView2_notifications"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="15dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
                         android:text="Godzina wysłania powiadomienia: "
@@ -134,10 +133,9 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="15dp"
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
                         android:text="Powiadomienia przypominające o karmieniu"
@@ -146,22 +144,46 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <CheckBox
-                        android:id="@+id/checkBoxNotifications2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:buttonTint="#0375a8"
-                        android:text="(utaw częstotliwość obok)"
-                        android:textColor="#014D70"
-                        android:textSize="16sp" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:orientation="horizontal"/>
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxNotifications2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:buttonTint="#0375a8"
+                            android:text="Wyłączone"
+                            android:textColor="#014D70"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView3_notifications"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:text="Częstotliwość: "
+                        android:textColor="#014D70"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/textView4_notifications"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:text="Godzina wysłania powiadomienia: "
+                        android:textColor="#014D70"
+                        android:visibility="gone" />
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -224,12 +246,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="1"
-                        android:text="Powiadomienia o wizytach u weterynarza możesz ustawić w panelu wizyt - &quot;Zdrowie&quot; > &quot;Wizyty&quot;"
+                        android:text="Powiadomienia o wizytach u weterynarza możesz ustawić w panelu wizyt - &quot;Zdrowie&quot; > &quot;Wizyty&quot; (lub kliknij ikonkę obok)"
                         android:textColor="#014D70"
                         android:textColorHint="#77147A"
                         android:textSize="16sp" />

@@ -2,41 +2,28 @@ package com.example.rodentshelper.Notifications;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.TimePickerDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.room.Room;
 
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
-import com.example.rodentshelper.Alerts;
+import com.example.rodentshelper.Notifications.Separate.NotificationFeeding;
+import com.example.rodentshelper.Notifications.Separate.NotificationWeight;
 import com.example.rodentshelper.R;
-import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAONotifications;
-import com.example.rodentshelper.ROOM.DAOVets;
-import com.example.rodentshelper.ROOM.Vet.VetModel;
-
-
-import java.util.Locale;
+import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 
 public class NotificationsActivity extends AppCompatActivity {
 
@@ -45,13 +32,8 @@ public class NotificationsActivity extends AppCompatActivity {
     ImageButton imageButtonQuestion_notifications1, imageButtonQuestion_notifications2,
                 imageButtonQuestion_notifications3, imageButtonVisit_notifications;
     CheckBox checkBoxNotifications1, checkBoxNotifications2;
-    TextView textView4_other, textView1_notifications, textView2_notifications;
-
-    ProgressBar progressBar_encyclopedia;
-    LinearLayout linearLayout_encyclopedia;
-
-    private int hour, minute;
-    private boolean ifTimeSet = false;
+    TextView textView4_other, textView1_notifications, textView2_notifications,
+             textView3_notifications, textView4_notifications;
 
 
 
@@ -78,9 +60,24 @@ public class NotificationsActivity extends AppCompatActivity {
 
         textView1_notifications = findViewById(R.id.textView1_notifications);
         textView2_notifications = findViewById(R.id.textView2_notifications);
+        textView3_notifications = findViewById(R.id.textView3_notifications);
+        textView4_notifications = findViewById(R.id.textView4_notifications);
+
         checkBoxNotifications1 = findViewById(R.id.checkBoxNotifications1);
         checkBoxNotifications2 = findViewById(R.id.checkBoxNotifications2);
+        imageButtonVisit_notifications = findViewById(R.id.imageButtonVisit_notifications);
 
+        imageButtonQuestion_notifications1 = findViewById(R.id.imageButtonQuestion_notifications1);
+        imageButtonQuestion_notifications2 = findViewById(R.id.imageButtonQuestion_notifications2);
+        imageButtonQuestion_notifications3 = findViewById(R.id.imageButtonQuestion_notifications3);
+
+
+        imageButtonVisit_notifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewVisits();
+            }
+        });
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
 
@@ -115,8 +112,13 @@ public class NotificationsActivity extends AppCompatActivity {
             checkBoxNotifications2.setChecked(true);
         }
 
-        SetUpNotifications setUpNotifications = new SetUpNotifications();
-        setUpNotifications.setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, NotificationsActivity.this);
+        SetUpNotificationsWeight setUpNotificationsWeight = new SetUpNotificationsWeight();
+        setUpNotificationsWeight.setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, NotificationsActivity.this);
+
+        SetUpNotificationsFeeding setUpNotificationsFeeding = new SetUpNotificationsFeeding();
+        setUpNotificationsFeeding.setUpCheckbox(checkBoxNotifications2, textView3_notifications, textView4_notifications, NotificationsActivity.this);
+
+
 
         checkBoxNotifications1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +131,7 @@ public class NotificationsActivity extends AppCompatActivity {
 
                 if (checkBoxNotifications1.isChecked()) {
                     checkBoxNotifications1.setText("Włączone");
-                    setUpNotifications.notificationWeight(NotificationsActivity.this, textView1_notifications,
+                    setUpNotificationsWeight.notificationWeight(NotificationsActivity.this, textView1_notifications,
                             textView2_notifications, checkBoxNotifications1);
 
                 } else {
@@ -140,13 +142,52 @@ public class NotificationsActivity extends AppCompatActivity {
                     NotificationWeight notificationWeight = new NotificationWeight();
                     //it's turning off alarm in 'if'
                     notificationWeight.setUpNotificationWeight(NotificationsActivity.this);
-                    setUpNotifications.setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, NotificationsActivity.this);
+                    setUpNotificationsWeight.setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, NotificationsActivity.this);
                 }
 
             }
 
         });
 
+        checkBoxNotifications2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if (checkBoxNotifications2.isChecked()) {
+                    checkBoxNotifications2.setText("Włączone");
+                    FlagSetupFeeding.setFlagIsNotificationFirst(true);
+                        setUpNotificationsFeeding.notificationFeeding(NotificationsActivity.this, textView3_notifications,
+                                textView4_notifications, checkBoxNotifications2);
+
+                } else {
+                    SharedPreferences.Editor prefsEditorNotificationFeeding = prefsNotificationFeeding.edit();
+                    prefsEditorNotificationFeeding.putBoolean("prefsNotificationFeeding", false);
+                    prefsEditorNotificationFeeding.apply();
+
+                    NotificationFeeding notificationFeeding = new NotificationFeeding();
+
+                    //it set ups two different times given by user
+
+                    notificationFeeding.setUpNotificationFeeding(NotificationsActivity.this);
+
+                    System.out.println("WYLACZONE");
+                    //it's turning off alarm in 'if'
+                    setUpNotificationsFeeding.setUpCheckbox(checkBoxNotifications2, textView3_notifications, textView4_notifications, NotificationsActivity.this);
+                }
+
+            }
+
+        });
+
+
     }
+
+    public void viewVisits()
+    {
+        Intent intent = new Intent(NotificationsActivity.this, ViewVisits.class);
+        startActivity(intent);
+    }
+
 
 }

@@ -22,6 +22,7 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.Notifications.FlagSetupFeeding;
 import com.example.rodentshelper.Notifications.UpdateNotification;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;

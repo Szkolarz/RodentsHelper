@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 
 import androidx.room.Room;
 
+import com.example.rodentshelper.Notifications.Separate.NotificationFeeding;
+import com.example.rodentshelper.Notifications.Separate.NotificationWeight;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
 
@@ -19,14 +21,13 @@ public class UpdateNotification {
     //is greater than actual System.currentTimeMillis();
     public void checkIfUserHasMissedNotification (Context context) {
         SharedPreferences prefsNotificationWeight = context.getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
+        SharedPreferences prefsNotificationFeeding = context.getSharedPreferences("prefsNotificationFeeding", Context.MODE_PRIVATE);
 
-
+        AppDatabase db = Room.databaseBuilder(context,
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAONotifications daoNotifications = db.daoNotifications();
         //if = true
         if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
-
-            AppDatabase db = Room.databaseBuilder(context,
-                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-            DAONotifications daoNotifications = db.daoNotifications();
 
 
             Long actualTimeStamp = System.currentTimeMillis();
@@ -45,25 +46,67 @@ public class UpdateNotification {
                     calendar.add(Calendar.DAY_OF_YEAR, 1);
 
                 }
-                daoNotifications.updateUnixTimestamp(calendar.getTimeInMillis());
+                daoNotifications.updateUnixTimestampWeight(calendar.getTimeInMillis());
             }
-            db.close();
+
         }
 
-    }
+        if (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false)) {
+
+            Long actualTimeStamp = System.currentTimeMillis();
+            Long nextNotificationDate = daoNotifications.getNextNotificationTimeFeeding();
+
+            Integer id_notification;
 
 
-    public void updateAlarm (Context context) {
-        NotificationWeight notificationWeight = new NotificationWeight();
-        notificationWeight.setUpNotificationWeight(context);
+            for (int i=0; i<2; i++) {
+
+                if (i==0) {
+                    id_notification = daoNotifications.getFirstIdFromNotificationFeeding();
+                } else {
+                    id_notification = daoNotifications.getLastIdFromNotificationFeeding();
+                }
+
+
+                Long unixTimeStamps = daoNotifications.getUnixTimestampsFromNotificationFeeding(id_notification);
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(unixTimeStamps);
+
+
+                //if nextNotificationTime + 15 minutes
+                if ((nextNotificationDate + (10000 * 90)) < actualTimeStamp) {
+                    while ((nextNotificationDate + (10000 * 90)) < actualTimeStamp) {
+                        //+ one day
+                        nextNotificationDate += 1000 * 60 * 60 * 24;
+                        calendar.add(Calendar.DAY_OF_YEAR, 1);
+
+                    }
+                    daoNotifications.updateUnixTimestampFeeding(calendar.getTimeInMillis(), id_notification);
+                }
+            }
+
+        }
+
+        db.close();
     }
+
 
 
     public void checkNotificationPreferences (Context context) {
+
         SharedPreferences prefsNotificationWeight = context.getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
+        SharedPreferences prefsNotificationFeeding = context.getSharedPreferences("prefsNotificationFeeding", Context.MODE_PRIVATE);
+
         //if == true
         if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
-            updateAlarm(context);
+            NotificationWeight notificationWeight = new NotificationWeight();
+            notificationWeight.setUpNotificationWeight(context);
+        }
+
+        if (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false)) {
+            NotificationFeeding notificationFeeding = new NotificationFeeding();
+            notificationFeeding.setUpNotificationFeeding(context);
         }
 
 

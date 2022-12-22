@@ -12,6 +12,7 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
@@ -114,7 +115,13 @@
             android:name=".Notifications.NotificationsActivity"
             android:exported="true" />
         <receiver
-            android:name=".Notifications.NotificationReceiver"
+            android:name=".Notifications.NotificationReceiverWeight"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
+
+        <receiver
+            android:name=".Notifications.NotificationReceiverFeeding"
             android:enabled="true"
             android:exported="true">
         </receiver>
@@ -129,11 +136,6 @@
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
-
-        <service
-            android:name=".Notifications.BackupService"
-            android:exported="false" >
-        </service>
 
     </application>
 

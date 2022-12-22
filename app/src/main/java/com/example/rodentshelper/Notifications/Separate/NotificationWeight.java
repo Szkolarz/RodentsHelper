@@ -1,4 +1,4 @@
-package com.example.rodentshelper.Notifications;
+package com.example.rodentshelper.Notifications.Separate;
 
 import static android.content.ContentValues.TAG;
 
@@ -12,6 +12,7 @@ import android.util.Log;
 
 import androidx.room.Room;
 
+import com.example.rodentshelper.Notifications.NotificationReceiverWeight;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
 
@@ -24,18 +25,23 @@ public class NotificationWeight {
 
    public void setUpNotificationWeight(Context notificationsActivity) {
 
-       Intent notifyIntent = new Intent(notificationsActivity, NotificationReceiver.class);
+       Intent notifyIntent = new Intent(notificationsActivity, NotificationReceiverWeight.class);
 
-       SharedPreferences prefsNotificationWeight = notificationsActivity.getSharedPreferences("prefsNotificationWeight", notificationsActivity.MODE_PRIVATE);
+       AppDatabase db = Room.databaseBuilder(notificationsActivity,
+               AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+       DAONotifications daoNotifications = db.daoNotifications();
+       Integer requestCode = daoNotifications.getIdFromNotificationWeight();
+
+       SharedPreferences prefsNotificationWeight = notificationsActivity.getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
 
        PendingIntent pendingIntent;
        AlarmManager alarmManager = (AlarmManager) notificationsActivity.getSystemService(Context.ALARM_SERVICE);
        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
            pendingIntent = PendingIntent.getBroadcast
-                   (notificationsActivity, 1, notifyIntent, PendingIntent.FLAG_MUTABLE);
+                   (notificationsActivity, requestCode, notifyIntent, PendingIntent.FLAG_MUTABLE);
        } else {
            pendingIntent = PendingIntent.getBroadcast
-                   (notificationsActivity, 1, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                   (notificationsActivity, requestCode, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
        }
 
        //if prefs == true
@@ -45,10 +51,6 @@ public class NotificationWeight {
            Calendar calendar = Calendar.getInstance();
 
 
-
-           AppDatabase db = Room.databaseBuilder(notificationsActivity,
-                   AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-           DAONotifications daoNotifications = db.daoNotifications();
 
            Integer hour = daoNotifications.getHourFromNotificationWeight();
            Integer minute = daoNotifications.getMinuteFromNotificationWeight();
@@ -91,20 +93,22 @@ public class NotificationWeight {
            System.out.println(calendar.getTimeInMillis() + " time in milli");
 
            //setWindows unfortunately sometimes does not want to fire
-           //so we need to swap it to 'setExact' to be sura that
+           //so we need to swap it to 'setExact' to be sure that
            //it will work on every device
            /*alarmManager.setWindow(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                    10000 * 60, pendingIntent);*/
            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     pendingIntent);
 
-           daoNotifications.updateNextNotificationTime(calendar.getTimeInMillis());
+           System.out.println(requestCode + " WAZENIE REQUEST");
+
+           daoNotifications.updateNextNotificationTimeWeight(calendar.getTimeInMillis());
            db.close();
 
-           System.out.println("Włączono alarm");
+           System.out.println("Włączono alarm wazenie");
        } else {
            alarmManager.cancel(pendingIntent);
-           System.out.println("Wyłączono alarm");
+           System.out.println("Wyłączono alarm wazenie");
        }
 
 

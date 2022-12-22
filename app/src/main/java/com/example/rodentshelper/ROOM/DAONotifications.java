@@ -20,6 +20,19 @@ public interface DAONotifications {
     void insertRecordNotification(NotificationsModel Notification);
 
 
+    @Query("SELECT id_notification FROM Notification WHERE notification_type = 'weight'")
+    Integer getIdFromNotificationWeight();
+
+    @Query("SELECT MIN(id_notification) FROM Notification WHERE notification_type = 'feeding'")
+    Integer getFirstIdFromNotificationFeeding();
+    @Query("SELECT MAX(id_notification) FROM Notification WHERE notification_type = 'feeding'")
+    Integer getLastIdFromNotificationFeeding();
+
+    @Query("SELECT id_notification FROM Notification WHERE notification_type = 'visit' AND " +
+            "id_rodent = :id_rodent")
+    Integer getIdFromNotificationVisit(Integer id_rodent);
+
+
     @Query("SELECT hour FROM Notification WHERE notification_type = 'weight'")
     Integer getHourFromNotificationWeight();
 
@@ -39,21 +52,43 @@ public interface DAONotifications {
 
     @TypeConverters(Converters.class)
     @Query("UPDATE Notification SET unix_timestamps = :unix_timestamps WHERE notification_type = 'weight'")
-    void updateUnixTimestamp(Long unix_timestamps);
+    void updateUnixTimestampWeight(Long unix_timestamps);
 
     @TypeConverters(Converters.class)
     @Query("UPDATE Notification SET next_notification_time = :next_notification_time WHERE notification_type = 'weight'")
-    void updateNextNotificationTime(Long next_notification_time);
+    void updateNextNotificationTimeWeight(Long next_notification_time);
 
 
 
 
 
-    @Query("SELECT hour FROM Notification WHERE notification_type = 'feeding'")
-    List<NotificationsModel> getHourFromNotificationFeeding();
 
-    @Query("SELECT minute FROM Notification WHERE notification_type = 'feeding'")
-    List<NotificationsModel> getMinuteFromNotificationFeeding();
+    @Query("SELECT hour FROM Notification WHERE notification_type = 'feeding' AND " +
+            "id_notification = :id_notification")
+    Integer getHourFromNotificationFeeding(Integer id_notification);
+
+    @Query("SELECT minute FROM Notification WHERE notification_type = 'feeding' AND " +
+            "id_notification = :id_notification")
+    Integer getMinuteFromNotificationFeeding(Integer id_notification);
+
+    @TypeConverters(Converters.class)
+    @Query("SELECT unix_timestamps FROM Notification WHERE notification_type = 'feeding' AND " +
+            "id_notification = :id_notification")
+    Long getUnixTimestampsFromNotificationFeeding(Integer id_notification);
+
+    @TypeConverters(Converters.class)
+    @Query("SELECT MIN(next_notification_time) FROM Notification WHERE notification_type = 'feeding'")
+    Long getNextNotificationTimeFeeding();
+
+    @TypeConverters(Converters.class)
+    @Query("UPDATE Notification SET unix_timestamps = :unix_timestamps WHERE notification_type = 'feeding' AND " +
+            "id_notification = :id_notification")
+    void updateUnixTimestampFeeding(Long unix_timestamps, Integer id_notification);
+
+    @TypeConverters(Converters.class)
+    @Query("UPDATE Notification SET next_notification_time = :next_notification_time WHERE notification_type = 'feeding' AND " +
+            "id_notification = :id_notification")
+    void updateNextNotificationTimeFeeding(Long next_notification_time, Integer id_notification);
 
 
 

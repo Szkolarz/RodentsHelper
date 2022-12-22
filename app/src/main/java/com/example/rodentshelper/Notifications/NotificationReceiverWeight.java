@@ -7,8 +7,8 @@ import android.content.Intent;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-public class NotificationReceiver extends BroadcastReceiver {
-    public NotificationReceiver() {
+public class NotificationReceiverWeight extends BroadcastReceiver {
+    public NotificationReceiverWeight() {
     }
 
     @Override
@@ -19,7 +19,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         //Intent serviceIntent = new Intent ( context, BackupService.class );
         System.out.println("not boot");
-        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(BackupWorker.class).addTag("BACKUP_WORKER_TAG").build();
+        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(BackupWorkerWeight.class).addTag("BACKUP_WORKER_TAG").build();
         WorkManager.getInstance(context).enqueue(request);
 
 

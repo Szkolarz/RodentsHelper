@@ -4,12 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Vibrator;
 
-import androidx.room.Room;
-
-import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAONotifications;
+import com.example.rodentshelper.Notifications.Separate.NotificationFeeding;
+import com.example.rodentshelper.Notifications.Separate.NotificationWeight;
 
 public class BootReceiver extends BroadcastReceiver {
     public BootReceiver() {
@@ -34,9 +31,19 @@ public class BootReceiver extends BroadcastReceiver {
             prefsAfterRebootEditorNotificationWeight.putBoolean("prefsAfterRebootNotificationWeight", true);
             prefsAfterRebootEditorNotificationWeight.apply();*/
 
+            SharedPreferences prefsNotificationWeight = context.getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
+            SharedPreferences prefsNotificationFeeding = context.getSharedPreferences("prefsNotificationFeeding", Context.MODE_PRIVATE);
 
-            NotificationWeight notificationWeight = new NotificationWeight();
-            notificationWeight.setUpNotificationWeight(context);
+            //if == true
+            if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
+                NotificationWeight notificationWeight = new NotificationWeight();
+                notificationWeight.setUpNotificationWeight(context);
+            }
+
+            if (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false)) {
+                NotificationFeeding notificationFeeding = new NotificationFeeding();
+                notificationFeeding.setUpNotificationFeeding(context);
+            }
 
 
 

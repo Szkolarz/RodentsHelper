@@ -15,6 +15,7 @@ import android.widget.TimePicker;
 import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
+import com.example.rodentshelper.Notifications.Separate.NotificationWeight;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
@@ -22,7 +23,7 @@ import com.example.rodentshelper.ROOM.DateFormat;
 
 import java.util.Locale;
 
-public class SetUpNotifications {
+public class SetUpNotificationsWeight {
 
     private int hour, minute;
     private boolean ifTimeSet;
@@ -30,7 +31,6 @@ public class SetUpNotifications {
     public void notificationWeight (NotificationsActivity notificationsActivity,
                                TextView textView1_notifications, TextView textView2_notifications,
                                CheckBox checkBoxNotifications1) {
-
 
         ifTimeSet = false;
 
@@ -136,6 +136,7 @@ public class SetUpNotifications {
             textView1_notifications.setVisibility(View.GONE);
             textView2_notifications.setVisibility(View.GONE);
             checkbox.setText("Wyłączone");
+            FlagSetupFeeding.setFlagIsNotificationFirst(true);
 
             SharedPreferences prefsNotificationWeight = notificationsActivity.getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
             SharedPreferences.Editor prefsEditorNotificationWeight = prefsNotificationWeight.edit();
