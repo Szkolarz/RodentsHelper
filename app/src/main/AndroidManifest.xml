@@ -127,6 +127,12 @@
         </receiver>
 
         <receiver
+            android:name=".Notifications.NotificationReceiverVisit"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
+
+        <receiver
             android:name=".Notifications.BootReceiver"
             android:enabled="true"
             android:exported="true"

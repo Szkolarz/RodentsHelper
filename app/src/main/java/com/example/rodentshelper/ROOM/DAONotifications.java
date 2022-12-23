@@ -7,6 +7,7 @@ import androidx.room.Transaction;
 import androidx.room.TypeConverters;
 
 import com.example.rodentshelper.Notifications.NotificationsModel;
+import com.example.rodentshelper.ROOM.Notes.NotesModel;
 import com.example.rodentshelper.ROOM.Weights.WeightModel;
 import com.example.rodentshelper.ROOM._MTM._RodentWeight.RodentWithWeights;
 
@@ -18,6 +19,11 @@ public interface DAONotifications {
 
     @Insert
     void insertRecordNotification(NotificationsModel Notification);
+
+
+    @Query("SELECT * FROM notification WHERE notification_type = 'visit'")
+    List<NotificationsModel> getAllNotificationsVisit();
+
 
 
     @Query("SELECT id_notification FROM Notification WHERE notification_type = 'weight'")
@@ -92,11 +98,46 @@ public interface DAONotifications {
 
 
 
-    @Query("SELECT hour FROM Notification WHERE notification_type = 'visit' AND id_rodent = :id_rodent")
+    @Query("SELECT hour FROM Notification WHERE notification_type = 'visit' AND " +
+            "id_notification = :id_notification AND id_rodent = :id_rodent")
+    Integer getHourFromNotificationVisit(Integer id_notification, Integer id_rodent);
+
+    @Query("SELECT minute FROM Notification WHERE notification_type = 'visit' AND " +
+            "id_notification = :id_notification AND id_rodent = :id_rodent")
+    Integer getMinuteFromNotificationVisit(Integer id_notification, Integer id_rodent);
+
+    @TypeConverters(Converters.class)
+    @Query("SELECT unix_timestamps FROM Notification WHERE notification_type = 'visit' AND " +
+            "id_notification = :id_notification")
+    Long getUnixTimestampFromNotificationVisit(Integer id_notification);
+
+    @TypeConverters(Converters.class)
+    @Query("SELECT next_notification_time FROM Notification WHERE notification_type = 'visit' AND " +
+            "id_notification = :id_notification")
+    Long getNextNotificationTimeVisit(Integer id_notification);
+
+    @TypeConverters(Converters.class)
+    @Query("UPDATE Notification SET unix_timestamps = :unix_timestamps WHERE notification_type = 'visit' AND " +
+            "id_notification = :id_notification")
+    void updateUnixTimestampVisit(Long unix_timestamps, Integer id_notification);
+
+    @TypeConverters(Converters.class)
+    @Query("UPDATE Notification SET next_notification_time = :next_notification_time WHERE notification_type = 'visit' AND " +
+            "id_notification = :id_notification")
+    void updateNextNotificationTimeVisit(Long next_notification_time, Integer id_notification);
+
+    @Query("SELECT MAX(id_notification) FROM Notification WHERE notification_type = 'visit'")
+    Integer getLastIdFromNotificationVisit();
+
+
+
+
+
+    /*@Query("SELECT hour FROM Notification WHERE notification_type = 'visit' AND id_rodent = :id_rodent")
     List<NotificationsModel> getHourFromNotificationVisit(Integer id_rodent);
 
     @Query("SELECT minute FROM Notification WHERE notification_type = 'visit' AND id_rodent = :id_rodent")
-    List<NotificationsModel> getMinuteFromNotificationVisit(Integer id_rodent);
+    List<NotificationsModel> getMinuteFromNotificationVisit(Integer id_rodent);*/
 
 
 
@@ -108,6 +149,9 @@ public interface DAONotifications {
 
     @Query("DELETE FROM Notification WHERE notification_type = 'feeding'")
     void deleteNotificationFeeding();
+
+    @Query("DELETE FROM Notification WHERE notification_type = 'visit' AND id_notification = :id_notification")
+    void deleteNotificationVisit(Integer id_notification);
 
 }
 

@@ -12,4 +12,14 @@
         <item>Co miesiąc</item>
         <item>Co pół roku</item>
     </string-array>
+
+    <string-array name="visitList">
+        <item>15 minut przed czasem</item>
+        <item>30 minut przed czasem</item>
+        <item>1 godzina przed czasem</item>
+        <item>3 godziny przed czasem</item>
+        <item>12 godzin przed czasem</item>
+        <item>24 godziny przed czasem</item>
+    </string-array>
+
 </resources>

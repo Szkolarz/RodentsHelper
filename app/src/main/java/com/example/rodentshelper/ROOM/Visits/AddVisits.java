@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,7 +28,10 @@ import android.widget.Toast;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.Notifications.NotificationsModel;
+import com.example.rodentshelper.Notifications.Separate.NotificationVisit;
 import com.example.rodentshelper.ROOM.DAOMedicaments;
+import com.example.rodentshelper.ROOM.DAONotifications;
 import com.example.rodentshelper.ROOM.DAORodents;
 import com.example.rodentshelper.ROOM.DAOVets;
 import com.example.rodentshelper.ROOM.DAOVisits;
@@ -46,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class AddVisits extends Activity {
 
@@ -113,7 +118,7 @@ public class AddVisits extends Activity {
         checkBoxVisit1 = findViewById(R.id.checkBoxVisit1);
         checkBoxVisit2 = findViewById(R.id.checkBoxVisit2);
         checkBoxVisit3 = findViewById(R.id.checkBoxVisit3);
-
+       // checkBoxVisit3.setEnabled(false);
 
         //pelna lista zwierzat
          ArrayList<String> arrayListLV;
@@ -323,6 +328,21 @@ public class AddVisits extends Activity {
             getDaoVisits().insertRecordVisit(new VisitModel(id_vetKey, Date.valueOf(stringDate1),
                     timeKey, reasonKey));
 
+
+            if (checkBoxVisit3.isChecked()) {
+
+                SharedPreferences prefsNotificationVisit = AddVisits.this.getSharedPreferences("prefsNotificationVisit", Context.MODE_PRIVATE);
+                SharedPreferences.Editor prefsEditorNotificationVisit = prefsNotificationVisit.edit();
+                prefsEditorNotificationVisit.putBoolean("prefsNotificationVisit", true);
+                prefsEditorNotificationVisit.apply();
+
+                NotificationVisit notificationVisit = new NotificationVisit();
+                notificationVisit.setUpNotificationVisit(AddVisits.this, timeKey, dateFormat1);
+
+
+            }
+
+
             System.out.println("DODANO");
             getVisitVet(getDaoVets(), arrayListSelected, arrayListID);
             getRodentVisit(getDaoVisits(), arrayListSelected2, arrayListID2);
@@ -429,6 +449,15 @@ public class AddVisits extends Activity {
         else {
             listViewVisit2.clearChoices();
             listViewVisit2.setVisibility(View.GONE);
+        }
+    }
+
+
+    private void checkForCheckbox() {
+        String stringDate = dateFormat1;
+
+        if (stringDate != null ) {
+            checkBoxVisit3.setEnabled(true);
         }
     }
 

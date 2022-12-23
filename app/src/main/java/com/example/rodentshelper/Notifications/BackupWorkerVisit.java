@@ -21,13 +21,17 @@ import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
+import com.example.rodentshelper.ROOM.Visits.ViewVisits;
+import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
 
-public class BackupWorkerWeight extends Worker {
+import java.util.List;
+
+public class BackupWorkerVisit extends Worker {
 
     private static final String TAG = "BackupWorker";
 
 
-    public BackupWorkerWeight(@NonNull Context context, @NonNull WorkerParameters workerParams ) {
+    public BackupWorkerVisit(@NonNull Context context, @NonNull WorkerParameters workerParams ) {
         super ( context, workerParams );
     }
 
@@ -36,16 +40,16 @@ public class BackupWorkerWeight extends Worker {
     public Result doWork () {
         //call methods to perform background task
 
-        System.out.println("Backup Worker start");
-        SharedPreferences prefsNotificationWeight = getApplicationContext().getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
+        System.out.println("Backup Worker Visit start");
+        SharedPreferences prefsNotificationVisit = getApplicationContext().getSharedPreferences("prefsNotificationVisit", Context.MODE_PRIVATE);
 
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAONotifications daoNotifications = db.daoNotifications();
 
 
-        if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
-            Integer requestCode = daoNotifications.getIdFromNotificationWeight();
+        if (prefsNotificationVisit.getBoolean("prefsNotificationVisit", false)) {
+            Integer requestCode = daoNotifications.getLastIdFromNotificationVisit();
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel channel = new NotificationChannel(requestCode.toString(), requestCode.toString(), NotificationManager.IMPORTANCE_DEFAULT);
@@ -54,12 +58,12 @@ public class BackupWorkerWeight extends Worker {
             }
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), requestCode.toString());
-            builder.setContentTitle("Czas ważenia!");
-            builder.setContentText("Czas zważyć twojego pupila! Wagę możesz zapisać w aplikacji, w zakładce 'Opieka'");
+            builder.setStyle(new NotificationCompat.BigTextStyle().bigText("Zbliża się wizyta! Kliknij w powiadomienie aby przejrzeć listę zapisanych wizyt."));
+            builder.setContentTitle("Wizyta u weterynarza!");
             builder.setSmallIcon(R.drawable.rodent_notification);
             builder.setAutoCancel(true);
 
-            Intent notifyIntent = new Intent(getApplicationContext(), ViewRodents.class);
+            Intent notifyIntent = new Intent(getApplicationContext(), ViewVisits.class);
             PendingIntent pendingIntent;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 pendingIntent = PendingIntent.getActivity(getApplicationContext(), requestCode, notifyIntent, PendingIntent.FLAG_MUTABLE);
@@ -77,14 +81,26 @@ public class BackupWorkerWeight extends Worker {
 
 
 
-            daoNotifications.updateUnixTimestampWeight(System.currentTimeMillis());
+            //daoNotifications.updateUnixTimestampWeight(System.currentTimeMillis());
 
 
-            NotificationWeight notificationWeight = new NotificationWeight();
-            notificationWeight.setUpNotificationWeight(getApplicationContext());
+            List<NotificationsModel> notificationsModel = daoNotifications.getAllNotificationsVisit();
+
+
+
+
 
             Vibrator v = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(500);
+
+            Long nextNotification;
+            Long currentTime = System.currentTimeMillis();
+            for (int i = 0; i < notificationsModel.size(); i++) {
+                nextNotification = notificationsModel.get(i).getNext_notification_time();
+                if (nextNotification <= currentTime)
+                    daoNotifications.deleteNotificationVisit(notificationsModel.get(i).getId_notification());
+            }
+
         }
 
 
