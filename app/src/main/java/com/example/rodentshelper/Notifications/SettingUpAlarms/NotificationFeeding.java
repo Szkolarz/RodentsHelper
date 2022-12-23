@@ -1,4 +1,4 @@
-package com.example.rodentshelper.Notifications.Separate;
+package com.example.rodentshelper.Notifications.SettingUpAlarms;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -9,8 +9,7 @@ import android.os.Build;
 
 import androidx.room.Room;
 
-import com.example.rodentshelper.Notifications.NotificationReceiverFeeding;
-import com.example.rodentshelper.Notifications.NotificationReceiverWeight;
+import com.example.rodentshelper.Notifications.Receivers.NotificationReceiverFeeding;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
 

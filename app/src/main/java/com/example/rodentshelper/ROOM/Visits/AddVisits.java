@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
@@ -21,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -28,20 +28,15 @@ import android.widget.Toast;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.Notifications.NotificationsModel;
-import com.example.rodentshelper.Notifications.Separate.NotificationVisit;
-import com.example.rodentshelper.ROOM.DAOMedicaments;
+import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationVisit;
 import com.example.rodentshelper.ROOM.DAONotifications;
 import com.example.rodentshelper.ROOM.DAORodents;
 import com.example.rodentshelper.ROOM.DAOVets;
 import com.example.rodentshelper.ROOM.DAOVisits;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.Vet.VetModel;
-import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
-import com.example.rodentshelper.ROOM._MTM._RodentMed.RodentMedModel;
 import com.example.rodentshelper.ROOM._MTM._RodentVisit.RodentVisitModel;
 import com.example.rodentshelper.ROOM._MTM._RodentVisit.VisitsWithRodentsCrossRef;
 
@@ -50,13 +45,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class AddVisits extends Activity {
 
     EditText editTextReason_visit;
     TextView textViewDate_visit, textViewTime_visit, textViewDate1_visitHidden,
-            textViewVetRelationsInfo_visit, textViewVetRelations_visit;
+            textViewVetRelationsInfo_visit, textViewVetRelations_visit, textViewReasonInfo_visit;
     Button buttonEdit_visit, buttonAdd_visit, buttonSaveEdit_visit, buttonDelete_visit;
     //ImageView imageViewDate1_med, imageViewDate2_med;
     ListView listViewVisit, listViewVisit2;
@@ -84,6 +78,7 @@ public class AddVisits extends Activity {
     private String dateFormat1 = null;
 
     private int hour, minute;
+    private String sendTime = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,6 +100,7 @@ public class AddVisits extends Activity {
 
         textViewVetRelationsInfo_visit = findViewById(R.id.textViewVetRelationsInfo_visit);
         textViewVetRelations_visit = findViewById(R.id.textViewVetRelations_visit);
+
 
         listViewVisit = findViewById(R.id.listViewVisit);
         listViewVisit.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
@@ -161,6 +157,7 @@ public class AddVisits extends Activity {
 
         setVisibilityByFlag();
 
+
         //EDIT
         if (FlagSetup.getFlagVisitAdd() == 0) {
 
@@ -170,12 +167,21 @@ public class AddVisits extends Activity {
             String timeKey = getIntent().getStringExtra("timeKey");
             String reasonKey = getIntent().getStringExtra("reasonKey");
 
+            AppDatabase db = Room.databaseBuilder(AddVisits.this,
+                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+            DAONotifications daoNotifications = db.daoNotifications();
+
+            if (daoNotifications.getIdVisitFromVisit(idKey) != null) {
+                checkBoxVisit3.setChecked(true);
+            }
+
             editTextReason_visit.setText(reasonKey);
             textViewTime_visit.setText(timeKey);
 
             textViewDate_visit.setText(dateKey);
             textViewDate1_visitHidden.setText(dateKey);
 
+            checkForCheckbox();
 
             List<VisitsWithRodentsCrossRef> visitModel = getDaoVisits().getVisitsWithRodents();
 
@@ -211,7 +217,6 @@ public class AddVisits extends Activity {
                 System.out.println("There is no any rodent left in relation");
             }
 
-
             checkCheckBox();
 
             buttonSaveEdit_visit.setOnClickListener(new View.OnClickListener() {
@@ -242,6 +247,7 @@ public class AddVisits extends Activity {
                 textViewDate_visit.setText(date);
                 dateFormat1 = (year + "-" + month + "-" + day);
                 textViewDate1_visitHidden.setText(dateFormat1);
+                checkForCheckbox();
             }
         };
 
@@ -257,6 +263,53 @@ public class AddVisits extends Activity {
             @Override
             public void onClick(View view) {
                 checkCheckBox();
+            }
+        });
+
+        checkBoxVisit3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (checkBoxVisit3.isChecked()) {
+                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(AddVisits.this, R.style.AlertWhiteButtons);
+                    View mView = AddVisits.this.getLayoutInflater().inflate(R.layout.dialog_spinner, null);
+                    mBuilder.setTitle("Powiadomienie zostanie wysłane...");
+                    Spinner mSpinner = (Spinner) mView.findViewById(R.id.spinner_weight);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddVisits.this,
+                            android.R.layout.simple_spinner_item,
+                            AddVisits.this.getResources().getStringArray(R.array.visitList));
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    mSpinner.setAdapter(adapter);
+                    mSpinner.setSelection(1);
+
+                    mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sendTime = mSpinner.getSelectedItem().toString();
+                            dialog.dismiss();
+
+                        }
+                    });
+
+                    mBuilder.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            checkBoxVisit3.setChecked(false);
+                            dialog.dismiss();
+                        }
+                    });
+
+                    mBuilder.setOnCancelListener(dialog -> {
+                        checkBoxVisit3.setChecked(false);
+                    });
+
+                    mBuilder.setView(mView);
+                    AlertDialog dialog = mBuilder.create();
+                    dialog.show();
+                }
+
+
+
             }
         });
 
@@ -290,7 +343,7 @@ public class AddVisits extends Activity {
                     hour = selectedHour;
                     minute = selectedMinute;
                     textViewTime_visit.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
-
+                    checkForCheckbox();
                 }
             };
 
@@ -336,10 +389,13 @@ public class AddVisits extends Activity {
                 prefsEditorNotificationVisit.putBoolean("prefsNotificationVisit", true);
                 prefsEditorNotificationVisit.apply();
 
+                AppDatabase db = Room.databaseBuilder(AddVisits.this,
+                        AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+                DAONotifications daoNotifications = db.daoNotifications();
+
                 NotificationVisit notificationVisit = new NotificationVisit();
-                notificationVisit.setUpNotificationVisit(AddVisits.this, timeKey, dateFormat1);
-
-
+                notificationVisit.setUpNotificationVisit(AddVisits.this, timeKey, dateFormat1, sendTime, daoNotifications.getLastIdFromVisit());
+                db.close();
             }
 
 
@@ -361,6 +417,29 @@ public class AddVisits extends Activity {
                 textViewTime_visit.getText().toString(), editTextReason_visit.getText().toString());
 
         // visitDao.SetVisitsIdVetNull(idKey);
+
+        AppDatabase db = Room.databaseBuilder(AddVisits.this,
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAONotifications daoNotifications = db.daoNotifications();
+
+        if (checkBoxVisit3.isChecked()) {
+
+            SharedPreferences prefsNotificationVisit = AddVisits.this.getSharedPreferences("prefsNotificationVisit", Context.MODE_PRIVATE);
+            SharedPreferences.Editor prefsEditorNotificationVisit = prefsNotificationVisit.edit();
+            prefsEditorNotificationVisit.putBoolean("prefsNotificationVisit", true);
+            prefsEditorNotificationVisit.apply();
+
+            daoNotifications.deleteNotificationByVisitId(idKey);
+
+            NotificationVisit notificationVisit = new NotificationVisit();
+            System.out.println(dateFormat1 + "dateeeee");
+            notificationVisit.setUpNotificationVisit(AddVisits.this, textViewTime_visit.getText().toString(), dateFormat1, sendTime, idKey);
+
+        } else {
+            daoNotifications.deleteNotificationByVisitId(idKey);
+        }
+
+        db.close();
 
 
         if (checkBoxVisit1.isChecked()) {
@@ -456,8 +535,8 @@ public class AddVisits extends Activity {
     private void checkForCheckbox() {
         String stringDate = dateFormat1;
 
-        if (stringDate != null ) {
-            checkBoxVisit3.setEnabled(true);
+        if (!textViewDate_visit.getText().toString().equals("Ustaw...") && !textViewTime_visit.getText().toString().equals("Ustaw...") ) {
+            checkBoxVisit3.setVisibility(View.VISIBLE);
         }
     }
 

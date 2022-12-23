@@ -1,4 +1,4 @@
-package com.example.rodentshelper.Notifications;
+package com.example.rodentshelper.Notifications.Receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.content.Intent;
 
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
+import com.example.rodentshelper.Notifications.Workers.BackupWorkerVisit;
 
 public class NotificationReceiverVisit extends BroadcastReceiver {
     public NotificationReceiverVisit() {

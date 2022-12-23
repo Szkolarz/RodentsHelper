@@ -20,8 +20,8 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
-import com.example.rodentshelper.Notifications.Separate.NotificationFeeding;
-import com.example.rodentshelper.Notifications.Separate.NotificationWeight;
+import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding;
+import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationWeight;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 

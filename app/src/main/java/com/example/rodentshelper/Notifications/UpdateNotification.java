@@ -5,12 +5,14 @@ import android.content.SharedPreferences;
 
 import androidx.room.Room;
 
-import com.example.rodentshelper.Notifications.Separate.NotificationFeeding;
-import com.example.rodentshelper.Notifications.Separate.NotificationWeight;
+import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding;
+import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationVisit;
+import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationWeight;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class UpdateNotification {
 
@@ -97,6 +99,7 @@ public class UpdateNotification {
 
         SharedPreferences prefsNotificationWeight = context.getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
         SharedPreferences prefsNotificationFeeding = context.getSharedPreferences("prefsNotificationFeeding", Context.MODE_PRIVATE);
+        SharedPreferences prefsNotificationVisit = context.getSharedPreferences("prefsNotificationVisit", Context.MODE_PRIVATE);
 
         //if == true
         if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
@@ -104,12 +107,43 @@ public class UpdateNotification {
             notificationWeight.setUpNotificationWeight(context);
         }
 
+
+
         if (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false)) {
             NotificationFeeding notificationFeeding = new NotificationFeeding();
-            notificationFeeding.setUpNotificationFeeding(context);
+            //it resets both of the alarms, that's why it has a loop
+
+            for (int i=0; i<2; i++) {
+                notificationFeeding.setUpNotificationFeeding(context);
+            }
+
         }
 
 
-    }
 
+        if (prefsNotificationVisit.getBoolean("prefsNotificationVisit", false)) {
+
+            AppDatabase db = Room.databaseBuilder(context,
+                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+            DAONotifications daoNotifications = db.daoNotifications();
+
+            List<NotificationsModel> notificationsModel = daoNotifications.getAllNotificationsVisit();
+
+            String timeKey = null, dateFormat = null, sendTime = null;
+            Integer id_visit = null;
+
+            NotificationVisit notificationVisit = new NotificationVisit();
+            for (int i=0; i<notificationsModel.size(); i++) {
+                timeKey = notificationsModel.get(i).getHour().toString();
+                timeKey += (":");
+                timeKey += (notificationsModel.get(i).getMinute().toString());
+
+                dateFormat = notificationsModel.get(i).getNext_notification_time().toString();
+                sendTime = notificationsModel.get(i).getPeriodicity();
+                id_visit = notificationsModel.get(i).getId_visit();
+
+                notificationVisit.setUpNotificationVisit(context, timeKey, dateFormat, sendTime, id_visit);
+            }
+        }
+    }
 }

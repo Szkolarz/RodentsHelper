@@ -1,4 +1,4 @@
-package com.example.rodentshelper.Notifications.Separate;
+package com.example.rodentshelper.Notifications.SettingUpAlarms;
 
 import static android.content.ContentValues.TAG;
 
@@ -12,7 +12,7 @@ import android.util.Log;
 
 import androidx.room.Room;
 
-import com.example.rodentshelper.Notifications.NotificationReceiverWeight;
+import com.example.rodentshelper.Notifications.Receivers.NotificationReceiverWeight;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
 

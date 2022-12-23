@@ -12,7 +12,7 @@ import android.widget.TimePicker;
 import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
-import com.example.rodentshelper.Notifications.Separate.NotificationFeeding;
+import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
 import com.example.rodentshelper.ROOM.DateFormat;
@@ -22,22 +22,19 @@ import java.util.Locale;
 public class SetUpNotificationsFeeding {
 
     private int hour, minute;
-    private boolean ifTimeSet = false;
+
 
 
     public void notificationFeeding (NotificationsActivity notificationsActivity,
                                TextView textView3_notifications, TextView textView4_notifications,
                                CheckBox checkBoxNotifications2) {
 
-            ifTimeSet = false;
-
-            TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                     hour = selectedHour;
                     minute = selectedMinute;
 
-                    ifTimeSet = false;
 
                     AppDatabase db = Room.databaseBuilder(notificationsActivity,
                             AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
@@ -70,18 +67,17 @@ public class SetUpNotificationsFeeding {
 
                     NotificationFeeding notificationFeeding = new NotificationFeeding();
                     notificationFeeding.setUpNotificationFeeding(notificationsActivity);
-                    ifTimeSet = true;
 
                     if (!FlagSetupFeeding.getFlagIsNotificationFirst()) {
-
+                        checkBoxNotifications2.setChecked(true);
                         setUpCheckbox(checkBoxNotifications2, textView3_notifications, textView4_notifications, notificationsActivity);
 
                         Alerts alert = new Alerts();
-                        alert.simpleInfo("Dodano nowe powiadomienie", "Pomyślnie dodano nowe powiadomienie!", notificationsActivity);
+                        alert.simpleInfo("Dodano nowe powiadomienie", "Pomyślnie dodano nowe powiadomienie!" +
+                                "Powiadomienia o karmieniu będą wysyłane codziennie, zaczynając od jutra.", notificationsActivity);
                         FlagSetupFeeding.setFlagIsNotificationFirst(true);
                     } else {
                         FlagSetupFeeding.setFlagIsNotificationFirst(false);
-
                         notificationFeeding(notificationsActivity, textView3_notifications,
                                 textView4_notifications, checkBoxNotifications2);
                     }
@@ -94,14 +90,15 @@ public class SetUpNotificationsFeeding {
 
             TimePickerDialog timePickerDialog = new TimePickerDialog(notificationsActivity, onTimeSetListener, hour, minute, true);
 
-            timePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+            timePickerDialog.setOnCancelListener (new DialogInterface.OnCancelListener () {
                 @Override
-                public void onDismiss(DialogInterface dialog) {
-                    if (!ifTimeSet) {
+                public void onCancel(DialogInterface dialog) {
+
                         System.out.println("DISSMIS");
                         checkBoxNotifications2.setChecked(false);
                         setUpCheckbox(checkBoxNotifications2, textView3_notifications, textView4_notifications, notificationsActivity);
-                    }
+
                 }
             });
 
@@ -137,6 +134,7 @@ public class SetUpNotificationsFeeding {
             checkbox.setText("Włączone");
 
             Integer idFeeding = daoNotifications.getFirstIdFromNotificationFeeding();
+
 
             Integer hour1 = daoNotifications.getHourFromNotificationFeeding(idFeeding);
             Integer minute1 = daoNotifications.getMinuteFromNotificationFeeding(idFeeding);

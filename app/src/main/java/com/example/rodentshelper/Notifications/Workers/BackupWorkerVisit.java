@@ -1,4 +1,4 @@
-package com.example.rodentshelper.Notifications;
+package com.example.rodentshelper.Notifications.Workers;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -16,13 +16,11 @@ import androidx.room.Room;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.example.rodentshelper.Notifications.Separate.NotificationWeight;
+import com.example.rodentshelper.Notifications.NotificationsModel;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.ROOM.Visits.ViewVisits;
-import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
 
 import java.util.List;
 
@@ -80,15 +78,7 @@ public class BackupWorkerVisit extends Worker {
             managerCompat.notify(requestCode, builder.build());
 
 
-
-            //daoNotifications.updateUnixTimestampWeight(System.currentTimeMillis());
-
-
             List<NotificationsModel> notificationsModel = daoNotifications.getAllNotificationsVisit();
-
-
-
-
 
             Vibrator v = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(500);
@@ -97,12 +87,18 @@ public class BackupWorkerVisit extends Worker {
             Long currentTime = System.currentTimeMillis();
             for (int i = 0; i < notificationsModel.size(); i++) {
                 nextNotification = notificationsModel.get(i).getNext_notification_time();
-                if (nextNotification <= currentTime)
+                if (nextNotification <= currentTime) {
                     daoNotifications.deleteNotificationVisit(notificationsModel.get(i).getId_notification());
+                    if (daoNotifications.getCountNotificationVisit() == 0) {
+                        SharedPreferences.Editor prefsEditorNotificationVisit = prefsNotificationVisit.edit();
+                        prefsEditorNotificationVisit.putBoolean("prefsNotificationVisit", false);
+                        prefsEditorNotificationVisit.apply();
+                    }
+
+                }
             }
 
         }
-
 
 
         db.close();

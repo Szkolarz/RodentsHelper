@@ -15,8 +15,8 @@ public class NotificationsModel {
     @PrimaryKey(autoGenerate = true)
     private Integer id_notification;
 
-    @ColumnInfo(name = "id_rodent")
-    private Integer id_rodent;
+    @ColumnInfo(name = "id_visit")
+    private Integer id_visit;
 
     @ColumnInfo(name = "hour")
     private Integer hour;
@@ -43,9 +43,9 @@ public class NotificationsModel {
     private String notification_type;
 
 
-    public NotificationsModel(Integer id_rodent, Integer hour, Integer minute, String periodicity,
+    public NotificationsModel(Integer id_visit, Integer hour, Integer minute, String periodicity,
                               Long unix_timestamps, Long next_notification_time, String notification_type) {
-        this.id_rodent = id_rodent;
+        this.id_visit = id_visit;
         this.hour = hour;
         this.minute = minute;
         this.periodicity = periodicity;
@@ -62,12 +62,12 @@ public class NotificationsModel {
         this.id_notification = id_notification;
     }
 
-    public Integer getId_rodent() {
-        return id_rodent;
+    public Integer getId_visit() {
+        return id_visit;
     }
 
-    public void setId_rodent(Integer id_rodent) {
-        this.id_rodent = id_rodent;
+    public void setId_visit(Integer id_visit) {
+        this.id_visit = id_visit;
     }
 
     public Integer getHour() {

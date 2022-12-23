@@ -35,8 +35,8 @@ public interface DAONotifications {
     Integer getLastIdFromNotificationFeeding();
 
     @Query("SELECT id_notification FROM Notification WHERE notification_type = 'visit' AND " +
-            "id_rodent = :id_rodent")
-    Integer getIdFromNotificationVisit(Integer id_rodent);
+            "id_visit = :id_visit")
+    Integer getIdFromNotificationVisit(Integer id_visit);
 
 
     @Query("SELECT hour FROM Notification WHERE notification_type = 'weight'")
@@ -99,11 +99,11 @@ public interface DAONotifications {
 
 
     @Query("SELECT hour FROM Notification WHERE notification_type = 'visit' AND " +
-            "id_notification = :id_notification AND id_rodent = :id_rodent")
+            "id_notification = :id_notification AND id_visit = :id_rodent")
     Integer getHourFromNotificationVisit(Integer id_notification, Integer id_rodent);
 
     @Query("SELECT minute FROM Notification WHERE notification_type = 'visit' AND " +
-            "id_notification = :id_notification AND id_rodent = :id_rodent")
+            "id_notification = :id_notification AND id_visit = :id_rodent")
     Integer getMinuteFromNotificationVisit(Integer id_notification, Integer id_rodent);
 
     @TypeConverters(Converters.class)
@@ -129,6 +129,25 @@ public interface DAONotifications {
     @Query("SELECT MAX(id_notification) FROM Notification WHERE notification_type = 'visit'")
     Integer getLastIdFromNotificationVisit();
 
+    @Query("SELECT MAX(id_visit) FROM visits")
+    Integer getLastIdFromVisit();
+
+    @Query("SELECT id_notification FROM Notification WHERE id_visit = :id_visit")
+    Integer checkIfIdVisitExists(Integer id_visit);
+
+
+    @Query("SELECT periodicity FROM Notification WHERE notification_type = 'visit'AND " +
+            "id_visit = :id_visit")
+    String getPeriodicityFromNotificationVisit(Integer id_visit);
+
+    @Query("SELECT id_visit FROM Notification WHERE notification_type = 'visit' AND " +
+            "id_visit = :id_visit")
+    Integer getIdVisitFromVisit(Integer id_visit);
+
+
+    @Query ("SELECT COUNT(*) FROM Notification WHERE notification_type = 'visit'")
+    Integer getCountNotificationVisit();
+
 
 
 
@@ -141,8 +160,8 @@ public interface DAONotifications {
 
 
 
-    @Query("DELETE FROM Notification WHERE id_rodent = :id_rodent")
-    void deleteNotificationByRodentId(Integer id_rodent);
+    @Query("DELETE FROM Notification WHERE id_visit = :id_visit")
+    void deleteNotificationByVisitId(Integer id_visit);
 
     @Query("DELETE FROM Notification WHERE notification_type = 'weight'")
     void deleteNotificationWeight();

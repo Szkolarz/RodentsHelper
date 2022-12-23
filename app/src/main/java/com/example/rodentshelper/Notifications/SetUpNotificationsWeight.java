@@ -15,7 +15,7 @@ import android.widget.TimePicker;
 import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
-import com.example.rodentshelper.Notifications.Separate.NotificationWeight;
+import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationWeight;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;

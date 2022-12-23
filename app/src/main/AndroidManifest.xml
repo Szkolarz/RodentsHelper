@@ -115,25 +115,25 @@
             android:name=".Notifications.NotificationsActivity"
             android:exported="true" />
         <receiver
-            android:name=".Notifications.NotificationReceiverWeight"
+            android:name=".Notifications.Receivers.NotificationReceiverWeight"
             android:enabled="true"
             android:exported="true">
         </receiver>
 
         <receiver
-            android:name=".Notifications.NotificationReceiverFeeding"
+            android:name=".Notifications.Receivers.NotificationReceiverFeeding"
             android:enabled="true"
             android:exported="true">
         </receiver>
 
         <receiver
-            android:name=".Notifications.NotificationReceiverVisit"
+            android:name=".Notifications.Receivers.NotificationReceiverVisit"
             android:enabled="true"
             android:exported="true">
         </receiver>
 
         <receiver
-            android:name=".Notifications.BootReceiver"
+            android:name=".Notifications.Receivers.BootReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">

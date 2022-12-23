@@ -22,6 +22,7 @@ import androidx.room.Room;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
+import com.example.rodentshelper.ROOM.DAONotifications;
 import com.example.rodentshelper.ROOM.DAOVets;
 import com.example.rodentshelper.ROOM.DAOVisits;
 import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
@@ -59,6 +60,12 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOVets daoVets = db.daoVets();
         DAOVisits daoVisits = db.daoVisits();
+        DAONotifications daoNotifications = db.daoNotifications();
+
+        if (daoNotifications.getIdVisitFromVisit(visitModel.get(position).visitModel.getId_visit()) != null) {
+            holder.textViewNotificationSet_visit.setVisibility(View.VISIBLE);
+            holder.textViewNotificationSet_visit.append(daoNotifications.getPeriodicityFromNotificationVisit(visitModel.get(position).visitModel.getId_visit()));
+        }
 
         holder.editTextReason_visit.setEnabled(false);
         holder.textViewTime_visit.setEnabled(false);
@@ -71,6 +78,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
 
         holder.checkBoxVisit1.setVisibility(View.GONE);
         holder.checkBoxVisit2.setVisibility(View.GONE);
+        holder.checkBoxVisit3.setVisibility(View.GONE);
         holder.buttonAdd_visit.setVisibility(View.GONE);
         holder.buttonSaveEdit_visit.setVisibility(View.GONE);
 
@@ -211,7 +219,8 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
 
            EditText editTextReason_visit;
            TextView textViewDate_visit, textViewTime_visit, textViewVetRelationsInfo_visit, textViewVetRelations_visit,
-                    textViewVetRelationsInfo_visit2, textViewVetRelations_visit2;
+                    textViewVetRelationsInfo_visit2, textViewVetRelations_visit2, textViewNotificationSet_visit,
+                    textViewReasonInfo_visit;
            Button buttonEdit_visit, buttonAdd_visit, buttonSaveEdit_visit, buttonDelete_visit;
            ListView listViewVisit, listViewVisit2;
            CheckBox checkBoxVisit1, checkBoxVisit2, checkBoxVisit3;
@@ -247,6 +256,8 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
             textViewVetRelations_visit = itemView.findViewById(R.id.textViewVetRelations_visit);
             textViewVetRelationsInfo_visit2 = itemView.findViewById(R.id.textViewVetRelationsInfo_visit2);
             textViewVetRelations_visit2 = itemView.findViewById(R.id.textViewVetRelations_visit2);
+
+            textViewNotificationSet_visit = itemView.findViewById(R.id.textViewNotificationSet_visit);
 
             arrayListSelected = new ArrayList<>();
 

@@ -72,19 +72,26 @@ public class ViewVisits extends AppCompatActivity {
         imageButton3_health.setOnClickListener(new ActivityHealth());
         imageButton4_other.setOnClickListener(new ActivityOther());
 
-        if (FlagSetup.getFlagIsFromHealth() == true) {
-            imageButton3_health = findViewById(R.id.imageButton3_health);
-            textView3_health = findViewById(R.id.textView3_health);
-            imageButton3_health.setColorFilter(Color.WHITE);
-            textView3_health.setTextColor(Color.WHITE);
+        SharedPreferences prefsNotificationVisit = ViewVisits.this.getSharedPreferences("prefsNotificationVisit", Context.MODE_PRIVATE);
+
+
+        try {
+            if (FlagSetup.getFlagIsFromHealth() == false) {
+                imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
+                textView1_rodent = findViewById(R.id.textView1_rodent);
+                imageButton1_rodent.setColorFilter(Color.WHITE);
+                textView1_rodent.setTextColor(Color.WHITE);
+            } else if (FlagSetup.getFlagIsFromHealth() == true || prefsNotificationVisit.getBoolean("prefsNotificationVisit", false)) {
+                imageButton3_health = findViewById(R.id.imageButton3_health);
+                textView3_health = findViewById(R.id.textView3_health);
+                imageButton3_health.setColorFilter(Color.WHITE);
+                textView3_health.setTextColor(Color.WHITE);
+            }
+        } catch (NullPointerException e) {
+            FlagSetup.setFlagIsFromHealth(true);
+            FlagSetup.setFlagVisitAdd(0);
         }
 
-        if (FlagSetup.getFlagIsFromHealth() == false) {
-            imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
-            textView1_rodent = findViewById(R.id.textView1_rodent);
-            imageButton1_rodent.setColorFilter(Color.WHITE);
-            textView1_rodent.setTextColor(Color.WHITE);
-        }
 
         buttonAddRecord = findViewById(R.id.buttonAddRecord);
 
