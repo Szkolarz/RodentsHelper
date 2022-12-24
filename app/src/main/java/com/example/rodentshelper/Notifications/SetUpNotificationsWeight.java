@@ -149,7 +149,7 @@ public class SetUpNotificationsWeight {
 
             Integer hour = daoNotifications.getHourFromNotificationWeight();
             Integer minute = daoNotifications.getMinuteFromNotificationWeight();
-            String periodicity = daoNotifications.getPeriodicityFromNotificationWeight();
+            String periodicity = daoNotifications.getSendTimeFromNotificationWeight();
             Long nextNotificationTime = daoNotifications.getNextNotificationTimeWeight();
 
             textView1_notifications.setText("Częstotliwość: " + periodicity);

@@ -248,9 +248,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="15dp"
                         android:layout_weight="1"
-                        android:text="Powiadomienia o wizytach u weterynarza możesz ustawić w panelu wizyt - &quot;Zdrowie&quot; > &quot;Wizyty&quot; (lub kliknij ikonkę obok)"
+                        android:text="Powiadomienia o wizytach u weterynarza są dostępne w panelu wizyt - &quot;Zdrowie&quot; > &quot;Wizyty u weterynarza&quot;"
                         android:textColor="#014D70"
                         android:textColorHint="#77147A"
                         android:textSize="16sp" />

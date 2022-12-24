@@ -20,6 +20,7 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
+import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding;
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationWeight;
 import com.example.rodentshelper.R;
@@ -71,6 +72,50 @@ public class NotificationsActivity extends AppCompatActivity {
         imageButtonQuestion_notifications2 = findViewById(R.id.imageButtonQuestion_notifications2);
         imageButtonQuestion_notifications3 = findViewById(R.id.imageButtonQuestion_notifications3);
 
+        Alerts alertInfo = new Alerts();
+        imageButtonQuestion_notifications1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertInfo.simpleInfo("Powiadomienia o ważeniu",
+                        "Systematyczne ważenie zwierzęcia jest bardzo istotnym elementem pozwalającym " +
+                                "mieć wgląd na zdrowie pupila. W wielu przypadkach utrata wagi może " +
+                                "wskazywać na jakąś chorobę, dlatego warto profilaktycznie ważyć zwierzę, by móc " +
+                                "przedwcześnie zapobiegać problemom zdrowotnym dzięki wizycie u weterynarza." +
+                                "\n\nMiej na uwadze, że powiadomienia są jedynie czystą informacją i przypomnieniem; " +
+                                "każde znaczne odchylenie wagi od normy powinno być niezwłocznie skonsultowane z " +
+                                "weterynarzem. Poglądową tabelę prawidłowej wagi wraz z możliwością zapisywania jej " +
+                                "znajdziesz kolejno w opcjach: 'Pupile' > 'Opieka' > 'Ważenie'.",
+                         NotificationsActivity.this);
+            }
+        });
+
+        imageButtonQuestion_notifications2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertInfo.simpleInfo("Powiadomienia o karmieniu",
+                        "Każdy gryzoń musi być codziennie karmiony, z reguły dwa razy dziennie. " +
+                                "Dlatego też, po włączeniu powiadomienia zostaną wyświetlone dwa następujące" +
+                                "po sobie zegary, w których należy ustawić godzinę przypomnienia poranną oraz" +
+                                "wieczorną.\n\nMiej na uwadze, że powiadomienia są jedynie czystą informacją i przypomnieniem; " +
+                                "ilość podawanej karmy powinno się odpowiednio dostosowywać - ważne, żeby pupil miał " +
+                                "do niej dostęp 24 godziny na dobę, lecz jednocześnie należy pamiętać o nie przekarmianiu " +
+                                "zwierzęcia. Ilość podawanego pokarmu jest więc kwestią indywidualną dla każdego pupila.",
+                         NotificationsActivity.this);
+            }
+        });
+
+        imageButtonQuestion_notifications3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertInfo.simpleInfo("Powiadomienia o wizytach u weterynarza",
+                        "Do każdej zapisanej wizyty u weterynarza możesz przypisać powiadomienie " +
+                                "uruchamiające się odpowiednio wcześnie. Przy dodawaniu (lub edycji) wizyty, w panelu 'Zdrowie' > " +
+                                "'Wizyty u weterynarza', wystarczy podać jej datę oraz godzinę. Zostanie wówczas " +
+                                "wyświetlony specjalny przycisk na dole ekranu pozwalający ustalić, o ile wcześniej " +
+                                "od ustalonej wizyty aplikacja ma wysłać przypomnienie w formie powiadomienia.",
+                         NotificationsActivity.this);
+            }
+        });
 
         imageButtonVisit_notifications.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,10 +200,21 @@ public class NotificationsActivity extends AppCompatActivity {
 
 
                 if (checkBoxNotifications2.isChecked()) {
-                    checkBoxNotifications2.setText("Włączone");
-                    FlagSetupFeeding.setFlagIsNotificationFirst(true);
+
+                    AlertDialog.Builder alert = new AlertDialog.Builder(NotificationsActivity.this, R.style.AlertDialogStyleUpdate);
+                    alert.setTitle("Ustawianie godzin");
+                    alert.setMessage("Za moment zostaną wyświetlone dwa zegary następujące po sobie. Gryzonie " +
+                            "należy karmić (z reguły) dwa razy dziennie, dlatego możesz wybrać godzinę poranną oraz wieczorną.");
+
+                    alert.setPositiveButton("Rozumiem", (dialogInterface, i) -> {
+                        checkBoxNotifications2.setText("Włączone");
+                        FlagSetupFeeding.setFlagIsNotificationFirst(true);
                         setUpNotificationsFeeding.notificationFeeding(NotificationsActivity.this, textView3_notifications,
                                 textView4_notifications, checkBoxNotifications2);
+                    });
+                    alert.show();
+
+
 
                 } else {
                     SharedPreferences.Editor prefsEditorNotificationFeeding = prefsNotificationFeeding.edit();

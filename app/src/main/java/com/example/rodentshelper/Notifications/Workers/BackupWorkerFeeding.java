@@ -73,10 +73,11 @@ public class BackupWorkerFeeding extends Worker {
             }
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), requestCode.toString());
+            builder.setStyle(new NotificationCompat.BigTextStyle().bigText("Twój pupil domaga się jedzenia! Pamiętaj również, aby codziennie miał dostęp do świeżej wody!"));
             builder.setContentTitle("Czas karmienia!");
-            builder.setContentText("Twój pupil domaga się jedzenia! Pamiętaj również, aby codziennie miał dostęp do świeżej wody!");
             builder.setSmallIcon(R.drawable.rodent_notification);
             builder.setAutoCancel(true);
+
 
             Intent notifyIntent = new Intent(getApplicationContext(), ViewRodents.class);
             PendingIntent pendingIntent;

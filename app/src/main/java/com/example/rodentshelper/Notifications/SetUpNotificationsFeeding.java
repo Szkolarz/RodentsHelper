@@ -148,9 +148,6 @@ public class SetUpNotificationsFeeding {
 
             textView4_notifications.setText("Godziny wysyłania powiadomień: " + String.format(Locale.getDefault(), "%02d:%02d", hour1, minute1));
             textView4_notifications.append(" oraz " + String.format(Locale.getDefault(), "%02d:%02d", hour2, minute2));
-            textView4_notifications.append("\nNastępne powiadomienie: " + DateFormat.formatTimestampToDate(nextNotificationTime));
-
-
         }
         db.close();
     }

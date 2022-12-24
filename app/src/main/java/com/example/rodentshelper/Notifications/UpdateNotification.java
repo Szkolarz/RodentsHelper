@@ -139,7 +139,7 @@ public class UpdateNotification {
                 timeKey += (notificationsModel.get(i).getMinute().toString());
 
                 dateFormat = notificationsModel.get(i).getNext_notification_time().toString();
-                sendTime = notificationsModel.get(i).getPeriodicity();
+                sendTime = notificationsModel.get(i).getSend_time();
                 id_visit = notificationsModel.get(i).getId_visit();
 
                 notificationVisit.setUpNotificationVisit(context, timeKey, dateFormat, sendTime, id_visit);

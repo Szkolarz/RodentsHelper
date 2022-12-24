@@ -54,7 +54,7 @@ public class NotificationWeight {
 
            Integer hour = daoNotifications.getHourFromNotificationWeight();
            Integer minute = daoNotifications.getMinuteFromNotificationWeight();
-           String periodicity = daoNotifications.getPeriodicityFromNotificationWeight();
+           String periodicity = daoNotifications.getSendTimeFromNotificationWeight();
            Long unixTimeStamps = daoNotifications.getUnixTimestampsFromNotificationWeight();
 
            calendar.setTimeInMillis(unixTimeStamps);
@@ -79,6 +79,8 @@ public class NotificationWeight {
                calendar.add(Calendar.DAY_OF_YEAR, 14);
            } else if (periodicity.equals("Co miesiąc")) {
                calendar.add(Calendar.DAY_OF_YEAR, 30);
+           } else if (periodicity.equals("Co trzy miesiące")) {
+               calendar.add(Calendar.DAY_OF_YEAR, 90);
            } else if (periodicity.equals("Co pół roku")) {
                calendar.add(Calendar.DAY_OF_YEAR, 182);
            }

@@ -45,8 +45,8 @@ public interface DAONotifications {
     @Query("SELECT minute FROM Notification WHERE notification_type = 'weight'")
     Integer getMinuteFromNotificationWeight();
 
-    @Query("SELECT periodicity FROM Notification WHERE notification_type = 'weight'")
-    String getPeriodicityFromNotificationWeight();
+    @Query("SELECT send_time FROM Notification WHERE notification_type = 'weight'")
+    String getSendTimeFromNotificationWeight();
 
     @TypeConverters(Converters.class)
     @Query("SELECT unix_timestamps FROM Notification WHERE notification_type = 'weight'")
@@ -136,9 +136,9 @@ public interface DAONotifications {
     Integer checkIfIdVisitExists(Integer id_visit);
 
 
-    @Query("SELECT periodicity FROM Notification WHERE notification_type = 'visit'AND " +
+    @Query("SELECT send_time FROM Notification WHERE notification_type = 'visit'AND " +
             "id_visit = :id_visit")
-    String getPeriodicityFromNotificationVisit(Integer id_visit);
+    String getSendTimeFromNotificationVisit(Integer id_visit);
 
     @Query("SELECT id_visit FROM Notification WHERE notification_type = 'visit' AND " +
             "id_visit = :id_visit")

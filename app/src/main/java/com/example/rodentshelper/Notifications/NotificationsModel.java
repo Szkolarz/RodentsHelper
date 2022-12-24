@@ -24,8 +24,8 @@ public class NotificationsModel {
     @ColumnInfo(name = "minute")
     private Integer minute;
 
-    @ColumnInfo(name = "periodicity")
-    private String periodicity;
+    @ColumnInfo(name = "send_time")
+    private String send_time;
 
     @TypeConverters(Converters.class)
     @ColumnInfo(name = "unix_timestamps")
@@ -43,12 +43,12 @@ public class NotificationsModel {
     private String notification_type;
 
 
-    public NotificationsModel(Integer id_visit, Integer hour, Integer minute, String periodicity,
+    public NotificationsModel(Integer id_visit, Integer hour, Integer minute, String send_time,
                               Long unix_timestamps, Long next_notification_time, String notification_type) {
         this.id_visit = id_visit;
         this.hour = hour;
         this.minute = minute;
-        this.periodicity = periodicity;
+        this.send_time = send_time;
         this.unix_timestamps = unix_timestamps;
         this.next_notification_time = next_notification_time;
         this.notification_type = notification_type;
@@ -86,12 +86,12 @@ public class NotificationsModel {
         this.minute = minute;
     }
 
-    public String getPeriodicity() {
-        return periodicity;
+    public String getSend_time() {
+        return send_time;
     }
 
-    public void setPeriodicity(String periodicity) {
-        this.periodicity = periodicity;
+    public void setSend_time(String send_time) {
+        this.send_time = send_time;
     }
 
     public Long getUnix_timestamps() {

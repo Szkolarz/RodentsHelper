@@ -54,8 +54,8 @@ public class BackupWorkerWeight extends Worker {
             }
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), requestCode.toString());
+            builder.setStyle(new NotificationCompat.BigTextStyle().bigText("Czas zważyć twojego pupila! Wagę możesz zapisać w aplikacji, w zakładce 'Opieka'."));
             builder.setContentTitle("Czas ważenia!");
-            builder.setContentText("Czas zważyć twojego pupila! Wagę możesz zapisać w aplikacji, w zakładce 'Opieka'");
             builder.setSmallIcon(R.drawable.rodent_notification);
             builder.setAutoCancel(true);
 
