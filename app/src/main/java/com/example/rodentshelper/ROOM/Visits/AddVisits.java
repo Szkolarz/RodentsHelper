@@ -429,10 +429,15 @@ public class AddVisits extends Activity {
             prefsEditorNotificationVisit.putBoolean("prefsNotificationVisit", true);
             prefsEditorNotificationVisit.apply();
 
+            if (sendTime == null)
+               sendTime = daoNotifications.getSendTimeNotificationVisit(idKey);
+
             daoNotifications.deleteNotificationByVisitId(idKey);
 
             NotificationVisit notificationVisit = new NotificationVisit();
             System.out.println(dateFormat1 + "dateeeee");
+
+
             notificationVisit.setUpNotificationVisit(AddVisits.this, textViewTime_visit.getText().toString(), dateFormat1, sendTime, idKey);
 
         } else {

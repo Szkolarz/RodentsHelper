@@ -62,9 +62,13 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
         DAOVisits daoVisits = db.daoVisits();
         DAONotifications daoNotifications = db.daoNotifications();
 
-        if (daoNotifications.getIdVisitFromVisit(visitModel.get(position).visitModel.getId_visit()) != null) {
-            holder.textViewNotificationSet_visit.setVisibility(View.VISIBLE);
-            holder.textViewNotificationSet_visit.append(daoNotifications.getSendTimeFromNotificationVisit(visitModel.get(position).visitModel.getId_visit()));
+        try {
+            if (daoNotifications.getIdVisitFromVisit(visitModel.get(position).visitModel.getId_visit()) != null) {
+                holder.textViewNotificationSet_visit.setVisibility(View.VISIBLE);
+                holder.textViewNotificationSet_visit.append(daoNotifications.getSendTimeFromNotificationVisit(visitModel.get(position).visitModel.getId_visit()));
+            }
+        }catch (NullPointerException e) {
+            System.out.println(e);
         }
 
         holder.editTextReason_visit.setEnabled(false);

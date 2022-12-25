@@ -65,6 +65,8 @@ public class NotificationVisit {
                calendar.set(Calendar.MINUTE, minute);
                calendar.set(Calendar.SECOND, 0);
 
+
+
                if (sendTime.equals("30 minut przed czasem")) {
                    Log.e(TAG, "Alarm will schedule for next day!");
                    calendar.add(Calendar.MINUTE, -30); // add, not set!

@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -211,6 +212,11 @@ public class NotificationsActivity extends AppCompatActivity {
                         FlagSetupFeeding.setFlagIsNotificationFirst(true);
                         setUpNotificationsFeeding.notificationFeeding(NotificationsActivity.this, textView3_notifications,
                                 textView4_notifications, checkBoxNotifications2);
+                    });
+
+                    alert.setOnCancelListener(dialogInterface -> {
+                        checkBoxNotifications2.setText("Wyłączone");
+                        checkBoxNotifications2.setChecked(false);
                     });
                     alert.show();
 

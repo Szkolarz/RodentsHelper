@@ -148,6 +148,11 @@ public interface DAONotifications {
     @Query ("SELECT COUNT(*) FROM Notification WHERE notification_type = 'visit'")
     Integer getCountNotificationVisit();
 
+    @TypeConverters(Converters.class)
+    @Query ("SELECT send_time FROM Notification WHERE notification_type = 'visit' AND " +
+            "id_visit = :id_visit")
+    String getSendTimeNotificationVisit(Integer id_visit);
+
 
 
 
