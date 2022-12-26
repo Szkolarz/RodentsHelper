@@ -17,18 +17,18 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding;
+import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding2;
 import com.example.rodentshelper.Notifications.UpdateNotification;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
-public class BackupWorkerFeeding extends Worker {
-
-    private static final String TAG = "BackupWorker";
+public class BackupWorkerFeeding2 extends Worker {
 
 
-    public BackupWorkerFeeding(@NonNull Context context, @NonNull WorkerParameters workerParams ) {
+
+    public BackupWorkerFeeding2(@NonNull Context context, @NonNull WorkerParameters workerParams ) {
         super ( context, workerParams );
     }
 
@@ -37,8 +37,8 @@ public class BackupWorkerFeeding extends Worker {
     public Result doWork () {
         //call methods to perform background task
 
-        System.out.println("Backup Worker Feeding start");
-        SharedPreferences prefsNotificationFeeding = getApplicationContext().getSharedPreferences("prefsNotificationFeeding", Context.MODE_PRIVATE);
+        System.out.println("Backup Worker Feeding2 start");
+        SharedPreferences prefsNotificationFeeding2 = getApplicationContext().getSharedPreferences("prefsNotificationFeeding2", Context.MODE_PRIVATE);
 
         UpdateNotification updateNotification = new UpdateNotification();
         updateNotification.checkIfUserHasMissedNotification(getApplicationContext());
@@ -52,16 +52,16 @@ public class BackupWorkerFeeding extends Worker {
 
 
 
-        if (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false)) {
+        if (prefsNotificationFeeding2.getBoolean("prefsNotificationFeeding2", false)) {
 
             SharedPreferences prefsRequestCodeFeeding = getApplicationContext().getSharedPreferences("prefsRequestCodeFeeding", Context.MODE_PRIVATE);
-            SharedPreferences.Editor prefsEditorRequestCodeFeeding = prefsRequestCodeFeeding.edit();
+
 
             Integer requestCode;
 
-            /** the first id */
-            requestCode = daoNotifications.getFirstIdFromNotificationFeeding();
 
+            /** the last id */
+            requestCode = daoNotifications.getLastIdFromNotificationFeeding();
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -71,7 +71,6 @@ public class BackupWorkerFeeding extends Worker {
             }
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), requestCode.toString());
-           // builder.setStyle(new NotificationCompat.BigTextStyle().bigText());
             builder.setContentTitle("Czas karmienia!");
             builder.setContentText("Twój pupil domaga się jedzenia! Pamiętaj również o świeżej wodzie!");
             builder.setSmallIcon(R.drawable.rodent_notification);
@@ -91,14 +90,15 @@ public class BackupWorkerFeeding extends Worker {
 
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
 
+
             managerCompat.notify(requestCode, builder.build());
 
 
             daoNotifications.updateUnixTimestampFeeding(System.currentTimeMillis(), requestCode);
 
 
-            NotificationFeeding notificationFeeding = new NotificationFeeding();
-            notificationFeeding.setUpNotificationFeeding(getApplicationContext());
+            NotificationFeeding2 notificationFeeding2 = new NotificationFeeding2();
+            notificationFeeding2.setUpNotificationFeeding(getApplicationContext());
 
             Vibrator v = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(500);

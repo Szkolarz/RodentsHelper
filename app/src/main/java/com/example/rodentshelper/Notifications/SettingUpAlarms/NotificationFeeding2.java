@@ -10,34 +10,31 @@ import android.os.Build;
 import androidx.room.Room;
 
 import com.example.rodentshelper.Notifications.Receivers.NotificationReceiverFeeding;
+import com.example.rodentshelper.Notifications.Receivers.NotificationReceiverFeeding2;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
 
 import java.util.Calendar;
 
-public class NotificationFeeding {
+public class NotificationFeeding2 {
 
 
    public void setUpNotificationFeeding(Context notificationsActivity) {
 
-       Intent notifyIntent = new Intent(notificationsActivity.getApplicationContext(), NotificationReceiverFeeding.class);
+       Intent notifyIntent = new Intent(notificationsActivity.getApplicationContext(), NotificationReceiverFeeding2.class);
 
        AppDatabase db = Room.databaseBuilder(notificationsActivity,
                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
        DAONotifications daoNotifications = db.daoNotifications();
 
 
-
-       SharedPreferences prefsRequestCodeFeeding = notificationsActivity.getSharedPreferences("prefsRequestCodeFeeding", Context.MODE_PRIVATE);
-
        Integer requestCode;
 
-       /** first id **/
-       requestCode = daoNotifications.getFirstIdFromNotificationFeeding();
+       /** the last id **/
+       requestCode = daoNotifications.getLastIdFromNotificationFeeding();
 
 
-
-       SharedPreferences prefsNotificationFeeding = notificationsActivity.getSharedPreferences("prefsNotificationFeeding", Context.MODE_PRIVATE);
+       SharedPreferences prefsNotificationFeeding2 = notificationsActivity.getSharedPreferences("prefsNotificationFeeding2", Context.MODE_PRIVATE);
 
        PendingIntent pendingIntent;
        AlarmManager alarmManager = (AlarmManager) notificationsActivity.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
@@ -50,7 +47,7 @@ public class NotificationFeeding {
        }
 
        //if prefs == true
-       if (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false)) {
+       if (prefsNotificationFeeding2.getBoolean("prefsNotificationFeeding2", false)) {
 
            cancelAlarm (notificationsActivity.getApplicationContext(), alarmManager, notifyIntent, requestCode);
 
@@ -80,7 +77,6 @@ public class NotificationFeeding {
 
 
            System.out.println("Włączono alarm");
-
 
 
        } else {

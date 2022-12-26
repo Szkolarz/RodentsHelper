@@ -22,8 +22,7 @@ public class NotificationReceiverWeight extends BroadcastReceiver {
         //Intent serviceIntent = new Intent ( context, BackupService.class );
         System.out.println("not boot");
         OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(BackupWorkerWeight.class).addTag("BACKUP_WORKER_TAG").build();
-        WorkManager.getInstance(context).enqueue(request);
-
+        WorkManager.getInstance(context.getApplicationContext()).enqueue(request);
 
        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             context.startService ( intent1 );

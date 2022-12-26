@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import androidx.room.Room;
 
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding;
+import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding2;
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationVisit;
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationWeight;
 import com.example.rodentshelper.ROOM.AppDatabase;
@@ -24,6 +25,7 @@ public class UpdateNotification {
     public void checkIfUserHasMissedNotification (Context context) {
         SharedPreferences prefsNotificationWeight = context.getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
         SharedPreferences prefsNotificationFeeding = context.getSharedPreferences("prefsNotificationFeeding", Context.MODE_PRIVATE);
+        SharedPreferences prefsNotificationFeeding2 = context.getSharedPreferences("prefsNotificationFeeding2", Context.MODE_PRIVATE);
 
         AppDatabase db = Room.databaseBuilder(context,
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
@@ -49,6 +51,8 @@ public class UpdateNotification {
 
                 }
                 daoNotifications.updateUnixTimestampWeight(calendar.getTimeInMillis());
+                // next notificatoin time is setting up in NotificationFeeding
+
             }
 
         }
@@ -56,18 +60,14 @@ public class UpdateNotification {
         if (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false)) {
 
             Long actualTimeStamp = System.currentTimeMillis();
-            Long nextNotificationDate = daoNotifications.getNextNotificationTimeFeeding();
 
+            Long nextNotificationDate;
             Integer id_notification;
 
 
-            for (int i=0; i<2; i++) {
 
-                if (i==0) {
-                    id_notification = daoNotifications.getFirstIdFromNotificationFeeding();
-                } else {
-                    id_notification = daoNotifications.getLastIdFromNotificationFeeding();
-                }
+                id_notification = daoNotifications.getFirstIdFromNotificationFeeding();
+                nextNotificationDate = daoNotifications.getNextNotificationTimeFeeding(id_notification);
 
 
                 Long unixTimeStamps = daoNotifications.getUnixTimestampsFromNotificationFeeding(id_notification);
@@ -82,11 +82,44 @@ public class UpdateNotification {
                         //+ one day
                         nextNotificationDate += 1000 * 60 * 60 * 24;
                         calendar.add(Calendar.DAY_OF_YEAR, 1);
-
                     }
+
                     daoNotifications.updateUnixTimestampFeeding(calendar.getTimeInMillis(), id_notification);
                 }
-            }
+
+
+        }
+
+
+
+        if (prefsNotificationFeeding2.getBoolean("prefsNotificationFeeding2", false)) {
+
+            Long actualTimeStamp = System.currentTimeMillis();
+
+            Long nextNotificationDate;
+            Integer id_notification;
+
+                id_notification = daoNotifications.getLastIdFromNotificationFeeding();
+                nextNotificationDate = daoNotifications.getNextNotificationTimeFeeding(id_notification);
+
+
+                Long unixTimeStamps = daoNotifications.getUnixTimestampsFromNotificationFeeding(id_notification);
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(unixTimeStamps);
+
+
+                //if nextNotificationTime + 15 minutes
+                if ((nextNotificationDate + (10000 * 90)) < actualTimeStamp) {
+                    while ((nextNotificationDate + (10000 * 90)) < actualTimeStamp) {
+                        //+ one day
+                        nextNotificationDate += 1000 * 60 * 60 * 24;
+                        calendar.add(Calendar.DAY_OF_YEAR, 1);
+                    }
+
+                    daoNotifications.updateUnixTimestampFeeding(calendar.getTimeInMillis(), id_notification);
+                }
+
 
         }
 
@@ -99,23 +132,29 @@ public class UpdateNotification {
 
         SharedPreferences prefsNotificationWeight = context.getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
         SharedPreferences prefsNotificationFeeding = context.getSharedPreferences("prefsNotificationFeeding", Context.MODE_PRIVATE);
+        SharedPreferences prefsNotificationFeeding2 = context.getSharedPreferences("prefsNotificationFeeding2", Context.MODE_PRIVATE);
         SharedPreferences prefsNotificationVisit = context.getSharedPreferences("prefsNotificationVisit", Context.MODE_PRIVATE);
 
         //if == true
         if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
             NotificationWeight notificationWeight = new NotificationWeight();
-            notificationWeight.setUpNotificationWeight(context);
+            notificationWeight.setUpNotificationWeight(context.getApplicationContext());
         }
 
 
 
         if (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false)) {
             NotificationFeeding notificationFeeding = new NotificationFeeding();
+
+                notificationFeeding.setUpNotificationFeeding(context.getApplicationContext());
+        }
+
+
+        if (prefsNotificationFeeding2.getBoolean("prefsNotificationFeeding2", false)) {
+            NotificationFeeding2 notificationFeeding2 = new NotificationFeeding2();
             //it resets both of the alarms, that's why it has a loop
 
-            for (int i=0; i<2; i++) {
-                notificationFeeding.setUpNotificationFeeding(context);
-            }
+                notificationFeeding2.setUpNotificationFeeding(context.getApplicationContext());
 
         }
 

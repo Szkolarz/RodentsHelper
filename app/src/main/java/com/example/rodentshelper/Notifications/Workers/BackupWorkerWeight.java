@@ -17,6 +17,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationWeight;
+import com.example.rodentshelper.Notifications.UpdateNotification;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
@@ -39,6 +40,10 @@ public class BackupWorkerWeight extends Worker {
         System.out.println("Backup Worker start");
         SharedPreferences prefsNotificationWeight = getApplicationContext().getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
 
+        UpdateNotification updateNotification = new UpdateNotification();
+        updateNotification.checkIfUserHasMissedNotification(getApplicationContext());
+        //updateNotification.checkNotificationPreferences(getApplicationContext());
+
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAONotifications daoNotifications = db.daoNotifications();
@@ -54,8 +59,8 @@ public class BackupWorkerWeight extends Worker {
             }
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), requestCode.toString());
-            builder.setStyle(new NotificationCompat.BigTextStyle().bigText("Czas zważyć twojego pupila! Wagę możesz zapisać w aplikacji, w zakładce 'Opieka'."));
             builder.setContentTitle("Czas ważenia!");
+            builder.setContentText("Czas zważyć twojego pupila! Wagę możesz zapisać w aplikacji, w zakładce 'Opieka'.");
             builder.setSmallIcon(R.drawable.rodent_notification);
             builder.setAutoCancel(true);
 

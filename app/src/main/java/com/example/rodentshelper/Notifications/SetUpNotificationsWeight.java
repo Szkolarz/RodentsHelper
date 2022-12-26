@@ -75,7 +75,7 @@ public class SetUpNotificationsWeight {
                         prefsEditorNotificationWeight.apply();
 
                         NotificationWeight notificationWeight = new NotificationWeight();
-                        notificationWeight.setUpNotificationWeight(notificationsActivity);
+                        notificationWeight.setUpNotificationWeight(notificationsActivity.getApplicationContext());
 
                         setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, notificationsActivity);
                         ifTimeSet = true;
@@ -156,7 +156,6 @@ public class SetUpNotificationsWeight {
             textView2_notifications.setText("Godzina wysyłania powiadomienia: ~" + String.format(Locale.getDefault(), "%02d:%02d", hour, minute) +
                     "\nNastępne powiadomienie: " + DateFormat.formatTimestampToDate(nextNotificationTime));
 
-            System.out.println(nextNotificationTime + " KTÓRY");
 
         }
         db.close();

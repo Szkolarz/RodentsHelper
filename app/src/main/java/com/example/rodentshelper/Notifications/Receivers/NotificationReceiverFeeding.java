@@ -21,7 +21,7 @@ public class NotificationReceiverFeeding extends BroadcastReceiver {
 
         //Intent serviceIntent = new Intent ( context, BackupService.class );
         OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(BackupWorkerFeeding.class).addTag("BACKUP_WORKER_FEEDING").build();
-        WorkManager.getInstance(context).enqueue(request);
+        WorkManager.getInstance(context.getApplicationContext()).enqueue(request);
 
 
        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

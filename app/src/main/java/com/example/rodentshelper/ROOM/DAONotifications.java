@@ -82,9 +82,14 @@ public interface DAONotifications {
             "id_notification = :id_notification")
     Long getUnixTimestampsFromNotificationFeeding(Integer id_notification);
 
-    @TypeConverters(Converters.class)
+    /*@TypeConverters(Converters.class)
     @Query("SELECT MIN(next_notification_time) FROM Notification WHERE notification_type = 'feeding'")
-    Long getNextNotificationTimeFeeding();
+    Long getNextNotificationTimeFeeding();*/
+
+    @TypeConverters(Converters.class)
+    @Query("SELECT next_notification_time FROM Notification WHERE notification_type = 'feeding' AND " +
+            "id_notification = :id_notification")
+    Long getNextNotificationTimeFeeding(Integer id_notification);
 
     @TypeConverters(Converters.class)
     @Query("UPDATE Notification SET unix_timestamps = :unix_timestamps WHERE notification_type = 'feeding' AND " +

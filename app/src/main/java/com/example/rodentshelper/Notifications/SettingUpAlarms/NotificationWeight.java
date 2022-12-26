@@ -25,7 +25,7 @@ public class NotificationWeight {
 
    public void setUpNotificationWeight(Context notificationsActivity) {
 
-       Intent notifyIntent = new Intent(notificationsActivity, NotificationReceiverWeight.class);
+       Intent notifyIntent = new Intent(notificationsActivity.getApplicationContext(), NotificationReceiverWeight.class);
 
        AppDatabase db = Room.databaseBuilder(notificationsActivity,
                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
@@ -35,18 +35,19 @@ public class NotificationWeight {
        SharedPreferences prefsNotificationWeight = notificationsActivity.getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
 
        PendingIntent pendingIntent;
-       AlarmManager alarmManager = (AlarmManager) notificationsActivity.getSystemService(Context.ALARM_SERVICE);
+       AlarmManager alarmManager = (AlarmManager) notificationsActivity.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
            pendingIntent = PendingIntent.getBroadcast
-                   (notificationsActivity, requestCode, notifyIntent, PendingIntent.FLAG_MUTABLE);
+                   (notificationsActivity.getApplicationContext(), requestCode, notifyIntent, PendingIntent.FLAG_MUTABLE);
        } else {
            pendingIntent = PendingIntent.getBroadcast
-                   (notificationsActivity, requestCode, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                   (notificationsActivity.getApplicationContext(), requestCode, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
        }
 
        //if prefs == true
        if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
 
+           cancelAlarm (notificationsActivity, alarmManager, notifyIntent, requestCode);
 
            Calendar calendar = Calendar.getInstance();
 
@@ -99,7 +100,7 @@ public class NotificationWeight {
            //it will work on every device
            /*alarmManager.setWindow(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                    10000 * 60, pendingIntent);*/
-           alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+           alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     pendingIntent);
 
            System.out.println(requestCode + " WAZENIE REQUEST");
@@ -122,6 +123,23 @@ public class NotificationWeight {
    }
 
 
+    private void cancelAlarm (Context notificationsActivity, AlarmManager alarmManager,
+                              Intent notifyIntent, Integer requestCode) {
+        PendingIntent pendingIntentCancel;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            pendingIntentCancel = PendingIntent.getBroadcast
+                    (notificationsActivity.getApplicationContext(), requestCode, notifyIntent, PendingIntent.FLAG_MUTABLE);
+            alarmManager.cancel(pendingIntentCancel);
+        } else {
+            pendingIntentCancel = PendingIntent.getBroadcast
+                    (notificationsActivity.getApplicationContext(), requestCode, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager.cancel(pendingIntentCancel);
+        }
+
+
+        System.out.println("Wyłączono alarm");
+    }
 
 
 

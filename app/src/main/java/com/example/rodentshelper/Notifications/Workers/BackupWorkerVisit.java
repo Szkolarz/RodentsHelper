@@ -48,6 +48,8 @@ public class BackupWorkerVisit extends Worker {
 
         if (prefsNotificationVisit.getBoolean("prefsNotificationVisit", false)) {
             Integer requestCode = daoNotifications.getLastIdFromNotificationVisit();
+            if (requestCode == null)
+                requestCode = 0;
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel channel = new NotificationChannel(requestCode.toString(), requestCode.toString(), NotificationManager.IMPORTANCE_DEFAULT);
@@ -56,8 +58,8 @@ public class BackupWorkerVisit extends Worker {
             }
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), requestCode.toString());
-            builder.setStyle(new NotificationCompat.BigTextStyle().bigText("Zbliża się wizyta! Kliknij w powiadomienie aby przejrzeć listę zapisanych wizyt."));
             builder.setContentTitle("Wizyta u weterynarza!");
+            builder.setContentText("Zbliża się wizyta! Kliknij w powiadomienie aby przejrzeć listę zapisanych wizyt.");
             builder.setSmallIcon(R.drawable.rodent_notification);
             builder.setAutoCancel(true);
 

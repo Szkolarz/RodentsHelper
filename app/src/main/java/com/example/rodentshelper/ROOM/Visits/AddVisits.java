@@ -435,8 +435,6 @@ public class AddVisits extends Activity {
             daoNotifications.deleteNotificationByVisitId(idKey);
 
             NotificationVisit notificationVisit = new NotificationVisit();
-            System.out.println(dateFormat1 + "dateeeee");
-
 
             notificationVisit.setUpNotificationVisit(AddVisits.this, textViewTime_visit.getText().toString(), dateFormat1, sendTime, idKey);
 

@@ -23,6 +23,7 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding;
+import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding2;
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationWeight;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Visits.ViewVisits;
@@ -95,8 +96,8 @@ public class NotificationsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 alertInfo.simpleInfo("Powiadomienia o karmieniu",
                         "Każdy gryzoń musi być codziennie karmiony, z reguły dwa razy dziennie. " +
-                                "Dlatego też, po włączeniu powiadomienia zostaną wyświetlone dwa następujące" +
-                                "po sobie zegary, w których należy ustawić godzinę przypomnienia poranną oraz" +
+                                "Dlatego też, po włączeniu powiadomienia zostaną wyświetlone dwa następujące " +
+                                "po sobie zegary, w których należy ustawić godzinę przypomnienia poranną oraz " +
                                 "wieczorną.\n\nMiej na uwadze, że powiadomienia są jedynie czystą informacją i przypomnieniem; " +
                                 "ilość podawanej karmy powinno się odpowiednio dostosowywać - ważne, żeby pupil miał " +
                                 "do niej dostęp 24 godziny na dobę, lecz jednocześnie należy pamiętać o nie przekarmianiu " +
@@ -149,12 +150,14 @@ public class NotificationsActivity extends AppCompatActivity {
 
         SharedPreferences prefsNotificationWeight = getSharedPreferences("prefsNotificationWeight", MODE_PRIVATE);
         SharedPreferences prefsNotificationFeeding = getSharedPreferences("prefsNotificationFeeding", MODE_PRIVATE);
+        SharedPreferences prefsNotificationFeeding2 = getSharedPreferences("prefsNotificationFeeding2", MODE_PRIVATE);
 
         //if = true
         if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
             checkBoxNotifications1.setChecked(true);
         }
-        if (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false)) {
+        if ( (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false) &&
+                prefsNotificationFeeding2.getBoolean("prefsNotificationFeeding2", false)) ) {
             checkBoxNotifications2.setChecked(true);
         }
 
@@ -187,7 +190,7 @@ public class NotificationsActivity extends AppCompatActivity {
 
                     NotificationWeight notificationWeight = new NotificationWeight();
                     //it's turning off alarm in 'if'
-                    notificationWeight.setUpNotificationWeight(NotificationsActivity.this);
+                    notificationWeight.setUpNotificationWeight(getApplicationContext());
                     setUpNotificationsWeight.setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, NotificationsActivity.this);
                 }
 
@@ -226,12 +229,17 @@ public class NotificationsActivity extends AppCompatActivity {
                     SharedPreferences.Editor prefsEditorNotificationFeeding = prefsNotificationFeeding.edit();
                     prefsEditorNotificationFeeding.putBoolean("prefsNotificationFeeding", false);
                     prefsEditorNotificationFeeding.apply();
+                    SharedPreferences.Editor prefsEditorNotificationFeeding2 = prefsNotificationFeeding2.edit();
+                    prefsEditorNotificationFeeding2.putBoolean("prefsNotificationFeeding2", false);
+                    prefsEditorNotificationFeeding2.apply();
 
                     NotificationFeeding notificationFeeding = new NotificationFeeding();
+                    NotificationFeeding2 notificationFeeding2 = new NotificationFeeding2();
 
                     //it set ups two different times given by user
 
-                    notificationFeeding.setUpNotificationFeeding(NotificationsActivity.this);
+                    notificationFeeding.setUpNotificationFeeding(getApplicationContext());
+                    notificationFeeding2.setUpNotificationFeeding(getApplicationContext());
 
                     System.out.println("WYLACZONE");
                     //it's turning off alarm in 'if'

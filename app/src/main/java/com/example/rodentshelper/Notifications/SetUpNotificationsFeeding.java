@@ -1,5 +1,6 @@
 package com.example.rodentshelper.Notifications;
 
+import android.app.Notification;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding;
+import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding2;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
 import com.example.rodentshelper.ROOM.DateFormat;
@@ -52,21 +54,21 @@ public class SetUpNotificationsFeeding {
                     prefsEditorNotificationFeeding.putBoolean("prefsNotificationFeeding", true);
                     prefsEditorNotificationFeeding.apply();
 
+                    SharedPreferences prefsNotificationFeeding2 = notificationsActivity.getSharedPreferences("prefsNotificationFeeding2", notificationsActivity.MODE_PRIVATE);
+                    SharedPreferences.Editor prefsEditorNotificationFeeding2 = prefsNotificationFeeding2.edit();
+                    prefsEditorNotificationFeeding2.putBoolean("prefsNotificationFeeding2", true);
+                    prefsEditorNotificationFeeding2.apply();
+
+                    NotificationFeeding notificationFeeding = new NotificationFeeding();
+                    NotificationFeeding2 notificationFeeding2 = new NotificationFeeding2();
+
                     if (FlagSetupFeeding.getFlagIsNotificationFirst()) {
-                        SharedPreferences prefsRequestCodeFeeding = notificationsActivity.getSharedPreferences("prefsRequestCodeFeeding", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor prefsEditorRequestCodeFeeding = prefsRequestCodeFeeding.edit();
-                        prefsEditorRequestCodeFeeding.putBoolean("prefsRequestCodeFeeding", true);
-                        prefsEditorRequestCodeFeeding.apply();
+                        notificationFeeding.setUpNotificationFeeding(notificationsActivity.getApplicationContext());
                     } else {
-                        SharedPreferences prefsRequestCodeFeeding = notificationsActivity.getSharedPreferences("prefsRequestCodeFeeding", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor prefsEditorRequestCodeFeeding = prefsRequestCodeFeeding.edit();
-                        prefsEditorRequestCodeFeeding.putBoolean("prefsRequestCodeFeeding", false);
-                        prefsEditorRequestCodeFeeding.apply();
+                        notificationFeeding2.setUpNotificationFeeding(notificationsActivity.getApplicationContext());
                     }
 
 
-                    NotificationFeeding notificationFeeding = new NotificationFeeding();
-                    notificationFeeding.setUpNotificationFeeding(notificationsActivity);
 
                     if (!FlagSetupFeeding.getFlagIsNotificationFirst()) {
                         checkBoxNotifications2.setChecked(true);
@@ -124,9 +126,13 @@ public class SetUpNotificationsFeeding {
 
 
             SharedPreferences prefsNotificationFeeding = notificationsActivity.getSharedPreferences("prefsNotificationFeeding", Context.MODE_PRIVATE);
+            SharedPreferences prefsNotificationFeeding2 = notificationsActivity.getSharedPreferences("prefsNotificationFeeding2", Context.MODE_PRIVATE);
             SharedPreferences.Editor prefsEditorNotificationFeeding = prefsNotificationFeeding.edit();
+            SharedPreferences.Editor prefsEditorNotificationFeeding2 = prefsNotificationFeeding2.edit();
             prefsEditorNotificationFeeding.putBoolean("prefsNotificationFeeding", false);
             prefsEditorNotificationFeeding.apply();
+            prefsEditorNotificationFeeding2.putBoolean("prefsNotificationFeeding2", false);
+            prefsEditorNotificationFeeding2.apply();
 
         } else {
             textView3_notifications.setVisibility(View.VISIBLE);
@@ -142,7 +148,7 @@ public class SetUpNotificationsFeeding {
             Integer hour2 = daoNotifications.getHourFromNotificationFeeding(idFeeding);
             Integer minute2 = daoNotifications.getMinuteFromNotificationFeeding(idFeeding);
 
-            Long nextNotificationTime = daoNotifications.getNextNotificationTimeFeeding();
+            //Long nextNotificationTime = daoNotifications.getNextNotificationTimeFeeding();
 
             textView3_notifications.setText("Powiadomienia są wysyłane codziennie");
 
