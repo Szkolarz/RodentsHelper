@@ -13,6 +13,7 @@ import androidx.room.Room;
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.AsyncActivity;
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
+import com.example.rodentshelper.Encyclopedia.General.GeneralModel;
 import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.Encyclopedia.Version.VersionModel;
 import com.example.rodentshelper.ImageCompress;
@@ -171,8 +172,11 @@ public class VersionCodeCheck {
 
         try {
 
-            ResultSet resultSetTreats = dbQuerries.selectTreats(prefsFirstStart.getInt("prefsFirstStart", 0));
-            ResultSet resultSetCageSupply = dbQuerries.selectCageSupply(prefsFirstStart.getInt("prefsFirstStart", 0));
+            Integer idAnimal = prefsFirstStart.getInt("prefsFirstStart", 0);
+
+            ResultSet resultSetGeneral = dbQuerries.selectGeneral(idAnimal);
+            ResultSet resultSetTreats = dbQuerries.selectTreats(idAnimal);
+            ResultSet resultSetCageSupply = dbQuerries.selectCageSupply(idAnimal);
             ResultSet resultSetVersion = dbQuerries.selectVersion();
 
 
@@ -180,8 +184,9 @@ public class VersionCodeCheck {
                     AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
             DAOEncyclopedia daoEncyclopedia = db.daoEncyclopedia();
 
-            daoEncyclopedia.deleteTreats(prefsFirstStart.getInt("prefsFirstStart", 0));
-            daoEncyclopedia.deleteCageSupply(prefsFirstStart.getInt("prefsFirstStart", 0));
+            daoEncyclopedia.deleteGeneral(idAnimal);
+            daoEncyclopedia.deleteTreats(idAnimal);
+            daoEncyclopedia.deleteCageSupply(idAnimal);
             daoEncyclopedia.deleteVersion();
 
             while (resultSetVersion.next()) {
@@ -190,6 +195,17 @@ public class VersionCodeCheck {
                         resultSetVersion.getInt("id_animal"), resultSetVersion.getString("code")));
             }
 
+
+            while (resultSetGeneral.next()) {
+
+                /** tu usuwasz najpierw cala zawartosc, potem dodajesz */
+
+                daoEncyclopedia.insertRecordGeneral(new GeneralModel(
+                        resultSetGeneral.getInt("id_animal"), resultSetGeneral.getString("name"), resultSetGeneral.getString("description"),
+                        resultSetGeneral.getBytes("image")
+                ));
+
+            }
 
             while (resultSetTreats.next()) {
 

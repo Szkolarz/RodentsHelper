@@ -19,6 +19,7 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
+import com.example.rodentshelper.Encyclopedia.Common.ViewGeneralAndDiseases;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
 import com.example.rodentshelper.Encyclopedia.InternetCheckEncyclopedia;
 import com.example.rodentshelper.Encyclopedia.Common.ViewEncyclopediaData;
@@ -101,13 +102,13 @@ public class ViewEncyclopedia extends AppCompatActivity {
             thread.start();
 
 
-        imageButtonGeneral.setOnClickListener(view -> viewVets());
+        imageButtonGeneral.setOnClickListener(view -> viewGeneral());
 
         imageButtonFood.setOnClickListener(view -> viewTreats());
 
         imageButtonSupply.setOnClickListener(view -> viewCageSupply());
 
-        imageButtonSound.setOnClickListener(view -> viewVisits());
+        imageButtonSound.setOnClickListener(view -> viewGeneral());
 
     }
 
@@ -121,6 +122,12 @@ public class ViewEncyclopedia extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void viewGeneral()
+    {
+        FragmentFlag.setEncyclopediaTypeFlag(1);
+        Intent intent = new Intent(ViewEncyclopedia.this, ViewGeneralAndDiseases.class);
+        startActivity(intent);
+    }
     public void viewTreats()
     {
         FragmentFlag.setEncyclopediaTypeFlag(2);

@@ -10,6 +10,7 @@ import androidx.room.Room;
 
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
+import com.example.rodentshelper.Encyclopedia.General.GeneralModel;
 import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOEncyclopedia;
@@ -27,9 +28,14 @@ public class InsertRecords {
 
         SharedPreferences prefsFirstStart = context.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
+        List<GeneralModel> generalModel;
         List<TreatsModel> treatsModel;
         List<CageSupplyModel> cageSupplyModel;
 
+        if (FragmentFlag.getEncyclopediaTypeFlag() == 1) {
+            generalModel = daoEncyclopedia.getGeneralAdditionalInfo(prefsFirstStart.getInt("prefsFirstStart", 0));
+            return generalModel;
+        }
         if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
             treatsModel = daoEncyclopedia.getAllTreats3(prefsFirstStart.getInt("prefsFirstStart", 0));
             return treatsModel;

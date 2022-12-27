@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/linearLayout_treats"
+        android:id="@+id/linearLayout_general"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ACC5E1"
@@ -32,7 +32,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textViewName_treats"
+                    android:id="@+id/textViewName_general"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -43,13 +43,13 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/textViewDesc_treats"
+                    android:id="@+id/textViewDesc_general"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:text="Opis"
                     android:textColor="#5C5C5C"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 

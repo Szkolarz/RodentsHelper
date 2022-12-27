@@ -109,6 +109,9 @@
             android:name=".Encyclopedia.Common.ViewEncyclopediaData"
             android:exported="true" />
         <activity
+            android:name=".Encyclopedia.Common.ViewGeneralAndDiseases"
+            android:exported="true" />
+        <activity
             android:name=".ROOM.Weights.WeightInfo"
             android:exported="true" />
         <activity

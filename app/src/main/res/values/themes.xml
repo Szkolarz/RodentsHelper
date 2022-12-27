@@ -3,7 +3,7 @@
     <style name="Theme.RodentsHelper" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="android:forceDarkAllowed">false</item>
-        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:navigationBarColor">#5397DF</item>
         <item name="colorPrimary">#0375a8</item>
         <item name="colorPrimaryVariant">#048FCD</item>
         <item name="colorOnPrimary">@color/white</item>

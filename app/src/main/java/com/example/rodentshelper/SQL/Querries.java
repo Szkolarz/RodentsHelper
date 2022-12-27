@@ -51,6 +51,22 @@ public class Querries implements ConnectionSQL{
     }
 
 
+    public ResultSet selectGeneral(Integer id_animal) throws SQLException, InterruptedException {
+        Statement stat = connectToVPS().createStatement();
+        ResultSet myres = stat.executeQuery("SELECT * FROM `General` WHERE id_animal = " + id_animal);
+        connectToVPS().close();
+        return myres;
+
+    }
+
+    public ResultSet selectDiseases(Integer id_animal) throws SQLException, InterruptedException {
+        Statement stat = connectToVPS().createStatement();
+        ResultSet myres = stat.executeQuery("SELECT * FROM `Diseases` WHERE id_animal = " + id_animal);
+        connectToVPS().close();
+        return myres;
+
+    }
+
     public ResultSet selectTreats(Integer id_animal) throws SQLException, InterruptedException {
         Statement stat = connectToVPS().createStatement();
         ResultSet myres = stat.executeQuery("SELECT * from `Treats` WHERE id_animal = " + id_animal);
