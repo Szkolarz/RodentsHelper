@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ public class AddVets extends AppCompatActivity {
     CheckBox checkBoxVet;
     TextView textViewRodentRelationsInfo_vet;
     LinearLayout aaa1;
+    ImageButton imageButtonCall_vet;
 
 
 
@@ -93,6 +95,9 @@ public class AddVets extends AppCompatActivity {
         editTextPhone_vet = findViewById(R.id.editTextPhone_vet);
         editTextNotes_vet = findViewById(R.id.editTextPeriodicity_med);
 
+        imageButtonCall_vet = findViewById(R.id.imageButtonCall_vet);
+        imageButtonCall_vet.setVisibility(View.GONE);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, arrayListLV);
 
         SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
@@ -130,8 +135,8 @@ public class AddVets extends AppCompatActivity {
             List<VetWithRodentsCrossRef> vetModel = getDaoVets().getVetsWithRodents();
 
 
-            checkBoxVet.setChecked(true);
-            checkCheckBox();
+            //checkBoxVet.setChecked(true);
+
 
             Integer positionKey = Integer.parseInt(getIntent().getStringExtra("positionKey"));
 
@@ -148,6 +153,7 @@ public class AddVets extends AppCompatActivity {
                 }
             }
 
+            checkCheckBox();
           /*  List<String> list = vetDao.getAllRodentsVets(idKey);
 
 

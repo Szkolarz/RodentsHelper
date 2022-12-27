@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -20,6 +21,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -98,7 +100,14 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
         textViewAddress_map.setText(address);
         textViewPhone_map.setText(phone);
 
+        ImageButton imageButtonCall_map = findViewById(R.id.imageButtonCall_map);
 
+
+        imageButtonCall_map.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + phone));
+            startActivity(intent);
+        });
 
         buttonAddVet_map.setOnClickListener(view -> {
             AddVetFromMap addVetFromMap = new AddVetFromMap();
@@ -392,15 +401,6 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
     }
 
 
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            viewOther();
-            finish();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 
     private void viewOther() {
         Intent intent = new Intent(GoogleMaps.this, ViewOther.class);

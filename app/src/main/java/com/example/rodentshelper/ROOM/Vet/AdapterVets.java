@@ -1,6 +1,7 @@
 package com.example.rodentshelper.ROOM.Vet;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -71,7 +73,6 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
 
 
 
-
         try {
             for (int i = 0; i < vetModel.get(position).rodents.size(); i++) {
                 if ((i + 1) < vetModel.get(position).rodents.size())
@@ -91,6 +92,8 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
         ArrayAdapter<String> adapter = new ArrayAdapter<>(holder.ListViewVet.getContext(), android.R.layout.simple_list_item_multiple_choice, holder.arrayListSelected);
         holder.ListViewVet.setAdapter(adapter);
 
+        holder.imageButtonCall_vet.setOnClickListener(view -> makeACall(holder.editTextPhone_vet.getText().toString(),
+                holder.imageButtonCall_vet));
 
         holder.buttonDelete_vet.setOnClickListener(view -> onClickDelete(vetDao, holder));
 
@@ -130,6 +133,12 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
         holder.buttonEdit_vet.getContext().startActivity(intent);
     }
 
+    private void makeACall(String phoneNumber, ImageButton buttonCall) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + phoneNumber));
+        buttonCall.getContext().startActivity(intent);
+    }
+
     @Override
     public int getItemCount() {
 
@@ -150,6 +159,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
            ListView ListViewVet;
            TextView textViewRodentRelations_vet, textViewRodentRelationsInfo_vet;
            CheckBox checkBoxVet;
+           ImageButton imageButtonCall_vet;
 
            //lista z querry join
            private ArrayList<String> arrayListSelected;
@@ -179,6 +189,8 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
 
                textViewRodentRelations_vet = itemView.findViewById(R.id.textViewRodentRelations_vet);
                textViewRodentRelationsInfo_vet = itemView.findViewById(R.id.textViewRodentRelationsInfo_vet);
+
+               imageButtonCall_vet = itemView.findViewById(R.id.imageButtonCall_vet);
 
                arrayListSelected = new ArrayList<>();
 

@@ -108,6 +108,7 @@
                     android:orientation="horizontal">
 
                     <ImageButton
+                        android:id="@+id/imageButtonCall_vet"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"

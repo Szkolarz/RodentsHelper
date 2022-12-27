@@ -159,14 +159,15 @@
                     android:orientation="horizontal">
 
                     <ImageButton
+                        android:id="@+id/imageButtonCall_map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:background="@drawable/roundbutton_small_green"
                         android:cropToPadding="false"
                         android:padding="10dp"
-                        android:src="@android:drawable/stat_sys_speakerphone"
 
+                        android:src="@android:drawable/stat_sys_speakerphone"
                         tools:ignore="SpeakableTextPresentCheck" />
                 </LinearLayout>
 
