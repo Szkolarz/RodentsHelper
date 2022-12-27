@@ -5,6 +5,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
+import com.example.rodentshelper.Encyclopedia.Diseases.DiseasesModel;
 import com.example.rodentshelper.Encyclopedia.General.GeneralModel;
 import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.Encyclopedia.Version.VersionModel;
@@ -89,6 +90,24 @@ public interface DAOEncyclopedia {
 
     @Query("DELETE FROM General WHERE id_animal = :id_animal")
     void deleteGeneral(Integer id_animal);
+
+
+
+    /**************/
+    /** Diseases **/
+    /**************/
+
+    @Insert
+    void insertRecordDiseases(DiseasesModel Diseases);
+
+    @Query("SELECT * FROM Diseases WHERE id_animal = :id_animal EXCEPT SELECT * FROM Diseases WHERE name = 'Info'")
+    List<DiseasesModel> getAllDiseases(Integer id_animal);
+
+    @Query("SELECT * FROM Diseases WHERE name ='Info' AND id_animal = :id_animal")
+    List<DiseasesModel> getDiseasesAdditionalInfo(Integer id_animal);
+
+    @Query("DELETE FROM Diseases WHERE id_animal = :id_animal")
+    void deleteDiseases(Integer id_animal);
 
 
 

@@ -1,11 +1,9 @@
 package com.example.rodentshelper.Encyclopedia.Common;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,15 +21,9 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
 import com.example.rodentshelper.Encyclopedia.Treats.PagerAdapterTreats;
-import com.example.rodentshelper.MainViews.ViewEncyclopedia;
-import com.example.rodentshelper.MainViews.ViewHealth;
-import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -66,7 +58,7 @@ public class ViewEncyclopediaData extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.treats);
+        setContentView(R.layout.treats_cagesupply);
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
         TextView textView2_encyclopedia;
@@ -135,7 +127,6 @@ public class ViewEncyclopediaData extends AppCompatActivity  {
             @Override
             public void onTabSelected(TabLayout.Tab tab){
                 FragmentFlag.setFragmentFlag(tab.getPosition());
-
 
             }
 

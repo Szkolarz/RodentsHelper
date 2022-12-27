@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,7 +15,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
-import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +33,7 @@ public class AdapterCageSupply extends RecyclerView.Adapter<AdapterCageSupply.vi
     @NotNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.treats_list,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.treats_cagesupply_list,parent,false);
 
         return new viewHolder(view);
     }

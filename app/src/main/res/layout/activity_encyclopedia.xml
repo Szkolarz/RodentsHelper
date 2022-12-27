@@ -329,7 +329,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:id="@+id/imageButtonSound"
+                                    android:id="@+id/imageButtonDisease"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
@@ -340,7 +340,7 @@
                                     android:onClick="onClickVet"
                                     android:padding="15dp"
                                     android:scaleType="fitCenter"
-                                    app:srcCompat="@drawable/ic_chat"
+                                    app:srcCompat="@drawable/ic_diseases"
                                     app:tint="#0A4A97" />
 
                                 <TextView
@@ -365,7 +365,7 @@
                                     android:id="@+id/textView4_petHealth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Ta kategoria pozwala dowiedzieć się co oznaczają różne dźwięki wydawane przez pupila"
+                                    android:text="Ta kategoria pozwala dowiedzieć się o najczęściej występowanych chorobach oraz jak je rozpoznać"
                                     android:textColor="#014D70" />
 
                             </LinearLayout>

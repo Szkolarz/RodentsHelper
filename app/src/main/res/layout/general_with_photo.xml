@@ -18,24 +18,25 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:fillViewport="true">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/linearLayout_treats"
+                        android:id="@+id/linearLayout_general"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="#ACC5E1"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
@@ -43,32 +44,38 @@
                         app:layout_constraintTop_toTopOf="parent">
 
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardView_treats"
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="10dp"
-                            android:elevation="32dp"
+                            android:layout_height="fill_parent"
+                            android:orientation="vertical">
 
-                            android:gravity="center"
-                            app:cardBackgroundColor="#FFFFFF"
-                            app:cardCornerRadius="90dp"
-                            app:cardElevation="5dp">
-
-                            <ImageView
-                                android:id="@+id/imageView_general"
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardView_treats"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="10dp"
+                                android:elevation="32dp"
 
-                                android:layout_margin="3dp"
-                                android:adjustViewBounds="true"
-                                android:background="@drawable/rounded_image_view"
-                                android:cropToPadding="true"
-                                android:scaleType="centerCrop"
-                                android:src="@android:drawable/ic_menu_camera" />
+                                android:gravity="center"
+                                android:visibility="gone"
+                                app:cardBackgroundColor="#FFFFFF"
+                                app:cardCornerRadius="20dp"
+                                app:cardElevation="5dp">
 
-                        </androidx.cardview.widget.CardView>
+                                <ImageView
+                                    android:id="@+id/imageView_general"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:adjustViewBounds="true"
+                                    android:background="@drawable/rounded_image_view"
+                                    android:cropToPadding="true"
+                                    android:scaleType="centerCrop"
+                                    android:src="@android:drawable/ic_menu_camera" />
+
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -81,7 +88,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="fill_parent"
                                 android:layout_marginLeft="30dp"
-                                android:orientation="horizontal"/>
+                                android:orientation="horizontal" />
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -100,7 +107,8 @@
                                     android:gravity="left"
                                     android:text="Nazwa"
                                     android:textColor="#014D70"
-                                    android:textSize="28sp" />
+                                    android:textSize="28sp"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/textViewDesc_general"
@@ -117,32 +125,32 @@
 
 
                         <View
-                            android:id="@+id/view_treats"
+                            android:id="@+id/view_general"
                             android:layout_width="match_parent"
                             android:layout_height="10dp"
                             android:layout_marginLeft="30dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginRight="30dp"
                             android:layout_marginBottom="5dp"
-                            android:background="#FFFFFF" />
+                            android:background="#5397DF" />
 
-                        <LinearLayout
-                            android:id="@+id/ll"
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView_general"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/recyclerView_general"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
-                        </LinearLayout>
-
+                            android:layout_height="match_parent" />
                     </LinearLayout>
 
 
                 </LinearLayout>
-
 
 
             </ScrollView>

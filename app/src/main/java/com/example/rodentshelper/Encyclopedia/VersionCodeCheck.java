@@ -13,6 +13,7 @@ import androidx.room.Room;
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.AsyncActivity;
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
+import com.example.rodentshelper.Encyclopedia.Diseases.DiseasesModel;
 import com.example.rodentshelper.Encyclopedia.General.GeneralModel;
 import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.Encyclopedia.Version.VersionModel;
@@ -177,6 +178,7 @@ public class VersionCodeCheck {
             ResultSet resultSetGeneral = dbQuerries.selectGeneral(idAnimal);
             ResultSet resultSetTreats = dbQuerries.selectTreats(idAnimal);
             ResultSet resultSetCageSupply = dbQuerries.selectCageSupply(idAnimal);
+            ResultSet resultSetDiseases = dbQuerries.selectDiseases(idAnimal);
             ResultSet resultSetVersion = dbQuerries.selectVersion();
 
 
@@ -187,6 +189,7 @@ public class VersionCodeCheck {
             daoEncyclopedia.deleteGeneral(idAnimal);
             daoEncyclopedia.deleteTreats(idAnimal);
             daoEncyclopedia.deleteCageSupply(idAnimal);
+            daoEncyclopedia.deleteDiseases(idAnimal);
             daoEncyclopedia.deleteVersion();
 
             while (resultSetVersion.next()) {
@@ -198,20 +201,14 @@ public class VersionCodeCheck {
 
             while (resultSetGeneral.next()) {
 
-                /** tu usuwasz najpierw cala zawartosc, potem dodajesz */
-
                 daoEncyclopedia.insertRecordGeneral(new GeneralModel(
                         resultSetGeneral.getInt("id_animal"), resultSetGeneral.getString("name"), resultSetGeneral.getString("description"),
                         resultSetGeneral.getBytes("image")
                 ));
-
             }
 
             while (resultSetTreats.next()) {
 
-                /** tu usuwasz najpierw cala zawartosc, potem dodajesz */
-
-                /* TREATS */
                 daoEncyclopedia.insertRecordTreats(new TreatsModel(
                         resultSetTreats.getInt("id_animal"), resultSetTreats.getString("name"), resultSetTreats.getString("description"),
                         resultSetTreats.getBytes("image"), resultSetTreats.getBoolean("is_healthy")
@@ -226,6 +223,14 @@ public class VersionCodeCheck {
                         resultSetCageSupply.getBytes("image"), resultSetCageSupply.getBoolean("is_good")
                 ));
             }
+
+            while (resultSetDiseases.next()) {
+                daoEncyclopedia.insertRecordDiseases(new DiseasesModel(
+                        resultSetDiseases.getInt("id_animal"), resultSetDiseases.getString("name"), resultSetDiseases.getString("description")
+                ));
+
+            }
+
 
             db.close();
 

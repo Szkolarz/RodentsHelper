@@ -4,6 +4,7 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
+import com.example.rodentshelper.Encyclopedia.Diseases.DiseasesModel;
 import com.example.rodentshelper.Encyclopedia.General.GeneralModel;
 import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.Encyclopedia.Version.VersionModel;
@@ -25,7 +26,7 @@ import com.example.rodentshelper.ROOM._MTM._RodentVisit.RodentVisitModel;
         RodentVisitModel.class, VersionModel.class,
         NotificationsModel.class,
         TreatsModel.class, CageSupplyModel.class,
-        GeneralModel.class},
+        GeneralModel.class, DiseasesModel.class},
         version = 4)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract DAO dao();

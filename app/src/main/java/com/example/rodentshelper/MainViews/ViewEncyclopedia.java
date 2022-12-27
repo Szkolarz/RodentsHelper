@@ -34,7 +34,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ViewEncyclopedia extends AppCompatActivity {
 
-    ImageView imageButtonGeneral, imageButtonFood, imageButtonSupply, imageButtonSound;
+    ImageView imageButtonGeneral, imageButtonFood, imageButtonSupply, imageButtonDisease;
     TextView textView2_encyclopedia, textViewProgress_encyclopedia;
 
     ProgressBar progressBar_encyclopedia;
@@ -60,7 +60,7 @@ public class ViewEncyclopedia extends AppCompatActivity {
         imageButtonGeneral = findViewById(R.id.imageButtonGeneral);
         imageButtonFood = findViewById(R.id.imageButtonFood);
         imageButtonSupply = findViewById(R.id.imageButtonSupply);
-        imageButtonSound = findViewById(R.id.imageButtonSound);
+        imageButtonDisease = findViewById(R.id.imageButtonDisease);
 
         textView2_encyclopedia = findViewById(R.id.textView2_encyclopedia);
         imageButton2_encyclopedia.setColorFilter(Color.WHITE);
@@ -102,13 +102,19 @@ public class ViewEncyclopedia extends AppCompatActivity {
             thread.start();
 
 
-        imageButtonGeneral.setOnClickListener(view -> viewGeneral());
+        imageButtonGeneral.setOnClickListener(view -> {
+            FragmentFlag.setEncyclopediaTypeFlag(1);
+            viewGeneral();
+        });
 
         imageButtonFood.setOnClickListener(view -> viewTreats());
 
         imageButtonSupply.setOnClickListener(view -> viewCageSupply());
 
-        imageButtonSound.setOnClickListener(view -> viewGeneral());
+        imageButtonDisease.setOnClickListener(view -> {
+            FragmentFlag.setEncyclopediaTypeFlag(4);
+            viewGeneral();
+        });
 
     }
 
@@ -124,10 +130,10 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
     public void viewGeneral()
     {
-        FragmentFlag.setEncyclopediaTypeFlag(1);
         Intent intent = new Intent(ViewEncyclopedia.this, ViewGeneralAndDiseases.class);
         startActivity(intent);
     }
+
     public void viewTreats()
     {
         FragmentFlag.setEncyclopediaTypeFlag(2);

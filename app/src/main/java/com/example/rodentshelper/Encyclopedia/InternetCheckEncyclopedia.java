@@ -47,6 +47,7 @@ public class InternetCheckEncyclopedia {
         AlertDialog.Builder alert = new AlertDialog.Builder(viewEncyclopedia, R.style.AlertDialogStyleUpdate);
         Alerts alertInfo = new Alerts();
 
+
         SharedPreferences prefsFirstDownload = viewEncyclopedia.getSharedPreferences("prefsFirstDownload", Context.MODE_PRIVATE);
         boolean firstDownload = prefsFirstDownload.getBoolean("firstDownload", true);
 
@@ -58,6 +59,7 @@ public class InternetCheckEncyclopedia {
             editorFirstDownload.apply();
             firstDownload = prefsFirstDownload.getBoolean("firstDownload", true);
         }
+
 
         boolean internetCheck = isNetworkConnected(viewEncyclopedia);
 
@@ -168,9 +170,6 @@ public class InternetCheckEncyclopedia {
 
 
         }
-
-
-
 
 
 

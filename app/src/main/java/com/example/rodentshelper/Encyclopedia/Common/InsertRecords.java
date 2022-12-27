@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.room.Room;
 
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
+import com.example.rodentshelper.Encyclopedia.Diseases.DiseasesModel;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
 import com.example.rodentshelper.Encyclopedia.General.GeneralModel;
 import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
@@ -31,6 +32,7 @@ public class InsertRecords {
         List<GeneralModel> generalModel;
         List<TreatsModel> treatsModel;
         List<CageSupplyModel> cageSupplyModel;
+        List<DiseasesModel> diseasesModel;
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 1) {
             generalModel = daoEncyclopedia.getGeneralAdditionalInfo(prefsFirstStart.getInt("prefsFirstStart", 0));
@@ -43,6 +45,10 @@ public class InsertRecords {
         if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
             cageSupplyModel = daoEncyclopedia.getCageSupplyAdditionalInfo(prefsFirstStart.getInt("prefsFirstStart", 0));
             return cageSupplyModel;
+        }
+        if (FragmentFlag.getEncyclopediaTypeFlag() == 4) {
+            diseasesModel = daoEncyclopedia.getDiseasesAdditionalInfo(prefsFirstStart.getInt("prefsFirstStart", 0));
+            return diseasesModel;
         }
 
         return null;

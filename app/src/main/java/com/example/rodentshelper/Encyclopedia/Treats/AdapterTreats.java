@@ -1,9 +1,5 @@
 package com.example.rodentshelper.Encyclopedia.Treats;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -14,23 +10,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
-import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
-import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAOWeight;
-import com.example.rodentshelper.ROOM.DateFormat;
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
-import com.example.rodentshelper.ROOM.Weights.WeightView;
-import com.example.rodentshelper.ROOM._MTM._RodentMed.RodentMedModel;
-import com.example.rodentshelper.ROOM._MTM._RodentWeight.RodentWithWeights;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -48,7 +34,7 @@ public class AdapterTreats extends RecyclerView.Adapter<AdapterTreats.viewHolder
     @NotNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.treats_list,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.treats_cagesupply_list,parent,false);
 
         return new viewHolder(view);
     }
