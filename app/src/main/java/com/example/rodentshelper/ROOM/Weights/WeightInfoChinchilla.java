@@ -2,44 +2,16 @@ package com.example.rodentshelper.ROOM.Weights;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
-import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
-import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAOWeight;
-import com.example.rodentshelper.ROOM.DateFormat;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
-import com.example.rodentshelper.ROOM._MTM._RodentWeight.RodentWithWeights;
-import com.github.mikephil.charting.charts.LineChart;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 
-public class WeightInfo extends Activity {
+public class WeightInfoChinchilla extends Activity {
 
     TextView textView_weightInfo;
 
@@ -48,7 +20,7 @@ public class WeightInfo extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.weight_info);
+        setContentView(R.layout.weight_info_chinchilla);
 
         textView_weightInfo = findViewById(R.id.textView_weightInfo);
 
@@ -56,13 +28,13 @@ public class WeightInfo extends Activity {
                 "Dlatego ewentualne, minimalne odbieganie wagi twojego zwierzęcia od normy nie powinno cię niepokoić.\n\n" +
                 "Jeśli zauważysz jednak coś niepokojącego w wadze twojego zwierzęcia, udaj się koniecznie do weterynarza.");
 
-
+        FlagSetup.setFlagWeightAdd(1);
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            Intent intent = new Intent(WeightInfo.this, WeightView.class);
+            Intent intent = new Intent(WeightInfoChinchilla.this, WeightView.class);
             startActivity(intent);
             finish();
         }

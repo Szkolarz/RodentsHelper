@@ -246,6 +246,7 @@
             android:layout_height="wrap_content"
             android:gravity="bottom"
             android:orientation="vertical"
+            android:visibility="gone"
             tools:layout_editor_absoluteY="558dp">
 
             <include

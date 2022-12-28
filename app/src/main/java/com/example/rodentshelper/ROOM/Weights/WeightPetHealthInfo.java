@@ -2,9 +2,7 @@ package com.example.rodentshelper.ROOM.Weights;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -12,13 +10,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.rodentshelper.Alerts;
-import com.example.rodentshelper.ROOM.Rodent.AddRodents;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
-
-import org.w3c.dom.Text;
 
 public class WeightPetHealthInfo {
 
@@ -139,8 +130,8 @@ public class WeightPetHealthInfo {
     }
 
 
-    public void tableInfo (Context context) {
-        context.startActivity(new Intent(context, WeightInfo.class));
+    public void tableInfoChinchilla (Context context) {
+        context.startActivity(new Intent(context, WeightInfoChinchilla.class));
     }
 
 

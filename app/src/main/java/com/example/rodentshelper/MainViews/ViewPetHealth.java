@@ -195,14 +195,6 @@ public class ViewPetHealth extends AppCompatActivity {
 
 
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            viewRodents();
-            finish();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 
 
 }

@@ -163,6 +163,7 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
             SharedPreferences.Editor prefsEditorLoadMap = prefsLoadMap.edit();
             prefsEditorLoadMap.putBoolean("prefsLoadMap", true);
             prefsEditorLoadMap.apply();
+            MapsInitializer.initialize(this);
             loadMapToActivity();
         });
 
@@ -187,7 +188,7 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
         Thread threadPrepare = new Thread(() -> runOnUiThread(() -> {
 
             new Handler().postDelayed(() -> {
-                MapsInitializer.initialize(this);
+
 
                 Thread thread = new Thread(() -> {
 

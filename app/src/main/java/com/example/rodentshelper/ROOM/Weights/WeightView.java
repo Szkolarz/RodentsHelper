@@ -2,6 +2,7 @@ package com.example.rodentshelper.ROOM.Weights;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -154,8 +155,17 @@ public class WeightView extends Activity {
         imageButtonQuestion_weight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", Context.MODE_PRIVATE);
+
                 WeightPetHealthInfo weightPetHealthInfo = new WeightPetHealthInfo();
-                weightPetHealthInfo.tableInfo(WeightView.this);
+                if (prefsFirstStart.getInt("prefsFirstStart", 0) == 1)
+                    weightPetHealthInfo.tableInfoChinchilla(WeightView.this); // do zmiany
+                else if (prefsFirstStart.getInt("prefsFirstStart", 0) == 2)
+                    weightPetHealthInfo.tableInfoChinchilla(WeightView.this); //do zmiany
+                else if (prefsFirstStart.getInt("prefsFirstStart", 0) == 3)
+                    weightPetHealthInfo.tableInfoChinchilla(WeightView.this);
+
+                finish();
             }
         });
 

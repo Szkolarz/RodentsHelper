@@ -1,5 +1,6 @@
 package com.example.rodentshelper.ROOM.Weights;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -71,7 +72,7 @@ public class AdapterWeights extends RecyclerView.Adapter<AdapterWeights.viewHold
 
     private void deleteWeight(Context context, viewHolder holder) {
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        AlertDialog.Builder alert = new AlertDialog.Builder(context, R.style.AlertDialogStyle);
         alert.setTitle("Usuwanie wagi");
         alert.setMessage("Czy na pewno chcesz usunąć wagę z listy?\n\nProces jest nieodwracalny!");
 
@@ -114,6 +115,7 @@ public class AdapterWeights extends RecyclerView.Adapter<AdapterWeights.viewHold
         FlagSetup.setFlagWeightAdd(0);
 
         holder.buttonEdit_weight.getContext().startActivity(intent);
+        ((Activity) holder.buttonEdit_weight.getContext()).finish();
     }
 
     @Override
@@ -139,4 +141,5 @@ public class AdapterWeights extends RecyclerView.Adapter<AdapterWeights.viewHold
 
            }
        }
+
 }
