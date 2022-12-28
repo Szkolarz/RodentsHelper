@@ -89,8 +89,12 @@ public class AdapterWeights extends RecyclerView.Adapter<AdapterWeights.viewHold
 
                 weightModel.remove(holder.getAdapterPosition());
 
+                FlagSetup.setFlagWeightAdd(1);
+
                 Intent intent = new Intent(context, WeightView.class);
                 context.startActivity(intent);
+
+                ((Activity) holder.buttonDelete_weight.getContext()).finish();
 
                 notifyDataSetChanged();
 

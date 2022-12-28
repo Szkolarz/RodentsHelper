@@ -17,6 +17,7 @@ import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -59,16 +60,16 @@ public class WeightChart {
         lineDataSet.setLineWidth(5);
         lineDataSet.setCircleRadius(5);
         lineDataSet.setCircleHoleRadius(10);
-        lineDataSet.setValueTextSize(16);
+        lineDataSet.setValueTextSize(14);
         lineDataSet.setValueTextColor(Color.parseColor("#0375a8"));
-        lineDataSet.setHighLightColor(Color.RED);
+        lineDataSet.setHighLightColor(Color.parseColor("#5397DF"));
+        lineDataSet.setHighlightLineWidth(2f);
 
         lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         lineDataSet.setDrawFilled(true);
         lineDataSet.setFillColor(Color.parseColor("#5397DF"));
 
         lineDataSet.setValueFormatter(new DefaultAxisValueFormatter(0));
-
 
 
         lineDataSet.setGradientColor(Color.GREEN, Color.BLUE);
@@ -97,24 +98,16 @@ public class WeightChart {
 
         lineChart_weight.getDescription().setEnabled(false);
         lineChart_weight.setPinchZoom(true);
-       // lineChart_weight.setDrawBorders(false); //?
-       // lineChart_weight.setMaxVisibleValueCount(6);
-        lineChart_weight.setAutoScaleMinMaxEnabled(true);
+
+        //lineChart_weight.setAutoScaleMinMaxEnabled(true);
         lineChart_weight.setNoDataText("Potrzeba minimum dwóch pomiarów wagi, aby wyświetlić wykres.");
         lineChart_weight.setExtraTopOffset(3);
-        lineChart_weight.setExtraLeftOffset(5);
-        lineChart_weight.setExtraRightOffset(5);
-        lineChart_weight.getXAxis().setSpaceMin(0.1f);
-        lineChart_weight.getXAxis().setSpaceMax(0.1f);
-        lineChart_weight.getAxisRight().setSpaceMin(0.1f);
 
+        lineChart_weight.getXAxis().setSpaceMin(0.15f);
+        lineChart_weight.getXAxis().setSpaceMax(0.15f);
 
-        //lineChart_weight.getAxisRight().setAxisMaxValue(55);
+        lineChart_weight.getAxisRight().setEnabled(false);
 
-
-        /** */
-        //lineChart_weight.getXAxis().setAxisMaximum(4);
-        //lineChart_weight.setVisibleXRangeMaximum(2);
 
         Paint p = lineChart_weight.getPaint(Chart.PAINT_INFO);
         p.setTextSize(30);
@@ -126,19 +119,42 @@ public class WeightChart {
         ArrayList<ILineDataSet> iLineDataSet = new ArrayList<>();
         iLineDataSet.add(lineDataSet);
 
+        XAxis xAxis = lineChart_weight.getXAxis();
+
+        Integer lineChartDataSize = lineChartDataSetArray.size();
 
         LineData lineData = new LineData(iLineDataSet);
-        if (lineChartDataSetArray.size() >= 2)
+        if (lineChartDataSize >= 2)
             lineChart_weight.setData(lineData);
 
-        XAxis xAxis = lineChart_weight.getXAxis();
+        if (lineChartDataSize >= 4) {
+            lineChart_weight.getXAxis().setAxisMaximum(lineChartDataSize - 1);
+            lineChart_weight.setVisibleXRangeMaximum(4);
+            if (lineChartDataSize == 4)
+                xAxis.setAxisMaximum(lineData.getXMax() + 0.2f);
+            else
+                xAxis.setAxisMaximum(lineData.getXMax() + 0.3f);
+        } else if (lineChartDataSize == 3) {
+            lineChart_weight.getXAxis().setAxisMaximum(lineChartDataSize - 1);
+            lineChart_weight.setVisibleXRangeMaximum(3);
+            xAxis.setAxisMaximum(lineData.getXMax() + 0.1f);
+        } else if (lineChartDataSize == 2) {
+            lineChart_weight.getXAxis().setAxisMaximum(lineChartDataSize - 1);
+            lineChart_weight.setVisibleXRangeMaximum(2);
+            xAxis.setAxisMaximum(lineData.getXMax() + 0.1f);
+        }
+
+
+
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
 
         xAxis.setTextSize(12);
 
         //xAxis.setAxisMaximum(10);
 
-        if (lineChartDataSetArray.size() >= 2)
+
+
+        if (lineChartDataSize >= 2)
             xAxis.setValueFormatter(formatter);
 
 

@@ -1,5 +1,6 @@
 package com.example.rodentshelper.ROOM.Weights;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -8,11 +9,16 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +36,7 @@ import com.example.rodentshelper.ROOM.DAOWeight;
 import com.example.rodentshelper.ROOM.DateFormat;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.ROOM.Vet.ViewVets;
+import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 import com.example.rodentshelper.ROOM._MTM._RodentWeight.RodentWithWeights;
 import com.github.mikephil.charting.charts.LineChart;
 
@@ -47,16 +54,19 @@ public class WeightView extends Activity {
     RecyclerView recyclerView;
 
     EditText editTextWeight;
-    TextView textViewDate, textViewDateWeight_hidden, textViewInfo_weight;
+    TextView textViewDate, textViewDateWeight_hidden, textViewInfo_weight, textViewChart_weight;
     Button buttonAdd_weight, buttonSaveEdit_weight;
     ImageButton imageButtonDate_weight, imageButtonQuestion_weight;
     LineChart lineChart_weight;
+    LinearLayout linearLayoutChart_weight, linearLayoutChartInfo_weight;
+    ScrollView scrollView_weight;
 
 
     private DatePickerDialog.OnDateSetListener dateSetListener;
 
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +84,8 @@ public class WeightView extends Activity {
         textViewDate = findViewById(R.id.textViewDate);
         textViewInfo_weight = findViewById(R.id.textViewInfo_weight);
 
+
+
         textViewDateWeight_hidden = findViewById(R.id.textViewDateWeight_hidden);
 
         buttonAdd_weight = findViewById(R.id.buttonAdd_weight);
@@ -82,6 +94,9 @@ public class WeightView extends Activity {
         imageButtonQuestion_weight = findViewById(R.id.imageButtonQuestion_weight);
 
         lineChart_weight = findViewById(R.id.lineChart_weight);
+        linearLayoutChart_weight = findViewById(R.id.linearLayoutChart_weight);
+        linearLayoutChartInfo_weight = findViewById(R.id.linearLayoutChartInfo_weight);
+        scrollView_weight = findViewById(R.id.scrollView_weight);
 
 
 
@@ -109,9 +124,15 @@ public class WeightView extends Activity {
 
         /** Setting up chart */
         WeightChart weightChart = new WeightChart();
-        weightChart.runChart(lineChart_weight, getApplicationContext());
+        weightChart.runChart(lineChart_weight, getBaseContext());
 
+        List <WeightModel> weightModel = weightChart.getListWeightASC(getBaseContext());
 
+        if (weightModel.size() < 2) {
+            linearLayoutChartInfo_weight.setVisibility(View.VISIBLE);
+            lineChart_weight.setVisibility(View.GONE);
+            linearLayoutChart_weight.setVisibility(View.GONE);
+        }
 
 
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -144,6 +165,18 @@ public class WeightView extends Activity {
         }
 
         getRoomData();
+
+
+
+        editTextWeight.setOnTouchListener((v, event) -> {
+            if(MotionEvent.ACTION_UP == event.getAction()) {
+                Handler handler = new Handler();
+                handler.postDelayed(() -> scrollView_weight.scrollTo(0, 9999), 600);
+            }
+            return false;
+        });
+
+
 
         imageButtonDate_weight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -298,6 +331,17 @@ public class WeightView extends Activity {
         AdapterWeights adapter = new AdapterWeights(getListWeight());
 
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK && FlagSetup.getFlagWeightAdd() == 0)) {
+            FlagSetup.setFlagWeightAdd(1);
+            Intent intent = new Intent(WeightView.this, WeightView.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 
