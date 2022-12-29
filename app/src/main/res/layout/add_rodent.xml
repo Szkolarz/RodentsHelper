@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -63,8 +63,7 @@
                     android:gravity="center"
 
                     app:cardBackgroundColor="#A31A1A"
-                    app:cardCornerRadius="60dp"
-                    app:cardElevation="5dp">
+                    app:cardCornerRadius="60dp">
 
 
                     <ImageView
@@ -135,12 +134,14 @@
                 android:id="@+id/editTextEditName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:ems="10"
                 android:hint="Imię twojego pupila"
                 android:maxLength="50"
                 android:textColor="#014D70"
-                android:textColorHint="#014D70" />
+                android:textColorHint="#707070" />
         </LinearLayout>
 
         <LinearLayout
@@ -152,7 +153,9 @@
                 android:id="@+id/radioEditGroup1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -181,6 +184,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -197,7 +201,7 @@
                 android:id="@+id/textViewDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginStart="13dp"
                 android:gravity="left"
                 android:text="Data urodzenia"
                 android:textColor="#014D70"
@@ -207,7 +211,7 @@
                 android:id="@+id/imageButtonDate_rodent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="10dp"
                 android:background="@drawable/roundbutton_small"
                 android:padding="5dp"
                 android:src="@drawable/ic_calendar_vet1"
@@ -224,22 +228,26 @@
             android:id="@+id/editTextEditFur"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:ems="10"
             android:hint="Umaszczenie"
             android:inputType="textPersonName"
             android:textColor="#014D70"
-            android:textColorHint="#014D70" />
+            android:textColorHint="#707070" />
 
         <EditText
             android:id="@+id/editTextEditNotes"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_margin="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:ems="10"
-            android:hint="Notatki..."
+            android:hint="Ewentualne notatki..."
             android:textColor="#014D70"
-            android:textColorHint="#014D70" />
+            android:textColorHint="#707070" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonAdd_rodent"
@@ -274,4 +282,4 @@
             android:visibility="gone" />
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

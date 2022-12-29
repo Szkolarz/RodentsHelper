@@ -150,19 +150,18 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
         android:text="Imię pupila:"
         android:textColor="#014D70"
         android:textColorHint="#77147A"
-        android:textSize="16sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textViewName_rodent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:text="Imię"
         android:textColor="#014D70"
         android:textSize="24sp"
@@ -172,18 +171,18 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
         android:text="Płeć:"
         android:textColor="#014D70"
         android:textColorHint="#77147A"
-        android:textSize="16sp"
-        android:layout_marginLeft="20dp"
-        />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textViewGender_rodent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:text="brak"
         android:textColor="#014D70"
         android:textSize="24sp" />
@@ -192,18 +191,18 @@
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
         android:text="Data urodzenia:"
         android:textColor="#014D70"
         android:textColorHint="#77147A"
-        android:textSize="16sp"
-        android:layout_marginLeft="20dp"
-        />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textViewDate_rodent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:text="brak"
         android:textColor="#014D70"
         android:textSize="24sp" />
@@ -212,18 +211,18 @@
         android:id="@+id/textViewFur_rodentText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
         android:text="Umaszczenie:"
         android:textColor="#014D70"
         android:textColorHint="#77147A"
-        android:textSize="16sp"
-        android:layout_marginLeft="20dp"
-        />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textViewFur_rodent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:text="brak"
         android:textColor="#014D70"
         android:textSize="24sp" />
@@ -232,18 +231,18 @@
         android:id="@+id/textViewNotes_rodentText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
         android:text="Ewentualne notatki:"
         android:textColor="#014D70"
         android:textColorHint="#77147A"
-        android:textSize="16sp"
-        android:layout_marginLeft="20dp"
-        />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textViewNotes_rodent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:text="brak"
         android:textColor="#014D70"
         android:textSize="24sp" />
@@ -258,6 +257,6 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_margin="6dp"
-        android:background="#048FCD" />
+        android:background="#5397DF" />
 
 </LinearLayout>

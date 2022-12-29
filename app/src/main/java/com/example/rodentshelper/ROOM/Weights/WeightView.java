@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -25,6 +26,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.ViewEncyclopedia;
@@ -72,10 +77,21 @@ public class WeightView extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weight);
 
-        ImageButton imageButton1_rodent;
-        TextView textView1_rodent;
+        ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
 
         imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
+        imageButton2_encyclopedia = findViewById(R.id.imageButton2_encyclopedia);
+        imageButton3_health = findViewById(R.id.imageButton3_health);
+        imageButton4_other = findViewById(R.id.imageButton4_other);
+
+        imageButton1_rodent.setOnClickListener(new ActivityRodents());
+        imageButton2_encyclopedia.setOnClickListener(new ActivityEncyclopedia());
+        imageButton3_health.setOnClickListener(new ActivityHealth());
+        imageButton4_other.setOnClickListener(new ActivityOther());
+
+
+        TextView textView1_rodent;
+
         textView1_rodent = findViewById(R.id.textView1_rodent);
         imageButton1_rodent.setColorFilter(Color.WHITE);
         textView1_rodent.setTextColor(Color.WHITE);
@@ -171,7 +187,7 @@ public class WeightView extends Activity {
         editTextWeight.setOnTouchListener((v, event) -> {
             if(MotionEvent.ACTION_UP == event.getAction()) {
                 Handler handler = new Handler();
-                handler.postDelayed(() -> scrollView_weight.scrollTo(0, 9999), 600);
+                handler.postDelayed(() -> scrollView_weight.smoothScrollTo(0, 9999), 600);
             }
             return false;
         });

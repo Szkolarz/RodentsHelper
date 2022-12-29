@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.RodentsHelper" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.RodentsHelper" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="android:forceDarkAllowed">false</item>
-        <item name="android:navigationBarColor">#5397DF</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="android:navigationBarColor">#048FCD</item>
         <item name="colorPrimary">#0375a8</item>
         <item name="colorPrimaryVariant">#048FCD</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -13,6 +13,20 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="CustomToolbar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">#5397DF</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+    <style name="CustomPopupToolbar" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownVerticalOffset">-4dp</item>
+
+
     </style>
 
     <style name="AlertDialogStyle" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">

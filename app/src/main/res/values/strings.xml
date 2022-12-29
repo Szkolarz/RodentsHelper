@@ -27,4 +27,8 @@
         <item>24 godziny przed czasem</item>
     </string-array>
 
+
+    <string name="choose_rodent_name">Wybierz gatunek zwierzęcia</string>
+    <string name="about_app_name">O aplikacji</string>
+
 </resources>

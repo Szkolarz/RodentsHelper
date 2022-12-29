@@ -18,7 +18,7 @@
         <include
             android:id="@+id/app_bar"
             layout="@layout/app_bar"
-            android:layout_height="match_parent">
+            >
 
         </include>
 
@@ -65,12 +65,12 @@
 
     </LinearLayout>
 
-
     <androidx.cardview.widget.CardView
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_centerVertical="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="28dp"
         android:gravity="center"
 
@@ -85,14 +85,14 @@
             android:id="@+id/buttonAddRecord"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
+            android:layout_margin="8dp"
             android:background="@drawable/roundbutton"
+            android:fitsSystemWindows="false"
             android:gravity="center"
             android:text="+"
             android:textColor="#FFFFFF"
             android:textSize="22sp"
             app:backgroundTint="#5397DF"
-            app:strokeColor="#0375a8"
-            app:strokeWidth="3dp" />
+            app:strokeColor="#0375a8" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

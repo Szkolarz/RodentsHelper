@@ -3,16 +3,24 @@ package com.example.rodentshelper.ROOM.Rodent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -22,6 +30,7 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.MainViews.FirstStart;
 import com.example.rodentshelper.Notifications.FlagSetupFeeding;
 import com.example.rodentshelper.Notifications.UpdateNotification;
 import com.example.rodentshelper.R;
@@ -29,6 +38,7 @@ import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAORodents;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ViewRodents extends AppCompatActivity {
 
@@ -38,19 +48,51 @@ public class ViewRodents extends AppCompatActivity {
 
 
 
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.choose_rodent:
+                Intent intent = new Intent(ViewRodents.this, FirstStart.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.about_app:
+                break;
+            default:
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_recycler);
-
-
-        UpdateNotification updateNotification = new UpdateNotification();
-        updateNotification.checkIfUserHasMissedNotification(ViewRodents.this);
-        updateNotification.checkNotificationPreferences(ViewRodents.this);
+        setContentView(R.layout.activity_view_recycler_rodents);
 
 
 
+        Toolbar toolbar = findViewById(R.id.app_bar);
+
+
+
+
+        toolbar.setTitle("");
+      // toolbar.setNavigationIcon(R.drawable.id_encyclopedia);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_hamburger);
+
+
+        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_hamburger);
+        toolbar.setOverflowIcon(drawable);
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
 

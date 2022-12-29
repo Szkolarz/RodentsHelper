@@ -2,11 +2,20 @@ package com.example.rodentshelper.MainViews;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.Window;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.rodentshelper.AsyncActivity;
 import com.example.rodentshelper.R;
@@ -21,7 +30,7 @@ public class FirstStart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
 
         imageButtonHamster = findViewById(R.id.imageButtonHamster);
         imageButtonRat = findViewById(R.id.imageButtonRat);
@@ -32,8 +41,7 @@ public class FirstStart extends AppCompatActivity {
         //3 = chinchilla
         SharedPreferences spFirstStart = getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
         //int firstStart = spFirstStart.getInt("firstStart", 1);
-        AsyncActivity internetAsyncCheck = new AsyncActivity();
-        internetAsyncCheck.execute();
+
 
         imageButtonHamster.setOnClickListener(view -> {
 
@@ -43,6 +51,7 @@ public class FirstStart extends AppCompatActivity {
 
             Intent intent = new Intent(FirstStart.this, ViewRodents.class);
             startActivity(intent);
+            finish();
 
         });
 
@@ -54,6 +63,7 @@ public class FirstStart extends AppCompatActivity {
 
             Intent intent = new Intent(FirstStart.this, ViewRodents.class);
             startActivity(intent);
+            finish();
 
         });
 
@@ -70,4 +80,6 @@ public class FirstStart extends AppCompatActivity {
         });
 
     }
+
+
 }
