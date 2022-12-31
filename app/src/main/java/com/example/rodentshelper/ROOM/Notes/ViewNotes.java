@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -30,6 +31,7 @@ import com.example.rodentshelper.ROOM.DAONotes;
 import com.example.rodentshelper.ROOM._MTM._RodentNotes.RodentWithNotes;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ViewNotes extends AppCompatActivity {
 
@@ -43,6 +45,14 @@ public class ViewNotes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recycler);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        toolbar.setTitle("Notatki");
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
 

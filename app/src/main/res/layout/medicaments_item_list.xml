@@ -16,6 +16,19 @@
         android:orientation="vertical"
         tools:context=".ROOM.Vet.ViewVets">
 
+        <LinearLayout
+            android:id="@+id/linearLayoutToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <include
+                android:id="@+id/app_bar"
+                layout="@layout/app_bar_global" />
+
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="match_parent"

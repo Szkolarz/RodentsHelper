@@ -16,33 +16,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/app_bar_global">
+        </include>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Weterynarze w twojej okolicy:"
-                android:textColor="#014D70"
-                android:textColorHint="#77147A"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginRight="6dp"
-                android:layout_marginBottom="2dp"
-                android:background="#048FCD" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLoadMap_map"

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -37,13 +38,16 @@ import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 import com.example.rodentshelper.ROOM._MTM._RodentVisit.VisitsWithRodentsCrossRef;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ViewVisits extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    Button buttonAddRecord;
+    private RecyclerView recyclerView;
+    private Button buttonAddRecord;
 
-    TextView textViewEmpty_visit, textView3_health, textView1_rodent;
+    private TextView textViewEmpty_visit, textView3_health, textView1_rodent;
+
+    private Toolbar toolbar;
 
     private AppDatabase getAppDatabase () {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -60,6 +64,8 @@ public class ViewVisits extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recycler);
+
+        toolbar = findViewById(R.id.toolbar_main);
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
 
@@ -116,6 +122,12 @@ public class ViewVisits extends AppCompatActivity {
             }
         });
 
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().show();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
+
     }
 
     public void addNewVisit()
@@ -143,10 +155,12 @@ public class ViewVisits extends AppCompatActivity {
         List<VisitsWithRodentsCrossRef> visitModel = null;
 
         if (FlagSetup.getFlagVisitAdd() == 2) {
+            toolbar.setTitle("Wizyty pupila");
             SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
             visitModel = getDaoVisits().getVisitsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
         }
         else {
+            toolbar.setTitle("Wizyty");
             visitModel = getDaoVisits().getVisitsWithRodents();
             FlagSetup.setFlagVisitAdd(1);
         }

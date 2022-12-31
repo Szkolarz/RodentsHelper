@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
@@ -22,6 +23,8 @@ import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.ROOM.Vet.ViewVets;
 import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 
+import java.util.Objects;
+
 public class ViewHealth extends AppCompatActivity {
 
     ImageView imageButtonVet1, imageButtonMed, imageButtonVisit;
@@ -31,6 +34,18 @@ public class ViewHealth extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        toolbar.setTitle("Zdrowie");
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(ViewHealth.this, ViewRodents.class);
+            startActivity(intent);
+            finish();
+        });
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
 

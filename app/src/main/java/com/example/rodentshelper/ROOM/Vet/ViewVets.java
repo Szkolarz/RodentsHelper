@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -31,12 +33,14 @@ import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ViewVets extends AppCompatActivity {
 
     RecyclerView recyclerView;
     Button buttonAddRecord;
     TextView textViewEmpty_vet, textView3_health, textView1_rodent;
+    Toolbar toolbar;
 
     private AppDatabase getAppDatabase () {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -53,6 +57,8 @@ public class ViewVets extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recycler);
+
+        toolbar = findViewById(R.id.toolbar_main);
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
 
@@ -99,6 +105,12 @@ public class ViewVets extends AppCompatActivity {
                 addNewVet();
             }
         });
+
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().show();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     public void addNewVet()
@@ -132,10 +144,12 @@ public class ViewVets extends AppCompatActivity {
 
 
         if (FlagSetup.getFlagVetAdd() == 2) {
+            toolbar.setTitle("Weterynarze pupila");
             SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
             vetModel = getDaoVets().getVetsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
         }
         else {
+            toolbar.setTitle("Weterynarze");
             vetModel = getDaoVets().getVetsWithRodents();
             FlagSetup.setFlagVetAdd(1);
         }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -27,6 +28,8 @@ import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeedi
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationWeight;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Visits.ViewVisits;
+
+import java.util.Objects;
 
 public class NotificationsActivity extends AppCompatActivity {
 
@@ -44,6 +47,14 @@ public class NotificationsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        toolbar.setTitle("Powiadomienia");
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
 

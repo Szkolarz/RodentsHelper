@@ -1,7 +1,6 @@
 package com.example.rodentshelper.ROOM.Weights;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -32,16 +33,11 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.MainViews.ViewEncyclopedia;
-import com.example.rodentshelper.MainViews.ViewHealth;
-import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOWeight;
 import com.example.rodentshelper.ROOM.DateFormat;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
-import com.example.rodentshelper.ROOM.Vet.ViewVets;
-import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 import com.example.rodentshelper.ROOM._MTM._RodentWeight.RodentWithWeights;
 import com.github.mikephil.charting.charts.LineChart;
 
@@ -52,9 +48,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 
-public class WeightView extends Activity {
+public class WeightView extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
@@ -75,7 +72,15 @@ public class WeightView extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.weight);
+        setContentView(R.layout.activity_weight);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        toolbar.setTitle("Ważenie");
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
 

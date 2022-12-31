@@ -37,7 +37,7 @@ public class AdapterDiseases extends RecyclerView.Adapter<AdapterDiseases.viewHo
     @Override
     public void onBindViewHolder(@NonNull @NotNull viewHolder holder, int position) {
 
-        holder.linearLayout_general.setBackgroundColor(Color.parseColor("#E7F4B9"));
+        holder.linearLayout_general.setBackgroundColor(Color.parseColor("#f6fad4"));
         holder.textViewName_general.setText(diseasesModel.get(position).getName());
         holder.textViewDesc_general.setText(diseasesModel.get(position).getDescription());
 

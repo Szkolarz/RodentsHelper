@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -26,8 +27,9 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.List;
+import java.util.Objects;
 
-public class ViewEncyclopediaData extends AppCompatActivity  {
+public class ViewCagesupplyAndTreats extends AppCompatActivity  {
 
 
     RecyclerView recyclerView;
@@ -60,6 +62,8 @@ public class ViewEncyclopediaData extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.treats_cagesupply);
 
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
         TextView textView2_encyclopedia;
         imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
@@ -86,8 +90,13 @@ public class ViewEncyclopediaData extends AppCompatActivity  {
         TextView textViewInfo_encyclopedia = findViewById(R.id.textViewInfo_encyclopedia);
         LinearLayout linearLayout_encyclopedia = findViewById(R.id.linearLayout_encyclopedia);
 
+
         InsertRecords insertRecords = new InsertRecords();
-        if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
+        if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
+            textViewInfo_encyclopedia.setText("TESTOWY TEKST");
+            toolbar.setTitle("Jedzenie");
+        } else if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
+            toolbar.setTitle("Wyposażenie klatki");
             List<CageSupplyModel> cageSupplyModel = insertRecords.getListOfRecords(getApplicationContext());
             textViewInfo_encyclopedia.setText(cageSupplyModel.get(0).getDescription());
 
@@ -137,6 +146,11 @@ public class ViewEncyclopediaData extends AppCompatActivity  {
             public void onTabReselected(TabLayout.Tab tab) {}
         });
 
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().show();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
 

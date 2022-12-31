@@ -78,17 +78,14 @@ public class ViewRodents extends AppCompatActivity {
 
 
 
-        Toolbar toolbar = findViewById(R.id.app_bar);
-
-
-
+        Toolbar toolbar = findViewById(R.id.app_bar_rodents);
 
         toolbar.setTitle("");
       // toolbar.setNavigationIcon(R.drawable.id_encyclopedia);
 
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_hamburger);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_hamburger);
 
 
         Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_hamburger);

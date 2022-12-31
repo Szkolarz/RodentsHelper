@@ -53,8 +53,8 @@ public interface DAOMedicaments {
     @Transaction
     @Query ("SELECT medicaments.id_medicament, medicaments.id_vet, medicaments.name, medicaments.description," +
             "medicaments.periodicity, medicaments.date_start, medicaments.date_end FROM medicaments\n" +
-            "LEFT JOIN rodents  ON (rodents_medicaments.id_medicament = medicaments.id_medicament)\n" +
-            "LEFT JOIN rodents_medicaments ON (rodents.id_rodent = rodents_medicaments.id_rodent)\n" +
+            "JOIN rodents  ON (rodents_medicaments.id_medicament = medicaments.id_medicament)\n" +
+            "JOIN rodents_medicaments ON (rodents.id_rodent = rodents_medicaments.id_rodent)\n" +
             "WHERE rodents.id_rodent = :id")
     List<MedicamentWithRodentsCrossRef> getMedsWithRodentsWhereIdRodent(Integer id);
 

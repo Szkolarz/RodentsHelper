@@ -50,8 +50,8 @@ public interface DAOVisits {
 
     @Transaction
     @Query ("SELECT visits.id_visit, visits.id_vet, visits.date, visits.time, visits.reason FROM visits\n" +
-            "LEFT JOIN rodents  ON (rodents_visits.id_visit = visits.id_visit)\n" +
-            "LEFT JOIN rodents_visits ON (rodents.id_rodent = rodents_visits.id_rodent)\n" +
+            "JOIN rodents  ON (rodents_visits.id_visit = visits.id_visit)\n" +
+            "JOIN rodents_visits ON (rodents.id_rodent = rodents_visits.id_rodent)\n" +
             "WHERE rodents.id_rodent = :id")
     List<VisitsWithRodentsCrossRef> getVisitsWithRodentsWhereIdRodent(Integer id);
 
@@ -68,19 +68,23 @@ public interface DAOVisits {
     @Query ("DELETE FROM rodents_visits WHERE id_visit = :id")
     void DeleteAllRodentsVisitsByVisit(Integer id);
 
+    /** NEW QUERY FOR BUGFIX */
+    @Query ("DELETE FROM rodents_visits WHERE id_visit = :id AND id_rodent = :id_rodent")
+    void DeleteAllRodentsVisitsByVisitAndRodent(Integer id, Integer id_rodent);
+
 
     /** visit - vet */
     @Transaction
     @Query ("SELECT vets.name FROM vets\n" +
-            "LEFT JOIN visits  ON (vets.id_vet = visits.id_vet)\n" +
+            "JOIN visits  ON (vets.id_vet = visits.id_vet)\n" +
             "WHERE visits.id_vet = :id_vet")
     String getVetByVisitId(Integer id_vet);
 
 
     @Transaction
     @Query ("SELECT rodents.name1 FROM rodents\n" +
-            "LEFT JOIN visits  ON (rodents_visits.id_visit = visits.id_visit)\n" +
-            "LEFT JOIN rodents_visits ON (rodents.id_rodent = rodents_visits.id_rodent)\n" +
+            "JOIN visits  ON (rodents_visits.id_visit = visits.id_visit)\n" +
+            "JOIN rodents_visits ON (rodents.id_rodent = rodents_visits.id_rodent)\n" +
             "WHERE visits.id_visit = :id_visit")
     List<String> test1(Integer id_visit);
 

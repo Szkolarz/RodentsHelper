@@ -18,10 +18,13 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
@@ -38,8 +41,9 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
-public class AddMedicaments extends Activity {
+public class AddMedicaments extends AppCompatActivity {
 
     EditText editTextName_med, editTextDescription_med, editTextPeriodicity_med;
     TextView textViewDateStart_med, textViewDateEnd_med, textViewDate1_hidden, textViewDate2_hidden,
@@ -80,6 +84,10 @@ public class AddMedicaments extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medicaments_item_list);
+
+        LinearLayout linearLayoutToolbar = findViewById(R.id.linearLayoutToolbar);
+        linearLayoutToolbar.setVisibility(View.VISIBLE);
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
 
         editTextName_med = findViewById(R.id.editTextName_med);
         editTextDescription_med = findViewById(R.id.editTextDescription_med);
@@ -127,7 +135,7 @@ public class AddMedicaments extends Activity {
         // on below line we are setting adapter for our list view.
         listViewMed.setAdapter(adapter);
 
-        setVisibilityByFlag();
+        setVisibilityByFlag(toolbar);
 
 
         if (FlagSetup.getFlagMedAdd() == 0) {
@@ -275,6 +283,11 @@ public class AddMedicaments extends Activity {
             }
         });
 
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().show();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
 
     }
 
@@ -381,9 +394,10 @@ public class AddMedicaments extends Activity {
     }
 
 
-    public void setVisibilityByFlag() {
+    public void setVisibilityByFlag(Toolbar toolbar) {
         //2 = static pet relation
         if (FlagSetup.getFlagMedAdd() == 2) {
+            toolbar.setTitle("Dodawanie leku");
             checkBoxMed.setVisibility(View.GONE);
 
             buttonAdd_med.setVisibility(View.VISIBLE);
@@ -394,8 +408,9 @@ public class AddMedicaments extends Activity {
             textViewRodentRelationsInfo_med.setVisibility(View.GONE);
         }
 
-        // 1 = adding new vet
+        // 1 = adding new medicament
         if (FlagSetup.getFlagMedAdd() == 1) {
+            toolbar.setTitle("Dodawanie leku");
             buttonAdd_med.setVisibility(View.VISIBLE);
             buttonEdit_med.setVisibility(View.GONE);
             buttonDelete_med.setVisibility(View.GONE);
@@ -406,6 +421,7 @@ public class AddMedicaments extends Activity {
 
         // 0 = edit
         if (FlagSetup.getFlagMedAdd() == 0) {
+            toolbar.setTitle("Edytowanie leku");
             buttonAdd_med.setVisibility(View.GONE);
             buttonEdit_med.setVisibility(View.GONE);
             buttonDelete_med.setVisibility(View.GONE);

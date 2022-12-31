@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
@@ -30,6 +31,7 @@ import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AddVets extends AppCompatActivity {
 
@@ -70,6 +72,10 @@ public class AddVets extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vets_item_list);
+
+        LinearLayout linearLayoutToolbar = findViewById(R.id.linearLayoutToolbar);
+        linearLayoutToolbar.setVisibility(View.VISIBLE);
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
 
         buttonAdd_vet = findViewById(R.id.buttonAdd_vet);
         buttonEdit_vet = findViewById(R.id.buttonEdit_vet);
@@ -115,7 +121,7 @@ public class AddVets extends AppCompatActivity {
 
 
 
-        setVisibilityByFlag();
+        setVisibilityByFlag(toolbar);
 
 
         if (FlagSetup.getFlagVetAdd() == 0) {
@@ -229,6 +235,13 @@ public class AddVets extends AppCompatActivity {
                 saveVet();
             }
         });
+
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().show();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
+
     }
 
     public void listActions() {
@@ -312,9 +325,10 @@ public class AddVets extends AppCompatActivity {
         }
     }
 
-    public void setVisibilityByFlag() {
+    public void setVisibilityByFlag(Toolbar toolbar) {
         //2 = static pet relation
         if (FlagSetup.getFlagVetAdd() == 2) {
+            toolbar.setTitle("Dodawanie weterynarza");
             checkBoxVet.setVisibility(View.GONE);
             buttonAdd_vet.setVisibility(View.VISIBLE);
             buttonEdit_vet.setVisibility(View.GONE);
@@ -324,6 +338,7 @@ public class AddVets extends AppCompatActivity {
 
         // 1 = adding new vet
         if (FlagSetup.getFlagVetAdd() == 1) {
+            toolbar.setTitle("Dodawanie weterynarza");
             buttonAdd_vet.setVisibility(View.VISIBLE);
             buttonEdit_vet.setVisibility(View.GONE);
             buttonDelete_vet.setVisibility(View.GONE);
@@ -332,6 +347,7 @@ public class AddVets extends AppCompatActivity {
 
         // 0 = edit
         if (FlagSetup.getFlagVetAdd() == 0) {
+            toolbar.setTitle("Edytowanie weterynarza");
             buttonSaveEdit_vet.setVisibility(View.VISIBLE);
             buttonAdd_vet.setVisibility(View.GONE);
             buttonEdit_vet.setVisibility(View.GONE);

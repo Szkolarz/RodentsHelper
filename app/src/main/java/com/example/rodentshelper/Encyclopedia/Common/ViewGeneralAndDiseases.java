@@ -1,5 +1,6 @@
 package com.example.rodentshelper.Encyclopedia.Common;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,11 +27,14 @@ import com.example.rodentshelper.Encyclopedia.Diseases.DiseasesModel;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
 import com.example.rodentshelper.Encyclopedia.General.AdapterGeneral;
 import com.example.rodentshelper.Encyclopedia.General.GeneralModel;
+import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOEncyclopedia;
+import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ViewGeneralAndDiseases extends AppCompatActivity  {
 
@@ -41,6 +46,8 @@ public class ViewGeneralAndDiseases extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.general_with_photo);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
         TextView textView2_encyclopedia;
@@ -78,6 +85,7 @@ public class ViewGeneralAndDiseases extends AppCompatActivity  {
 
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 1) {
+            toolbar.setTitle("Ogólne informacje");
             List<GeneralModel> generalModel = insertRecords.getListOfRecords(getApplicationContext());
             cardView_treats.setVisibility(View.VISIBLE);
 
@@ -89,15 +97,21 @@ public class ViewGeneralAndDiseases extends AppCompatActivity  {
             textViewDesc_general.setText(generalModel.get(0).getDescription());
             getRoomData();
         } else {
+            toolbar.setTitle("Spis chorób");
             List<DiseasesModel> diseasesModel = insertRecords.getListOfRecords(getApplicationContext());
             textViewName_general.setText("Choroby");
-            linearLayout_general.setBackgroundColor(Color.parseColor("#E7F4B9"));
-            view_general.setBackgroundColor(Color.parseColor("#ebf05d"));
+            linearLayout_general.setBackgroundColor(Color.parseColor("#f6fad4"));
+            view_general.setBackgroundColor(Color.parseColor("#f3ff8c"));
 
             textViewDesc_general.setText(diseasesModel.get(0).getDescription());
             getRoomData();
         }
 
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().show();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
 

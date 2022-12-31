@@ -24,6 +24,14 @@ public class NotesModel {
     @ColumnInfo(name = "content")
     private String content;
 
+    @TypeConverters(Converters.class)
+    @ColumnInfo(name = "create_date")
+    private Date create_date;
+
+    @TypeConverters(Converters.class)
+    @ColumnInfo(name = "edit_date")
+    private Date edit_date;
+
 
     public NotesModel(Integer id_rodent, String topic, String content) {
         this.id_rodent = id_rodent;
@@ -62,5 +70,21 @@ public class NotesModel {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
+    }
+
+    public Date getEdit_date() {
+        return edit_date;
+    }
+
+    public void setEdit_date(Date edit_date) {
+        this.edit_date = edit_date;
     }
 }

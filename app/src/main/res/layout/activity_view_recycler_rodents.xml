@@ -16,9 +16,8 @@
         android:orientation="vertical">
 
         <include
-            android:id="@+id/app_bar"
-            layout="@layout/app_bar"
-            >
+            android:id="@+id/app_bar_rodents"
+            layout="@layout/app_bar_rodents">
 
         </include>
 
@@ -67,8 +66,8 @@
 
     <androidx.cardview.widget.CardView
 
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:layout_centerVertical="true"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="28dp"
@@ -85,7 +84,7 @@
             android:id="@+id/buttonAddRecord"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="5dp"
             android:background="@drawable/roundbutton"
             android:fitsSystemWindows="false"
             android:gravity="center"

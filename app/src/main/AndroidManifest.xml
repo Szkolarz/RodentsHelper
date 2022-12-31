@@ -116,7 +116,7 @@
             android:name=".MainViews.GoogleMaps.GoogleMaps"
             android:exported="true" />
         <activity
-            android:name=".Encyclopedia.Common.ViewEncyclopediaData"
+            android:name=".Encyclopedia.Common.ViewCagesupplyAndTreats"
             android:exported="true" />
         <activity
             android:name=".Encyclopedia.Common.ViewGeneralAndDiseases"

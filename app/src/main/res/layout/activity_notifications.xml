@@ -13,6 +13,11 @@
         android:gravity="bottom"
         android:orientation="vertical">
 
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/app_bar_global">
+        </include>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -25,16 +30,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_margin="6dp"
-                android:background="#048FCD" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp">
 
                 <ImageButton
                     android:id="@+id/imageButtonQuestion_notifications1"

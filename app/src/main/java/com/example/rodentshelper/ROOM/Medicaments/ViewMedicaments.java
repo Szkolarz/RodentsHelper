@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -32,6 +33,7 @@ import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCross
 
 
 import java.util.List;
+import java.util.Objects;
 
 public class ViewMedicaments extends AppCompatActivity {
 
@@ -39,6 +41,8 @@ public class ViewMedicaments extends AppCompatActivity {
     Button buttonAddRecord;
 
     TextView textViewEmpty_med, textView3_health, textView1_rodent;
+
+    private Toolbar toolbar;
 
     private AppDatabase getAppDatabase () {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -55,6 +59,8 @@ public class ViewMedicaments extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recycler);
+
+        toolbar = findViewById(R.id.toolbar_main);
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
 
@@ -105,6 +111,11 @@ public class ViewMedicaments extends AppCompatActivity {
             }
         });
 
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().show();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     public void addNewMedicament()
@@ -139,10 +150,12 @@ public class ViewMedicaments extends AppCompatActivity {
         List<MedicamentWithRodentsCrossRef> medicamentModel = null;
 
         if (FlagSetup.getFlagMedAdd() == 2) {
+            toolbar.setTitle("Leki pupila");
             SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
             medicamentModel = getDaoMedicaments().getMedsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
         }
         else {
+            toolbar.setTitle("Leki");
             medicamentModel = getDaoMedicaments().getMedsWithRodents();
             FlagSetup.setFlagMedAdd(1);
         }

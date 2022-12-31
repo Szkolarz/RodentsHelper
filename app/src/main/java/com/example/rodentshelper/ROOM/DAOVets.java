@@ -48,8 +48,8 @@ public interface DAOVets {
 
     @Transaction
     @Query ("SELECT vets.id_vet, vets.name, vets.address, vets.phone_number, vets.notes FROM vets\n" +
-            "LEFT JOIN rodents  ON (RodentVetModel.id_vet = vets.id_vet)\n" +
-            "LEFT JOIN RodentVetModel ON (rodents.id_rodent = RodentVetModel.id_rodent)\n" +
+            "JOIN rodents  ON (RodentVetModel.id_vet = vets.id_vet)\n" +
+            "JOIN RodentVetModel ON (rodents.id_rodent = RodentVetModel.id_rodent)\n" +
             "WHERE rodents.id_rodent = :id")
     List<VetWithRodentsCrossRef> getVetsWithRodentsWhereIdRodent(Integer id);
 

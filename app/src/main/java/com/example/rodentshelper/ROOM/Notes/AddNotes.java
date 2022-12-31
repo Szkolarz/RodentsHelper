@@ -8,7 +8,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
@@ -19,7 +22,9 @@ import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
 import com.example.rodentshelper.ROOM.DAONotes;
 
-public class AddNotes extends Activity {
+import java.util.Objects;
+
+public class AddNotes extends AppCompatActivity {
 
     EditText editTextTopic_notes, editTextContent_notes;
     Button buttonEdit_notes, buttonAdd_notes, buttonSaveEdit_notes, buttonDelete_notes;
@@ -30,6 +35,10 @@ public class AddNotes extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notes_item_list);
+
+        LinearLayout linearLayoutToolbar = findViewById(R.id.linearLayoutToolbar);
+        linearLayoutToolbar.setVisibility(View.VISIBLE);
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
 
         editTextTopic_notes = findViewById(R.id.editTextTopic_notes);
         editTextContent_notes = findViewById(R.id.editTextContent_notes);
@@ -52,11 +61,13 @@ public class AddNotes extends Activity {
             buttonEdit_notes.setVisibility(View.GONE);
             buttonDelete_notes.setVisibility(View.GONE);
             buttonSaveEdit_notes.setVisibility(View.GONE);
+            toolbar.setTitle("Dodawanie notatki");
         } else {
             buttonAdd_notes.setVisibility(View.GONE);
             buttonEdit_notes.setVisibility(View.GONE);
             buttonDelete_notes.setVisibility(View.GONE);
             buttonSaveEdit_notes.setVisibility(View.VISIBLE);
+            toolbar.setTitle("Edycja notatki");
 
 
             Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
@@ -87,7 +98,11 @@ public class AddNotes extends Activity {
             }
         });
 
-
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().show();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
 

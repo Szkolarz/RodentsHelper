@@ -19,14 +19,29 @@
         <item name="android:background">#5397DF</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorControlNormal">#0375a8</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+
+    </style>
+
+
+
+    <style name="CustomToolbarAdditional" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">#5397DF</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorControlNormal">#0375a8</item>
+        <item name="android:textColorPrimary">#014D70</item>
+
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">24sp</item>
     </style>
 
     <style name="CustomPopupToolbar" parent="Theme.AppCompat.Light.NoActionBar">
-
         <item name="overlapAnchor">false</item>
         <item name="android:dropDownVerticalOffset">-4dp</item>
-
-
     </style>
 
     <style name="AlertDialogStyle" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">

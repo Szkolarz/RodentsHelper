@@ -19,12 +19,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import com.example.rodentshelper.FlagSetup;
@@ -45,8 +48,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
-public class AddVisits extends Activity {
+public class AddVisits extends AppCompatActivity {
 
     EditText editTextReason_visit;
     TextView textViewDate_visit, textViewTime_visit, textViewDate1_visitHidden,
@@ -84,6 +88,10 @@ public class AddVisits extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.visits_item_list);
+
+        LinearLayout linearLayoutToolbar = findViewById(R.id.linearLayoutToolbar);
+        linearLayoutToolbar.setVisibility(View.VISIBLE);
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
 
         editTextReason_visit = findViewById(R.id.editTextReason_visit);
 
@@ -155,7 +163,7 @@ public class AddVisits extends Activity {
         listViewVisit.setAdapter(adapter);
         listViewVisit2.setAdapter(adapter2);
 
-        setVisibilityByFlag();
+        setVisibilityByFlag(toolbar);
 
 
         //EDIT
@@ -320,6 +328,12 @@ public class AddVisits extends Activity {
             }
         });
 
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().show();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
+
     }
 
 
@@ -453,7 +467,11 @@ public class AddVisits extends Activity {
                 getDaoVisits().SetVisitsIdVetNull(Integer.valueOf(id_vetKey));
         }
 
-        getDaoVisits().DeleteAllRodentsVisitsByVisit(idKey);
+        for (int i=0; i<arrayListID2.size(); i++) {
+            getDaoVisits().DeleteAllRodentsVisitsByVisitAndRodent(idKey, arrayListID2.get(i));
+        }
+
+
 
         getRodentVisit(getDaoVisits(), arrayListSelected2, arrayListID2);
 
@@ -544,11 +562,11 @@ public class AddVisits extends Activity {
     }
 
 
-    public void setVisibilityByFlag() {
+    public void setVisibilityByFlag(Toolbar toolbar) {
         //2 = static pet relation
         if (FlagSetup.getFlagVisitAdd() == 2) {
-            checkBoxVisit1.setVisibility(View.GONE);
-
+            toolbar.setTitle("Dodawanie wizyty");
+            checkBoxVisit2.setVisibility(View.GONE);
             buttonAdd_visit.setVisibility(View.VISIBLE);
             buttonEdit_visit.setVisibility(View.GONE);
             buttonDelete_visit.setVisibility(View.GONE);
@@ -559,6 +577,7 @@ public class AddVisits extends Activity {
 
         // 1 = adding new vet
         if (FlagSetup.getFlagVisitAdd() == 1) {
+            toolbar.setTitle("Dodawanie wizyty");
             buttonAdd_visit.setVisibility(View.VISIBLE);
             buttonEdit_visit.setVisibility(View.GONE);
             buttonDelete_visit.setVisibility(View.GONE);
@@ -569,6 +588,7 @@ public class AddVisits extends Activity {
 
         // 0 = edit
         if (FlagSetup.getFlagVisitAdd() == 0) {
+            toolbar.setTitle("Edytowanie wizyty");
             buttonAdd_visit.setVisibility(View.GONE);
             buttonEdit_visit.setVisibility(View.GONE);
             buttonDelete_visit.setVisibility(View.GONE);

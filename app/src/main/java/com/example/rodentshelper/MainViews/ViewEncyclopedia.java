@@ -7,13 +7,18 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
@@ -22,7 +27,7 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.Encyclopedia.Common.ViewGeneralAndDiseases;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
 import com.example.rodentshelper.Encyclopedia.InternetCheckEncyclopedia;
-import com.example.rodentshelper.Encyclopedia.Common.ViewEncyclopediaData;
+import com.example.rodentshelper.Encyclopedia.Common.ViewCagesupplyAndTreats;
 import com.example.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
@@ -30,6 +35,7 @@ import com.example.rodentshelper.ROOM.Vet.ViewVets;
 import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class ViewEncyclopedia extends AppCompatActivity {
@@ -41,9 +47,45 @@ public class ViewEncyclopedia extends AppCompatActivity {
     LinearLayout linearLayout_encyclopedia;
 
     @Override
+    public boolean onCreateOptionsMenu (Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_toolbar_encyclopedia, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.update_encyclopedia:
+
+                //finish();
+                break;
+            default:
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encyclopedia);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        toolbar.setTitle("Encyklopedia");
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewEncyclopedia.this, ViewRodents.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
 
@@ -137,14 +179,14 @@ public class ViewEncyclopedia extends AppCompatActivity {
     public void viewTreats()
     {
         FragmentFlag.setEncyclopediaTypeFlag(2);
-        Intent intent = new Intent(ViewEncyclopedia.this, ViewEncyclopediaData.class);
+        Intent intent = new Intent(ViewEncyclopedia.this, ViewCagesupplyAndTreats.class);
         startActivity(intent);
     }
 
     public void viewCageSupply()
     {
         FragmentFlag.setEncyclopediaTypeFlag(3);
-        Intent intent = new Intent(ViewEncyclopedia.this, ViewEncyclopediaData.class);
+        Intent intent = new Intent(ViewEncyclopedia.this, ViewCagesupplyAndTreats.class);
         startActivity(intent);
     }
 

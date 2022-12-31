@@ -26,12 +26,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.rodentshelper.ImageCompress;
 import com.example.rodentshelper.MainViews.ViewEncyclopedia;
+import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
@@ -52,8 +55,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Objects;
 
-
-public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+//AppCompatActivity extends FragmentActivity; there has to be AppCompat, cause of Toolbar
+public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     TextView tt, textViewName_map, textViewAddress_map, textViewPhone_map;
     Button buttonAddVet_map, buttonLoadMap_map;
@@ -133,6 +136,13 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vet_map);
 
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        toolbar.setTitle("Mapa weterynarzy");
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
