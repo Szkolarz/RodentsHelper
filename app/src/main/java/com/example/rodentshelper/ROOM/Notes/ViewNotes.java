@@ -1,5 +1,6 @@
 package com.example.rodentshelper.ROOM.Notes;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,13 +25,18 @@ import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.MainViews.ViewOther;
+import com.example.rodentshelper.ROOM.DateFormat;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotes;
 import com.example.rodentshelper.ROOM._MTM._RodentNotes.RodentWithNotes;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class ViewNotes extends AppCompatActivity {
@@ -38,7 +44,8 @@ public class ViewNotes extends AppCompatActivity {
     RecyclerView recyclerView;
     Button buttonAddRecord;
 
-    TextView textViewEmpty, textView1_rodent;
+    TextView textViewEmpty, textView1_rodent, textViewDate_notes, textViewDateHidden_notes;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
 
 
     @Override
@@ -85,6 +92,10 @@ public class ViewNotes extends AppCompatActivity {
             textViewEmpty.setText("Nie ma żadnych pozycji w bazie danych. Aby dodać nową notatkę, " +
                     "kliknij przycisk z plusikiem na górze ekranu.");
         }
+
+        textViewDate_notes = findViewById(R.id.textViewDate_notes);
+        textViewDateHidden_notes = findViewById(R.id.textViewDateHidden_notes);
+
 
         buttonAddRecord.setOnClickListener(view -> addNewNote());
     }

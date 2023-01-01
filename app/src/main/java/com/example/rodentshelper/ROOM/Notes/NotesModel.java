@@ -33,10 +33,12 @@ public class NotesModel {
     private Date edit_date;
 
 
-    public NotesModel(Integer id_rodent, String topic, String content) {
+    public NotesModel(Integer id_rodent, String topic, String content, Date create_date, Date edit_date) {
         this.id_rodent = id_rodent;
         this.topic = topic;
         this.content = content;
+        this.create_date = create_date;
+        this.edit_date = edit_date;
     }
 
 

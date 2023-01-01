@@ -45,7 +45,8 @@
             android:id="@+id/editTextTopic_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:hint="Temat notatki"
             android:maxLines="2"
             android:textColor="#014D70"
@@ -79,13 +80,53 @@
         <EditText
             android:id="@+id/editTextContent_notes"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="20dp"
+            android:layout_height="match_parent"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeMaxTextSize="100sp"
+            android:autoSizeStepGranularity="2sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:hint="Treść notatki"
-            android:maxLines="15"
+            android:maxLines="20"
             android:textColor="#014D70"
             android:textSize="24sp" />
 
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Data utworzenia notatki:"
+            android:textColor="#014D70"
+            android:textColorHint="#77147A"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textViewDate_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="left"
+            android:text="date of creation"
+            android:textColor="#014D70"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textViewDateHidden_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="left"
+            android:text="date of creation"
+            android:textColor="#014D70"
+            android:textSize="20sp"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"

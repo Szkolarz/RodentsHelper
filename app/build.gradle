@@ -55,4 +55,6 @@ dependencies {
 
     implementation 'androidx.work:work-runtime:2.7.1'
     implementation 'com.google.guava:guava:27.0.1-android'
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 }

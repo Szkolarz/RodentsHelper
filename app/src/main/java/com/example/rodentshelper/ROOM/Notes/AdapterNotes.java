@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotes;
+import com.example.rodentshelper.ROOM.DateFormat;
 import com.example.rodentshelper.ROOM._MTM._RodentNotes.RodentWithNotes;
 
 
@@ -58,6 +60,8 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
 
         holder.editTextTopic_notes.setText(notesModel.get(position).notesModel.getTopic());
         holder.editTextContent_notes.setText(notesModel.get(position).notesModel.getContent());
+        holder.textViewDate_notes.setText(DateFormat.formatDate( notesModel.get(position).notesModel.getCreate_date()));
+
 
 
         if (notesModel.get(position).notesModel.getTopic().equals(""))
@@ -66,9 +70,7 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
             holder.editTextTopic_notes.setText(notesModel.get(position).notesModel.getTopic().toString());
 
 
-        AppDatabase db = Room.databaseBuilder(holder.editTextTopic_notes.getContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAONotes dao = db.daoNotes();
+
 
 
 
@@ -87,6 +89,7 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
                   intent.putExtra("id_animalKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).notesModel.getId_rodent()));
                   intent.putExtra("topicKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).notesModel.getTopic()));
                   intent.putExtra("contentKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).notesModel.getContent()));
+                  intent.putExtra("create_dateKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).notesModel.getCreate_date()));
 
                   //0 = edit
                   FlagSetup.setFlagNotesAdd(0);
@@ -95,7 +98,7 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
           });
 
         holder.arrayListSelected.clear();
-        db.close();
+
     }
 
     /** usuwanie **/
@@ -149,6 +152,7 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
 
         EditText editTextTopic_notes, editTextContent_notes;
         Button buttonEdit_notes, buttonAdd_notes, buttonSaveEdit_notes, buttonDelete_notes;
+        TextView textViewDate_notes;
 
 
         private ArrayList<String> arrayListSelected;
@@ -158,6 +162,7 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
 
             editTextTopic_notes = itemView.findViewById(R.id.editTextTopic_notes);
             editTextContent_notes = itemView.findViewById(R.id.editTextContent_notes);
+            textViewDate_notes = itemView.findViewById(R.id.textViewDate_notes);
 
             buttonEdit_notes = itemView.findViewById(R.id.buttonEdit_notes);
             buttonAdd_notes = itemView.findViewById(R.id.buttonAdd_notes);

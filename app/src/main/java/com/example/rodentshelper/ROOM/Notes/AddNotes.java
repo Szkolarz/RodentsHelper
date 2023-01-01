@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,12 +17,17 @@ import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
+import com.example.rodentshelper.ROOM.DateFormat;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
 import com.example.rodentshelper.ROOM.DAONotes;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class AddNotes extends AppCompatActivity {
@@ -36,6 +42,8 @@ public class AddNotes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notes_item_list);
 
+        TextView textViewDate_notes, textViewDateHidden_notes;
+
         LinearLayout linearLayoutToolbar = findViewById(R.id.linearLayoutToolbar);
         linearLayoutToolbar.setVisibility(View.VISIBLE);
         Toolbar toolbar = findViewById(R.id.toolbar_main);
@@ -48,11 +56,8 @@ public class AddNotes extends AppCompatActivity {
         buttonSaveEdit_notes = findViewById(R.id.buttonSaveEdit_notes);
         buttonDelete_notes = findViewById(R.id.buttonDelete_notes);
 
-
-
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAO vetDao = db.dao();
+        textViewDate_notes = findViewById(R.id.textViewDate_notes);
+        textViewDateHidden_notes = findViewById(R.id.textViewDateHidden_notes);
 
 
 
@@ -62,6 +67,13 @@ public class AddNotes extends AppCompatActivity {
             buttonDelete_notes.setVisibility(View.GONE);
             buttonSaveEdit_notes.setVisibility(View.GONE);
             toolbar.setTitle("Dodawanie notatki");
+
+            Date dateGet = Calendar.getInstance().getTime();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String formattedDate = df.format(dateGet);
+            textViewDateHidden_notes.setText(formattedDate);
+            textViewDate_notes.setText(DateFormat.formatDate(java.sql.Date.valueOf(formattedDate)));
+
         } else {
             buttonAdd_notes.setVisibility(View.GONE);
             buttonEdit_notes.setVisibility(View.GONE);
@@ -74,10 +86,12 @@ public class AddNotes extends AppCompatActivity {
             String id_animalKey = (getIntent().getStringExtra("id_animalKey"));
             String topicKey = getIntent().getStringExtra("topicKey");
             String contentKey = getIntent().getStringExtra("contentKey");
+            String create_dateKey = getIntent().getStringExtra("create_dateKey");
 
 
             editTextTopic_notes.setText(topicKey);
             editTextContent_notes.setText(contentKey);
+            textViewDate_notes.setText( DateFormat.formatDate(java.sql.Date.valueOf(create_dateKey)));
 
 
 
@@ -94,7 +108,7 @@ public class AddNotes extends AppCompatActivity {
         buttonAdd_notes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveNotes();
+                saveNotes(textViewDateHidden_notes);
             }
         });
 
@@ -108,7 +122,7 @@ public class AddNotes extends AppCompatActivity {
 
 
 
-    public void saveNotes() {
+    public void saveNotes(TextView textViewDateHidden_notes) {
 
         String topicKey = editTextTopic_notes.getText().toString();
         String contentKey = editTextContent_notes.getText().toString();
@@ -125,7 +139,8 @@ public class AddNotes extends AppCompatActivity {
 
             SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
 
-            dao.insertRecordNotes(new NotesModel(prefsGetRodentId.getInt("rodentId", 0), topicKey, contentKey));
+            dao.insertRecordNotes(new NotesModel(prefsGetRodentId.getInt("rodentId", 0), topicKey, contentKey,
+                    java.sql.Date.valueOf(textViewDateHidden_notes.getText().toString()), null));
             System.out.println("DODANO");
             viewNotes();
         }

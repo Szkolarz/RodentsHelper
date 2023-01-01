@@ -35,7 +35,7 @@ public interface DAONotes {
 
 
     @Transaction
-    @Query("SELECT * FROM notes WHERE id_rodent = :id_rodent ORDER BY id_notes ASC")
+    @Query("SELECT * FROM notes WHERE id_rodent = :id_rodent ORDER BY create_date DESC")
     public List<RodentWithNotes> getRodentWithNotes(Integer id_rodent);
 
 }
