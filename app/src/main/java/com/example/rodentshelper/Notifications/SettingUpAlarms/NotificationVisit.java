@@ -97,7 +97,7 @@ public class NotificationVisit {
                System.out.println(minute + " minuta");
 
 
-               alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+               alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                        pendingIntent);
 
 

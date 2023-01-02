@@ -100,7 +100,7 @@ public class NotificationWeight {
            //it will work on every device
            /*alarmManager.setWindow(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                    10000 * 60, pendingIntent);*/
-           alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+           alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     pendingIntent);
 
            System.out.println(requestCode + " WAZENIE REQUEST");

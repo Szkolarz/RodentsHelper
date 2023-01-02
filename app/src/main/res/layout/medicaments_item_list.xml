@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#ACC5E1">
 
 
@@ -14,7 +14,8 @@
         android:layout_height="match_parent"
         android:background="#ACC5E1"
         android:orientation="vertical"
-        tools:context=".ROOM.Vet.ViewVets">
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <LinearLayout
             android:id="@+id/linearLayoutToolbar"
@@ -33,7 +34,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:text="Nazwa lekarstwa:"
             android:textColor="#014D70"
@@ -41,17 +42,34 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/editTextName_med"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:hint="Nazwa leku"
-            android:maxLines="2"
-            android:textColor="#014D70"
-            android:textSize="24sp"
-            android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewRequired_med"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="*"
+                android:textColor="#E12222"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/editTextName_med"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="Nazwa leku"
+                android:maxLines="2"
+                android:textColor="#014D70"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textViewDate1_hidden"
@@ -70,7 +88,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="Opis:"
             android:textColor="#014D70"
             android:textColorHint="#77147A"
@@ -80,7 +99,8 @@
             android:id="@+id/editTextDescription_med"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:hint="Opis"
             android:maxLines="3"
             android:textColor="#014D70"
@@ -90,7 +110,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="Dawkowanie:"
             android:textColor="#014D70"
             android:textColorHint="#77147A"
@@ -100,7 +121,8 @@
             android:id="@+id/editTextPeriodicity_med"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:hint="Dawkowanie"
             android:textColor="#014D70"
             android:textSize="24sp" />
@@ -109,7 +131,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="Data rozpoczęcia dawkowania:"
             android:textColor="#014D70"
@@ -127,19 +149,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:gravity="left"
-                android:text="Data rozpoczęcia dawkowania"
                 android:textColor="#014D70"
                 android:textSize="20sp" />
 
-            <ImageView
-                android:id="@+id/imageViewDate1_med"
+            <ImageButton
+                android:id="@+id/imageButtonDate_med1"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-
-                android:gravity="left"
-                android:src="@android:drawable/arrow_down_float"
-                android:backgroundTint="#048FCD" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/roundbutton_small"
+                android:padding="5dp"
+                android:src="@drawable/ic_calendar_vet1"
+                app:tint="#0A4A97" />
 
             <View
                 android:layout_width="0dp"
@@ -150,7 +171,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="Data zakończenia dawkowania:"
             android:textColor="#014D70"
@@ -169,19 +190,18 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="left"
-                android:text="Data zakończenia dawkowania"
                 android:textColor="#014D70"
                 android:textSize="20sp" />
 
-            <ImageView
-                android:id="@+id/imageViewDate2_med"
+            <ImageButton
+                android:id="@+id/imageButtonDate_med2"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-
-                android:gravity="left"
-                android:src="@android:drawable/arrow_down_float"
-                android:backgroundTint="#048FCD" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/roundbutton_small"
+                android:padding="5dp"
+                android:src="@drawable/ic_calendar_vet1"
+                app:tint="#0A4A97" />
 
             <View
                 android:layout_width="0dp"
@@ -193,7 +213,8 @@
             android:id="@+id/textViewRodentRelationsInfo_med"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:ellipsize="none"
             android:maxLines="8"
             android:text="Zwierzęta biorące lekarstwo:"
@@ -215,18 +236,21 @@
             android:id="@+id/checkBoxMed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
             android:buttonTint="#0375a8"
             android:text="Przypisać lekarstwo do konkretnego pupila?"
             android:textColor="#014D70"
             android:textSize="16sp" />
 
-        <ListView
+
+        <com.example.rodentshelper.CustomListView
             android:id="@+id/listViewMed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:overScrollMode="ifContentScrolls" />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:fillViewport="false"
+            android:overScrollMode="always" />
 
         <LinearLayout
             android:id="@+id/aaad"

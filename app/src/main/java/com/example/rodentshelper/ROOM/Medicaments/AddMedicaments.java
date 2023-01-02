@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -27,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
+import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.ROOM.DAOMedicaments;
 import com.example.rodentshelper.ROOM.DAORodents;
@@ -85,6 +87,9 @@ public class AddMedicaments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medicaments_item_list);
 
+        ImageButton imageButtonDate_med1, imageButtonDate_med2;
+        TextView textViewRequired_med = findViewById(R.id.textViewRequired_med);
+
         LinearLayout linearLayoutToolbar = findViewById(R.id.linearLayoutToolbar);
         linearLayoutToolbar.setVisibility(View.VISIBLE);
         Toolbar toolbar = findViewById(R.id.toolbar_main);
@@ -95,6 +100,8 @@ public class AddMedicaments extends AppCompatActivity {
 
         textViewDateStart_med = findViewById(R.id.textViewDateStart_med);
         textViewDateEnd_med = findViewById(R.id.textViewDateEnd_med);
+        imageButtonDate_med1 = findViewById(R.id.imageButtonDate_med1);
+        imageButtonDate_med2 = findViewById(R.id.imageButtonDate_med2);
         imageViewDate1_med = findViewById(R.id.imageViewDate1_med);
         imageViewDate2_med = findViewById(R.id.imageViewDate2_med);
 
@@ -203,30 +210,37 @@ public class AddMedicaments extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    System.out.println(textViewDate1_hidden.getText().toString());
 
-                    if (textViewDate1_hidden.getText().toString().equals(""))
-                        dateFormat1 = null;
-                    else
-                        dateFormat1 = Date.valueOf(textViewDate1_hidden.getText().toString());
-                    if (textViewDate2_hidden.getText().toString().equals(""))
-                        dateFormat2 = null;
-                    else
-                        dateFormat2 = Date.valueOf(textViewDate2_hidden.getText().toString());
+                    if (editTextName_med.getText().toString().length() <= 0 ) {
+                        textViewRequired_med.setVisibility(View.VISIBLE);
+                        Alerts alert = new Alerts();
+                        alert.alertLackOfData("Należy podać nazwę leku.", AddMedicaments.this);
+                    } else {
 
 
+                        System.out.println(textViewDate1_hidden.getText().toString());
 
-                    getDaoMedicaments().updateMedById(idKey, id_vetKey, editTextName_med.getText().toString(),
-                            editTextDescription_med.getText().toString(), editTextPeriodicity_med.getText().toString(),
-                            dateFormat1, dateFormat2);
+                        if (textViewDate1_hidden.getText().toString().equals(""))
+                            dateFormat1 = null;
+                        else
+                            dateFormat1 = Date.valueOf(textViewDate1_hidden.getText().toString());
+                        if (textViewDate2_hidden.getText().toString().equals(""))
+                            dateFormat2 = null;
+                        else
+                            dateFormat2 = Date.valueOf(textViewDate2_hidden.getText().toString());
 
-                    getDaoMedicaments().DeleteAllRodentsMedsByMed(idKey);
 
-                    getRodentMed(getDaoMedicaments());
+                        getDaoMedicaments().updateMedById(idKey, id_vetKey, editTextName_med.getText().toString(),
+                                editTextDescription_med.getText().toString(), editTextPeriodicity_med.getText().toString(),
+                                dateFormat1, dateFormat2);
 
-                    viewMedicaments();
-                    finish();
+                        getDaoMedicaments().DeleteAllRodentsMedsByMed(idKey);
 
+                        getRodentMed(getDaoMedicaments());
+
+                        viewMedicaments();
+                        finish();
+                    }
 
                 }
             });
@@ -237,6 +251,20 @@ public class AddMedicaments extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 pickDate(dateSetListener1);
+            }
+        });
+
+        imageButtonDate_med1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickDate(dateSetListener1);
+            }
+        });
+
+        imageButtonDate_med2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickDate(dateSetListener2);
             }
         });
 
@@ -279,7 +307,7 @@ public class AddMedicaments extends AppCompatActivity {
         buttonAdd_med.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveMedicament();
+                saveMedicament(textViewRequired_med);
             }
         });
 
@@ -308,7 +336,7 @@ public class AddMedicaments extends AppCompatActivity {
 
 
 
-    public void saveMedicament() {
+    public void saveMedicament(TextView textViewRequired_med) {
 
         String stringName = editTextName_med.getText().toString();
         String stringDescription = editTextDescription_med.getText().toString();
@@ -329,19 +357,10 @@ public class AddMedicaments extends AppCompatActivity {
 
 
         if (stringName.length() <= 0 ) {
-
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setTitle("Nie wpisano wymaganych opcji");
-            alert.setMessage("Należy podać nazwę leku");
-            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(AddMedicaments.this, "Wprowadź wymagane dane", Toast.LENGTH_SHORT).show();
-                }
-            });
-            alert.create().show();
-        }
-        else {
+            textViewRequired_med.setVisibility(View.VISIBLE);
+            Alerts alert = new Alerts();
+            alert.alertLackOfData("Należy podać nazwę leku.", this);
+        } else {
 
             getDaoMedicaments().insertRecordMed(new MedicamentModel(1, stringName, stringDescription, stringPeriodicity, (stringDate1), (stringDate2)));
 

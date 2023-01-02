@@ -73,7 +73,7 @@ public class NotificationFeeding {
            calendar.set(Calendar.SECOND, 0);
 
 
-           alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+           alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     pendingIntent);
 
            daoNotifications.updateNextNotificationTimeFeeding(calendar.getTimeInMillis(), requestCode);

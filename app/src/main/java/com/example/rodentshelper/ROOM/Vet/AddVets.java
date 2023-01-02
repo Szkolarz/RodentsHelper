@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
+import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
@@ -72,6 +73,8 @@ public class AddVets extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vets_item_list);
+
+        TextView textViewRequired_vet = findViewById(R.id.textViewRequired_vet);
 
         LinearLayout linearLayoutToolbar = findViewById(R.id.linearLayoutToolbar);
         linearLayoutToolbar.setVisibility(View.VISIBLE);
@@ -197,20 +200,29 @@ public class AddVets extends AppCompatActivity {
                 public void onClick(View view) {
 
 
-                    AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                            AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                    DAOVets vetDao = db.daoVets();
+                    if (editTextName_vet.getText().toString().length() <= 0) {
+                        textViewRequired_vet.setVisibility(View.VISIBLE);
+                        Alerts alert = new Alerts();
+                        alert.alertLackOfData("Wprowadź nazwę weterynarza", AddVets.this);
+                        Toast.makeText(AddVets.this, "Wprowadź wszystkie dane", Toast.LENGTH_SHORT).show();
+                    } else {
+                        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+                        DAOVets vetDao = db.daoVets();
 
 
-                    vetDao.updateVetById(idKey, editTextName_vet.getText().toString(),
-                            editTextAddress_vet.getText().toString(), editTextPhone_vet.getText().toString(),
-                            editTextNotes_vet.getText().toString());
+                        vetDao.updateVetById(idKey, editTextName_vet.getText().toString(),
+                                editTextAddress_vet.getText().toString(), editTextPhone_vet.getText().toString(),
+                                editTextNotes_vet.getText().toString());
 
-                    vetDao.DeleteAllRodentsVetsByVet(idKey);
+                        vetDao.DeleteAllRodentsVetsByVet(idKey);
 
-                    getSelectedItems(vetDao);
+                        getSelectedItems(vetDao);
 
-                    viewVets();
+                        viewVets();
+
+                        db.close();
+                    }
 
                 }
             });
@@ -232,7 +244,7 @@ public class AddVets extends AppCompatActivity {
         buttonAdd_vet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveVet();
+                saveVet(textViewRequired_vet);
             }
         });
 
@@ -249,7 +261,7 @@ public class AddVets extends AppCompatActivity {
     }
 
 
-    public void saveVet() {
+    public void saveVet(TextView textViewRequired_vet) {
 
         editTextName_vet = findViewById(R.id.editTextName_vet);
         editTextAddress_vet = findViewById(R.id.editTextAddress_vet);
@@ -264,9 +276,11 @@ public class AddVets extends AppCompatActivity {
 
 
         if (stringName.length() <= 0) {
+            textViewRequired_vet.setVisibility(View.VISIBLE);
+            Alerts alert = new Alerts();
+            alert.alertLackOfData("Wprowadź nazwę weterynarza", this);
             Toast.makeText(AddVets.this, "Wprowadź wszystkie dane", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
 
             AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                     AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();

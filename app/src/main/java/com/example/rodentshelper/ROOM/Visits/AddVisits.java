@@ -30,6 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
+import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationVisit;
 import com.example.rodentshelper.ROOM.DAONotifications;
@@ -88,6 +89,8 @@ public class AddVisits extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.visits_item_list);
+
+        TextView textViewRequired_visit = findViewById(R.id.textViewRequired_visit);
 
         LinearLayout linearLayoutToolbar = findViewById(R.id.linearLayoutToolbar);
         linearLayoutToolbar.setVisibility(View.VISIBLE);
@@ -316,15 +319,13 @@ public class AddVisits extends AppCompatActivity {
                     dialog.show();
                 }
 
-
-
             }
         });
 
         buttonAdd_visit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveVisit(arrayListSelected, arrayListID, arrayListSelected2, arrayListID2);
+                saveVisit(arrayListSelected, arrayListID, arrayListSelected2, arrayListID2, textViewRequired_visit);
             }
         });
 
@@ -369,7 +370,8 @@ public class AddVisits extends AppCompatActivity {
 
 
 
-    public void saveVisit(ArrayList<Integer> arrayListSelected, ArrayList<Integer> arrayListID, ArrayList<Integer> arrayListSelected2, ArrayList<Integer> arrayListID2) {
+    public void saveVisit(ArrayList<Integer> arrayListSelected, ArrayList<Integer> arrayListID,
+                          ArrayList<Integer> arrayListSelected2, ArrayList<Integer> arrayListID2, TextView textViewRequired_visit) {
 
         String stringDate1 = dateFormat1;
         String timeKey = textViewTime_visit.getText().toString();
@@ -377,18 +379,12 @@ public class AddVisits extends AppCompatActivity {
 
 
         if (stringDate1 == null ) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setTitle("Nie wpisano wymaganych opcji");
-            alert.setMessage("Należy wpisać datę wizyty");
-            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(AddVisits.this, "Wprowadź wymagane dane", Toast.LENGTH_SHORT).show();
-                }
-            });
-            alert.create().show();
-        }
-        else {
+
+            textViewRequired_visit.setVisibility(View.VISIBLE);
+
+            Alerts alert = new Alerts();
+            alert.alertLackOfData("Należy wpisać datę wizyty.", AddVisits.this);
+        } else {
 
             Integer id_vetKey = getVisitVet(getDaoVets(), arrayListSelected, arrayListID);
 

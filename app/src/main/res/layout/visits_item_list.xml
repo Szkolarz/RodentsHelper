@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#ACC5E1">
 
 
@@ -14,7 +14,9 @@
         android:layout_height="match_parent"
         android:background="#ACC5E1"
         android:orientation="vertical"
-        tools:context=".ROOM.Visits.ViewVisits">
+        tools:context=".ROOM.Visits.ViewVisits"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <LinearLayout
             android:id="@+id/linearLayoutToolbar"
@@ -33,28 +35,45 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="Data wizyty:"
             android:textColor="#014D70"
             android:textColorHint="#77147A"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/textViewDate_visit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:gravity="left"
-            android:text="Ustaw..."
-            android:textColor="#014D70"
-            android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewRequired_visit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="*"
+                android:textColor="#E12222"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textViewDate_visit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:gravity="left"
+                android:text="Ustaw..."
+                android:textColor="#014D70"
+                android:textSize="20sp" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="Godzina:"
             android:textColor="#014D70"
             android:textColorHint="#77147A"
@@ -79,7 +98,7 @@
             android:id="@+id/textViewTime_visit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
             android:gravity="left"
             android:onClick="onClickTime"
@@ -91,7 +110,7 @@
             android:id="@+id/textViewReasonInfo_visit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
             android:text="Cel wizyty:"
             android:textColor="#014D70"
             android:textColorHint="#77147A"
@@ -101,8 +120,8 @@
             android:id="@+id/editTextReason_visit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:hint="Cel wizyty"
             android:maxLines="3"
             android:textColor="#014D70"
@@ -155,7 +174,7 @@
             android:id="@+id/textViewVetRelationsInfo_visit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
             android:ellipsize="none"
             android:maxLines="8"
             android:text="Wizyta u weterynarza:"
@@ -177,7 +196,7 @@
             android:id="@+id/textViewVetRelationsInfo_visit2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
             android:ellipsize="none"
             android:maxLines="8"
             android:text="Zwierzęta zapisane na wizytę:"
@@ -217,12 +236,15 @@
             android:textColor="#014D70"
             android:textSize="16sp" />
 
-        <ListView
+
+        <com.example.rodentshelper.CustomListView
             android:id="@+id/listViewVisit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:overScrollMode="ifContentScrolls" />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:fillViewport="false"
+            android:overScrollMode="always" />
 
         <CheckBox
             android:id="@+id/checkBoxVisit2"
@@ -234,12 +256,15 @@
             android:textColor="#014D70"
             android:textSize="16sp" />
 
-        <ListView
+        <com.example.rodentshelper.CustomListView
             android:id="@+id/listViewVisit2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:overScrollMode="ifContentScrolls" />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:fillViewport="false"
+            android:overScrollMode="always" />
+
 
         <CheckBox
             android:id="@+id/checkBoxVisit3"

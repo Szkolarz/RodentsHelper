@@ -24,6 +24,8 @@ import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
 import com.example.rodentshelper.ROOM.DAONotes;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,7 +44,7 @@ public class AddNotes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notes_item_list);
 
-        TextView textViewDate_notes, textViewDateHidden_notes;
+        TextView textViewDate_notes, textViewDateHidden_notes, textViewRequired_notes;
 
         LinearLayout linearLayoutToolbar = findViewById(R.id.linearLayoutToolbar);
         linearLayoutToolbar.setVisibility(View.VISIBLE);
@@ -58,6 +60,7 @@ public class AddNotes extends AppCompatActivity {
 
         textViewDate_notes = findViewById(R.id.textViewDate_notes);
         textViewDateHidden_notes = findViewById(R.id.textViewDateHidden_notes);
+        textViewRequired_notes = findViewById(R.id.textViewRequired_notes);
 
 
 
@@ -98,7 +101,7 @@ public class AddNotes extends AppCompatActivity {
             buttonSaveEdit_notes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    saveEditNotes();
+                    saveEditNotes(textViewRequired_notes);
                 }
             });
         }
@@ -108,7 +111,7 @@ public class AddNotes extends AppCompatActivity {
         buttonAdd_notes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveNotes(textViewDateHidden_notes);
+                saveNotes(textViewDateHidden_notes, textViewRequired_notes);
             }
         });
 
@@ -122,17 +125,16 @@ public class AddNotes extends AppCompatActivity {
 
 
 
-    public void saveNotes(TextView textViewDateHidden_notes) {
+    public void saveNotes(TextView textViewDateHidden_notes, TextView textViewRequired_notes) {
 
         String topicKey = editTextTopic_notes.getText().toString();
         String contentKey = editTextContent_notes.getText().toString();
 
-
         if (contentKey.equals("") ) {
+            textViewRequired_notes.setVisibility(View.VISIBLE);
             Alerts alert = new Alerts();
             alert.alertLackOfData("Należy wpisać treść notatki", this);
-        }
-        else {
+        } else {
             AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                     AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
             DAONotes dao = db.daoNotes();
@@ -147,15 +149,21 @@ public class AddNotes extends AppCompatActivity {
 
     }
 
-    public void saveEditNotes() {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAONotes dao = db.daoNotes();
+    public void saveEditNotes(TextView textViewRequired_notes) {
+        if (editTextContent_notes.getText().toString().equals("") ) {
+            textViewRequired_notes.setVisibility(View.VISIBLE);
+            Alerts alert = new Alerts();
+            alert.alertLackOfData("Należy wpisać treść notatki", this);
+        } else {
+            AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+            DAONotes dao = db.daoNotes();
 
-        Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
-        dao.updatNotesById(idKey, editTextTopic_notes.getText().toString(), editTextContent_notes.getText().toString());
+            Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
+            dao.updatNotesById(idKey, editTextTopic_notes.getText().toString(), editTextContent_notes.getText().toString());
 
-        viewNotes();
+            viewNotes();
+        }
     }
 
 

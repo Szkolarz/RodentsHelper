@@ -67,8 +67,8 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
         holder.checkBoxMed.setVisibility(View.GONE);
         holder.buttonAdd_med.setVisibility(View.GONE);
         holder.buttonSaveEdit_med.setVisibility(View.GONE);
-        holder.imageViewDate1_med.setVisibility(View.GONE);
-        holder.imageViewDate2_med.setVisibility(View.GONE);
+        holder.imageButtonDate_med1.setVisibility(View.GONE);
+        holder.imageButtonDate_med2.setVisibility(View.GONE);
 
 
         holder.editTextName_med.setText(medicamentModel.get(position).medicamentModel.getName());
@@ -176,7 +176,7 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
            EditText editTextName_med, editTextDescription_med, editTextPeriodicity_med;
            TextView textViewDateStart_med, textViewDateEnd_med, textViewRodentRelations_med, textViewRodentRelationsInfo_med;
            Button buttonEdit_med, buttonAdd_med, buttonSaveEdit_med, buttonDelete_med;
-           ImageView imageViewDate1_med, imageViewDate2_med;
+           ImageView imageButtonDate_med1, imageButtonDate_med2;
            ListView listViewMed;
            CheckBox checkBoxMed;
 
@@ -192,8 +192,8 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
 
             textViewDateStart_med = itemView.findViewById(R.id.textViewDateStart_med);
             textViewDateEnd_med = itemView.findViewById(R.id.textViewDateEnd_med);
-            imageViewDate1_med = itemView.findViewById(R.id.imageViewDate1_med);
-            imageViewDate2_med = itemView.findViewById(R.id.imageViewDate2_med);
+            imageButtonDate_med1 = itemView.findViewById(R.id.imageButtonDate_med1);
+            imageButtonDate_med2 = itemView.findViewById(R.id.imageButtonDate_med2);
 
             buttonEdit_med = itemView.findViewById(R.id.buttonEdit_med);
             buttonAdd_med = itemView.findViewById(R.id.buttonAdd_med);

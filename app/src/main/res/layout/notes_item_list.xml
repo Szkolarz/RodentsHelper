@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#ACC5E1">
 
 
@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:text="Temat:"
             android:textColor="#014D70"
@@ -45,8 +45,8 @@
             android:id="@+id/editTextTopic_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:hint="Temat notatki"
             android:maxLines="2"
             android:textColor="#014D70"
@@ -71,32 +71,49 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="Treść:"
             android:textColor="#014D70"
             android:textColorHint="#77147A"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/editTextContent_notes"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeMaxTextSize="100sp"
-            android:autoSizeStepGranularity="2sp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:hint="Treść notatki"
-            android:maxLines="20"
-            android:textColor="#014D70"
-            android:textSize="24sp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewRequired_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="*"
+                android:textColor="#E12222"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/editTextContent_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:autoSizeMaxTextSize="100sp"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:hint="Treść notatki"
+                android:maxLines="20"
+                android:textColor="#014D70"
+                android:textSize="24sp" />
+        </LinearLayout>
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="Data utworzenia notatki:"
             android:textColor="#014D70"
@@ -107,9 +124,9 @@
             android:id="@+id/textViewDate_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="10dp"
             android:gravity="left"
             android:text="date of creation"
             android:textColor="#014D70"

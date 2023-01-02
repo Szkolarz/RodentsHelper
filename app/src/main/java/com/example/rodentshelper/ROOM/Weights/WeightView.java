@@ -126,7 +126,7 @@ public class WeightView extends AppCompatActivity {
             buttonSaveEdit_weight.setVisibility(View.VISIBLE);
             String weightKey = getIntent().getStringExtra("weightKey");
             String dateKey = getIntent().getStringExtra("dateKey");
-            imageButtonDate_weight.setEnabled(false);
+            imageButtonDate_weight.setVisibility(View.GONE);
 
             System.out.println(dateKey);
 

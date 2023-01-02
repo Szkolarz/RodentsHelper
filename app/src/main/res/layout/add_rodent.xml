@@ -3,18 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ACC5E1"
     tools:context=".ROOM.Rodent.AddRodents">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
+        android:layout_height="0dp"
         android:background="#ACC5E1"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/app_bar"
+                layout="@layout/app_bar_global" />
+
+        </LinearLayout>
 
 
         <LinearLayout
@@ -108,7 +117,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"/>
+                    android:orientation="vertical" />
 
             </LinearLayout>
 
@@ -124,7 +133,7 @@
                 android:id="@+id/textViewRequired_rodent1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:text="*"
                 android:textColor="#E12222"
                 android:textSize="18sp"
@@ -139,7 +148,7 @@
                 android:layout_marginEnd="10dp"
                 android:ems="10"
                 android:hint="Imię twojego pupila"
-                android:maxLength="50"
+                android:maxLength="80"
                 android:textColor="#014D70"
                 android:textColorHint="#707070" />
         </LinearLayout>

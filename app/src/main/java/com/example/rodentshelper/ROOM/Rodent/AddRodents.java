@@ -29,11 +29,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.ImageCompress;
+import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
@@ -44,8 +47,9 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
-public class AddRodents extends Activity {
+public class AddRodents extends AppCompatActivity {
 
     EditText editTextNotes, editTextName, editTextFur;
     Button buttonAdd_rodent, buttonEdit_rodent;
@@ -82,6 +86,8 @@ public class AddRodents extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_rodent);
 
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+
         DAORodents daoRodents = getDao();
 
         editTextName = findViewById(R.id.editTextEditName);
@@ -109,11 +115,13 @@ public class AddRodents extends Activity {
         textViewDate_hidden = findViewById(R.id.textViewDate_hidden);
 
         if (FlagSetup.getFlagRodentAdd() == 1) {
+            toolbar.setTitle("Dodawanie zwierzęcia");
             buttonAdd_rodent.setVisibility(View.VISIBLE);
             buttonEdit_rodent.setVisibility(View.GONE);
             buttonDelete_rodent.setVisibility(View.GONE);
         }
         else {
+            toolbar.setTitle("Edytowanie zwierzęcia");
             buttonAdd_rodent.setVisibility(View.GONE);
             buttonEdit_rodent.setVisibility(View.VISIBLE);
         }
@@ -270,6 +278,16 @@ public class AddRodents extends Activity {
                 startActivity(new Intent(getApplicationContext(), ViewRodents.class));
             }
         });*/
+
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().show();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(AddRodents.this, ViewRodents.class);
+            startActivity(intent);
+            finish();
+        });
 
     }
 
