@@ -28,28 +28,27 @@ public class InsertRecords {
         DAOEncyclopedia daoEncyclopedia = db.daoEncyclopedia();
 
         SharedPreferences prefsFirstStart = context.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
+        Integer prefsRodentId = prefsFirstStart.getInt("prefsFirstStart", 0);
 
-        List<GeneralModel> generalModel;
-        List<TreatsModel> treatsModel;
-        List<CageSupplyModel> cageSupplyModel;
-        List<DiseasesModel> diseasesModel;
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 1) {
-            generalModel = daoEncyclopedia.getGeneralAdditionalInfo(prefsFirstStart.getInt("prefsFirstStart", 0));
+            List<GeneralModel> generalModel = daoEncyclopedia.getGeneralAdditionalInfo(prefsRodentId);
             return generalModel;
         }
         if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
-            treatsModel = daoEncyclopedia.getAllTreats3(prefsFirstStart.getInt("prefsFirstStart", 0));
+            List<TreatsModel> treatsModel = daoEncyclopedia.getAllTreats3(prefsRodentId);
             return treatsModel;
         }
         if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
-            cageSupplyModel = daoEncyclopedia.getCageSupplyAdditionalInfo(prefsFirstStart.getInt("prefsFirstStart", 0));
+            List<CageSupplyModel> cageSupplyModel = daoEncyclopedia.getCageSupplyAdditionalInfo(prefsRodentId);
             return cageSupplyModel;
         }
         if (FragmentFlag.getEncyclopediaTypeFlag() == 4) {
-            diseasesModel = daoEncyclopedia.getDiseasesAdditionalInfo(prefsFirstStart.getInt("prefsFirstStart", 0));
+            List<DiseasesModel> diseasesModel = daoEncyclopedia.getDiseasesAdditionalInfo(prefsRodentId);
             return diseasesModel;
         }
+
+        db.close();
 
         return null;
     }

@@ -1,5 +1,6 @@
 package com.example.rodentshelper.Encyclopedia.Common;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -90,10 +91,19 @@ public class ViewCagesupplyAndTreats extends AppCompatActivity  {
         TextView textViewInfo_encyclopedia = findViewById(R.id.textViewInfo_encyclopedia);
         LinearLayout linearLayout_encyclopedia = findViewById(R.id.linearLayout_encyclopedia);
 
+        SharedPreferences prefsFirstStart = ViewCagesupplyAndTreats.this.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
+        Integer prefsRodentId = prefsFirstStart.getInt("prefsFirstStart", 0);
 
         InsertRecords insertRecords = new InsertRecords();
         if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
-            textViewInfo_encyclopedia.setText("TESTOWY TEKST");
+
+            if (prefsRodentId == 3)
+                textViewInfo_encyclopedia.setText("TESTOWY TEKST3");
+            else if (prefsRodentId == 2)
+                textViewInfo_encyclopedia.setText("TESTOWY TEKST2");
+            else if (prefsRodentId == 1)
+                textViewInfo_encyclopedia.setText("TESTOWY TEKST1");
+
             toolbar.setTitle("Jedzenie");
         } else if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
             toolbar.setTitle("Wyposażenie klatki");

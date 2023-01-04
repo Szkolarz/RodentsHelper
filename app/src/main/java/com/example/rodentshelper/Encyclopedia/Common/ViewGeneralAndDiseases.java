@@ -82,7 +82,8 @@ public class ViewGeneralAndDiseases extends AppCompatActivity  {
 
         InsertRecords insertRecords = new InsertRecords();
 
-
+        SharedPreferences prefsFirstStart = ViewGeneralAndDiseases.this.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
+        Integer prefsRodentId = prefsFirstStart.getInt("prefsFirstStart", 0);
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 1) {
             toolbar.setTitle("Ogólne informacje");
@@ -93,9 +94,15 @@ public class ViewGeneralAndDiseases extends AppCompatActivity  {
                     0, generalModel.get(0).getImage().length);
             imageView_general.setImageBitmap(bitmap);
 
-            textViewName_general.setText("SZYNSZYLA");
+            if (prefsRodentId == 3)
+                textViewName_general.setText("SZYNSZYLA");
+            else if (prefsRodentId == 2)
+                textViewName_general.setText("SZCZUR");
+            else if (prefsRodentId == 1)
+                textViewName_general.setText("ŚWINKA MORSKA");
+
             textViewDesc_general.setText(generalModel.get(0).getDescription());
-            getRoomData();
+            getRoomData(prefsRodentId);
         } else {
             toolbar.setTitle("Spis chorób");
             List<DiseasesModel> diseasesModel = insertRecords.getListOfRecords(getApplicationContext());
@@ -104,7 +111,7 @@ public class ViewGeneralAndDiseases extends AppCompatActivity  {
             view_general.setBackgroundColor(Color.parseColor("#f3ff8c"));
 
             textViewDesc_general.setText(diseasesModel.get(0).getDescription());
-            getRoomData();
+            getRoomData(prefsRodentId);
         }
 
         setSupportActionBar(toolbar);
@@ -115,35 +122,33 @@ public class ViewGeneralAndDiseases extends AppCompatActivity  {
     }
 
 
-    public List getListGeneral(){
+    public List getListGeneral(Integer prefsRodentId){
 
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOEncyclopedia daoEncyclopedia = db.daoEncyclopedia();
 
-        SharedPreferences prefsFirstStart = getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
-        List<GeneralModel> generalModel = daoEncyclopedia.getAllGeneral(prefsFirstStart.getInt("prefsFirstStart", 0));
+        List<GeneralModel> generalModel = daoEncyclopedia.getAllGeneral(prefsRodentId);
 
         db.close();
         return generalModel;
     }
 
-    private List getListDiseases(){
+    private List getListDiseases(Integer prefsRodentId){
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOEncyclopedia daoEncyclopedia = db.daoEncyclopedia();
 
-        SharedPreferences prefsFirstStart = getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
-        List<DiseasesModel> diseasesModel = daoEncyclopedia.getAllDiseases(prefsFirstStart.getInt("prefsFirstStart", 0));
+        List<DiseasesModel> diseasesModel = daoEncyclopedia.getAllDiseases(prefsRodentId);
 
         db.close();
         return diseasesModel;
     }
 
 
-    private void getRoomData() {
+    private void getRoomData(Integer prefsRodentId) {
 
 
 
@@ -153,10 +158,10 @@ public class ViewGeneralAndDiseases extends AppCompatActivity  {
         recyclerView.setLayoutManager(new LinearLayoutManager(ViewGeneralAndDiseases.this));
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 1) {
-            AdapterGeneral adapter = new AdapterGeneral(getListGeneral());
+            AdapterGeneral adapter = new AdapterGeneral(getListGeneral(prefsRodentId));
             recyclerView.setAdapter(adapter);
         } else {
-            AdapterDiseases adapter = new AdapterDiseases(getListDiseases());
+            AdapterDiseases adapter = new AdapterDiseases(getListDiseases(prefsRodentId));
             recyclerView.setAdapter(adapter);
         }
 

@@ -179,14 +179,36 @@
         android:textColorHint="#77147A"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textViewGender_rodent"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="brak"
-        android:textColor="#014D70"
-        android:textSize="24sp" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewGender_rodent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="brak"
+            android:textColor="#014D70"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/imageViewMale_rodent"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="10dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_gender_male" />
+
+        <ImageView
+            android:id="@+id/imageViewFemale_rodent"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="5dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_gender_female" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView5"

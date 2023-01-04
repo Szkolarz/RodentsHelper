@@ -133,7 +133,6 @@ public class AdapterWeights extends RecyclerView.Adapter<AdapterWeights.viewHold
            TextView textViewWeight_view, textViewDate_view;
            ImageView buttonEdit_weight, buttonDelete_weight;
 
-           ImageButton delbtn,edbtn;
            public viewHolder(@NonNull @NotNull View itemView) {
                super(itemView);
 

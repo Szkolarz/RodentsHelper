@@ -210,7 +210,7 @@ android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/table_border"
                         android:gravity="center"
-                        android:text="300 g - 420 g"
+                        android:text="300 g - 480 g"
                         android:textColor="#014D70"
                         android:textSize="16sp" />
 
@@ -239,7 +239,7 @@ android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/table_border"
                         android:gravity="center"
-                        android:text="400 g - 550 g"
+                        android:text="380 g - 560 g"
                         android:textColor="#014D70"
                         android:textSize="16sp" />
 
@@ -268,7 +268,7 @@ android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/table_border"
                         android:gravity="center"
-                        android:text="470 g - 780 g"
+                        android:text="410 g - 780 g"
                         android:textColor="#014D70"
                         android:textSize="16sp" />
 

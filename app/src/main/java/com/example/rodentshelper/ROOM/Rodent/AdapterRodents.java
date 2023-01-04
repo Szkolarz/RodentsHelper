@@ -68,13 +68,15 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
         holder.textViewName.setText(rodentModel.get(position).getName());
         holder.textViewGender.setText(rodentModel.get(position).getGender());
 
-        holder.textViewDate.setText( DateFormat.formatDate(rodentModel.get(position).getBirth()) );
+        if (holder.textViewGender.getText().equals("Samiec"))
+            holder.imageViewMale_rodent.setVisibility(View.VISIBLE);
+        else if (holder.textViewGender.getText().equals("Samica"))
+            holder.imageViewFemale_rodent.setVisibility(View.VISIBLE);
 
+        holder.textViewDate.setText( DateFormat.formatDate(rodentModel.get(position).getBirth()) );
         holder.textViewNotes.setText(rodentModel.get(position).getNotes());
 
-
         int id = rodentModel.get(holder.getAdapterPosition()).getId();
-
 
 
         holder.buttonEdit_rodent.setOnClickListener(new View.OnClickListener() {
@@ -131,12 +133,13 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
            TextView textViewFur_rodentText, textViewNotes_rodentText;
            Button buttonListDelete;
            ImageButton buttonRodentsPetHealth;
-           ImageView buttonEdit_rodent;
-           ImageView imageViewList_rodent;
+           ImageView buttonEdit_rodent, imageViewList_rodent, imageViewMale_rodent, imageViewFemale_rodent;
 
-           ImageButton delbtn,edbtn;
            public viewHolder(@NonNull @NotNull View itemView) {
                super(itemView);
+
+               imageViewMale_rodent = itemView.findViewById(R.id.imageViewMale_rodent);
+               imageViewFemale_rodent = itemView.findViewById(R.id.imageViewFemale_rodent);
 
                textViewName = itemView.findViewById(R.id.textViewName_rodent);
                textViewGender = itemView.findViewById(R.id.textViewGender_rodent);

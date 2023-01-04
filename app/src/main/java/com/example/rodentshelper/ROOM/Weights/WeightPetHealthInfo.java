@@ -70,36 +70,36 @@ public class WeightPetHealthInfo {
             return;
         }
 
-        //300g - 420g
+        //300g - 480g
         if (ageYear == 0 && (ageMonth >= 4 && ageMonth <= 7)) {
-            if (weight >= 300 && weight <= 420)
-                properWeight(textViewInfo_weight, 300, 420);
+            if (weight >= 300 && weight <= 480)
+                properWeight(textViewInfo_weight, 300, 480);
             if (weight < 300)
-                tooLowWeight(textViewInfo_weight, 400, 550);
-            if (weight > 420)
-                tooHighWeight(textViewInfo_weight, 400, 550);
+                tooLowWeight(textViewInfo_weight, 380, 560);
+            if (weight > 480)
+                tooHighWeight(textViewInfo_weight, 380, 560);
             return;
         }
 
-        //400g - 550g
+        //380g - 560g
         if (ageYear == 0 && (ageMonth >= 7 && ageMonth < 12)) {
-            if (weight >= 400 && weight <= 550)
-                properWeight(textViewInfo_weight, 400, 550);
-            if (weight < 400)
-                tooLowWeight(textViewInfo_weight, 400, 550);
-            if (weight > 550)
-                tooHighWeight(textViewInfo_weight, 400, 550);
+            if (weight >= 380 && weight <= 560)
+                properWeight(textViewInfo_weight, 380, 560);
+            if (weight < 380)
+                tooLowWeight(textViewInfo_weight, 380, 560);
+            if (weight > 560)
+                tooHighWeight(textViewInfo_weight, 380, 560);
             return;
         }
 
-        //470g - 780g
+        //410g - 780g
         if (ageYear >= 1) {
-            if (weight >= 470 && weight <= 780)
-                properWeight(textViewInfo_weight, 470, 780);
-            if (weight < 470)
-                tooLowWeight(textViewInfo_weight, 470, 780);
+            if (weight >= 410 && weight <= 780)
+                properWeight(textViewInfo_weight, 410, 780);
+            if (weight < 410)
+                tooLowWeight(textViewInfo_weight, 410, 780);
             if (weight > 780)
-                tooHighWeight(textViewInfo_weight, 470, 780);
+                tooHighWeight(textViewInfo_weight, 410, 780);
         }
 
     }
