@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.rodentshelper.AsyncActivity;
-import com.example.rodentshelper.Notifications.UpdateNotification;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
@@ -26,9 +23,9 @@ public class SplashScreen extends AppCompatActivity {
 
         SharedPreferences prefsFirstStart = getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
-        UpdateNotification updateNotification = new UpdateNotification();
-        updateNotification.checkIfUserHasMissedNotification(SplashScreen.this);
-        updateNotification.checkNotificationPreferences(SplashScreen.this);
+        //UpdateNotification updateNotification = new UpdateNotification();
+       // updateNotification.checkIfUserHasMissedNotification(SplashScreen.this);
+       // updateNotification.checkNotificationPreferences(SplashScreen.this);
 
         AsyncActivity internetAsyncCheck = new AsyncActivity();
         internetAsyncCheck.execute();
@@ -37,6 +34,8 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+
+
 
                 if (prefsFirstStart.getInt("prefsFirstStart", 0) != 0) {
                     Intent intent = new Intent(SplashScreen.this, ViewRodents.class);

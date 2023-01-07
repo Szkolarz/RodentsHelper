@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,14 +28,15 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
+import com.example.rodentshelper.DatabaseManagement.ActivityDatabaseManagement;
+import com.example.rodentshelper.DatabaseManagement.ExportDatabase;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.FirstStart;
-import com.example.rodentshelper.Notifications.FlagSetupFeeding;
-import com.example.rodentshelper.Notifications.UpdateNotification;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAORodents;
 
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
 
@@ -63,6 +63,11 @@ public class ViewRodents extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.database_management_name:
+                Intent intentDb = new Intent(ViewRodents.this, ActivityDatabaseManagement.class);
+                startActivity(intentDb);
+                finish();
+                break;
             case R.id.about_app:
                 break;
             default:
@@ -75,7 +80,6 @@ public class ViewRodents extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recycler_rodents);
-
 
 
         Toolbar toolbar = findViewById(R.id.app_bar_rodents);

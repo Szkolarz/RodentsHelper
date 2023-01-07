@@ -1,5 +1,9 @@
 package com.example.rodentshelper.SQL;
 
+import java.io.File;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -78,6 +82,28 @@ public class Querries implements ConnectionSQL{
     public ResultSet selectCageSupply(Integer id_animal) throws SQLException, InterruptedException {
         Statement stat = connectToVPS().createStatement();
         ResultSet myres = stat.executeQuery("SELECT * from `CageSupply` WHERE id_animal = " + id_animal);
+        connectToVPS().close();
+        return myres;
+    }
+
+
+
+
+    public void exportLocalDatabase(InputStream localData) throws SQLException, InterruptedException {
+        Connection con = connectToVPS();
+        String sql ="INSERT INTO LocalData (`login`, `file`) VALUES (?,?)";
+        PreparedStatement preparedStmt = con.prepareStatement(sql);
+        preparedStmt.setString (1, "a");
+        preparedStmt.setBinaryStream(2, localData);
+
+        preparedStmt.execute();
+
+        connectToVPS().close();
+    }
+
+    public ResultSet importLocalDatabase (String login) throws SQLException, InterruptedException {
+        Statement stat = connectToVPS().createStatement();
+        ResultSet myres = stat.executeQuery("SELECT 'file' from `LocalData` WHERE login = 'ak'");
         connectToVPS().close();
         return myres;
     }

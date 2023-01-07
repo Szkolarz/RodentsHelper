@@ -12,10 +12,17 @@
     </item>
 
     <item
+        android:id="@+id/database_management_name"
+        android:title="@string/database_management_name"
+        app:showAsAction="never">
+    </item>
+
+    <item
         android:id="@+id/about_app"
         android:title="@string/about_app_name"
         app:showAsAction="never">
     </item>
+
 
 
 </menu>

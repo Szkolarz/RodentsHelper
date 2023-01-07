@@ -1,10 +1,18 @@
 package com.example.rodentshelper.ROOM;
 
 import androidx.room.Dao;
+import androidx.room.Insert;
+
+import com.example.rodentshelper.DatabaseManagement.DatabaseManagementModel;
+import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 
 @Dao
 public interface DAO {
 
+
+
+    @Insert
+    void insertRecordDBManagement(DatabaseManagementModel DatabaseManagement);
 
     /** to delete **/
 
