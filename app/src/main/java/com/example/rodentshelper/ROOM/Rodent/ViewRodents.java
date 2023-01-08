@@ -29,14 +29,12 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.DatabaseManagement.ActivityDatabaseManagement;
-import com.example.rodentshelper.DatabaseManagement.ExportDatabase;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.FirstStart;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAORodents;
 
-import java.io.File;
 import java.util.List;
 import java.util.Objects;
 
@@ -185,6 +183,9 @@ public class ViewRodents extends AppCompatActivity {
         DAORodents daoRodents = db.daoRodents();
 
         List<RodentModel> rodentModel = daoRodents.getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
+
+        db.close();
+
 
         return rodentModel;
     }

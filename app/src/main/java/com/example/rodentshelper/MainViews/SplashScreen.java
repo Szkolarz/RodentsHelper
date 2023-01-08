@@ -8,6 +8,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rodentshelper.AsyncActivity;
+import com.example.rodentshelper.Notifications.UpdateNotification;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
@@ -23,9 +24,9 @@ public class SplashScreen extends AppCompatActivity {
 
         SharedPreferences prefsFirstStart = getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
-        //UpdateNotification updateNotification = new UpdateNotification();
-       // updateNotification.checkIfUserHasMissedNotification(SplashScreen.this);
-       // updateNotification.checkNotificationPreferences(SplashScreen.this);
+        UpdateNotification updateNotification = new UpdateNotification();
+        updateNotification.checkIfUserHasMissedNotification(SplashScreen.this);
+        updateNotification.checkNotificationPreferences(SplashScreen.this);
 
         AsyncActivity internetAsyncCheck = new AsyncActivity();
         internetAsyncCheck.execute();

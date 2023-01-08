@@ -93,7 +93,7 @@ public class Querries implements ConnectionSQL{
         Connection con = connectToVPS();
         String sql ="INSERT INTO LocalData (`login`, `file`) VALUES (?,?)";
         PreparedStatement preparedStmt = con.prepareStatement(sql);
-        preparedStmt.setString (1, "a");
+        preparedStmt.setString (1, "ap");
         preparedStmt.setBinaryStream(2, localData);
 
         preparedStmt.execute();
@@ -103,7 +103,7 @@ public class Querries implements ConnectionSQL{
 
     public ResultSet importLocalDatabase (String login) throws SQLException, InterruptedException {
         Statement stat = connectToVPS().createStatement();
-        ResultSet myres = stat.executeQuery("SELECT 'file' from `LocalData` WHERE login = 'ak'");
+        ResultSet myres = stat.executeQuery("SELECT file from `LocalData` WHERE login = '" + login + "'");
         connectToVPS().close();
         return myres;
     }

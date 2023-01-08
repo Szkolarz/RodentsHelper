@@ -28,7 +28,7 @@ import com.example.rodentshelper.ROOM._MTM._RodentVisit.RodentVisitModel;
         NotificationsModel.class,
         TreatsModel.class, CageSupplyModel.class,
         GeneralModel.class, DiseasesModel.class, DatabaseManagementModel.class},
-        version = 4)
+        version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract DAO dao();
     public abstract DAORodents daoRodents();

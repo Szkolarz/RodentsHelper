@@ -73,13 +73,6 @@ public class AddRodents extends AppCompatActivity {
     byte[] byteArray;
 
 
-    private DAORodents getDao () {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAORodents daoRodents = db.daoRodents();
-
-        return daoRodents;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,7 +81,10 @@ public class AddRodents extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar_main);
 
-        DAORodents daoRodents = getDao();
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAORodents daoRodents = db.daoRodents();
+
 
         editTextName = findViewById(R.id.editTextEditName);
         editTextFur = findViewById(R.id.editTextEditFur);
@@ -289,6 +285,8 @@ public class AddRodents extends AppCompatActivity {
             finish();
         });
 
+        db.close();
+
     }
 
     private void onDateClick() {
@@ -397,7 +395,9 @@ public class AddRodents extends AppCompatActivity {
 
     public void saveRodent() {
 
-        DAORodents daoRodents = getDao();
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAORodents daoRodents = db.daoRodents();
 
         String stringName = editTextName.getText().toString();
         String stringDate = dateFormat;
@@ -442,6 +442,8 @@ public class AddRodents extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Pomyślnie dodano", Toast.LENGTH_SHORT).show();
             viewRodents();
         }
+
+        db.close();
 
     }
 

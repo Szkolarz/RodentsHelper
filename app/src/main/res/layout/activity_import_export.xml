@@ -40,6 +40,17 @@
                     tools:context=".ROOM.Medicaments.ViewMedicaments">
 
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:text="Możesz wyeksportować (zapisać w chmurze) wszystkie twoje przechowywane dane w aplikacji, by móc je później zaimportować (załadować z chmury) w dowolnym momencie. Opcja przydaje się, kiedy przykładowo zmieniasz telefon na inny."
+                        android:textColor="#014D70" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -60,6 +71,17 @@
                             android:textColor="#FFFFFF"
                             app:strokeColor="#0375a8"
                             app:strokeWidth="3dp" />
+
+                        <TextView
+                            android:id="@+id/textView1_export_import"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center"
+                            android:text="test"
+                            android:textColor="#014D70"
+                            android:textStyle="bold" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -87,6 +109,17 @@
                             android:textColor="#FFFFFF"
                             app:strokeColor="#0375a8"
                             app:strokeWidth="3dp" />
+
+                        <TextView
+                            android:id="@+id/textView2_export_import"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center"
+                            android:text="test"
+                            android:textColor="#014D70"
+                            android:textStyle="bold" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
