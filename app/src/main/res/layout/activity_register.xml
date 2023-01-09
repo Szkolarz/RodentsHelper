@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:background="#ACC5E1"
+    tools:context=".MainViews.ViewOther">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/app_bar_global">
+        </include>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    tools:context=".ROOM.Medicaments.ViewMedicaments">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#ACC5E1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <EditText
+                            android:id="@+id/editTextLogin_register"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^&amp;*-+=,./?;'\|"
+                            android:drawableStart="@drawable/ic_login"
+                            android:drawablePadding="10dp"
+                            android:drawableTint="#014D70"
+                            android:ems="10"
+                            android:hint="Login"
+                            android:inputType="textFilter"
+                            android:maxLength="24"
+                            android:textColor="#014D70"
+                            android:textColorHint="#707070" />
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="10dp"
+                            android:text="Minimum 4 znaki. Wielkość liter ma znaczenie."
+                            android:textColor="#014D70" />
+
+                        <TextView
+                            android:id="@+id/textViewLoginExists_register"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="Podany login już istnieje. Wpisz inną nazwę."
+                            android:textColor="#D30404"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/textViewLoginTooShort_register"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="Zbyt krótki login."
+                            android:textColor="#D30404"
+                            android:visibility="gone" />
+
+                        <EditText
+                            android:id="@+id/editTextPassword_register"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^&amp;*-+=,./?;'\|"
+                            android:drawableStart="@drawable/ic_password"
+                            android:drawablePadding="10dp"
+                            android:drawableTint="#014D70"
+                            android:ems="10"
+                            android:hint="Hasło"
+                            android:inputType="textPassword"
+                            android:maxLength="24"
+                            android:textColor="#014D70"
+                            android:textColorHint="#707070" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="10dp"
+                            android:text="Minimum 8 znaków; min. 1 litera i 1 cyfra"
+                            android:textColor="#014D70" />
+
+                        <TextView
+                            android:id="@+id/textViewBadPassword_register"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="Nie spełniono powyższych wymagań."
+                            android:textColor="#D30404"
+                            android:visibility="gone" />
+
+                        <EditText
+                            android:id="@+id/editTextRepeatPassword_register"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^&amp;*-+=,./?;'\|"
+                            android:drawableStart="@drawable/ic_password"
+                            android:drawablePadding="10dp"
+                            android:drawableTint="#014D70"
+                            android:ems="10"
+                            android:hint="Powtórz hasło"
+                            android:inputType="textPassword"
+                            android:maxLength="24"
+                            android:textColor="#014D70"
+                            android:textColorHint="#707070" />
+
+                        <TextView
+                            android:id="@+id/textViewPasswordsNotMatch_register"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="Wpisane hasła nie są identyczne."
+                            android:textColor="#D30404"
+                            android:visibility="gone" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/buttonRegister_register"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:backgroundTint="#5397DF"
+                            android:text="Zarejestruj się"
+                            android:textColor="#FFFFFF"
+                            app:strokeColor="#0375a8"
+                            app:strokeWidth="3dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#5397DF" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:text="Rejestracja konta jest w pełni opcjonalna."
+                            android:textColor="#014D70" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:text="Zarejestrowanie konta pozwoli na tworzenie zapisów twoich danych w chmurze, dzięki czemu można je odzyskiwać w dowolnym momencie."
+                            android:textColor="#014D70" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="#5397DF" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/bottom_navbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"></include>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

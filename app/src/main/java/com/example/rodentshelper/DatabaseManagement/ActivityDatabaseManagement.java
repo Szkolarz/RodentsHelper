@@ -1,14 +1,20 @@
 package com.example.rodentshelper.DatabaseManagement;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
+import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
@@ -33,6 +39,18 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        TextView textView1_rodent;
+        ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
+
+        imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
+        imageButton2_encyclopedia = findViewById(R.id.imageButton2_encyclopedia);
+        imageButton3_health = findViewById(R.id.imageButton3_health);
+        imageButton4_other = findViewById(R.id.imageButton4_other);
+
+        textView1_rodent = findViewById(R.id.textView1_rodent);
+        imageButton1_rodent.setColorFilter(Color.WHITE);
+        textView1_rodent.setTextColor(Color.WHITE);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +59,7 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
                 finish();
             }
         });
+
 
 
         buttonImport = findViewById(R.id.buttonImport);
@@ -54,7 +73,7 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
             File dbWal = getDatabasePath("rodents_helper-wal");
 
             ExportAndImport exportAndImport = new ExportAndImport();
-            exportAndImport.exportDatabase(dbMain, dbShm, dbWal);
+            exportAndImport.exportDatabase(dbMain, dbShm, dbWal, ActivityDatabaseManagement.this);
         });
 
 
@@ -82,15 +101,13 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
             }
 
 
-
-
-
-
         });
 
 
-
-
+        imageButton1_rodent.setOnClickListener(new ActivityRodents());
+        imageButton2_encyclopedia.setOnClickListener(new ActivityEncyclopedia());
+        imageButton3_health.setOnClickListener(new ActivityHealth());
+        imageButton4_other.setOnClickListener(new ActivityOther());
 
     }
 

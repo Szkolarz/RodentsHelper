@@ -19,18 +19,18 @@ import java.sql.SQLException;
 
 public class ExportAndImport {
 
-    public static void exportDatabase(File dbMain, File dbShm, File dbWal) {
+    public static void exportDatabase(File dbMain, File dbShm, File dbWal, Context context) {
 
         try {
             Querries dbQuerries = new Querries();
             InputStream targetStream1 = new FileInputStream(dbMain);
-            dbQuerries.exportLocalDatabase(targetStream1);
+            dbQuerries.exportLocalDatabase(targetStream1, context);
 
             try {
                 InputStream targetStream2 = new FileInputStream(dbShm);
                 InputStream targetStream3 = new FileInputStream(dbWal);
-                dbQuerries.exportLocalDatabase(targetStream2);
-                dbQuerries.exportLocalDatabase(targetStream3);
+                dbQuerries.exportLocalDatabase(targetStream2, context);
+                dbQuerries.exportLocalDatabase(targetStream3, context);
             } catch (FileNotFoundException e) {
                 System.out.println("NO FILE: " + e);
             }
@@ -56,7 +56,7 @@ public class ExportAndImport {
 
     public static void importDatabase(Context context, String login, File databaseDirectory) throws IOException, SQLException, InterruptedException {
         Querries dbQuerries = new Querries();
-        ResultSet resultSetImport = dbQuerries.importLocalDatabase(login);
+        ResultSet resultSetImport = dbQuerries.importLocalDatabase(login, context);
 
         String databaseFolder = context.getDatabasePath("rodents_helper").toString();
         String databaseFilePath = databaseFolder.substring(0,databaseFolder.lastIndexOf("/") + 1);

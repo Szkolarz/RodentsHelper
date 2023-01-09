@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
                 StrictMode.setThreadPolicy(policy);
 
                 try {
-                    ResultSet resultSetTest = dbQuerries.testSelect();
+                    ResultSet resultSetTest = dbQuerries.testSelect(MainActivity.this);
                    /** /*/ //ResultSet resultSetVersion = dbQuerries.checkVersion();
-                    ResultSet resultSetVersion = dbQuerries.checkVersion(3);
+                    ResultSet resultSetVersion = dbQuerries.checkVersion(3, MainActivity.this);
                     String a = "";
 
                     while (resultSetVersion.next()) {
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-                    System.out.println(dbQuerries.testSelect());
+                    System.out.println(dbQuerries.testSelect(MainActivity.this));
 
 
                 }catch(Exception e){

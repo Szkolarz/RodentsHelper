@@ -29,6 +29,7 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.DatabaseManagement.ActivityDatabaseManagement;
+import com.example.rodentshelper.DatabaseManagement.ActivityRegister;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.FirstStart;
 import com.example.rodentshelper.R;
@@ -62,7 +63,7 @@ public class ViewRodents extends AppCompatActivity {
                 finish();
                 break;
             case R.id.database_management_name:
-                Intent intentDb = new Intent(ViewRodents.this, ActivityDatabaseManagement.class);
+                Intent intentDb = new Intent(ViewRodents.this, ActivityRegister.class);
                 startActivity(intentDb);
                 finish();
                 break;

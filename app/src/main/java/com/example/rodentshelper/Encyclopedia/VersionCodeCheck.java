@@ -57,7 +57,7 @@ public class VersionCodeCheck {
         String versionCodeFromVPS = "";
         SharedPreferences prefsFirstStart = context.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
-        ResultSet resultSetVersion = dbQuerries.checkVersion(prefsFirstStart.getInt("prefsFirstStart", 0));
+        ResultSet resultSetVersion = dbQuerries.checkVersion(prefsFirstStart.getInt("prefsFirstStart", 0), context);
 
         while (resultSetVersion.next()) {
             versionCodeFromVPS = (resultSetVersion.getString("code"));
@@ -175,11 +175,11 @@ public class VersionCodeCheck {
 
             Integer idAnimal = prefsFirstStart.getInt("prefsFirstStart", 0);
 
-            ResultSet resultSetGeneral = dbQuerries.selectGeneral(idAnimal);
-            ResultSet resultSetTreats = dbQuerries.selectTreats(idAnimal);
-            ResultSet resultSetCageSupply = dbQuerries.selectCageSupply(idAnimal);
-            ResultSet resultSetDiseases = dbQuerries.selectDiseases(idAnimal);
-            ResultSet resultSetVersion = dbQuerries.selectVersion();
+            ResultSet resultSetGeneral = dbQuerries.selectGeneral(idAnimal, context);
+            ResultSet resultSetTreats = dbQuerries.selectTreats(idAnimal, context);
+            ResultSet resultSetCageSupply = dbQuerries.selectCageSupply(idAnimal, context);
+            ResultSet resultSetDiseases = dbQuerries.selectDiseases(idAnimal, context);
+            ResultSet resultSetVersion = dbQuerries.selectVersion(context);
 
 
             AppDatabase db = Room.databaseBuilder(context,

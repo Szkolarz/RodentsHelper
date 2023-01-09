@@ -133,7 +133,11 @@
             android:name=".Notifications.NotificationsActivity"
             android:exported="true" />
         <activity
-            android:name=".DatabaseManagement.ActivityDatabaseManagement"
+            android:name=".DatabaseManagement.ActivityLogin"
+            android:exported="true" />
+
+        <activity
+            android:name=".DatabaseManagement.ActivityRegister"
             android:exported="true" />
 
 
