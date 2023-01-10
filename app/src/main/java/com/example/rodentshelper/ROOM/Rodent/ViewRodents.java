@@ -1,5 +1,6 @@
 package com.example.rodentshelper.ROOM.Rodent;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -63,7 +64,7 @@ public class ViewRodents extends AppCompatActivity {
                 finish();
                 break;
             case R.id.database_management_name:
-                Intent intentDb = new Intent(ViewRodents.this, ActivityRegister.class);
+                Intent intentDb = new Intent(ViewRodents.this, ActivityDatabaseManagement.class);
                 startActivity(intentDb);
                 finish();
                 break;

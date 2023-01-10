@@ -1,11 +1,17 @@
 package com.example.rodentshelper.SQL;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.os.StrictMode;
 
 import com.example.rodentshelper.AsyncActivity;
+import com.example.rodentshelper.R;
 import com.example.rodentshelper.Util;
 
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.jasypt.properties.EncryptableProperties;
+
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
@@ -26,9 +32,23 @@ public interface ConnectionSQL {
 
             try {
 
+                StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
 
-                final Connection con = DriverManager.getConnection(Util.getProperty("dbUrl",context),
-                        Util.getProperty("dbLogin",context), Util.getProperty("dbPassword",context));
+                encryptor.setPassword(context.getString(R.string.sp));
+
+                AssetManager assetManager = context.getAssets();
+                InputStream inputStream = assetManager.open("db.properties");
+
+                Properties props = new EncryptableProperties(encryptor);
+                props.load(inputStream);
+
+
+                String datasourceUrl = props.getProperty("dbUrl");
+                String datasourceLogin = props.getProperty("dbLogin");
+                String datasourcePassword = props.getProperty("dbPassword");
+
+                final Connection con = DriverManager.getConnection(datasourceUrl,
+                        datasourceLogin, datasourcePassword);
 
                 return con;
             } catch (Exception e) {

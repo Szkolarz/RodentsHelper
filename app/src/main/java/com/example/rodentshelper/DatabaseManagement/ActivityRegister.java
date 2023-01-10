@@ -1,14 +1,20 @@
 package com.example.rodentshelper.DatabaseManagement;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,6 +24,8 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.Alerts;
+import com.example.rodentshelper.AsyncActivity;
+import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.SQL.Querries;
@@ -32,6 +40,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
@@ -55,7 +64,6 @@ public class ActivityRegister extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        TextView textView1_rodent;
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
 
         imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
@@ -63,9 +71,6 @@ public class ActivityRegister extends AppCompatActivity {
         imageButton3_health = findViewById(R.id.imageButton3_health);
         imageButton4_other = findViewById(R.id.imageButton4_other);
 
-        textView1_rodent = findViewById(R.id.textView1_rodent);
-        imageButton1_rodent.setColorFilter(Color.WHITE);
-        textView1_rodent.setTextColor(Color.WHITE);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,56 +96,104 @@ public class ActivityRegister extends AppCompatActivity {
 
 
         buttonRegister_register.setOnClickListener(view -> {
-            String login = editTextLogin_register.getText().toString();
-            String password = editTextPassword_register.getText().toString();
-            String passwordRepeat = editTextRepeatPassword_register.getText().toString();
 
-            textViewLoginExists_register.setVisibility(View.GONE);
-            textViewBadPassword_register.setVisibility(View.GONE);
-            textViewPasswordsNotMatch_register.setVisibility(View.GONE);
-            textViewLoginTooShort_register.setVisibility(View.GONE);
+            if (isNetworkConnected(ActivityRegister.this)) {
 
-            if (isValid(login, password, passwordRepeat, ActivityRegister.this)) {
+                final ProgressDialog progress = new ProgressDialog(this);
 
-                Querries dbQuerries = new Querries();
+                progress.setTitle("Rejestracja konta...");
+                progress.setMessage("Proszę czekać...");
+                progress.setCanceledOnTouchOutside(false);
+                progress.setCancelable(false);
+                progress.show();
 
-                ResultSet resultSetRegister = null;
                 try {
-                    resultSetRegister = dbQuerries.checkLoginAvailability(ActivityRegister.this);
+                    if (new AsyncActivity().execute().get()) {
+                        System.out.println("działa");
 
 
-                    boolean isLoginAvailable = true;
+                        Thread thread = new Thread(() -> runOnUiThread(() -> {
 
-                    while (resultSetRegister.next()) {
-                        if (login.equals(resultSetRegister.getString("login"))) {
-                            textViewLoginExists_register.setVisibility(View.VISIBLE);
-                            isLoginAvailable = false;
-                        }
+                        String login = editTextLogin_register.getText().toString();
+                        String password = editTextPassword_register.getText().toString();
+                        String passwordRepeat = editTextRepeatPassword_register.getText().toString();
 
-                    }
+                        textViewLoginExists_register.setVisibility(View.GONE);
+                        textViewBadPassword_register.setVisibility(View.GONE);
+                        textViewPasswordsNotMatch_register.setVisibility(View.GONE);
+                        textViewLoginTooShort_register.setVisibility(View.GONE);
 
-                    if (isLoginAvailable) {
 
-                        //BCrypt hashing
-                        String hashedPassword = BCrypt.withDefaults().hashToString(12,
-                                editTextPassword_register.getText().toString().toCharArray());
 
-                /*BCrypt.Result result = BCrypt.verifyer().verify(editTextPassword_register.getText().toString().toCharArray(),
-                        hashedPassword);
-                if (result == true) {
-                    działa
-                }*/
+                            if (isValid(login, password, passwordRepeat, ActivityRegister.this)) {
 
-                        dbQuerries.registerNewAccount(editTextLogin_register.getText().toString(),
-                                hashedPassword, ActivityRegister.this);
+                                Querries dbQuerries = new Querries();
+
+                                ResultSet resultSetRegister = null;
+                                try {
+                                    resultSetRegister = dbQuerries.checkLoginAvailability(ActivityRegister.this);
+
+
+                                    boolean isLoginAvailable = true;
+
+                                    while (resultSetRegister.next()) {
+                                        if (login.equals(resultSetRegister.getString("login"))) {
+                                            textViewLoginExists_register.setVisibility(View.VISIBLE);
+                                            isLoginAvailable = false;
+                                        }
+
+                                    }
+
+                                    if (isLoginAvailable) {
+
+                                        //BCrypt hashing
+                                        String hashedPassword = BCrypt.withDefaults().hashToString(12,
+                                                editTextPassword_register.getText().toString().toCharArray());
+
+                                        dbQuerries.registerNewAccount(editTextLogin_register.getText().toString(),
+                                                hashedPassword, ActivityRegister.this);
+
+                                        progress.cancel();
+
+                                        AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRegister.this, R.style.AlertDialogStyleUpdate);
+                                        alert.setTitle("Pomyślnie dodano nowe konto!");
+                                        alert.setMessage("Możesz teraz się zalogować, aby odblokować możliwość zapisywania" +
+                                                " swoich danych do chmury.");
+
+                                        alert.setPositiveButton("Ok", (dialogInterface, i) -> {
+                                            startActivity(new Intent(ActivityRegister.this, ActivityLogin.class));
+                                            finish();
+                                        });
+                                        alert.show();
+
+                                    } else {
+
+                                    }
+
+                                } catch (SQLException | InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                progress.cancel();
+                            } else
+                                progress.cancel();
+                        }));
+
+                        thread.start();
+
                     } else {
-
+                        System.out.println("ni działa");
                     }
-
-                } catch (SQLException | InterruptedException e) {
+                } catch (ExecutionException | InterruptedException e) {
                     throw new RuntimeException(e);
-
                 }
+
+
+
+            } else {
+                AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRegister.this, R.style.AlertDialogStyleUpdate);
+                alert.setTitle("Brak połączenia z internetem");
+                alert.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
+
             }
         });
 
@@ -191,6 +244,21 @@ public class ActivityRegister extends AppCompatActivity {
     }
 
 
+    public boolean isNetworkConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Intent intent = new Intent(ActivityRegister.this, ViewRodents.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 
 }

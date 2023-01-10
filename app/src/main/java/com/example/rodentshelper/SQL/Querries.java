@@ -95,7 +95,7 @@ public class Querries implements ConnectionSQL{
         Connection con = connectToVPS(context);
         String sql ="INSERT INTO LocalData (`login`, `file`) VALUES (?,?)";
         PreparedStatement preparedStmt = con.prepareStatement(sql);
-        preparedStmt.setString (1, "ap");
+        preparedStmt.setString (1, "siema");
         preparedStmt.setBinaryStream(2, localData);
 
         preparedStmt.execute();
@@ -113,6 +113,13 @@ public class Querries implements ConnectionSQL{
     public ResultSet checkLoginAvailability (Context context) throws SQLException, InterruptedException {
         Statement stat = connectToVPS(context).createStatement();
         ResultSet myres = stat.executeQuery("SELECT login from `Accounts`");
+        connectToVPS(context).close();
+        return myres;
+    }
+
+    public ResultSet checkLoginAndPassword (Context context) throws SQLException, InterruptedException {
+        Statement stat = connectToVPS(context).createStatement();
+        ResultSet myres = stat.executeQuery("SELECT login, password from `Accounts`");
         connectToVPS(context).close();
         return myres;
     }

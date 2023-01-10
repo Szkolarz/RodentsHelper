@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1"
-    android:orientation="vertical"
     android:background="#ACC5E1"
+    android:orientation="horizontal"
     tools:context=".MainViews.ViewOther">
 
 
@@ -19,8 +19,7 @@
 
         <include
             android:id="@+id/app_bar"
-            layout="@layout/app_bar_global">
-        </include>
+            layout="@layout/app_bar_global"></include>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,26 +39,169 @@
                     tools:context=".ROOM.Medicaments.ViewMedicaments">
 
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/linearLayout_notLogged"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:gravity="center"
-                        android:text="Możesz wyeksportować (zapisać w chmurze) wszystkie twoje przechowywane dane w aplikacji, by móc je później zaimportować (załadować z chmury) w dowolnym momencie. Opcja przydaje się, kiedy przykładowo zmieniasz telefon na inny."
-                        android:textColor="#014D70" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/buttonLogin_importExport"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:backgroundTint="#5397DF"
+                            android:text="Zaloguj się"
+                            android:textColor="#FFFFFF"
+                            app:strokeColor="#0375a8"
+                            app:strokeWidth="3dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="#5397DF" />
+
+                        </LinearLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/buttonRegister_importExport"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:backgroundTint="#5397DF"
+                            android:text="Zarejestruj się"
+                            android:textColor="#FFFFFF"
+                            app:strokeColor="#0375a8"
+                            app:strokeWidth="3dp" />
+
+                        <View
+                            android:id="@+id/view7"
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#5397DF" />
+
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:text="Utworzenie konta pozwoli na zapisywanie twoich danych do chmury, co pozwoli na odzyskiwanie ich w dowolnym momencie. Opcja przydaje się, kiedy przykładowo zmieniasz telefon na inny."
+                            android:textColor="#014D70" />
+
+                    </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/linearLayout_logged"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#ACC5E1"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="15dp"
+                                    android:gravity="center|right"
+                                    android:text="Zalogowano jako:"
+                                    android:textColor="#014D70" />
+
+                                <TextView
+                                    android:id="@+id/textViewLoginName_export_import"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="15dp"
+                                    android:text="name"
+                                    android:textColor="#014D70"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/imageViewLogOff"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="right"
+                                    android:layout_marginEnd="15dp"
+                                    app:srcCompat="@drawable/ic_logout"
+                                    app:tint="#0375a8" />
+
+                                <TextView
+                                    android:id="@+id/textView1_export_import5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginEnd="12dp"
+                                    android:gravity="center|right"
+                                    android:text="Wyloguj"
+                                    android:textColor="#014D70"
+                                    android:textSize="11sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:text="Możesz wyeksportować (zapisać w chmurze) wszystkie twoje przechowywane dane w aplikacji, by móc je później zaimportować (załadować z chmury) w dowolnym momencie. Opcja przydaje się, kiedy przykładowo zmieniasz telefon na inny."
+                            android:textColor="#014D70" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonExport"

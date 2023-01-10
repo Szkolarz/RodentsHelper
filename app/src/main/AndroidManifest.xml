@@ -140,6 +140,10 @@
             android:name=".DatabaseManagement.ActivityRegister"
             android:exported="true" />
 
+        <activity
+            android:name=".DatabaseManagement.ActivityDatabaseManagement"
+            android:exported="true" />
+
 
         <receiver
             android:name=".Notifications.Receivers.NotificationReceiverWeight"
