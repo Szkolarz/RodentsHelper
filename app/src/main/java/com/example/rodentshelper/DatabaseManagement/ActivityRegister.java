@@ -112,7 +112,7 @@ public class ActivityRegister extends AppCompatActivity {
                         System.out.println("działa");
 
 
-                        Thread thread = new Thread(() -> runOnUiThread(() -> {
+
 
                         String login = editTextLogin_register.getText().toString();
                         String password = editTextPassword_register.getText().toString();
@@ -123,7 +123,7 @@ public class ActivityRegister extends AppCompatActivity {
                         textViewPasswordsNotMatch_register.setVisibility(View.GONE);
                         textViewLoginTooShort_register.setVisibility(View.GONE);
 
-
+                        Thread thread = new Thread(() -> runOnUiThread(() -> {
 
                             if (isValid(login, password, passwordRepeat, ActivityRegister.this)) {
 
@@ -170,7 +170,7 @@ public class ActivityRegister extends AppCompatActivity {
 
                                     }
 
-                                } catch (SQLException | InterruptedException e) {
+                                } catch (SQLException | NullPointerException | InterruptedException e) {
                                     throw new RuntimeException(e);
                                 }
                                 progress.cancel();

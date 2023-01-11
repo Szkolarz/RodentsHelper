@@ -123,7 +123,7 @@
                         android:background="#ACC5E1"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -132,7 +132,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="15dp"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="10dp"
                             android:gravity="center_horizontal"
                             android:orientation="horizontal">
 
@@ -179,7 +179,7 @@
 
                                 <TextView
                                     android:id="@+id/textView1_export_import5"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginEnd="12dp"
@@ -192,6 +192,15 @@
 
                         </LinearLayout>
 
+                        <View
+                            android:id="@+id/view8"
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#9ebbdb" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -202,6 +211,16 @@
                             android:gravity="center"
                             android:text="Możesz wyeksportować (zapisać w chmurze) wszystkie twoje przechowywane dane w aplikacji, by móc je później zaimportować (załadować z chmury) w dowolnym momencie. Opcja przydaje się, kiedy przykładowo zmieniasz telefon na inny."
                             android:textColor="#014D70" />
+
+                        <View
+                            android:id="@+id/view5"
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#5397DF" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonExport"
@@ -215,13 +234,21 @@
                             app:strokeWidth="3dp" />
 
                         <TextView
-                            android:id="@+id/textView1_export_import"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
-                            android:gravity="center"
-                            android:text="test"
+                            android:text="Ostatnia data zapisu danych do chmury:"
+                            android:textColor="#014D70" />
+
+                        <TextView
+                            android:id="@+id/textViewExportDate_export_import"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="Brak"
                             android:textColor="#014D70"
                             android:textStyle="bold" />
 
@@ -253,13 +280,22 @@
                             app:strokeWidth="3dp" />
 
                         <TextView
-                            android:id="@+id/textView2_export_import"
+                            android:id="@+id/textView13"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
-                            android:gravity="center"
-                            android:text="test"
+                            android:text="Ostatnia data załadowania danych (na tym urządzeniu):"
+                            android:textColor="#014D70" />
+
+                        <TextView
+                            android:id="@+id/textViewImportDate_export_import"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="Brak"
                             android:textColor="#014D70"
                             android:textStyle="bold" />
 

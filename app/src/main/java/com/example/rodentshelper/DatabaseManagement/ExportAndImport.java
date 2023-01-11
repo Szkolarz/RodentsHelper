@@ -1,8 +1,14 @@
 package com.example.rodentshelper.DatabaseManagement;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.room.Room;
+
+import com.example.rodentshelper.ROOM.AppDatabase;
+import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM.DateFormat;
 import com.example.rodentshelper.SQL.Querries;
 
 
@@ -16,15 +22,34 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class ExportAndImport {
 
-    public static void exportDatabase(File dbMain, File dbShm, File dbWal, Context context) {
+    public static void exportDatabase(File dbMain, File dbShm, File dbWal, String login, Context context) {
 
         try {
             Querries dbQuerries = new Querries();
             InputStream targetStream1 = new FileInputStream(dbMain);
+
+            dbQuerries.deleteBeforeExport(login, context);
+
+            Date dateGet = Calendar.getInstance().getTime();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String formattedDate = df.format(dateGet);
+
+            dbQuerries.setExportDate(login, java.sql.Date.valueOf(formattedDate), context);
+
             dbQuerries.exportLocalDatabase(targetStream1, context);
+
+            AppDatabase db = Room.databaseBuilder(context,
+                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+            DAO dao = db.dao();
+            dao.updateCloudAccountExportDate(java.sql.Date.valueOf(formattedDate), login);
+            db.close();
 
             try {
                 InputStream targetStream2 = new FileInputStream(dbShm);
@@ -38,6 +63,9 @@ public class ExportAndImport {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
     }
 
 

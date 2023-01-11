@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
 
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
@@ -26,11 +27,16 @@ import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.AsyncActivity;
 import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.R;
+import com.example.rodentshelper.ROOM.AppDatabase;
+import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM.DAORodents;
+import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.SQL.Querries;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -98,13 +104,13 @@ public class ActivityLogin extends AppCompatActivity {
 
                 try {
                     if (new AsyncActivity().execute().get()) {
-
-                        Thread thread = new Thread(() -> runOnUiThread(() -> {
+                        textViewBadLoginOrPassword_login.setVisibility(View.GONE);
+                        Thread thread = new Thread(() -> {
 
                             String login = editTextLogin_login.getText().toString();
                             String password = editTextPassword_login.getText().toString();
 
-                            textViewBadLoginOrPassword_login.setVisibility(View.GONE);
+
 
                                 Querries dbQuerries = new Querries();
 
@@ -128,32 +134,51 @@ public class ActivityLogin extends AppCompatActivity {
 
                                     if (haveUserLogged) {
 
-                                        progress.cancel();
 
                                         SharedPreferences prefsCloudSave = getApplicationContext().getSharedPreferences("prefsCloudSave", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor prefsEditorCloudSave = prefsCloudSave.edit();
                                         prefsEditorCloudSave.putBoolean("prefsCloudSave", true);
                                         prefsEditorCloudSave.apply();
 
+
+                                        ResultSet resultSetExportDate = dbQuerries.getExportDate(login, ActivityLogin.this);
+                                        Date export_date = null;
+                                        while (resultSetExportDate.next()) {
+                                            export_date = resultSetExportDate.getDate("export_date");
+                                        }
+                                        progress.cancel();
+
+
+                                        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                                                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+                                        DAO dao = db.dao();
+                                        dao.insertRecordCloudAccountData(new CloudAccountModel(login, export_date, null));
+                                        db.close();
+
                                         SharedPreferences prefsLoginName = getApplicationContext().getSharedPreferences("prefsLoginName", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor prefsEditorLoginName = prefsLoginName.edit();
                                         prefsEditorLoginName.putString("prefsLoginName", login);
                                         prefsEditorLoginName.apply();
 
-                                        AlertDialog.Builder alert = new AlertDialog.Builder(ActivityLogin.this, R.style.AlertDialogStyleUpdate);
-                                        alert.setTitle("Pomyślnie zalogowano!");
-                                        alert.setMessage(login + ", twoje konto pozostanie zalogowane, nie musisz " +
-                                                "wpisywać kolejny raz hasła. Zapisu do chmury możesz dokonać z zakładki 'Pupile', " +
-                                                "klikając w lewy górny róg i wybierając opcję 'Zapis w chmurze'.");
+                                        runOnUiThread(() -> {
+                                            AlertDialog.Builder alert = new AlertDialog.Builder(ActivityLogin.this, R.style.AlertDialogStyleUpdate);
+                                            alert.setTitle("Pomyślnie zalogowano!");
+                                            alert.setMessage(login + ", twoje konto pozostanie zalogowane, nie musisz " +
+                                                    "wpisywać kolejny raz hasła.\n\nZapisu do chmury możesz dokonać z zakładki 'Pupile', " +
+                                                    "klikając w lewy górny róg i wybierając opcję 'Zapis w chmurze'.");
 
-                                        alert.setPositiveButton("Ok", (dialogInterface, i) -> {
-                                            startActivity(new Intent(ActivityLogin.this, ActivityDatabaseManagement.class));
-                                            finish();
+                                            alert.setPositiveButton("Ok", (dialogInterface, i) -> {
+                                                startActivity(new Intent(ActivityLogin.this, ActivityDatabaseManagement.class));
+                                                finish();
+                                            });
+                                            alert.show();
                                         });
-                                        alert.show();
 
                                     } else {
-                                        textViewBadLoginOrPassword_login.setVisibility(View.VISIBLE);
+                                        runOnUiThread(() -> {
+                                            textViewBadLoginOrPassword_login.setVisibility(View.VISIBLE);
+                                            progress.cancel();
+                                        });
                                     }
 
                                 } catch (SQLException | InterruptedException e) {
@@ -161,7 +186,7 @@ public class ActivityLogin extends AppCompatActivity {
                                 }
                                 progress.cancel();
 
-                        }));
+                        });
 
                         thread.start();
 

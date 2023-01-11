@@ -59,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     ResultSet resultSetTest = dbQuerries.testSelect(MainActivity.this);
                    /** /*/ //ResultSet resultSetVersion = dbQuerries.checkVersion();
-                    ResultSet resultSetVersion = dbQuerries.checkVersion(3, MainActivity.this);
+                  //  ResultSet resultSetVersion = dbQuerries.checkVersion(3, MainActivity.this);
                     String a = "";
-
+/*
                     while (resultSetVersion.next()) {
                         a = (resultSetVersion.getString("number"));
-                    }
+                    }*/
 
                     Integer DBversion = Integer.valueOf(a);
 

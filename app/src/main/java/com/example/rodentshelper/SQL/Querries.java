@@ -1,10 +1,12 @@
 package com.example.rodentshelper.SQL;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import java.io.File;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -89,13 +91,23 @@ public class Querries implements ConnectionSQL{
     }
 
 
-
+    public void deleteBeforeExport(String login, Context context) throws SQLException, InterruptedException {
+        Connection con = connectToVPS(context);
+        String sql ="DELETE FROM LocalData WHERE login = (?)";
+        PreparedStatement preparedStmt = con.prepareStatement(sql);
+        preparedStmt.setString (1, login);
+        preparedStmt.execute();
+        connectToVPS(context).close();
+    }
 
     public void exportLocalDatabase(InputStream localData, Context context) throws SQLException, InterruptedException {
         Connection con = connectToVPS(context);
         String sql ="INSERT INTO LocalData (`login`, `file`) VALUES (?,?)";
         PreparedStatement preparedStmt = con.prepareStatement(sql);
-        preparedStmt.setString (1, "siema");
+
+        SharedPreferences prefsLoginName = context.getSharedPreferences("prefsLoginName", Context.MODE_PRIVATE);
+
+        preparedStmt.setString (1, prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"));
         preparedStmt.setBinaryStream(2, localData);
 
         preparedStmt.execute();
@@ -106,6 +118,23 @@ public class Querries implements ConnectionSQL{
     public ResultSet importLocalDatabase (String login, Context context) throws SQLException, InterruptedException {
         Statement stat = connectToVPS(context).createStatement();
         ResultSet myres = stat.executeQuery("SELECT file from `LocalData` WHERE login = '" + login + "'");
+        connectToVPS(context).close();
+        return myres;
+    }
+
+    public void setExportDate(String login, Date date, Context context) throws SQLException, InterruptedException {
+        Connection con = connectToVPS(context);
+        String sql ="UPDATE Accounts SET `export_date` = (?) WHERE `login` = (?)";
+        PreparedStatement preparedStmt = con.prepareStatement(sql);
+        preparedStmt.setDate(1, date);
+        preparedStmt.setString(2, login);
+        preparedStmt.execute();
+
+        connectToVPS(context).close();
+    }
+    public ResultSet getExportDate (String login, Context context) throws SQLException, InterruptedException {
+        Statement stat = connectToVPS(context).createStatement();
+        ResultSet myres = stat.executeQuery("SELECT export_date from `Accounts` WHERE login = '" + login + "'");
         connectToVPS(context).close();
         return myres;
     }

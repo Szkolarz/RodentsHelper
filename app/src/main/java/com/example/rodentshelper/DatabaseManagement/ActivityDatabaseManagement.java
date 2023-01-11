@@ -3,7 +3,6 @@ package com.example.rodentshelper.DatabaseManagement;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,17 +13,26 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
 
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.R;
+import com.example.rodentshelper.ROOM.AppDatabase;
+import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM.DateFormat;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class ActivityDatabaseManagement extends AppCompatActivity {
@@ -44,8 +52,8 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        TextView textViewLoginName_export_import;
-        ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
+        TextView textViewLoginName_export_import, textViewExportDate_export_import, textViewImportDate_export_import;
+        ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other, imageViewLogOff;
 
         imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
         imageButton2_encyclopedia = findViewById(R.id.imageButton2_encyclopedia);
@@ -76,12 +84,41 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
 
         SharedPreferences prefsCloudSave = getApplicationContext().getSharedPreferences("prefsCloudSave", Context.MODE_PRIVATE);
 
+        //if user is logged on
         if (prefsCloudSave.getBoolean("prefsCloudSave", false)) {
             linearLayout_logged.setVisibility(View.VISIBLE);
 
+            AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+            DAO dao = db.dao();
+
+            List<CloudAccountModel> cloudAccountModel;
+            cloudAccountModel = dao.getAllCloudAccountData();
+            db.close();
+
+            imageViewLogOff = findViewById(R.id.imageViewLogOff);
             textViewLoginName_export_import = findViewById(R.id.textViewLoginName_export_import);
+            textViewExportDate_export_import = findViewById(R.id.textViewExportDate_export_import);
+            textViewImportDate_export_import = findViewById(R.id.textViewImportDate_export_import);
             SharedPreferences prefsLoginName = getApplicationContext().getSharedPreferences("prefsLoginName", Context.MODE_PRIVATE);
             textViewLoginName_export_import.setText(prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"));
+
+
+            for (int i=0; i<cloudAccountModel.size(); i++) {
+                if (prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy").equals(cloudAccountModel.get(i).getLogin())) {
+                    try {
+                        textViewExportDate_export_import.setText(DateFormat.formatDate(cloudAccountModel.get(i).getExport_date()));
+                    } catch (NullPointerException e){
+                        System.out.println("Empty export; error: " + e);
+                    }
+                    try {
+                        textViewImportDate_export_import.setText(DateFormat.formatDate(cloudAccountModel.get(i).getImport_date()));
+                    } catch (NullPointerException e){
+                        System.out.println("Empty import; error: " + e);
+                    }
+                }
+
+            }
 
             buttonExport.setOnClickListener(view -> {
 
@@ -89,14 +126,13 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
                 File dbShm = getDatabasePath("rodents_helper-shm");
                 File dbWal = getDatabasePath("rodents_helper-wal");
 
-                ExportAndImport exportAndImport = new ExportAndImport();
-                exportAndImport.exportDatabase(dbMain, dbShm, dbWal, ActivityDatabaseManagement.this);
+                ExportAndImport.exportDatabase(dbMain, dbShm, dbWal, prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"), ActivityDatabaseManagement.this);
+                reloadActivity();
             });
 
 
             buttonImport.setOnClickListener(view -> {
                 System.out.println(getDatabasePath("rodents_helper") + " database path");
-
 
                 ExportAndImport exportAndImport = new ExportAndImport();
 
@@ -105,20 +141,35 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
                 s1.trim();
                 File databaseDirectory = new File(s1);
 
-
-                ActivityDatabaseManagement.this.getApplicationContext().deleteDatabase("rodents_helper"); //<<<< ADDED before building Database.
-
-
-                exportAndImport.deleteRecursive(databaseDirectory);
-
                 try {
-                    exportAndImport.importDatabase(ActivityDatabaseManagement.this, "siema", databaseDirectory);
+                    ActivityDatabaseManagement.this.deleteDatabase("rodents_helper"); //<<<< ADDED before building Database.
+                    AppDatabase db1 = Room.databaseBuilder(getApplicationContext(),
+                            AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+
+                    Date dateGet = Calendar.getInstance().getTime();
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    String formattedDate = df.format(dateGet);
+
+                    exportAndImport.deleteRecursive(databaseDirectory);
+                    ExportAndImport.importDatabase(ActivityDatabaseManagement.this, prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"), databaseDirectory);
+
+                    dao.updateCloudAccountImportDate((java.sql.Date.valueOf(formattedDate)), prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"));
+                    db1.close();
                 } catch (IOException | InterruptedException | SQLException e) {
                     throw new RuntimeException(e);
                 }
-
-
+                reloadActivity();
             });
+
+
+            imageViewLogOff.setOnClickListener(view -> {
+                SharedPreferences.Editor prefsEditorCloudSave = prefsCloudSave.edit();
+                prefsEditorCloudSave.putBoolean("prefsCloudSave", false);
+                prefsEditorCloudSave.apply();
+
+                reloadActivity();
+            });
+
 
 
         } else {
@@ -144,6 +195,11 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
 
     }
 
+
+    private void reloadActivity() {
+        startActivity(new Intent(ActivityDatabaseManagement.this, ActivityDatabaseManagement.class));
+        finish();
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
