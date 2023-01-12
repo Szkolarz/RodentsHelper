@@ -123,7 +123,7 @@
                         android:background="#ACC5E1"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 

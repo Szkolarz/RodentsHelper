@@ -3,9 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ACC5E1">
+    >
 
     <Spinner
+        android:theme="@style/Spinner"
+        android:textColor="#014D70"
         android:id="@+id/spinner_weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

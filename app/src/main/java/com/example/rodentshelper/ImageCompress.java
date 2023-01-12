@@ -57,6 +57,7 @@ public class ImageCompress extends Thread {
                 ei = new ExifInterface(uri.getPath());
 
             int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            input.close();
             switch (orientation) {
                 case ExifInterface.ORIENTATION_ROTATE_90:
                     return rotateImage(originalBitmap, 90);
@@ -67,6 +68,7 @@ public class ImageCompress extends Thread {
                 default:
                     return originalBitmap;
             }
+
         }catch (Exception e){
             return originalBitmap;
         }

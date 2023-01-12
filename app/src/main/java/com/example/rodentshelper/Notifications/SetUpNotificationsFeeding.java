@@ -105,7 +105,7 @@ public class SetUpNotificationsFeeding {
             });
 
 
-            timePickerDialog.setTitle("Wybierz godzinę, o której dostaniesz powiadomienia");
+            timePickerDialog.setTitle("Wybierz godzinę, o której dostaniesz powiadomienie");
             timePickerDialog.show();
 
     }

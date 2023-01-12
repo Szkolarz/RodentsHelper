@@ -115,10 +115,16 @@ public class Querries implements ConnectionSQL{
         connectToVPS(context).close();
     }
 
+    /** try catch should be everywhere */
     public ResultSet importLocalDatabase (String login, Context context) throws SQLException, InterruptedException {
         Statement stat = connectToVPS(context).createStatement();
-        ResultSet myres = stat.executeQuery("SELECT file from `LocalData` WHERE login = '" + login + "'");
-        connectToVPS(context).close();
+        ResultSet myres = null;
+        try {
+            myres = stat.executeQuery("SELECT file from `LocalData` WHERE login = '" + login + "'");
+            connectToVPS(context).close();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         return myres;
     }
 

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -72,45 +73,54 @@ public class ActivityLogin extends AppCompatActivity {
         imageButton4_other = findViewById(R.id.imageButton4_other);
 
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ActivityLogin.this, ViewRodents.class);
-                startActivity(intent);
-                finish();
-            }
+        toolbar.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(ActivityLogin.this, ViewRodents.class);
+            startActivity(intent);
+            finish();
         });
 
 
         buttonLogin_login = findViewById(R.id.buttonLogin_login);
-
         editTextLogin_login = findViewById(R.id.editTextLogin_login);
         editTextPassword_login = findViewById(R.id.editTextPassword_login);
         textViewBadLoginOrPassword_login = findViewById(R.id.textViewBadLoginOrPassword_login);
+
+        try {
+            Intent intent = getIntent();
+            String loginIntent = intent.getExtras().getString("loginIntent");
+            if (!loginIntent.equals(""))
+                editTextLogin_login.setText(loginIntent);
+        } catch (NullPointerException e) {
+            System.out.println("ActivityLogin error - no loginIntent: " + e);
+        }
 
 
 
         buttonLogin_login.setOnClickListener(view -> {
 
             if (isNetworkConnected(ActivityLogin.this)) {
-
                 final ProgressDialog progress = new ProgressDialog(this);
-
                 progress.setTitle("Logowanie...");
                 progress.setMessage("Proszę czekać...");
                 progress.setCanceledOnTouchOutside(false);
                 progress.setCancelable(false);
                 progress.show();
 
-                try {
-                    if (new AsyncActivity().execute().get()) {
-                        textViewBadLoginOrPassword_login.setVisibility(View.GONE);
-                        Thread thread = new Thread(() -> {
+                Thread thread = new Thread(() -> {
+                    try {
+                        if (new AsyncActivity().execute().get()) {
+                            runOnUiThread(() -> textViewBadLoginOrPassword_login.setVisibility(View.GONE));
 
                             String login = editTextLogin_login.getText().toString();
                             String password = editTextPassword_login.getText().toString();
 
-
+                            if (login.length() <= 0 || password.length() <= 0) {
+                                Alerts alert = new Alerts();
+                                runOnUiThread(() -> {
+                                    progress.cancel();
+                                    alert.alertLackOfData("Login i hasło nie mogą zostać puste!", ActivityLogin.this);
+                                });
+                            } else {
 
                                 Querries dbQuerries = new Querries();
 
@@ -134,7 +144,6 @@ public class ActivityLogin extends AppCompatActivity {
 
                                     if (haveUserLogged) {
 
-
                                         SharedPreferences prefsCloudSave = getApplicationContext().getSharedPreferences("prefsCloudSave", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor prefsEditorCloudSave = prefsCloudSave.edit();
                                         prefsEditorCloudSave.putBoolean("prefsCloudSave", true);
@@ -146,7 +155,6 @@ public class ActivityLogin extends AppCompatActivity {
                                         while (resultSetExportDate.next()) {
                                             export_date = resultSetExportDate.getDate("export_date");
                                         }
-                                        progress.cancel();
 
 
                                         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -161,6 +169,7 @@ public class ActivityLogin extends AppCompatActivity {
                                         prefsEditorLoginName.apply();
 
                                         runOnUiThread(() -> {
+                                            progress.cancel();
                                             AlertDialog.Builder alert = new AlertDialog.Builder(ActivityLogin.this, R.style.AlertDialogStyleUpdate);
                                             alert.setTitle("Pomyślnie zalogowano!");
                                             alert.setMessage(login + ", twoje konto pozostanie zalogowane, nie musisz " +
@@ -182,31 +191,41 @@ public class ActivityLogin extends AppCompatActivity {
                                     }
 
                                 } catch (SQLException | InterruptedException e) {
-                                    throw new RuntimeException(e);
+                                    runOnUiThread(progress::cancel);
+                                    e.printStackTrace();
                                 }
+                                runOnUiThread(progress::cancel);
+                            }
+
+                        } else {
+                            runOnUiThread(() -> {
                                 progress.cancel();
-
-                        });
-
-                        thread.start();
-
-                    } else {
-                        System.out.println("ni działa");
+                                AlertDialog.Builder alert = new AlertDialog.Builder(ActivityLogin.this, R.style.AlertDialogStyleUpdate);
+                                alert.setTitle("Nie można się połączyć z serwerem");
+                                alert.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
+                                alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> {
+                                    Toast.makeText(ActivityLogin.this, "Brak połączenia z serwerem", Toast.LENGTH_SHORT).show();
+                                });
+                                alert.show();
+                            });
+                        }
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
                     }
-                } catch (ExecutionException | InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
 
+                });
+                thread.start();
 
 
             } else {
                 AlertDialog.Builder alert = new AlertDialog.Builder(ActivityLogin.this, R.style.AlertDialogStyleUpdate);
                 alert.setTitle("Brak połączenia z internetem");
-                alert.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
-
+                alert.setMessage("Włącz Wi-Fi lub transmisję danych.");
+                alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) ->
+                    Toast.makeText(ActivityLogin.this, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show());
+                alert.show();
             }
         });
-
 
 
         imageButton1_rodent.setOnClickListener(new ActivityRodents());

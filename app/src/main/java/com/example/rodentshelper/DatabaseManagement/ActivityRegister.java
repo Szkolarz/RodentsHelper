@@ -83,7 +83,6 @@ public class ActivityRegister extends AppCompatActivity {
 
 
         buttonRegister_register = findViewById(R.id.buttonRegister_register);
-
         editTextLogin_register = findViewById(R.id.editTextLogin_register);
         editTextPassword_register = findViewById(R.id.editTextPassword_register);
         editTextRepeatPassword_register = findViewById(R.id.editTextRepeatPassword_register);
@@ -94,116 +93,122 @@ public class ActivityRegister extends AppCompatActivity {
 
 
 
-
         buttonRegister_register.setOnClickListener(view -> {
 
+            textViewLoginExists_register.setVisibility(View.GONE);
+            textViewBadPassword_register.setVisibility(View.GONE);
+            textViewPasswordsNotMatch_register.setVisibility(View.GONE);
+            textViewLoginTooShort_register.setVisibility(View.GONE);
+
             if (isNetworkConnected(ActivityRegister.this)) {
-
                 final ProgressDialog progress = new ProgressDialog(this);
-
                 progress.setTitle("Rejestracja konta...");
                 progress.setMessage("Proszę czekać...");
                 progress.setCanceledOnTouchOutside(false);
                 progress.setCancelable(false);
                 progress.show();
 
-                try {
-                    if (new AsyncActivity().execute().get()) {
-                        System.out.println("działa");
+
+                Thread thread = new Thread(() -> {
+                    try {
+                        if (new AsyncActivity().execute().get()) {
+
+                            String login = editTextLogin_register.getText().toString();
+                            String password = editTextPassword_register.getText().toString();
+                            String passwordRepeat = editTextRepeatPassword_register.getText().toString();
 
 
+                                if (isValid(login, password, passwordRepeat, ActivityRegister.this)) {
+
+                                    Querries dbQuerries = new Querries();
+
+                                    try {
+                                        ResultSet resultSetRegister = dbQuerries.checkLoginAvailability(ActivityRegister.this);
 
 
-                        String login = editTextLogin_register.getText().toString();
-                        String password = editTextPassword_register.getText().toString();
-                        String passwordRepeat = editTextRepeatPassword_register.getText().toString();
+                                        boolean isLoginAvailable = true;
 
-                        textViewLoginExists_register.setVisibility(View.GONE);
-                        textViewBadPassword_register.setVisibility(View.GONE);
-                        textViewPasswordsNotMatch_register.setVisibility(View.GONE);
-                        textViewLoginTooShort_register.setVisibility(View.GONE);
+                                        while (resultSetRegister.next()) {
+                                            if (login.equals(resultSetRegister.getString("login"))) {
 
-                        Thread thread = new Thread(() -> runOnUiThread(() -> {
+                                                runOnUiThread(() -> textViewLoginExists_register.setVisibility(View.VISIBLE));
 
-                            if (isValid(login, password, passwordRepeat, ActivityRegister.this)) {
+                                                isLoginAvailable = false;
+                                            }
 
-                                Querries dbQuerries = new Querries();
-
-                                ResultSet resultSetRegister = null;
-                                try {
-                                    resultSetRegister = dbQuerries.checkLoginAvailability(ActivityRegister.this);
-
-
-                                    boolean isLoginAvailable = true;
-
-                                    while (resultSetRegister.next()) {
-                                        if (login.equals(resultSetRegister.getString("login"))) {
-                                            textViewLoginExists_register.setVisibility(View.VISIBLE);
-                                            isLoginAvailable = false;
                                         }
 
+                                        if (isLoginAvailable) {
+
+                                            //BCrypt hashing
+                                            String hashedPassword = BCrypt.withDefaults().hashToString(12,
+                                                    editTextPassword_register.getText().toString().toCharArray());
+
+                                            dbQuerries.registerNewAccount(editTextLogin_register.getText().toString(),
+                                                    hashedPassword, ActivityRegister.this);
+
+                                            runOnUiThread(() -> {
+                                                progress.cancel();
+                                                AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRegister.this, R.style.AlertDialogStyleUpdate);
+                                                alert.setTitle("Pomyślnie dodano nowe konto!");
+                                                alert.setMessage("Możesz teraz się zalogować, aby odblokować możliwość zapisywania" +
+                                                        " swoich danych do chmury.");
+
+                                                alert.setPositiveButton("Ok", (dialogInterface, i) -> {
+                                                    Intent intent = new Intent(ActivityRegister.this, ActivityLogin.class);
+                                                    intent.putExtra("loginIntent", login);
+                                                    startActivity(intent);
+                                                    finish();
+                                                });
+                                                alert.show();
+                                            });
+
+
+                                        }
+
+                                    } catch (SQLException | NullPointerException | InterruptedException e) {
+                                        runOnUiThread(progress::cancel);
+                                        e.printStackTrace();
                                     }
+                                    runOnUiThread(progress::cancel);
+                                } else
+                                    runOnUiThread(progress::cancel);
 
-                                    if (isLoginAvailable) {
-
-                                        //BCrypt hashing
-                                        String hashedPassword = BCrypt.withDefaults().hashToString(12,
-                                                editTextPassword_register.getText().toString().toCharArray());
-
-                                        dbQuerries.registerNewAccount(editTextLogin_register.getText().toString(),
-                                                hashedPassword, ActivityRegister.this);
-
-                                        progress.cancel();
-
-                                        AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRegister.this, R.style.AlertDialogStyleUpdate);
-                                        alert.setTitle("Pomyślnie dodano nowe konto!");
-                                        alert.setMessage("Możesz teraz się zalogować, aby odblokować możliwość zapisywania" +
-                                                " swoich danych do chmury.");
-
-                                        alert.setPositiveButton("Ok", (dialogInterface, i) -> {
-                                            startActivity(new Intent(ActivityRegister.this, ActivityLogin.class));
-                                            finish();
-                                        });
-                                        alert.show();
-
-                                    } else {
-
-                                    }
-
-                                } catch (SQLException | NullPointerException | InterruptedException e) {
-                                    throw new RuntimeException(e);
-                                }
+                        } else {
+                            runOnUiThread(() -> {
                                 progress.cancel();
-                            } else
-                                progress.cancel();
-                        }));
+                                AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRegister.this, R.style.AlertDialogStyleUpdate);
+                                alert.setTitle("Nie można się połączyć z serwerem");
+                                alert.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
+                                alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> {
+                                    Toast.makeText(ActivityRegister.this, "Brak połączenia z serwerem", Toast.LENGTH_SHORT).show();
+                                });
+                                alert.show();
+                            });
+                        }
 
-                        thread.start();
-
-                    } else {
-                        System.out.println("ni działa");
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
                     }
-                } catch (ExecutionException | InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                });
 
+                thread.start();
 
 
             } else {
                 AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRegister.this, R.style.AlertDialogStyleUpdate);
                 alert.setTitle("Brak połączenia z internetem");
-                alert.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
-
+                alert.setMessage("Włącz Wi-Fi lub transmisję danych.");
+                alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) ->
+                    Toast.makeText(ActivityRegister.this, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show());
+                alert.show();
             }
         });
-
-
 
         imageButton1_rodent.setOnClickListener(new ActivityRodents());
         imageButton2_encyclopedia.setOnClickListener(new ActivityEncyclopedia());
         imageButton3_health.setOnClickListener(new ActivityHealth());
         imageButton4_other.setOnClickListener(new ActivityOther());
-
     }
 
 
@@ -213,34 +218,43 @@ public class ActivityRegister extends AppCompatActivity {
         Pattern letterPattern = Pattern.compile("[a-zA-Z ]");
         Pattern digitCasePatten = Pattern.compile("[0-9 ]");
 
-
         boolean flag = true;
 
         if (login.length() <= 0 || password.length() <= 0 || passwordRepeat.length() <= 0) {
             Alerts alert = new Alerts();
-            alert.alertLackOfData("Wszystkie pola muszą być uzupełnione.", context);
+            runOnUiThread(() -> {
+                alert.alertLackOfData("Wszystkie pola muszą być uzupełnione.", context);
+            });
+
             flag = false;
         }
 
         if (login.length() < 4) {
-            textViewLoginTooShort_register.setVisibility(View.VISIBLE);
+            runOnUiThread(() -> {
+                textViewLoginTooShort_register.setVisibility(View.VISIBLE);
+            });
+
             flag = false;
         }
 
         if (!password.equals(passwordRepeat)) {
-            textViewPasswordsNotMatch_register.setVisibility(View.VISIBLE);
+            runOnUiThread(() -> {
+                textViewPasswordsNotMatch_register.setVisibility(View.VISIBLE);
+            });
+
             flag = false;
         }
 
         if ((password.length() < 8) || (!letterPattern.matcher(password).find()) ||
                 (!digitCasePatten.matcher(password).find())) {
-            textViewBadPassword_register.setVisibility(View.VISIBLE);
+            runOnUiThread(() -> {
+                textViewBadPassword_register.setVisibility(View.VISIBLE);
+            });
+
             flag = false;
         }
 
-
         return flag;
-
     }
 
 
@@ -259,6 +273,4 @@ public class ActivityRegister extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
 }

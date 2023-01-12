@@ -50,6 +50,7 @@ public interface ConnectionSQL {
                 final Connection con = DriverManager.getConnection(datasourceUrl,
                         datasourceLogin, datasourcePassword);
 
+                inputStream.close();
                 return con;
             } catch (Exception e) {
                 System.out.println(e+ " Error");

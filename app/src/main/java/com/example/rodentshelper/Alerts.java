@@ -45,8 +45,8 @@ public class Alerts {
         alert.setMessage(message);
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(context, "Błąd", Toast.LENGTH_SHORT).show();
+            public void onClick(DialogInterface dialog, int which) {
+
             }
         });
         alert.create().show();

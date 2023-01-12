@@ -6,9 +6,6 @@ import androidx.room.Query;
 import androidx.room.TypeConverters;
 
 import com.example.rodentshelper.DatabaseManagement.CloudAccountModel;
-import com.example.rodentshelper.DatabaseManagement.DatabaseManagementModel;
-import com.example.rodentshelper.ROOM.Medicaments.MedicamentModel;
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 
 import java.sql.Date;
 import java.util.List;
@@ -17,9 +14,6 @@ import java.util.List;
 public interface DAO {
 
 
-
-    @Insert
-    void insertRecordDBManagement(DatabaseManagementModel DatabaseManagement);
 
     @Insert
     void insertRecordCloudAccountData(CloudAccountModel CloudAccount);
@@ -37,51 +31,6 @@ public interface DAO {
 
     @Query ("DELETE FROM CloudAccount")
     void DeleteCloudAccount();
-
-
-
-
-   /* @Query ("SELECT rodents.name\n" +
-            "FROM rodents\n" +
-            "JOIN vets ON rodents_vets.id_vet = vets.id\n" +
-            "JOIN rodents_vets ON rodents.id = rodents_vets.id_rodent\n" +
-            "WHERE vets.id = :id")
-    List<String> getAllRodentsVets(Integer id);*/
-
-
-
-   /* @Query ("DELETE FROM  rodents_vets WHERE id_vet = :id")
-    void DeleteAllRodentsVetsByVet(Integer id);
-
-    @Query ("DELETE FROM rodents_vets WHERE id_rodent = :id")
-    void DeleteAllRodentsVetsByRodent(Integer id);*/
-
-    /*************/
-    /** RODENTS **/
-    /*************/
-
-
-
-
-
-    /**************/
-    /**** VETS ****/
-    /**************/
-
-
-
-
-
-    /*****************/
-    /** MEDICAMENTS **/
-    /*****************/
-
-
-
-
-    /************/
-    /** VISITS **/
-    /************/
 
 
 

@@ -32,7 +32,7 @@ public class UpdateNotification {
         DAONotifications daoNotifications = db.daoNotifications();
         //if = true
         if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
-
+        System.out.println("ABABA");
 
             Long actualTimeStamp = System.currentTimeMillis();
             Long unixTimeStamps = daoNotifications.getUnixTimestampsFromNotificationWeight();
