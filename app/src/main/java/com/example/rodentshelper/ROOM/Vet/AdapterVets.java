@@ -1,5 +1,8 @@
 package com.example.rodentshelper.ROOM.Vet;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +25,7 @@ import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOVets;
+import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 
 import org.jetbrains.annotations.NotNull;
@@ -49,6 +54,21 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
     @Override
     public void onBindViewHolder(@NonNull @NotNull viewHolder holder, int position) {
 
+
+        if (vetModel.get(position).vetModel.getAddress().equals("")) {
+            holder.textViewAddress_vet.setVisibility(View.GONE);
+            holder.editTextAddress_vet.setVisibility(View.GONE);
+        }
+        if (vetModel.get(position).vetModel.getPhone_number().equals("")) {
+            holder.textViewPhone_vet.setVisibility(View.GONE);
+            holder.editTextPhone_vet.setVisibility(View.GONE);
+            holder.imageButtonCall_vet.setVisibility(View.GONE);
+        }
+        if (vetModel.get(position).vetModel.getNotes().equals("")) {
+            holder.textViewNotes_vet.setVisibility(View.GONE);
+            holder.editTextNotes_vet.setVisibility(View.GONE);
+        }
+
         AppDatabase db = Room.databaseBuilder(holder.editTextName_vet.getContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOVets vetDao = db.daoVets();
@@ -60,16 +80,17 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
         holder.ListViewVet.setVisibility(View.GONE);
         holder.textViewRodentRelationsInfo_vet.setVisibility(View.GONE);
         holder.textViewRodentRelations_vet.setVisibility(View.GONE);
+        holder.textViewRodentRelations_vet.setText("");
 
         holder.checkBoxVet.setVisibility(View.GONE);
         holder.buttonAdd_vet.setVisibility(View.GONE);
         holder.buttonSaveEdit_vet.setVisibility(View.GONE);
 
 
-        holder.editTextName_vet.append(vetModel.get(position).vetModel.getName());
-        holder.editTextAddress_vet.append(vetModel.get(position).vetModel.getAddress());
-        holder.editTextPhone_vet.append(vetModel.get(position).vetModel.getPhone_number());
-        holder.editTextNotes_vet.append(vetModel.get(position).vetModel.getNotes());
+        holder.editTextName_vet.setText(vetModel.get(position).vetModel.getName());
+        holder.editTextAddress_vet.setText(vetModel.get(position).vetModel.getAddress());
+        holder.editTextPhone_vet.setText(vetModel.get(position).vetModel.getPhone_number());
+        holder.editTextNotes_vet.setText(vetModel.get(position).vetModel.getNotes());
 
 
 
@@ -95,7 +116,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
         holder.imageButtonCall_vet.setOnClickListener(view -> makeACall(holder.editTextPhone_vet.getText().toString(),
                 holder.imageButtonCall_vet));
 
-        holder.buttonDelete_vet.setOnClickListener(view -> onClickDelete(vetDao, holder));
+        holder.buttonDelete_vet.setOnClickListener(view -> onClickDelete(holder.buttonDelete_vet.getContext(), vetDao, holder));
 
         holder.buttonEdit_vet.setOnClickListener(view -> onClickEdit(vetDao, holder));
 
@@ -104,18 +125,34 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
         db.close();
     }
 
-    private void onClickDelete(DAOVets vetDao, viewHolder holder) {
+    private void onClickDelete(Context context, DAOVets vetDao, viewHolder holder) {
 
-        //vetDao.DeleteAllRodentsVetsByVet(vetModel.get(holder.getAdapterPosition()).getId());
-        vetDao.deleteVetById(vetModel.get(holder.getAdapterPosition()).vetModel.getId());
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle("Usuwanie weterynarza");
+        alert.setMessage("Czy na pewno chcesz usunąć weterynarza z listy?\n\nProces jest nieodwracalny!");
+        alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(context, "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
 
-        //vetDao.SetVisitsIdVetNull(vetModel.get(holder.getAdapterPosition()).getId());
-        vetModel.remove(holder.getAdapterPosition());
+                //vetDao.DeleteAllRodentsVetsByVet(vetModel.get(holder.getAdapterPosition()).getId());
+                vetDao.deleteVetById(vetModel.get(holder.getAdapterPosition()).vetModel.getId());
 
-        notifyDataSetChanged();
+                //vetDao.SetVisitsIdVetNull(vetModel.get(holder.getAdapterPosition()).getId());
+                vetModel.remove(holder.getAdapterPosition());
 
-        Intent intent = new Intent(holder.buttonDelete_vet.getContext(), ViewVets.class);
-        holder.buttonDelete_vet.getContext().startActivity(intent);
+                notifyDataSetChanged();
+            }
+        });
+        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alert.create().show();
+
+
     }
 
     private void onClickEdit(DAOVets vetDao, viewHolder holder) {
@@ -157,7 +194,8 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
            EditText editTextName_vet, editTextAddress_vet, editTextPhone_vet, editTextNotes_vet;
            Button buttonDelete_vet, buttonEdit_vet, buttonAdd_vet, buttonSaveEdit_vet;
            ListView ListViewVet;
-           TextView textViewRodentRelations_vet, textViewRodentRelationsInfo_vet;
+           TextView textViewRodentRelations_vet, textViewRodentRelationsInfo_vet,
+                   textViewAddress_vet, textViewPhone_vet, textViewNotes_vet;
            CheckBox checkBoxVet;
            ImageButton imageButtonCall_vet;
 
@@ -172,7 +210,11 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
                editTextName_vet = itemView.findViewById(R.id.editTextName_vet);
                editTextAddress_vet = itemView.findViewById(R.id.editTextAddress_vet);
                editTextPhone_vet = itemView.findViewById(R.id.editTextPhone_vet);
-               editTextNotes_vet = itemView.findViewById(R.id.editTextPeriodicity_med);
+               editTextNotes_vet = itemView.findViewById(R.id.editTextNotes_vet);
+
+              textViewAddress_vet = itemView.findViewById(R.id.textViewAddress_vet);
+              textViewPhone_vet = itemView.findViewById(R.id.textViewPhone_vet);
+              textViewNotes_vet = itemView.findViewById(R.id.textViewNotes_vet);
 
 
                buttonDelete_vet = itemView.findViewById(R.id.buttonDelete_vet);

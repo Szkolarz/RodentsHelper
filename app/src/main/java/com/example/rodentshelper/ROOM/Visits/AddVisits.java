@@ -55,7 +55,7 @@ public class AddVisits extends AppCompatActivity {
 
     EditText editTextReason_visit;
     TextView textViewDate_visit, textViewTime_visit, textViewDate1_visitHidden,
-            textViewVetRelationsInfo_visit, textViewVetRelations_visit, textViewReasonInfo_visit;
+            textViewVetRelationsInfo_visit, textViewVetRelationsInfo_visit2, textViewVetRelations_visit, textViewReasonInfo_visit;
     Button buttonEdit_visit, buttonAdd_visit, buttonSaveEdit_visit, buttonDelete_visit;
     //ImageView imageViewDate1_med, imageViewDate2_med;
     ListView listViewVisit, listViewVisit2;
@@ -110,6 +110,7 @@ public class AddVisits extends AppCompatActivity {
         textViewDate1_visitHidden = findViewById(R.id.textViewDate1_visitHidden);
 
         textViewVetRelationsInfo_visit = findViewById(R.id.textViewVetRelationsInfo_visit);
+        textViewVetRelationsInfo_visit2 = findViewById(R.id.textViewVetRelationsInfo_visit2);
         textViewVetRelations_visit = findViewById(R.id.textViewVetRelations_visit);
 
 
@@ -568,7 +569,6 @@ public class AddVisits extends AppCompatActivity {
             buttonDelete_visit.setVisibility(View.GONE);
             buttonSaveEdit_visit.setVisibility(View.GONE);
             textViewVetRelations_visit.setVisibility(View.GONE);
-            textViewVetRelationsInfo_visit.setVisibility(View.GONE);
         }
 
         // 1 = adding new vet
@@ -579,7 +579,6 @@ public class AddVisits extends AppCompatActivity {
             buttonDelete_visit.setVisibility(View.GONE);
             buttonSaveEdit_visit.setVisibility(View.GONE);
             textViewVetRelations_visit.setVisibility(View.GONE);
-            textViewVetRelationsInfo_visit.setVisibility(View.GONE);
         }
 
         // 0 = edit
@@ -590,8 +589,11 @@ public class AddVisits extends AppCompatActivity {
             buttonDelete_visit.setVisibility(View.GONE);
             buttonSaveEdit_visit.setVisibility(View.VISIBLE);
             textViewVetRelations_visit.setVisibility(View.GONE);
-            textViewVetRelationsInfo_visit.setVisibility(View.GONE);
         }
+
+        textViewVetRelationsInfo_visit.setVisibility(View.GONE);
+        textViewVetRelationsInfo_visit2.setVisibility(View.GONE);
+
     }
 
 

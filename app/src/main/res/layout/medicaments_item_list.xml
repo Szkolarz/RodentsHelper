@@ -5,17 +5,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#ACC5E1">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#ACC5E1"
-        android:orientation="vertical"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/linearLayoutToolbar"
@@ -86,6 +86,7 @@
             android:visibility="gone" />
 
         <TextView
+            android:id="@+id/textViewDescription_med"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -108,6 +109,7 @@
 
 
         <TextView
+            android:id="@+id/textViewPeriodicity_med"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -129,6 +131,7 @@
 
 
         <TextView
+            android:id="@+id/textViewDate1_med"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -169,6 +172,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/textViewDate2_med"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

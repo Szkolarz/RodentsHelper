@@ -56,6 +56,15 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
     @Override
     public void onBindViewHolder(@NonNull @NotNull viewHolder holder, int position) {
 
+        if (visitModel.get(position).visitModel.getTime().equals("Ustaw...")) {
+            holder.textViewTimeInfo_visit.setVisibility(View.GONE);
+            holder.textViewTime_visit.setVisibility(View.GONE);
+        }
+        if (visitModel.get(position).visitModel.getReason().equals("")) {
+            holder.textViewReasonInfo_visit.setVisibility(View.GONE);
+            holder.editTextReason_visit.setVisibility(View.GONE);
+        }
+
         AppDatabase db = Room.databaseBuilder(holder.editTextReason_visit.getContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOVets daoVets = db.daoVets();
@@ -77,9 +86,10 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
 
         holder.textViewVetRelationsInfo_visit.setVisibility(View.GONE);
         holder.textViewVetRelations_visit.setVisibility(View.GONE);
+        holder.textViewVetRelations_visit.setText("");
         holder.textViewVetRelationsInfo_visit2.setVisibility(View.GONE);
         holder.textViewVetRelations_visit2.setVisibility(View.GONE);
-
+        holder.textViewVetRelations_visit2.setText("");
         holder.checkBoxVisit1.setVisibility(View.GONE);
         holder.checkBoxVisit2.setVisibility(View.GONE);
         holder.checkBoxVisit3.setVisibility(View.GONE);
@@ -195,9 +205,6 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
 
                 visitModel.remove(holder.getAdapterPosition());
 
-                Intent intent = new Intent(context, ViewVisits.class);
-                context.startActivity(intent);
-
                 notifyDataSetChanged();
             }
         });
@@ -224,7 +231,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
            EditText editTextReason_visit;
            TextView textViewDate_visit, textViewTime_visit, textViewVetRelationsInfo_visit, textViewVetRelations_visit,
                     textViewVetRelationsInfo_visit2, textViewVetRelations_visit2, textViewNotificationSet_visit,
-                    textViewReasonInfo_visit;
+                    textViewReasonInfo_visit, textViewTimeInfo_visit;
            Button buttonEdit_visit, buttonAdd_visit, buttonSaveEdit_visit, buttonDelete_visit;
            ListView listViewVisit, listViewVisit2;
            CheckBox checkBoxVisit1, checkBoxVisit2, checkBoxVisit3;
@@ -236,6 +243,9 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
             super(itemView);
 
             editTextReason_visit = itemView.findViewById(R.id.editTextReason_visit);
+
+            textViewTimeInfo_visit = itemView.findViewById(R.id.textViewTimeInfo_visit);
+            textViewReasonInfo_visit = itemView.findViewById(R.id.textViewReasonInfo_visit);
 
             textViewDate_visit = itemView.findViewById(R.id.textViewDate_visit);
             textViewTime_visit = itemView.findViewById(R.id.textViewTime_visit);

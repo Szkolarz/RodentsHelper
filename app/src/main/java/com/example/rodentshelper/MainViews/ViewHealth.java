@@ -61,6 +61,7 @@ public class ViewHealth extends AppCompatActivity {
 
         //flag reset for proper working
         FlagSetup.setFlagIsFromHealth(true);
+        System.out.println(FlagSetup.getFlagIsFromHealth() + "QQQQ");
         FlagSetup.setFlagRodentAdd(0);
         FlagSetup.setFlagVetAdd(0);
         FlagSetup.setFlagVisitAdd(0);

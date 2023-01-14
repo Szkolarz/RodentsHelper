@@ -52,6 +52,23 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
     @Override
     public void onBindViewHolder(@NonNull @NotNull viewHolder holder, int position) {
 
+        //have to be resetted, cause recyclerview messes while scrolling
+        holder.textViewDescription_med.setVisibility(View.VISIBLE);
+        holder.editTextDescription_med.setVisibility(View.VISIBLE);
+        holder.textViewPeriodicity_med.setVisibility(View.VISIBLE);
+        holder.editTextPeriodicity_med.setVisibility(View.VISIBLE);
+
+
+        if (medicamentModel.get(position).medicamentModel.getDescription().equals("")) {
+            holder.textViewDescription_med.setVisibility(View.GONE);
+            holder.editTextDescription_med.setVisibility(View.GONE);
+        }
+        if (medicamentModel.get(position).medicamentModel.getPeriodicity().equals("")) {
+            holder.textViewPeriodicity_med.setVisibility(View.GONE);
+            holder.editTextPeriodicity_med.setVisibility(View.GONE);
+        }
+
+
         AppDatabase db = Room.databaseBuilder(holder.editTextName_med.getContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAORodents daoRodents = db.daoRodents();
@@ -63,6 +80,7 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
         holder.listViewMed.setVisibility(View.GONE);
         holder.textViewRodentRelationsInfo_med.setVisibility(View.GONE);
         holder.textViewRodentRelations_med.setVisibility(View.GONE);
+        holder.textViewRodentRelations_med.setText("");
 
         holder.checkBoxMed.setVisibility(View.GONE);
         holder.buttonAdd_med.setVisibility(View.GONE);
@@ -90,6 +108,7 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
       //  holder.textViewRodentRelations_med.setText(null);
         try {
             for (int i = 0; i < medicamentModel.get(position).rodents.size(); i++) {
+
                 if ((i + 1) < medicamentModel.get(position).rodents.size())
                     holder.textViewRodentRelations_med.append(medicamentModel.get(position).rodents.get(i).getName() + "\n");
                 else
@@ -147,9 +166,6 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
 
                 medicamentModel.remove(holder.getAdapterPosition());
 
-                Intent intent = new Intent(context, ViewMedicaments.class);
-                context.startActivity(intent);
-
                 notifyDataSetChanged();
             }
         });
@@ -174,7 +190,8 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
     {
 
            EditText editTextName_med, editTextDescription_med, editTextPeriodicity_med;
-           TextView textViewDateStart_med, textViewDateEnd_med, textViewRodentRelations_med, textViewRodentRelationsInfo_med;
+           TextView textViewDateStart_med, textViewDateEnd_med, textViewRodentRelations_med, textViewRodentRelationsInfo_med,
+                   textViewDescription_med, textViewPeriodicity_med, textViewDate1_med, textViewDate2_med;
            Button buttonEdit_med, buttonAdd_med, buttonSaveEdit_med, buttonDelete_med;
            ImageView imageButtonDate_med1, imageButtonDate_med2;
            ListView listViewMed;
@@ -189,6 +206,11 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
             editTextName_med = itemView.findViewById(R.id.editTextName_med);
             editTextDescription_med = itemView.findViewById(R.id.editTextDescription_med);
             editTextPeriodicity_med = itemView.findViewById(R.id.editTextPeriodicity_med);
+
+            textViewDescription_med = itemView.findViewById(R.id.textViewDescription_med);
+            textViewPeriodicity_med = itemView.findViewById(R.id.textViewPeriodicity_med);
+            textViewDate1_med = itemView.findViewById(R.id.textViewDate1_med);
+            textViewDate2_med = itemView.findViewById(R.id.textViewDate2_med);
 
             textViewDateStart_med = itemView.findViewById(R.id.textViewDateStart_med);
             textViewDateEnd_med = itemView.findViewById(R.id.textViewDateEnd_med);

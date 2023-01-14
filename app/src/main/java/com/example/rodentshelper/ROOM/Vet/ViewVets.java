@@ -72,13 +72,11 @@ public class ViewVets extends AppCompatActivity {
         imageButton3_health.setOnClickListener(new ActivityHealth());
         imageButton4_other.setOnClickListener(new ActivityOther());
 
-        if (FlagSetup.getFlagIsFromHealth() == true) {
+        if (FlagSetup.getFlagIsFromHealth()) {
             textView3_health = findViewById(R.id.textView3_health);
             imageButton3_health.setColorFilter(Color.WHITE);
             textView3_health.setTextColor(Color.WHITE);
-        }
-
-        if (FlagSetup.getFlagIsFromHealth() == false) {
+        } else {
             FlagSetup.setFlagVetAdd(2);
             textView1_rodent = findViewById(R.id.textView1_rodent);
             imageButton1_rodent.setColorFilter(Color.WHITE);

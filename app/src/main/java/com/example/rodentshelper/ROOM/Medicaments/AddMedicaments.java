@@ -102,8 +102,7 @@ public class AddMedicaments extends AppCompatActivity {
         textViewDateEnd_med = findViewById(R.id.textViewDateEnd_med);
         imageButtonDate_med1 = findViewById(R.id.imageButtonDate_med1);
         imageButtonDate_med2 = findViewById(R.id.imageButtonDate_med2);
-        imageViewDate1_med = findViewById(R.id.imageViewDate1_med);
-        imageViewDate2_med = findViewById(R.id.imageViewDate2_med);
+
 
         buttonEdit_med = findViewById(R.id.buttonEdit_med);
         buttonAdd_med = findViewById(R.id.buttonAdd_med);

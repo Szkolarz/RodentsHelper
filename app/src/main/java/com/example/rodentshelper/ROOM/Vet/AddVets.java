@@ -102,7 +102,7 @@ public class AddVets extends AppCompatActivity {
         editTextName_vet = findViewById(R.id.editTextName_vet);
         editTextAddress_vet = findViewById(R.id.editTextAddress_vet);
         editTextPhone_vet = findViewById(R.id.editTextPhone_vet);
-        editTextNotes_vet = findViewById(R.id.editTextPeriodicity_med);
+        editTextNotes_vet = findViewById(R.id.editTextNotes_vet);
 
         imageButtonCall_vet = findViewById(R.id.imageButtonCall_vet);
         imageButtonCall_vet.setVisibility(View.GONE);
@@ -263,16 +263,11 @@ public class AddVets extends AppCompatActivity {
 
     public void saveVet(TextView textViewRequired_vet) {
 
-        editTextName_vet = findViewById(R.id.editTextName_vet);
-        editTextAddress_vet = findViewById(R.id.editTextAddress_vet);
-        editTextPhone_vet = findViewById(R.id.editTextPhone_vet);
-        editTextNotes_vet = findViewById(R.id.editTextPeriodicity_med);
 
         String stringName = editTextName_vet.getText().toString();
         String stringAddress = editTextAddress_vet.getText().toString();
         String stringPhone = editTextPhone_vet.getText().toString();
         String stringNotes = editTextNotes_vet.getText().toString();
-
 
 
         if (stringName.length() <= 0) {

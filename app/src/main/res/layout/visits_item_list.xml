@@ -5,18 +5,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#ACC5E1">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#ACC5E1"
-        android:orientation="vertical"
-        tools:context=".ROOM.Visits.ViewVisits"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        tools:context=".ROOM.Visits.ViewVisits">
 
         <LinearLayout
             android:id="@+id/linearLayoutToolbar"
@@ -44,7 +44,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
@@ -70,6 +70,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/textViewTimeInfo_visit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -128,53 +129,12 @@
             android:textSize="24sp" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageViewDate1_med"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-
-                android:gravity="left"
-                android:src="@android:drawable/arrow_down_float"
-                android:backgroundTint="#048FCD" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageViewDate2_med"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-
-                android:gravity="left"
-                android:src="@android:drawable/arrow_down_float"
-                android:backgroundTint="#048FCD" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-        </LinearLayout>
-
         <TextView
             android:id="@+id/textViewVetRelationsInfo_visit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:ellipsize="none"
             android:maxLines="8"
             android:text="Wizyta u weterynarza:"
@@ -197,6 +157,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:ellipsize="none"
             android:maxLines="8"
             android:text="Zwierzęta zapisane na wizytę:"
