@@ -2,39 +2,30 @@ package com.example.rodentshelper.MainViews;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.Window;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.rodentshelper.AsyncActivity;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
 public class FirstStart extends AppCompatActivity {
-
-    private ImageButton imageButtonHamster, imageButtonRat, imageButtonChinchilla;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        toolbar.setTitle("Wybierz zwierzę");
+        setSupportActionBar(toolbar);
 
 
-        imageButtonHamster = findViewById(R.id.imageButtonHamster);
-        imageButtonRat = findViewById(R.id.imageButtonRat);
-        imageButtonChinchilla = findViewById(R.id.imageButtonChinchilla);
+        ImageView imageButtonHamster = findViewById(R.id.imageButtonGuineaPig);
+        ImageView imageButtonRat = findViewById(R.id.imageButtonRat);
+        ImageView imageButtonChinchilla = findViewById(R.id.imageButtonChinchilla);
 
         //1 = hamster
         //2 = rat
