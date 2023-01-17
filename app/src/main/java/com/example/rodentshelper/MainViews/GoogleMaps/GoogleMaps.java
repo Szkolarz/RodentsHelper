@@ -2,6 +2,7 @@ package com.example.rodentshelper.MainViews.GoogleMaps;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,10 +16,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -32,12 +38,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.rodentshelper.Alerts;
+import com.example.rodentshelper.DatabaseManagement.ActivityDatabaseManagement;
 import com.example.rodentshelper.ImageCompress;
+import com.example.rodentshelper.MainViews.FirstStart;
 import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
+import com.example.rodentshelper.ROOM.Vet.VetModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -132,9 +142,53 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     @Override
+    public boolean onCreateOptionsMenu (Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_toolbar_maps, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.info_maps:
+
+
+                String link1 = "<a href=\"https://stowarzyszenie.forum-szynszyla.pl/\">Stowarzyszenie Miłośników Szynszyli Małej</a>";
+                String link2 = "<a href=\"https://stowarzyszenie.forum-szynszyla.pl/\">Stowarzyszenia Miłośników Szynszyli Małej</a>";
+
+                String alertText = "Znaczniki na mapie zostały oznaczone różnymi kolorami w zależności od " +
+                        "ich pochodzenia.<br><br>" +
+                        "<font color='#b33429'>Czerwone</font> - sprawdzeni i polecani weterynarze przez " + link1 + ";<br><br>" +
+                        "<font color='#206399'>Niebieskie</font> - weterynarze polecani przez użytkowników for oraz grup " +
+                        "dyskusyjnych należących do " + link2 + ";<br><br>" +
+                        "<font color='#6b15cf'>Fioletowe</font> - weterynarze wybrani przez autora aplikacji (na podstawie dobrych ocen " +
+                        "według opinii Google).";
+
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(GoogleMaps.this, R.style.InfoDialogStyle);
+                alert.setTitle("Informacja o znacznikach");
+                alert.setMessage(Html.fromHtml(alertText, 0));
+
+                AlertDialog alertDialog = alert.create();
+                alertDialog.show();
+                TextView msgTxt = alertDialog.findViewById(android.R.id.message);
+                msgTxt.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+                break;
+            default:
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vet_map);
+
+
 
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         toolbar.setTitle("Mapa weterynarzy");

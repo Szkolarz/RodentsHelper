@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/info_maps"
+        android:icon="@drawable/information_frame"
+        android:title="@string/info_maps_name"
+        app:showAsAction="always"
+        app:tint="@color/white"
+     />
+
+
+
+</menu>
