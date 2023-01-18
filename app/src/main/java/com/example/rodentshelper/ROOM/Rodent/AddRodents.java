@@ -34,6 +34,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
+import com.example.rodentshelper.DatabaseManagement.CloudAccountModel;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.ImageCompress;
 import com.example.rodentshelper.MainViews.ViewEncyclopedia;
@@ -260,7 +261,7 @@ public class AddRodents extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    onClickSaveEdit(daoRodents, idKey, id_animalKey);
+                    onClickSaveEdit(daoRodents, idKey, id_animalKey, nameKey);
 
 
                 }
@@ -393,6 +394,37 @@ public class AddRodents extends AppCompatActivity {
     }
 
 
+    private boolean checkNameAvailability(String name, boolean isFromEdit, String nameKey) {
+
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAORodents daoRodents = db.daoRodents();
+        List<String> names = daoRodents.getAllNameRodents();
+        db.close();
+
+        int flag = 0;
+        for (int i=0; i<names.size(); i++) {
+
+            //when name from editText is the same as name from database
+            if (name.equals(names.get(i))) {
+                if (!isFromEdit)
+                    return false;
+                else {
+                    //when user edits animal without editing its name
+                    if (nameKey.equals(name)) {
+                        flag++;
+                        if (flag == 2)
+                            return false;
+                    //when user edits animal but has changed its name
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     public void saveRodent() {
 
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -416,7 +448,6 @@ public class AddRodents extends AppCompatActivity {
 
 
 
-
         if (stringName.length() <= 0 || stringDate == null) {
             textViewRequired_rodent1.setVisibility(View.VISIBLE);
             textViewRequired_rodent2.setVisibility(View.VISIBLE);
@@ -425,8 +456,13 @@ public class AddRodents extends AppCompatActivity {
             alert.alertLackOfData("Do poprawnego działania aplikacji należy " +
                     "podać imię oraz wiek pupila.\n\nJeśli nie znasz dokładnej " +
                     "daty urodzenia zwierzęcia, możesz podać przybliżoną datę.", this);
-        }
-        else {
+        } else if (!checkNameAvailability(stringName.trim(), false, "")) {
+            Alerts alert = new Alerts();
+            alert.simpleInfo("Imię już istnieje", "Aplikacja zakłada, że nie mogą istnieć " +
+                    "dokładnie dwa takie same imiona pupili.\n\nJeśli rzeczywiście posiadasz dwa zwierzęta " +
+                    "z tym samym imieniem, możesz je lekko zmienić, np. '" + stringName.trim() + " - szczur', albo " +
+                    "'" + stringName.trim() + " 2'.", this);
+        } else {
             if (byteArray == null) {
                 Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
                         R.drawable.ic_chinchilla);
@@ -436,7 +472,6 @@ public class AddRodents extends AppCompatActivity {
             }
 
             SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
-
 
             daoRodents.insertRecordRodent(new RodentModel(prefsFirstStart.getInt("prefsFirstStart", 0), stringName.trim(), stringGender, Date.valueOf(stringDate), stringFur, stringNotes, byteArray));
 
@@ -448,7 +483,7 @@ public class AddRodents extends AppCompatActivity {
 
     }
 
-    private void onClickSaveEdit(DAORodents daoRodents, Integer idKey, Integer id_animalKey) {
+    private void onClickSaveEdit(DAORodents daoRodents, Integer idKey, Integer id_animalKey, String nameKey) {
 
         if (editTextName.getText().toString().length() <= 0) {
             textViewRequired_rodent1.setVisibility(View.VISIBLE);
@@ -457,6 +492,12 @@ public class AddRodents extends AppCompatActivity {
             Alerts alert = new Alerts();
             alert.alertLackOfData("Do poprawnego działania aplikacji należy " +
                     "podać imię pupila.", this);
+        } else if (!checkNameAvailability(editTextName.getText().toString().trim(), true, nameKey)) {
+            Alerts alert = new Alerts();
+            alert.simpleInfo("Imię już istnieje", "Aplikacja zakłada, że nie mogą istnieć " +
+                    "dokładnie dwa takie same imiona pupili.\n\nJeśli rzeczywiście posiadasz dwa zwierzęta " +
+                    "z tym samym imieniem, możesz je lekko zmienić, np. '" + editTextName.getText().toString().trim() + " - szczur', albo " +
+                    "'" + editTextName.getText().toString().trim() + " 2'.", this);
         } else {
 
             int selectedRadio = radioGroup.getCheckedRadioButtonId();

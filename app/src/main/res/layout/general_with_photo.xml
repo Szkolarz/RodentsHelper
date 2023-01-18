@@ -26,17 +26,16 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
+                android:layout_height="wrap_content">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -44,15 +43,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ACC5E1"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:gravity="center|center_vertical"
+                        android:orientation="vertical">
 
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <androidx.cardview.widget.CardView
@@ -85,7 +82,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:gravity="center_horizontal"
                             android:orientation="horizontal">
@@ -140,19 +137,17 @@
                             android:layout_marginBottom="5dp"
                             android:background="#5397DF" />
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerView_general"
+                        <RelativeLayout
+                            android:id="@+id/ll"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="wrap_content">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView_general"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </RelativeLayout>
+
                     </LinearLayout>
 
 

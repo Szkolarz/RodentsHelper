@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -96,6 +97,8 @@ public class ViewOther extends AppCompatActivity {
         flagForProgressDialog = true;
 
         Thread thread = new Thread(() -> runOnUiThread(() -> {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
             GoogleMaps googleMaps = new GoogleMaps();
             googleMaps.closeProgressDialog(ViewOther.this, progress);
 
