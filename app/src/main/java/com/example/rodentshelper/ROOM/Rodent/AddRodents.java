@@ -437,7 +437,8 @@ public class AddRodents extends AppCompatActivity {
 
             SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
-            daoRodents.insertRecordRodent(new RodentModel(prefsFirstStart.getInt("prefsFirstStart", 0), stringName, stringGender, Date.valueOf(stringDate), stringFur, stringNotes, byteArray));
+
+            daoRodents.insertRecordRodent(new RodentModel(prefsFirstStart.getInt("prefsFirstStart", 0), stringName.trim(), stringGender, Date.valueOf(stringDate), stringFur, stringNotes, byteArray));
 
             Toast.makeText(getApplicationContext(), "Pomyślnie dodano", Toast.LENGTH_SHORT).show();
             viewRodents();
@@ -478,7 +479,7 @@ public class AddRodents extends AppCompatActivity {
                 byteArray = stream.toByteArray();
             }
 
-            daoRodents.updateRodentById(idKey, id_animalKey, editTextName.getText().toString(),
+            daoRodents.updateRodentById(idKey, id_animalKey, editTextName.getText().toString().trim(),
                     stringGender, Date.valueOf(dateFormat),
                     editTextFur.getText().toString(), editTextNotes.getText().toString(), byteArray);
 

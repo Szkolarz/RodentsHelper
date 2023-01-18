@@ -87,6 +87,7 @@ public class ViewCagesupplyAndTreats extends AppCompatActivity  {
         ViewPager2 pager = findViewById(R.id.pager);
         pager.setUserInputEnabled(false);
 
+
         ImageView imageView_encyclopedia = findViewById(R.id.imageView_encyclopedia);
         TextView textViewInfo_encyclopedia = findViewById(R.id.textViewInfo_encyclopedia);
         LinearLayout linearLayout_encyclopedia = findViewById(R.id.linearLayout_encyclopedia);
@@ -98,13 +99,16 @@ public class ViewCagesupplyAndTreats extends AppCompatActivity  {
         if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
 
             if (prefsRodentId == 3)
-                textViewInfo_encyclopedia.setText("TESTOWY TEKST3");
+                textViewInfo_encyclopedia.setText("Szynszyle mają bardzo restrykcyjny jadłospis w przeciwieństwie do innych gryzoni. " +
+                        "Przede wszystkim należy pamiętać o kategorycznym zakazie karmienia ich 'mokrym' jedzeniem, tj. świeżymi owocami, " +
+                        "czy warzywami. Sama dieta tych zwierząt nie wymaga częstego podawania przysmaków, najbardziej należy się skupić " +
+                        "na sianie, suszonych ziołach oraz granulowanej karmie.");
             else if (prefsRodentId == 2)
                 textViewInfo_encyclopedia.setText("TESTOWY TEKST2");
             else if (prefsRodentId == 1)
                 textViewInfo_encyclopedia.setText("TESTOWY TEKST1");
 
-            toolbar.setTitle("Jedzenie");
+            toolbar.setTitle("Żywienie");
         } else if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
             toolbar.setTitle("Wyposażenie klatki");
             List<CageSupplyModel> cageSupplyModel = insertRecords.getListOfRecords(getApplicationContext());

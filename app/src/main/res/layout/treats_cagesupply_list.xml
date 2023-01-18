@@ -35,11 +35,12 @@
                     android:layout_width="200px"
                     android:layout_height="200px"
                     android:layout_centerVertical="true"
+                    android:layout_marginTop="4dp"
                     android:elevation="32dp"
-                    android:gravity="center"
 
+                    android:gravity="center"
                     app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="90dp"
+                    app:cardCornerRadius="35dp"
                     app:cardElevation="5dp">
 
                     <ImageView

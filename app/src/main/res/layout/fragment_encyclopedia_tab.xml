@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#ACC5E1"
     tools:context=".Encyclopedia.Common.EncyclopediaTab">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textViewTreats"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:textColor="#37474F" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_treats"
+        android:id="@+id/recyclerView_treats_cagesupply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</FrameLayout>
+
+</RelativeLayout>

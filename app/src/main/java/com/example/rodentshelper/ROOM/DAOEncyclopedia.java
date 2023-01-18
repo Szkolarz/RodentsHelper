@@ -46,7 +46,7 @@ public interface DAOEncyclopedia {
     @Insert
     void insertRecordTreats(TreatsModel Treats);
 
-    @Query("SELECT * FROM Treats WHERE id_animal = :id_animal")
+    @Query("SELECT * FROM Treats WHERE id_animal = :id_animal ORDER BY id ASC")
     List<TreatsModel> getAllTreats3(Integer id_animal);
 
     @Query("SELECT * FROM Treats WHERE id_animal = 3 AND is_healthy = 1")
@@ -64,7 +64,8 @@ public interface DAOEncyclopedia {
     @Insert
     void insertRecordCageSupply(CageSupplyModel CageSupply);
 
-    @Query("SELECT * FROM CageSupply WHERE id_animal = :id_animal EXCEPT SELECT * FROM CageSupply WHERE name = 'Info'")
+    @Query("SELECT * FROM CageSupply WHERE id_animal = :id_animal EXCEPT SELECT * FROM CageSupply WHERE name = 'Info'" +
+            " ORDER BY id ASC")
     List<CageSupplyModel> getAllCageSupplies(Integer id_animal);
 
     @Query("SELECT * FROM CageSupply WHERE name ='Info' AND id_animal = :id_animal")
@@ -82,7 +83,8 @@ public interface DAOEncyclopedia {
     @Insert
     void insertRecordGeneral(GeneralModel General);
 
-    @Query("SELECT * FROM General WHERE id_animal = :id_animal EXCEPT SELECT * FROM General WHERE name = 'Info'")
+    @Query("SELECT * FROM General WHERE id_animal = :id_animal EXCEPT SELECT * FROM General WHERE name = 'Info'" +
+            " ORDER BY id ASC")
     List<GeneralModel> getAllGeneral(Integer id_animal);
 
     @Query("SELECT * FROM General WHERE name ='Info' AND id_animal = :id_animal")
@@ -100,7 +102,8 @@ public interface DAOEncyclopedia {
     @Insert
     void insertRecordDiseases(DiseasesModel Diseases);
 
-    @Query("SELECT * FROM Diseases WHERE id_animal = :id_animal EXCEPT SELECT * FROM Diseases WHERE name = 'Info'")
+    @Query("SELECT * FROM Diseases WHERE id_animal = :id_animal EXCEPT SELECT * FROM Diseases WHERE name = 'Info'" +
+            " ORDER BY id ASC")
     List<DiseasesModel> getAllDiseases(Integer id_animal);
 
     @Query("SELECT * FROM Diseases WHERE name ='Info' AND id_animal = :id_animal")

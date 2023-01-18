@@ -14,7 +14,6 @@ import androidx.room.Room;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.rodentshelper.Encyclopedia.CageSupply.AdapterCageSupply;
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
@@ -56,27 +55,39 @@ public class EncyclopediaTab extends Fragment {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        setProperHeightOfView();
+    }
 
+    private void setProperHeightOfView() {
+
+        if (root!=null) {
+            ViewGroup.LayoutParams layoutParams = root.getLayoutParams();
+            if (layoutParams!=null) {
+                layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                root.requestLayout();
+            }
+        }
+    }
 
     public EncyclopediaTab(String title) {
         this.title = title;
     }
 
-
+    private View root;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_encyclopedia_tab, container, false);
-
-        TextView textViewTreats = root.findViewById(R.id.textViewTreats);
-
-        textViewTreats.setText(title);
+         root = inflater.inflate(R.layout.fragment_encyclopedia_tab, container, false);
 
         Context context = getActivity();
 
 
-        RecyclerView recyclerView = root.findViewById(R.id.recyclerView_treats);
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerView_treats_cagesupply);
+        recyclerView.setNestedScrollingEnabled(true );
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
