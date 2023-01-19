@@ -1,5 +1,6 @@
 package com.example.rodentshelper.ROOM.Notes;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -93,6 +94,7 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
                   //0 = edit
                   FlagSetup.setFlagNotesAdd(0);
                   holder.buttonEdit_notes.getContext().startActivity(intent);
+                  ((Activity)holder.buttonEdit_notes.getContext()).finish();
               }
           });
 
@@ -121,9 +123,6 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
 
                 notesModel.remove(holder.getAdapterPosition());
 
-                Intent intent = new Intent(context, ViewNotes.class);
-                context.startActivity(intent);
-
                 notifyDataSetChanged();
 
             }
@@ -147,7 +146,7 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
 
 
 
-    class viewHolder extends RecyclerView.ViewHolder
+    static class viewHolder extends RecyclerView.ViewHolder
     {
 
         EditText editTextTopic_notes, editTextContent_notes;

@@ -1,5 +1,6 @@
 package com.example.rodentshelper.ROOM.Vet;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOVets;
+import com.example.rodentshelper.ROOM.DAOVisits;
 import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 
 import org.jetbrains.annotations.NotNull;
@@ -70,6 +72,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
         AppDatabase db = Room.databaseBuilder(holder.editTextName_vet.getContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOVets vetDao = db.daoVets();
+        DAOVisits daoVisits = db.daoVisits();
 
         holder.editTextName_vet.setEnabled(false);
         holder.editTextAddress_vet.setEnabled(false);
@@ -114,7 +117,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
         holder.imageButtonCall_vet.setOnClickListener(view -> makeACall(holder.editTextPhone_vet.getText().toString(),
                 holder.imageButtonCall_vet));
 
-        holder.buttonDelete_vet.setOnClickListener(view -> onClickDelete(holder.buttonDelete_vet.getContext(), vetDao, holder));
+        holder.buttonDelete_vet.setOnClickListener(view -> onClickDelete(holder.buttonDelete_vet.getContext(), vetDao, daoVisits, holder));
 
         holder.buttonEdit_vet.setOnClickListener(view -> onClickEdit(vetDao, holder));
 
@@ -123,7 +126,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
         db.close();
     }
 
-    private void onClickDelete(Context context, DAOVets vetDao, viewHolder holder) {
+    private void onClickDelete(Context context, DAOVets vetDao, DAOVisits daoVisits, viewHolder holder) {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Usuwanie weterynarza");
@@ -132,6 +135,9 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
             Toast.makeText(context, "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
 
             //vetDao.DeleteAllRodentsVetsByVet(vetModel.get(holder.getAdapterPosition()).getId());
+
+            daoVisits.SetVisitsIdVetNull(vetModel.get(holder.getAdapterPosition()).vetModel.getId_vet());
+            vetDao.DeleteAllRodentsVetsByVet(vetModel.get(holder.getAdapterPosition()).vetModel.getId_vet());
             vetDao.deleteVetById(vetModel.get(holder.getAdapterPosition()).vetModel.getId());
 
             //vetDao.SetVisitsIdVetNull(vetModel.get(holder.getAdapterPosition()).getId());
@@ -156,6 +162,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
         FlagSetup.setFlagVetAdd(0);
 
         holder.buttonEdit_vet.getContext().startActivity(intent);
+        ((Activity)holder.buttonEdit_vet.getContext()).finish();
     }
 
     private void makeACall(String phoneNumber, ImageButton buttonCall) {

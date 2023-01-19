@@ -29,6 +29,9 @@ public interface DAOVets {
     @Query("DELETE FROM vets WHERE id_vet = :id")
     void deleteVetById(Integer id);
 
+    @Query ("DELETE FROM rodents_vets WHERE id_vet = :id")
+    void DeleteAllRodentsVetsByVet(Integer id);
+
     @TypeConverters(Converters.class)
     @Query("UPDATE vets SET name = :name, address = :address, phone_number = :phone, notes = :notes WHERE id_vet = :id")
     void updateVetById(Integer id, String name, String address, String phone, String notes);
@@ -48,8 +51,8 @@ public interface DAOVets {
 
     @Transaction
     @Query ("SELECT vets.id_vet, vets.name, vets.address, vets.phone_number, vets.notes FROM vets\n" +
-            "JOIN rodents  ON (RodentVetModel.id_vet = vets.id_vet)\n" +
-            "JOIN RodentVetModel ON (rodents.id_rodent = RodentVetModel.id_rodent)\n" +
+            "JOIN rodents  ON (rodents_vets.id_vet = vets.id_vet)\n" +
+            "JOIN rodents_vets ON (rodents.id_rodent = rodents_vets.id_rodent)\n" +
             "WHERE rodents.id_rodent = :id")
     List<VetWithRodentsCrossRef> getVetsWithRodentsWhereIdRodent(Integer id);
 
@@ -65,8 +68,7 @@ public interface DAOVets {
     @Query("SELECT id_rodent, name1 FROM rodents where id_rodent = :id")
     List<RodentModel> getAllRodentsVets(Integer id);
 
-    @Query ("DELETE FROM RodentVetModel WHERE id_vet = :id")
-    void DeleteAllRodentsVetsByVet(Integer id);
+
 
     @Query ("SELECT COUNT(*) FROM vets WHERE id_vet <= :id_vet")
     Integer getRealPositionFromVet(Integer id_vet);

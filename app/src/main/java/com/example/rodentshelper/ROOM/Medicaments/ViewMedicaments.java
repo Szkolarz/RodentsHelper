@@ -110,6 +110,7 @@ public class ViewMedicaments extends AppCompatActivity {
         final Context context = this;
         Intent intent = new Intent(context, AddMedicaments.class);
         startActivity(intent);
+        finish();
     }
 
 

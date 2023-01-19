@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,6 +27,7 @@ import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAORodents;
 import com.example.rodentshelper.ROOM.DAOVets;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
+import com.example.rodentshelper.ROOM.Weights.WeightView;
 import com.example.rodentshelper.ROOM._MTM._RodentVet.RodentVetModel;
 import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 
@@ -148,36 +150,6 @@ public class AddVets extends AppCompatActivity {
             }
 
             checkCheckBox();
-          /*  List<String> list = vetDao.getAllRodentsVets(idKey);
-
-
-
-
-
-            try {
-                for (int k = 0; k < vetModel.get(2).rodents.size(); k++) {
-                       textViewRodentRelations_vet.append(vetModel.get(2).rodents.get(k).getName());
-                }
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("There is no any rodent left in relation");
-            }
-
-
-            for (int j = 0; j < arrayListLV.size(); j ++) {
-                // aaaar.add(arrayListLV.get(j));
-                for(int i = 0; i < list.size(); i++) {
-
-                    if (arrayListLV.get(j).equals(list.get(i))) {
-
-                        ListViewVet.setItemChecked(j, true);
-                        checkBoxVet.setChecked(true);
-                    }
-
-                }
-            }
-
-            checkCheckBox(checkBoxVet, ListViewVet);*/
-
 
 
             buttonSaveEdit_vet.setOnClickListener(view -> {
@@ -224,7 +196,11 @@ public class AddVets extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().show();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> finish());
+        toolbar.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(AddVets.this, ViewVets.class);
+            startActivity(intent);
+            finish();
+        });
 
     }
 
@@ -332,9 +308,14 @@ public class AddVets extends AppCompatActivity {
         }
     }
 
-
-
-
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent(AddVets.this, ViewVets.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }

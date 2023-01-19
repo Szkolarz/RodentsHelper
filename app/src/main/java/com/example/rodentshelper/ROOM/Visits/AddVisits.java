@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
@@ -35,7 +36,9 @@ import com.example.rodentshelper.ROOM.DAORodents;
 import com.example.rodentshelper.ROOM.DAOVets;
 import com.example.rodentshelper.ROOM.DAOVisits;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
+import com.example.rodentshelper.ROOM.Vet.AddVets;
 import com.example.rodentshelper.ROOM.Vet.VetModel;
+import com.example.rodentshelper.ROOM.Vet.ViewVets;
 import com.example.rodentshelper.ROOM._MTM._RodentVisit.RodentVisitModel;
 import com.example.rodentshelper.ROOM._MTM._RodentVisit.VisitsWithRodentsCrossRef;
 
@@ -274,8 +277,11 @@ public class AddVisits extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().show();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> finish());
-
+        toolbar.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(AddVisits.this, ViewVisits.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
 
@@ -526,7 +532,15 @@ public class AddVisits extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent(AddVisits.this, ViewVisits.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 
 }

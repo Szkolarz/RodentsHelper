@@ -112,9 +112,8 @@ public class ViewVisits extends AppCompatActivity {
         final Context context = this;
         Intent intent = new Intent(context, AddVisits.class);
         startActivity(intent);
+        finish();
     }
-
-
 
 
 

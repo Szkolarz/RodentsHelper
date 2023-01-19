@@ -99,6 +99,7 @@ public class ViewVets extends AppCompatActivity {
         final Context context = this;
         Intent intent = new Intent(context, AddVets.class);
         startActivity(intent);
+        finish();
     }
 
 

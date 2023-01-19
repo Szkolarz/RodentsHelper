@@ -1,5 +1,6 @@
 package com.example.rodentshelper.ROOM.Visits;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -154,6 +155,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
             //0 = edit
             FlagSetup.setFlagVisitAdd(0);
             holder.buttonEdit_visit.getContext().startActivity(intent);
+            ((Activity)holder.buttonEdit_visit.getContext()).finish();
         });
 
         holder.arrayListSelected.clear();
@@ -189,7 +191,6 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
 
     static class viewHolder extends RecyclerView.ViewHolder
     {
-
            EditText editTextReason_visit;
            TextView textViewDate_visit, textViewTime_visit, textViewVetRelationsInfo_visit, textViewVetRelations_visit,
                     textViewVetRelationsInfo_visit2, textViewVetRelations_visit2, textViewNotificationSet_visit,

@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
 @Entity(
-        primaryKeys = {"id_rodent", "id_vet"})
+        primaryKeys = {"id_rodent", "id_vet"},
+        tableName = "rodents_vets")
+
 public class RodentVetModel {
 
     @NonNull

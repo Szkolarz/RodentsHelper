@@ -1,5 +1,6 @@
 package com.example.rodentshelper.ROOM.Medicaments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -145,6 +146,7 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
         //0 = edit
         FlagSetup.setFlagMedAdd(0);
         holder.buttonEdit_med.getContext().startActivity(intent);
+        ((Activity)holder.buttonEdit_med.getContext()).finish();
     }
 
     /** usuwanie **/

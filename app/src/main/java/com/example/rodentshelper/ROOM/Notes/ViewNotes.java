@@ -77,9 +77,6 @@ public class ViewNotes extends AppCompatActivity {
             textViewEmpty.setText("Nie ma żadnych pozycji w bazie danych. Aby dodać nową notatkę, " +
                     "kliknij przycisk z plusikiem na górze ekranu.");
         }
-
-
-
         buttonAddRecord.setOnClickListener(view -> addNewNote());
     }
 
@@ -90,10 +87,8 @@ public class ViewNotes extends AppCompatActivity {
         final Context context = this;
         Intent intent = new Intent(context, AddNotes.class);
         startActivity(intent);
+        finish();
     }
-
-
-
 
 
 

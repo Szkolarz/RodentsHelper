@@ -3,6 +3,7 @@ package com.example.rodentshelper.ROOM.Notes;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,8 @@ import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotes;
 import com.example.rodentshelper.ROOM.DateFormat;
+import com.example.rodentshelper.ROOM.Vet.AddVets;
+import com.example.rodentshelper.ROOM.Vet.ViewVets;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -95,7 +98,11 @@ public class AddNotes extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().show();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> finish());
+        toolbar.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(AddNotes.this, ViewNotes.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
 
@@ -145,15 +152,21 @@ public class AddNotes extends AppCompatActivity {
     }
 
 
-
-
     private void viewNotes() {
         startActivity(new Intent(getApplicationContext(), ViewNotes.class));
         finish();
     }
 
 
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent(AddNotes.this, ViewNotes.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 
 
