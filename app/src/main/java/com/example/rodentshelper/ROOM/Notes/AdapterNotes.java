@@ -23,7 +23,6 @@ import com.example.rodentshelper.ROOM.DAONotes;
 import com.example.rodentshelper.ROOM.DateFormat;
 import com.example.rodentshelper.ROOM._MTM._RodentNotes.RodentWithNotes;
 
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
         if (notesModel.get(position).notesModel.getTopic().equals(""))
             holder.editTextTopic_notes.setText("brak tematu");
         else
-            holder.editTextTopic_notes.setText(notesModel.get(position).notesModel.getTopic().toString());
+            holder.editTextTopic_notes.setText(notesModel.get(position).notesModel.getTopic());
 
 
 
@@ -118,6 +117,7 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
                 DAONotes dao = db.daoNotes();
 
                 dao.deleteNotesById(notesModel.get(holder.getAdapterPosition()).notesModel.getId_notes());
+                db.close();
 
                 notesModel.remove(holder.getAdapterPosition());
 
@@ -155,7 +155,7 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
         TextView textViewDate_notes;
 
 
-        private ArrayList<String> arrayListSelected;
+        private final ArrayList<String> arrayListSelected;
 
         public viewHolder(@NonNull @NotNull View itemView) {
             super(itemView);

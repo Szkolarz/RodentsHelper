@@ -17,7 +17,7 @@ public class AsyncActivity extends AsyncTask<Void, Boolean, Boolean> {
     }
 
     public void setInternetConnectionInfo(Boolean internetConnectionInfo) {
-        this.internetConnectionInfo = internetConnectionInfo;
+        AsyncActivity.internetConnectionInfo = internetConnectionInfo;
     }
 
 

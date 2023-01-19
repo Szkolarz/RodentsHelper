@@ -3,7 +3,6 @@ package com.example.rodentshelper.DatabaseManagement;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -44,10 +43,6 @@ import java.util.concurrent.ExecutionException;
 
 public class ActivityDatabaseManagement extends AppCompatActivity {
 
-    private Button buttonImport, buttonExport,
-            buttonLogin_importExport, buttonRegister_importExport;
-    private LinearLayout linearLayout_notLogged, linearLayout_logged;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,23 +63,20 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
         imageButton4_other = findViewById(R.id.imageButton4_other);
 
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ActivityDatabaseManagement.this, ViewRodents.class);
-                startActivity(intent);
-                finish();
-            }
+        toolbar.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(ActivityDatabaseManagement.this, ViewRodents.class);
+            startActivity(intent);
+            finish();
         });
 
 
-        buttonImport = findViewById(R.id.buttonImport);
-        buttonExport = findViewById(R.id.buttonExport);
-        buttonLogin_importExport = findViewById(R.id.buttonLogin_importExport);
-        buttonRegister_importExport = findViewById(R.id.buttonRegister_importExport);
+        Button buttonImport = findViewById(R.id.buttonImport);
+        Button buttonExport = findViewById(R.id.buttonExport);
+        Button buttonLogin_importExport = findViewById(R.id.buttonLogin_importExport);
+        Button buttonRegister_importExport = findViewById(R.id.buttonRegister_importExport);
 
-        linearLayout_notLogged = findViewById(R.id.linearLayout_notLogged);
-        linearLayout_logged = findViewById(R.id.linearLayout_logged);
+        LinearLayout linearLayout_notLogged = findViewById(R.id.linearLayout_notLogged);
+        LinearLayout linearLayout_logged = findViewById(R.id.linearLayout_logged);
 
 
         SharedPreferences prefsCloudSave = getApplicationContext().getSharedPreferences("prefsCloudSave", Context.MODE_PRIVATE);
@@ -204,7 +196,6 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
                         Thread thread = new Thread(() -> {
                             try {
                                 if (new AsyncActivity().execute().get()) {
-                                    ExportAndImport exportAndImport = new ExportAndImport();
 
                                     String s = getDatabasePath("rodents_helper").toString();
                                     String s1 = s.substring(0,s.lastIndexOf("/") + 1);
@@ -220,7 +211,7 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
                                     runOnUiThread(() -> {
                                         try {
                                             boolean haveDataImported = ExportAndImport.importDatabase(ActivityDatabaseManagement.this,
-                                                    prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"), databaseDirectory);
+                                                    prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"));
 
                                             if (haveDataImported) {
                                                 progressImport.cancel();
@@ -329,9 +320,7 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(ActivityDatabaseManagement.this, R.style.AlertDialogStyleUpdate);
         alert.setTitle("Brak połączenia z internetem");
         alert.setMessage("Włącz Wi-Fi lub transmisję danych.");
-        alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> {
-            Toast.makeText(ActivityDatabaseManagement.this, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show();
-        });
+        alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> Toast.makeText(ActivityDatabaseManagement.this, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show());
         alert.show();
     }
 
@@ -339,9 +328,7 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(ActivityDatabaseManagement.this, R.style.AlertDialogStyleUpdate);
         alert.setTitle("Nie można się połączyć z serwerem");
         alert.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
-        alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> {
-            Toast.makeText(ActivityDatabaseManagement.this, "Brak połączenia z serwerem", Toast.LENGTH_SHORT).show();
-        });
+        alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> Toast.makeText(ActivityDatabaseManagement.this, "Brak połączenia z serwerem", Toast.LENGTH_SHORT).show());
         alert.show();
     }
 

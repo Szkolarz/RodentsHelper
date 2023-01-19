@@ -3,8 +3,6 @@ package com.example.rodentshelper.ROOM._MTM._VetVisit;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import com.example.rodentshelper.ROOM.Notes.NotesModel;
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM.Vet.VetModel;
 import com.example.rodentshelper.ROOM.Visits.VisitModel;
 

@@ -42,7 +42,7 @@ public class BackupWorkerFeeding extends Worker {
 
         UpdateNotification updateNotification = new UpdateNotification();
         updateNotification.checkIfUserHasMissedNotification(getApplicationContext());
-        //updateNotification.checkNotificationPreferences(getApplicationContext());
+        updateNotification.checkNotificationPreferences(getApplicationContext());
 
 
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -50,19 +50,13 @@ public class BackupWorkerFeeding extends Worker {
         DAONotifications daoNotifications = db.daoNotifications();
 
 
-
-
         if (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false)) {
 
-            SharedPreferences prefsRequestCodeFeeding = getApplicationContext().getSharedPreferences("prefsRequestCodeFeeding", Context.MODE_PRIVATE);
-            SharedPreferences.Editor prefsEditorRequestCodeFeeding = prefsRequestCodeFeeding.edit();
 
             Integer requestCode;
 
             /** the first id */
             requestCode = daoNotifications.getFirstIdFromNotificationFeeding();
-
-
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel channel = new NotificationChannel(requestCode.toString(), requestCode.toString(), NotificationManager.IMPORTANCE_DEFAULT);
@@ -86,13 +80,11 @@ public class BackupWorkerFeeding extends Worker {
                 pendingIntent = PendingIntent.getActivity(getApplicationContext(), requestCode, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-
             builder.setContentIntent(pendingIntent);
 
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
 
             managerCompat.notify(requestCode, builder.build());
-
 
             daoNotifications.updateUnixTimestampFeeding(System.currentTimeMillis(), requestCode);
 
@@ -108,7 +100,4 @@ public class BackupWorkerFeeding extends Worker {
 
         return Result.success ();
     }
-
-
-
 }

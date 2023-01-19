@@ -27,7 +27,7 @@ public class FirstStart extends AppCompatActivity {
         ImageView imageButtonRat = findViewById(R.id.imageButtonRat);
         ImageView imageButtonChinchilla = findViewById(R.id.imageButtonChinchilla);
 
-        //1 = hamster
+        //1 = guinea pig
         //2 = rat
         //3 = chinchilla
         SharedPreferences spFirstStart = getSharedPreferences("prefsFirstStart", MODE_PRIVATE);

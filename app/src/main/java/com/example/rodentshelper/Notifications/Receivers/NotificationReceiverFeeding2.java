@@ -7,7 +7,6 @@ import android.content.Intent;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import com.example.rodentshelper.Notifications.Workers.BackupWorkerFeeding;
 import com.example.rodentshelper.Notifications.Workers.BackupWorkerFeeding2;
 
 public class NotificationReceiverFeeding2 extends BroadcastReceiver {

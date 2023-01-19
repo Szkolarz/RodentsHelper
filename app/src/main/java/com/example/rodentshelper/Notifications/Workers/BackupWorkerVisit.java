@@ -26,9 +26,6 @@ import java.util.List;
 
 public class BackupWorkerVisit extends Worker {
 
-    private static final String TAG = "BackupWorker";
-
-
     public BackupWorkerVisit(@NonNull Context context, @NonNull WorkerParameters workerParams ) {
         super ( context, workerParams );
     }
@@ -36,7 +33,6 @@ public class BackupWorkerVisit extends Worker {
     @NonNull
     @Override
     public Result doWork () {
-        //call methods to perform background task
 
         System.out.println("Backup Worker Visit start");
         SharedPreferences prefsNotificationVisit = getApplicationContext().getSharedPreferences("prefsNotificationVisit", Context.MODE_PRIVATE);
@@ -99,7 +95,6 @@ public class BackupWorkerVisit extends Worker {
 
                 }
             }
-
         }
 
 

@@ -2,7 +2,6 @@ package com.example.rodentshelper.ROOM.Medicaments;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,6 @@ import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOMedicaments;
-import com.example.rodentshelper.ROOM.DAORodents;
 import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +32,7 @@ import java.util.List;
 
 public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.viewHolder>
 {
-    private List<MedicamentWithRodentsCrossRef> medicamentModel;
+    private final List<MedicamentWithRodentsCrossRef> medicamentModel;
 
     public AdapterMedicaments(List<MedicamentWithRodentsCrossRef> medicamentModel) {
         this.medicamentModel = medicamentModel;
@@ -71,7 +69,6 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
 
         AppDatabase db = Room.databaseBuilder(holder.editTextName_med.getContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAORodents daoRodents = db.daoRodents();
         DAOMedicaments daoMedicaments = db.daoMedicaments();
 
         holder.editTextName_med.setEnabled(false);
@@ -156,25 +153,18 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Usuwanie lekarstwa");
         alert.setMessage("Czy na pewno chcesz usunąć lek z listy?\n\nProces jest nieodwracalny!");
-        alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(context, "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
+        alert.setPositiveButton("Tak", (dialogInterface, i) -> {
+            Toast.makeText(context, "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
 
-                daoMedicaments.DeleteAllRodentsMedsByMed(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_medicament());
-                daoMedicaments.deleteMedById(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_medicament());
+            daoMedicaments.DeleteAllRodentsMedsByMed(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_medicament());
+            daoMedicaments.deleteMedById(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_medicament());
 
-                medicamentModel.remove(holder.getAdapterPosition());
+            medicamentModel.remove(holder.getAdapterPosition());
 
-                notifyDataSetChanged();
-            }
+            notifyDataSetChanged();
         });
-        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show();
-            }
-        });
+        alert.setNegativeButton("Nie", (dialogInterface, i) ->
+                Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show());
         alert.create().show();
     }
 
@@ -185,8 +175,7 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
 
 
 
-
-    class viewHolder extends RecyclerView.ViewHolder
+    static class viewHolder extends RecyclerView.ViewHolder
     {
 
            EditText editTextName_med, editTextDescription_med, editTextPeriodicity_med;
@@ -198,7 +187,7 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
            CheckBox checkBoxMed;
 
 
-        private ArrayList<String> arrayListSelected;
+        private final ArrayList<String> arrayListSelected;
 
         public viewHolder(@NonNull @NotNull View itemView) {
             super(itemView);

@@ -6,10 +6,8 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.TypeConverters;
 
-
 import com.example.rodentshelper.ROOM.Weights.WeightModel;
 import com.example.rodentshelper.ROOM._MTM._RodentWeight.RodentWithWeights;
-
 
 import java.sql.Date;
 import java.util.List;
@@ -48,15 +46,15 @@ public interface DAOWeight {
 
     @Transaction
     @Query("SELECT * FROM weight WHERE id_rodent = :id_rodent ORDER BY date DESC")
-    public List<RodentWithWeights> getRodentWithWeights(Integer id_rodent);
+    List<RodentWithWeights> getRodentWithWeights(Integer id_rodent);
 
     @Transaction
     @Query("SELECT * FROM weight WHERE id_rodent = :id_rodent ORDER BY date ASC")
-    public List<RodentWithWeights> getRodentWithWeightsASC(Integer id_rodent);
+    List<RodentWithWeights> getRodentWithWeightsASC(Integer id_rodent);
 
     @Transaction
     @Query("SELECT * FROM weight WHERE id_rodent = :id_rodent ORDER BY date DESC LIMIT 1")
-    public List<RodentWithWeights> getLastWeightByRodentId(Integer id_rodent);
+    List<RodentWithWeights> getLastWeightByRodentId(Integer id_rodent);
 
 
 

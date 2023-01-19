@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
-import android.view.KeyEvent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,8 +18,8 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.R;
+import com.example.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.ROOM.Notes.ViewNotes;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.ROOM.Vet.ViewVets;
@@ -31,10 +29,6 @@ import com.example.rodentshelper.ROOM.Weights.WeightView;
 import java.util.Objects;
 
 public class ViewPetHealth extends AppCompatActivity {
-
-    ImageView imageButtonVet1, imageButtonMed, imageButtonVisit, imageButton1_rodent, imageButtonPetHealth_notes, imageButtonPetHealth_weight;
-    TextView textView1_rodent, textView1_petHealth, textView2_petHealth, textView3_petHealth, textView4_petHealth, textView5_petHealth;
-
 
 
     @Override
@@ -74,6 +68,10 @@ public class ViewPetHealth extends AppCompatActivity {
         FlagSetup.setFlagVetAdd(2);
         FlagSetup.setFlagVisitAdd(2);
         FlagSetup.setFlagMedAdd(2);
+
+
+        ImageView imageButtonVet1, imageButtonMed, imageButtonVisit, imageButtonPetHealth_notes, imageButtonPetHealth_weight;
+        TextView textView1_rodent, textView1_petHealth, textView2_petHealth, textView3_petHealth, textView4_petHealth, textView5_petHealth;
 
         imageButtonVet1 = findViewById(R.id.imageButtonVet1);
         imageButtonMed = findViewById(R.id.imageButtonMed);
@@ -116,46 +114,15 @@ public class ViewPetHealth extends AppCompatActivity {
         textView1_rodent.setTextColor(Color.WHITE);
 
 
-        imageButtonVet1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewVets();
-            }
-        });
+        imageButtonVet1.setOnClickListener(view -> viewVets());
 
-        imageButtonMed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewMeds();
-            }
-        });
+        imageButtonMed.setOnClickListener(view -> viewMeds());
 
-        imageButtonVisit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewVisits();
-            }
-        });
+        imageButtonVisit.setOnClickListener(view -> viewVisits());
 
-        imageButtonPetHealth_notes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewNotes();
-            }
-        });
+        imageButtonPetHealth_notes.setOnClickListener(view -> viewNotes());
 
-        imageButtonPetHealth_weight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewWeight();
-            }
-        });
-
-
-
-
-
-
+        imageButtonPetHealth_weight.setOnClickListener(view -> viewWeight());
     }
 
     private SpannableString boldText(String boldText) {
@@ -163,8 +130,6 @@ public class ViewPetHealth extends AppCompatActivity {
         str.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return str;
     }
-
-
 
 
     public void viewVets()
@@ -193,13 +158,6 @@ public class ViewPetHealth extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void viewRodents()
-    {
-        Intent intent = new Intent(ViewPetHealth.this, ViewRodents.class);
-        startActivity(intent);
-        finish();
-    }
-
     public void viewNotes()
     {
         Intent intent = new Intent(ViewPetHealth.this, ViewNotes.class);
@@ -207,9 +165,4 @@ public class ViewPetHealth extends AppCompatActivity {
 
         startActivity(intent);
     }
-
-
-
-
-
 }

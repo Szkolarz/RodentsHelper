@@ -1,27 +1,21 @@
 package com.example.rodentshelper.MainViews.GoogleMaps;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,18 +30,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 
-import com.example.rodentshelper.Alerts;
-import com.example.rodentshelper.DatabaseManagement.ActivityDatabaseManagement;
-import com.example.rodentshelper.ImageCompress;
-import com.example.rodentshelper.MainViews.FirstStart;
-import com.example.rodentshelper.MainViews.ViewEncyclopedia;
-import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
-import com.example.rodentshelper.ROOM.Vet.VetModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -57,20 +42,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-
 import com.google.android.gms.tasks.Task;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.Objects;
 
 //AppCompatActivity extends FragmentActivity; there has to be AppCompat, cause of Toolbar
 public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
-    TextView tt, textViewName_map, textViewAddress_map, textViewPhone_map;
-    Button buttonAddVet_map, buttonLoadMap_map;
-    LinearLayout linearLayoutData_map, linearLayoutMap_map;
+    private TextView textViewName_map, textViewAddress_map, textViewPhone_map;
+    private Button buttonAddVet_map, buttonLoadMap_map;
+    private LinearLayout linearLayoutData_map, linearLayoutMap_map;
 
 
     private GoogleMap map;
@@ -94,7 +75,6 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
-    ProgressDialog progressDialog;
 
 
     /** Called when the user clicks a marker. */
@@ -134,11 +114,9 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
     }
 
 
-    public void closeProgressDialog(ViewOther viewOther, ProgressDialog progress) {
-
+    public void closeProgressDialog(ViewOther viewOther) {
         Intent intent = new Intent(viewOther, GoogleMaps.class);
         viewOther.startActivity(intent);
-        progressDialog = progress;
     }
 
     @Override
@@ -150,34 +128,26 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.info_maps:
+        if (item.getItemId() == R.id.info_maps) {
+            String link = "<a href=\"https://stowarzyszenie.forum-szynszyla.pl/\">Stowarzyszenie Miłośników Szynszyli Małej</a>";
+
+            String alertText = "Znaczniki na mapie zostały oznaczone różnymi kolorami w zależności od " +
+                    "ich pochodzenia.<br><br>" +
+                    "<font color='#b33429'>Czerwone</font> - sprawdzeni i polecani weterynarze przez " + link + ";<br><br>" +
+                    "<font color='#206399'>Niebieskie</font> - weterynarze polecani przez użytkowników for oraz grup " +
+                    "dyskusyjnych, zweryfikowani przez " + link + ";<br><br>" +
+                    "<font color='#6b15cf'>Fioletowe</font> - weterynarze wybrani przez autora aplikacji (na podstawie dobrych ocen " +
+                    "według Opinii Google).";
 
 
-                String link1 = "<a href=\"https://stowarzyszenie.forum-szynszyla.pl/\">Stowarzyszenie Miłośników Szynszyli Małej</a>";
-                String link2 = "<a href=\"https://stowarzyszenie.forum-szynszyla.pl/\">Stowarzyszenia Miłośników Szynszyli Małej</a>";
+            AlertDialog.Builder alert = new AlertDialog.Builder(GoogleMaps.this, R.style.InfoDialogStyle);
+            alert.setTitle("Informacja o znacznikach");
+            alert.setMessage(Html.fromHtml(alertText, 0));
 
-                String alertText = "Znaczniki na mapie zostały oznaczone różnymi kolorami w zależności od " +
-                        "ich pochodzenia.<br><br>" +
-                        "<font color='#b33429'>Czerwone</font> - sprawdzeni i polecani weterynarze przez " + link1 + ";<br><br>" +
-                        "<font color='#206399'>Niebieskie</font> - weterynarze polecani przez użytkowników for oraz grup " +
-                        "dyskusyjnych należących do " + link2 + ";<br><br>" +
-                        "<font color='#6b15cf'>Fioletowe</font> - weterynarze wybrani przez autora aplikacji (na podstawie dobrych ocen " +
-                        "według opinii Google).";
-
-
-                AlertDialog.Builder alert = new AlertDialog.Builder(GoogleMaps.this, R.style.InfoDialogStyle);
-                alert.setTitle("Informacja o znacznikach");
-                alert.setMessage(Html.fromHtml(alertText, 0));
-
-                AlertDialog alertDialog = alert.create();
-                alertDialog.show();
-                TextView msgTxt = alertDialog.findViewById(android.R.id.message);
-                msgTxt.setMovementMethod(LinkMovementMethod.getInstance());
-
-
-                break;
-            default:
+            AlertDialog alertDialog = alert.create();
+            alertDialog.show();
+            TextView msgTxt = alertDialog.findViewById(android.R.id.message);
+            msgTxt.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
         return super.onOptionsItemSelected(item);
@@ -248,47 +218,40 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
 
     private void loadMapToActivity () {
 
-        System.out.println("MAPA");
-        Thread threadPrepare = new Thread(() -> runOnUiThread(() -> {
+        Thread threadPrepare = new Thread(() -> runOnUiThread(() -> new Handler().postDelayed(() -> {
 
-            new Handler().postDelayed(() -> {
+            Thread thread = new Thread(() -> {
 
+                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.vetMap);
 
-                Thread thread = new Thread(() -> {
+                runOnUiThread(() -> {
+                    assert mapFragment != null;
+                    mapFragment.getMapAsync(googleMap -> {
+                        map = googleMap;
+                        map.setOnMapClickListener(position -> linearLayoutData_map.setVisibility(View.GONE));
 
-                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                            .findFragmentById(R.id.vetMap);
+                        Thread thread1 = new Thread(() -> {
+                            getLocationPermission();
+                            getDeviceLocation();
 
-                    runOnUiThread(() -> {
-                        assert mapFragment != null;
-                        mapFragment.getMapAsync(googleMap -> {
-                            map = googleMap;
-                            System.out.println("MAPA2");
-                            map.setOnMapClickListener(position -> linearLayoutData_map.setVisibility(View.GONE));
-
-                            Thread thread1 = new Thread(() -> {
-                                System.out.println("MAPA1");
-                                getLocationPermission();
-                                getDeviceLocation();
-
-                                runOnUiThread(() -> {
-                                    updateLocationUI();
-                                    loadMarkers();
-                                });
+                            runOnUiThread(() -> {
+                                updateLocationUI();
+                                loadMarkers();
                             });
-
-                            thread1.start();
-                            assert mapFragment != null;
-                            mapFragment.getMapAsync(GoogleMaps.this);
                         });
-                    });
 
+                        thread1.start();
+                        assert mapFragment != null;
+                        mapFragment.getMapAsync(GoogleMaps.this);
+                    });
                 });
 
-                thread.start();
+            });
 
-            }, 500);
-        }));
+            thread.start();
+
+        }, 500)));
         threadPrepare.start();
 
         // Construct a FusedLocationProviderClient.
@@ -464,14 +427,4 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
 
         }
     }
-
-
-
-    private void viewOther() {
-        Intent intent = new Intent(GoogleMaps.this, ViewOther.class);
-        startActivity(intent);
-    }
-
-
-
 }

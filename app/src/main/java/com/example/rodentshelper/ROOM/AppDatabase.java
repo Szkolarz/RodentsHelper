@@ -12,13 +12,13 @@ import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.Encyclopedia.Version.VersionModel;
 import com.example.rodentshelper.Notifications.NotificationsModel;
 import com.example.rodentshelper.ROOM.Medicaments.MedicamentModel;
-import com.example.rodentshelper.ROOM.Weights.WeightModel;
-import com.example.rodentshelper.ROOM._MTM._RodentMed.RodentMedModel;
-import com.example.rodentshelper.ROOM._MTM._RodentVet.RodentVetModel;
 import com.example.rodentshelper.ROOM.Notes.NotesModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM.Vet.VetModel;
 import com.example.rodentshelper.ROOM.Visits.VisitModel;
+import com.example.rodentshelper.ROOM.Weights.WeightModel;
+import com.example.rodentshelper.ROOM._MTM._RodentMed.RodentMedModel;
+import com.example.rodentshelper.ROOM._MTM._RodentVet.RodentVetModel;
 import com.example.rodentshelper.ROOM._MTM._RodentVisit.RodentVisitModel;
 
 @Database(entities = { RodentModel.class,

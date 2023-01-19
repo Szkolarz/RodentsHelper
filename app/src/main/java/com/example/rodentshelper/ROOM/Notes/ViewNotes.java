@@ -1,6 +1,5 @@
 package com.example.rodentshelper.ROOM.Notes;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,30 +21,16 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.MainViews.ViewEncyclopedia;
-import com.example.rodentshelper.MainViews.ViewHealth;
-import com.example.rodentshelper.MainViews.ViewOther;
-import com.example.rodentshelper.ROOM.DateFormat;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotes;
-import com.example.rodentshelper.ROOM._MTM._RodentNotes.RodentWithNotes;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class ViewNotes extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    Button buttonAddRecord;
-
-    TextView textViewEmpty, textView1_rodent, textViewDate_notes, textViewDateHidden_notes;
-    private DatePickerDialog.OnDateSetListener dateSetListener;
+    private RecyclerView recyclerView;
 
 
     @Override
@@ -73,11 +58,11 @@ public class ViewNotes extends AppCompatActivity {
         imageButton3_health.setOnClickListener(new ActivityHealth());
         imageButton4_other.setOnClickListener(new ActivityOther());
 
-        textView1_rodent = findViewById(R.id.textView1_rodent);
+        TextView textView1_rodent = findViewById(R.id.textView1_rodent);
         imageButton1_rodent.setColorFilter(Color.WHITE);
         textView1_rodent.setTextColor(Color.WHITE);
 
-        buttonAddRecord = findViewById(R.id.buttonAddRecord);
+        Button buttonAddRecord = findViewById(R.id.buttonAddRecord);
 
         recyclerView = findViewById(R.id.recyclerViewGlobal);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -85,7 +70,7 @@ public class ViewNotes extends AppCompatActivity {
 
         getRoomData();
 
-        textViewEmpty = findViewById(R.id.textViewEmptyGlobal);
+        TextView textViewEmpty = findViewById(R.id.textViewEmptyGlobal);
 
         if (getListNotes().isEmpty()) {
             textViewEmpty.setVisibility(View.VISIBLE);
@@ -93,8 +78,6 @@ public class ViewNotes extends AppCompatActivity {
                     "kliknij przycisk z plusikiem na górze ekranu.");
         }
 
-        textViewDate_notes = findViewById(R.id.textViewDate_notes);
-        textViewDateHidden_notes = findViewById(R.id.textViewDateHidden_notes);
 
 
         buttonAddRecord.setOnClickListener(view -> addNewNote());
@@ -119,9 +102,9 @@ public class ViewNotes extends AppCompatActivity {
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAONotes dao = db.daoNotes();
 
-
         SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
 
+        db.close();
         //List<RodentWithNotes> notesModel = dao.getRodentWithNotes(prefsGetRodentId.getInt("rodentId", 0));
         return dao.getRodentWithNotes(prefsGetRodentId.getInt("rodentId", 0));
     }

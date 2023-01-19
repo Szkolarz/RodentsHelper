@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
@@ -33,29 +32,23 @@ import java.util.Objects;
 public class ViewCagesupplyAndTreats extends AppCompatActivity  {
 
 
-    RecyclerView recyclerView;
-
-    public static String[] data;
+    private static String[] data;
 
     private void getProperDataValues() {
-
         if (FragmentFlag.getEncyclopediaTypeFlag() == 2)
             data = new String[]{"Zdrowe", "Niezdrowe"};
         if (FragmentFlag.getEncyclopediaTypeFlag() == 3)
             data = new String[]{"Potrzebne", "Nieodpowiednie"};
     }
 
-
     public static String[] getData() {
         return data;
     }
-
 
     int[] myImageList = new int[]{
           R.drawable.check,
           R.drawable.cancel
     };
-
 
 
     @Override
@@ -93,7 +86,7 @@ public class ViewCagesupplyAndTreats extends AppCompatActivity  {
         LinearLayout linearLayout_encyclopedia = findViewById(R.id.linearLayout_encyclopedia);
 
         SharedPreferences prefsFirstStart = ViewCagesupplyAndTreats.this.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
-        Integer prefsRodentId = prefsFirstStart.getInt("prefsFirstStart", 0);
+        int prefsRodentId = prefsFirstStart.getInt("prefsFirstStart", 0);
 
         InsertRecords insertRecords = new InsertRecords();
         if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
@@ -129,17 +122,14 @@ public class ViewCagesupplyAndTreats extends AppCompatActivity  {
         new TabLayoutMediator(
                 tabLayout_treats,
                 pager,
-                new TabLayoutMediator.TabConfigurationStrategy() {
-                    @Override
-                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                (tab, position) -> {
 
-                      //  tab.view.setBackgroundColor(Color.parseColor(colors.get(position)));
-                        tab.setText(data[position]);
+                  //  tab.view.setBackgroundColor(Color.parseColor(colors.get(position)));
+                    tab.setText(data[position]);
 
-                        tab.setIcon(myImageList[position]);
-                        //tab.setIcon(R.id.)
+                    tab.setIcon(myImageList[position]);
+                    //tab.setIcon(R.id.)
 
-                    }
                 }
         ).attach();
 

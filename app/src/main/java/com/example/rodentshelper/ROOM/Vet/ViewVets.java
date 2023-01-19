@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,15 +20,10 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
-import com.example.rodentshelper.MainViews.ViewEncyclopedia;
-import com.example.rodentshelper.MainViews.ViewHealth;
-import com.example.rodentshelper.MainViews.ViewOther;
-import com.example.rodentshelper.ROOM.DAOVets;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.Visits.ViewVisits;
+import com.example.rodentshelper.ROOM.DAOVets;
 import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 
 import java.util.List;
@@ -37,21 +31,9 @@ import java.util.Objects;
 
 public class ViewVets extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    Button buttonAddRecord;
-    TextView textViewEmpty_vet, textView3_health, textView1_rodent;
-    Toolbar toolbar;
+    private RecyclerView recyclerView;
+    private Toolbar toolbar;
 
-    private AppDatabase getAppDatabase () {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        return db;
-    }
-
-    private DAOVets getDaoVets () {
-        DAOVets daoVets = getAppDatabase().daoVets();
-        return daoVets;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,17 +55,17 @@ public class ViewVets extends AppCompatActivity {
         imageButton4_other.setOnClickListener(new ActivityOther());
 
         if (FlagSetup.getFlagIsFromHealth()) {
-            textView3_health = findViewById(R.id.textView3_health);
+            TextView textView3_health = findViewById(R.id.textView3_health);
             imageButton3_health.setColorFilter(Color.WHITE);
             textView3_health.setTextColor(Color.WHITE);
         } else {
             FlagSetup.setFlagVetAdd(2);
-            textView1_rodent = findViewById(R.id.textView1_rodent);
+            TextView textView1_rodent = findViewById(R.id.textView1_rodent);
             imageButton1_rodent.setColorFilter(Color.WHITE);
             textView1_rodent.setTextColor(Color.WHITE);
         }
 
-        buttonAddRecord = findViewById(R.id.buttonAddRecord);
+        Button buttonAddRecord = findViewById(R.id.buttonAddRecord);
 
         recyclerView = findViewById(R.id.recyclerViewGlobal);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -91,18 +73,13 @@ public class ViewVets extends AppCompatActivity {
 
         getRoomData();
 
-        textViewEmpty_vet = findViewById(R.id.textViewEmptyGlobal);
+        TextView textViewEmpty_vet = findViewById(R.id.textViewEmptyGlobal);
 
         if (getListVet().isEmpty()) {
             textViewEmpty_vet.setVisibility(View.VISIBLE);
             textViewEmpty_vet.setText("Nie ma żadnych pozycji w bazie danych. Aby dodać nowego weterynarza, kliknij przycisk z plusikiem na górze ekranu.");
         }
-        buttonAddRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addNewVet();
-            }
-        });
+        buttonAddRecord.setOnClickListener(view -> addNewVet());
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -113,7 +90,7 @@ public class ViewVets extends AppCompatActivity {
 
     public void addNewVet()
     {
-        if (FlagSetup.getFlagIsFromHealth() == true)
+        if (FlagSetup.getFlagIsFromHealth())
             FlagSetup.setFlagVetAdd(1);
         else
             FlagSetup.setFlagVetAdd(2);
@@ -136,48 +113,22 @@ public class ViewVets extends AppCompatActivity {
 
 
     public List getListVet(){
+        List<VetWithRodentsCrossRef> vetModel;
 
-
-        List<VetWithRodentsCrossRef> vetModel = null;
-
-
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAOVets daoVets = db.daoVets();
         if (FlagSetup.getFlagVetAdd() == 2) {
             toolbar.setTitle("Weterynarze pupila");
             SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
-            vetModel = getDaoVets().getVetsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
+            vetModel = daoVets.getVetsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
         }
         else {
             toolbar.setTitle("Weterynarze");
-            vetModel = getDaoVets().getVetsWithRodents();
+            vetModel = daoVets.getVetsWithRodents();
             FlagSetup.setFlagVetAdd(1);
         }
-
-        /*for (int i = 0; i < vetModel.size(); i++) {
-            System.out.println(vetModel.get(i).rodents.get(i).getName()+ " ggh");
-            System.out.println(d.get(i) + " aggah");
-        }*/
-
-
-      /*  List<RodentWithVets> rodentModel = null;
-
-        rodentModel = dao.getaaa();*/
-
-
-/*
-        FlagSetup flagSetup = new FlagSetup();
-        int flag = flagSetup.getFlagVetAdd();
-
-        System.out.println(flag);
-        System.out.println(flag);
-
-        if (flag == 2) {
-            SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
-            vetModel = vetDao.getAllVetsByRodentId(prefsGetRodentId.getInt("rodentId", 0));
-        }
-        else {
-            vetModel = vetDao.getAllVets();
-            FlagSetup.setFlagVetAdd(1);
-        }*/
+        db.close();
 
         return vetModel;
     }
@@ -192,7 +143,4 @@ public class ViewVets extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
     }
-
-
-
 }

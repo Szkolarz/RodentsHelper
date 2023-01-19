@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,7 +23,7 @@ import java.util.List;
 
 public class AdapterTreats extends RecyclerView.Adapter<AdapterTreats.viewHolder>
 {
-    List<TreatsModel> treatsModel;
+    private final List<TreatsModel> treatsModel;
 
     public AdapterTreats(List<TreatsModel> treatsModel) {
         this.treatsModel = treatsModel;
@@ -44,35 +43,26 @@ public class AdapterTreats extends RecyclerView.Adapter<AdapterTreats.viewHolder
         if (FragmentFlag.getFragmentFlag() == 0) {
             holder.linearLayout_treats.setBackgroundColor(Color.parseColor("#a1e3b3"));
             holder.view_treats.setBackgroundColor(Color.parseColor("#6dd188"));
-            if (treatsModel.get(position).getIs_healthy() == false)
+            if (!treatsModel.get(position).getIs_healthy())
                 holder.linearLayout_treats.setVisibility(View.GONE);
         }
         else if (FragmentFlag.getFragmentFlag() == 1) {
             holder.linearLayout_treats.setBackgroundColor(Color.parseColor("#e3a6b1"));
             holder.view_treats.setBackgroundColor(Color.parseColor("#d18492"));
-            if (treatsModel.get(position).getIs_healthy() == true)
+            if (treatsModel.get(position).getIs_healthy())
                 holder.linearLayout_treats.setVisibility(View.GONE);
         }
 
+        holder.textViewName_treats.setText(treatsModel.get(position).getName());
+        holder.textViewDesc_treats.setText(treatsModel.get(position).getDescription());
 
-
-
-            holder.textViewName_treats.setText(treatsModel.get(position).getName());
-            holder.textViewDesc_treats.setText(treatsModel.get(position).getDescription());
-
-            try {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(treatsModel.get(position).getImage(), 0, treatsModel.get(position).getImage().length);
-                holder.imageView_treats.setImageBitmap(bitmap);
-            } catch (NullPointerException e) {
-                holder.imageView_treats.setVisibility(View.INVISIBLE);
-                holder.cardView_treats.setVisibility(View.INVISIBLE);
-            }
-
-
-
-
-
-
+        try {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(treatsModel.get(position).getImage(), 0, treatsModel.get(position).getImage().length);
+            holder.imageView_treats.setImageBitmap(bitmap);
+        } catch (NullPointerException e) {
+            holder.imageView_treats.setVisibility(View.INVISIBLE);
+            holder.cardView_treats.setVisibility(View.INVISIBLE);
+        }
     }
 
 
@@ -81,16 +71,15 @@ public class AdapterTreats extends RecyclerView.Adapter<AdapterTreats.viewHolder
         return treatsModel.size();
     }
 
-    class viewHolder extends RecyclerView.ViewHolder
+    static class viewHolder extends RecyclerView.ViewHolder
     {
-
-           TextView textViewName_treats, textViewDesc_treats, textViewDate_view;
+           TextView textViewName_treats, textViewDesc_treats;
            ImageView imageView_treats;
            CardView cardView_treats;
-           LinearLayout linearLayout_treats, linearLayoutGlobal_treats;
+           LinearLayout linearLayout_treats;
            View view_treats;
 
-           ImageButton delbtn,edbtn;
+
            public viewHolder(@NonNull @NotNull View itemView) {
                super(itemView);
 

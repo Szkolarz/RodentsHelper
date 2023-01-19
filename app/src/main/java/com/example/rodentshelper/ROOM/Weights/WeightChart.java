@@ -17,7 +17,6 @@ import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -31,7 +30,7 @@ import java.util.List;
 public class WeightChart {
 
     private ArrayList<Entry> lineChartDataSet() {
-        ArrayList<Entry> dataSet = new ArrayList<Entry>();
+        ArrayList<Entry> dataSet = new ArrayList<>();
 
         for (int i = 0; i < quarters.size(); i++) {
             quarters1.add(quarters.get(i).weightModel.getDate().toString());
@@ -41,8 +40,8 @@ public class WeightChart {
         return dataSet;
     }
 
-    List<RodentWithWeights> quarters = new ArrayList<>();
-    List<String> quarters1 = new ArrayList<>();
+    private List<RodentWithWeights> quarters = new ArrayList<>();
+    private final List<String> quarters1 = new ArrayList<>();
 
     ValueFormatter formatter = new ValueFormatter() {
         @Override
@@ -121,7 +120,7 @@ public class WeightChart {
 
         XAxis xAxis = lineChart_weight.getXAxis();
 
-        Integer lineChartDataSize = lineChartDataSetArray.size();
+        int lineChartDataSize = lineChartDataSetArray.size();
 
         LineData lineData = new LineData(iLineDataSet);
         if (lineChartDataSize >= 2)

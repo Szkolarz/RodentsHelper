@@ -18,11 +18,11 @@
 
         <include
             android:id="@+id/app_bar"
-            layout="@layout/app_bar_global"></include>
+            layout="@layout/app_bar_global" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
@@ -95,7 +95,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:layout_marginBottom="5dp"
-                                    android:layout_weight="1"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/roundbutton"
                                     android:padding="15dp"
@@ -106,7 +105,6 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:text="Ogólne informacje"
                                     android:textAlignment="center"
                                     android:textColor="#014D70" />
@@ -116,7 +114,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginRight="15dp"
+                                android:layout_marginEnd="15dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="vertical">
@@ -166,10 +164,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:layout_marginBottom="5dp"
-                                    android:layout_weight="1"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/roundbutton"
-                                    android:onClick="onClickVet"
                                     android:padding="15dp"
                                     android:scaleType="fitCenter"
                                     app:srcCompat="@drawable/ic_food"
@@ -178,7 +174,6 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:text="Żywienie"
                                     android:textAlignment="center"
                                     android:textColor="#014D70" />
@@ -188,7 +183,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginRight="15dp"
+                                android:layout_marginEnd="15dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="vertical">
@@ -237,10 +232,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:layout_marginBottom="5dp"
-                                    android:layout_weight="1"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/roundbutton"
-                                    android:onClick="onClickVet"
                                     android:padding="15dp"
                                     android:scaleType="fitCenter"
                                     app:srcCompat="@drawable/ic_supply"
@@ -259,13 +252,12 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginRight="15dp"
+                                android:layout_marginEnd="15dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/textView4_petHealth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Każda woliera lub klatka potrzebuje odpowiedniego wyposażenia, aby zadowolić zwierzę. Tutaj dowiesz się, w co powinieneś się wyposażyć. "
@@ -312,7 +304,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:layout_marginBottom="5dp"
-                                    android:layout_weight="1"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/roundbutton"
                                     android:onClick="onClickVet"
@@ -334,13 +325,12 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginRight="15dp"
+                                android:layout_marginEnd="15dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/textView4_petHealth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Ta kategoria pozwala dowiedzieć się o najczęściej występowanych chorobach oraz jak je rozpoznać"
@@ -385,7 +375,7 @@
                 layout="@layout/bottom_navbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"></include>
+                android:layout_gravity="bottom" />
         </LinearLayout>
 
     </LinearLayout>

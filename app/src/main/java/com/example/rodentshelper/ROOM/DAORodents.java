@@ -5,8 +5,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.TypeConverters;
 
-import com.example.rodentshelper.ROOM.Medicaments.MedicamentModel;
-import com.example.rodentshelper.ROOM.Notes.NotesModel;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 
 import java.sql.Date;

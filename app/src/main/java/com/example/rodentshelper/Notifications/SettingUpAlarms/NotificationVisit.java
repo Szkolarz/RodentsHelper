@@ -12,8 +12,8 @@ import android.util.Log;
 
 import androidx.room.Room;
 
-import com.example.rodentshelper.Notifications.Receivers.NotificationReceiverVisit;
 import com.example.rodentshelper.Notifications.NotificationsModel;
+import com.example.rodentshelper.Notifications.Receivers.NotificationReceiverVisit;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
 
@@ -22,7 +22,6 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class NotificationVisit {
-
 
    public void setUpNotificationVisit(Context notificationsActivity, String timeKey, String dateFormat, String sendTime, Integer id_visit) {
 
@@ -34,7 +33,6 @@ public class NotificationVisit {
                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
        DAONotifications daoNotifications = db.daoNotifications();
 
-
        if(daoNotifications.checkIfIdVisitExists(id_visit) == null) {
 
            AlarmManager alarmManager = (AlarmManager) notificationsActivity.getSystemService(Context.ALARM_SERVICE);
@@ -43,19 +41,15 @@ public class NotificationVisit {
            //if prefs == true
            if (prefsNotificationVisit.getBoolean("prefsNotificationVisit", false)) {
 
-
                String[] parts = Objects.requireNonNull(timeKey.split("[:]"));
                Integer hour = Integer.valueOf(parts[0]);
                Integer minute = Integer.valueOf(parts[1]);
 
-
                daoNotifications.insertRecordNotification(new NotificationsModel(id_visit, hour, minute,
                        sendTime, System.currentTimeMillis(), Long.valueOf(Date.valueOf(dateFormat).getTime()), "visit"));
 
-
                Integer requestCode = daoNotifications.getLastIdFromNotificationVisit();
                Calendar calendar = Calendar.getInstance();
-
 
                System.out.println(requestCode + " request");
                Long nextNotificationTimeVisit = daoNotifications.getNextNotificationTimeVisit(requestCode);
@@ -64,7 +58,6 @@ public class NotificationVisit {
                calendar.set(Calendar.HOUR_OF_DAY, hour);
                calendar.set(Calendar.MINUTE, minute);
                calendar.set(Calendar.SECOND, 0);
-
 
 
                if (sendTime.equals("30 minut przed czasem")) {
@@ -83,7 +76,6 @@ public class NotificationVisit {
 
                daoNotifications.updateNextNotificationTimeVisit(calendar.getTimeInMillis(), requestCode);
 
-
                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                    pendingIntent = PendingIntent.getBroadcast
                            (notificationsActivity, requestCode, notifyIntent, PendingIntent.FLAG_MUTABLE);
@@ -92,28 +84,12 @@ public class NotificationVisit {
                            (notificationsActivity, requestCode, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                }
 
-
-               System.out.println(hour + " godzina");
-               System.out.println(minute + " minuta");
-
-
                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                        pendingIntent);
 
-
                System.out.println("Włączono alarm");
-
-
            }
-
        }
-
        db.close();
-
-
    }
-
-
 }
-
-

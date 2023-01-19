@@ -20,7 +20,7 @@ public class AddVetFromMap {
 
         List<VetModel> vetModel = daoVets.getAllVets();
 
-        Boolean isAlreadyAdded = false;
+        boolean isAlreadyAdded = false;
 
         for (int i = 0; i < vetModel.size(); i++) {
             if (vetModel.get(i).getName().equals(name) && vetModel.get(i).getAddress().equals(address)
@@ -29,7 +29,7 @@ public class AddVetFromMap {
         }
 
         Alerts alert = new Alerts();
-        if (isAlreadyAdded == false) {
+        if (!isAlreadyAdded) {
             daoVets.insertRecordVet(new VetModel(name, address, phone, ""));
             alert.simpleInfo("Dodano weterynarza", "Pomyślnie dodano weterynarza do twojej listy!\n\n" +
                     "Listę weterynarzy możesz przejrzeć w: 'Zdrowie' > 'Weterynarz'.", context);
@@ -38,8 +38,5 @@ public class AddVetFromMap {
                     "danymi znajduje się już na twojej liście.\n\n" +
                     "Listę weterynarzy możesz przejrzeć w: 'Zdrowie' > 'Weterynarz'.", context);
         }
-
-
     }
-
 }

@@ -7,36 +7,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.rodentshelper.Encyclopedia.Common.ViewCagesupplyAndTreats;
 import com.example.rodentshelper.Encyclopedia.Common.EncyclopediaTab;
+import com.example.rodentshelper.Encyclopedia.Common.ViewCagesupplyAndTreats;
 
 public class PagerAdapterTreats extends FragmentStateAdapter {
 
-
-    private Integer noOfTabs;
 
     public PagerAdapterTreats(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
-    public PagerAdapterTreats(@NonNull Fragment fragment) {
-        super(fragment);
-    }
-
-    public PagerAdapterTreats(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
-        super(fragmentManager, lifecycle);
-    }
-
-
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-
-
         return new EncyclopediaTab(ViewCagesupplyAndTreats.getData()[position]);
-
     }
+
 
     @Override
     public int getItemCount() {

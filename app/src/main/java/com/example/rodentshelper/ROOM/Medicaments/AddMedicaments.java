@@ -1,16 +1,12 @@
 package com.example.rodentshelper.ROOM.Medicaments;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,11 +14,9 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -30,14 +24,14 @@ import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.ROOM.DAOMedicaments;
-import com.example.rodentshelper.ROOM.DAORodents;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
+import com.example.rodentshelper.ROOM.DAO;
+import com.example.rodentshelper.ROOM.DAOMedicaments;
+import com.example.rodentshelper.ROOM.DAORodents;
+import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
 import com.example.rodentshelper.ROOM._MTM._RodentMed.RodentMedModel;
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -47,31 +41,12 @@ import java.util.Objects;
 
 public class AddMedicaments extends AppCompatActivity {
 
-    EditText editTextName_med, editTextDescription_med, editTextPeriodicity_med;
-    TextView textViewDateStart_med, textViewDateEnd_med, textViewDate1_hidden, textViewDate2_hidden,
+    private EditText editTextName_med, editTextDescription_med, editTextPeriodicity_med;
+    private TextView textViewDateStart_med, textViewDateEnd_med, textViewDate1_hidden, textViewDate2_hidden,
             textViewRodentRelationsInfo_med, textViewRodentRelations_med;
-    Button buttonEdit_med, buttonAdd_med, buttonSaveEdit_med, buttonDelete_med;
-    ImageView imageViewDate1_med, imageViewDate2_med;
-    ListView listViewMed;
-    CheckBox checkBoxMed;
-
-
-    private AppDatabase getAppDatabase () {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        return db;
-    }
-
-    private DAORodents getDaoRodents () {
-        DAORodents daoRodents = getAppDatabase().daoRodents();
-        return daoRodents;
-    }
-
-    private DAOMedicaments getDaoMedicaments () {
-        DAOMedicaments daoMedicaments = getAppDatabase().daoMedicaments();
-        return daoMedicaments;
-    }
-
+    private Button buttonEdit_med, buttonAdd_med, buttonSaveEdit_med, buttonDelete_med;
+    private ListView listViewMed;
+    private CheckBox checkBoxMed;
     private DatePickerDialog.OnDateSetListener dateSetListener1, dateSetListener2;
     private Date dateFormat1 = null, dateFormat2 = null;
 
@@ -131,7 +106,12 @@ public class AddMedicaments extends AppCompatActivity {
 
         SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
-        List<RodentModel> rodentModel = getDaoRodents().getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAORodents daoRodents = db.daoRodents();
+        DAOMedicaments daoMedicaments = db.daoMedicaments();
+
+        List<RodentModel> rodentModel = daoRodents.getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
 
         for(int i = 0; i < rodentModel.size(); i++) {
             arrayListID.add(rodentModel.get(i).getId());
@@ -180,12 +160,10 @@ public class AddMedicaments extends AppCompatActivity {
             textViewDateEnd_med.setText(date_endKey);
 
 
-            List<MedicamentWithRodentsCrossRef> medicamentModel = getDaoMedicaments().getMedsWithRodents();
+            List<MedicamentWithRodentsCrossRef> medicamentModel = daoMedicaments.getMedsWithRodents();
 
 
-
-
-            Integer positionKey = Integer.parseInt(getIntent().getStringExtra("positionKey"));
+            int positionKey = Integer.parseInt(getIntent().getStringExtra("positionKey"));
 
             for (int j = 0; j < arrayListLV.size(); j ++) {
                 try {
@@ -202,120 +180,77 @@ public class AddMedicaments extends AppCompatActivity {
             checkCheckBox();
 
 
+            buttonSaveEdit_med.setOnClickListener(view -> {
+
+                if (editTextName_med.getText().toString().length() <= 0 ) {
+                    textViewRequired_med.setVisibility(View.VISIBLE);
+                    Alerts alert = new Alerts();
+                    alert.alertLackOfData("Należy podać nazwę leku.", AddMedicaments.this);
+                } else {
 
 
+                    System.out.println(textViewDate1_hidden.getText().toString());
 
-            buttonSaveEdit_med.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-
-                    if (editTextName_med.getText().toString().length() <= 0 ) {
-                        textViewRequired_med.setVisibility(View.VISIBLE);
-                        Alerts alert = new Alerts();
-                        alert.alertLackOfData("Należy podać nazwę leku.", AddMedicaments.this);
-                    } else {
-
-
-                        System.out.println(textViewDate1_hidden.getText().toString());
-
-                        if (textViewDate1_hidden.getText().toString().equals(""))
-                            dateFormat1 = null;
-                        else
-                            dateFormat1 = Date.valueOf(textViewDate1_hidden.getText().toString());
-                        if (textViewDate2_hidden.getText().toString().equals(""))
-                            dateFormat2 = null;
-                        else
-                            dateFormat2 = Date.valueOf(textViewDate2_hidden.getText().toString());
+                    if (textViewDate1_hidden.getText().toString().equals(""))
+                        dateFormat1 = null;
+                    else
+                        dateFormat1 = Date.valueOf(textViewDate1_hidden.getText().toString());
+                    if (textViewDate2_hidden.getText().toString().equals(""))
+                        dateFormat2 = null;
+                    else
+                        dateFormat2 = Date.valueOf(textViewDate2_hidden.getText().toString());
 
 
-                        getDaoMedicaments().updateMedById(idKey, id_vetKey, editTextName_med.getText().toString(),
-                                editTextDescription_med.getText().toString(), editTextPeriodicity_med.getText().toString(),
-                                dateFormat1, dateFormat2);
+                    daoMedicaments.updateMedById(idKey, id_vetKey, editTextName_med.getText().toString(),
+                            editTextDescription_med.getText().toString(), editTextPeriodicity_med.getText().toString(),
+                            dateFormat1, dateFormat2);
 
-                        getDaoMedicaments().DeleteAllRodentsMedsByMed(idKey);
+                    daoMedicaments.DeleteAllRodentsMedsByMed(idKey);
 
-                        getRodentMed(getDaoMedicaments());
+                    getRodentMed(daoMedicaments);
+                    db.close();
 
-                        viewMedicaments();
-                        finish();
-                    }
-
+                    viewMedicaments();
+                    finish();
                 }
+
             });
         }
 
 
-        textViewDateStart_med.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pickDate(dateSetListener1);
-            }
-        });
+        textViewDateStart_med.setOnClickListener(view -> pickDate(dateSetListener1));
 
-        imageButtonDate_med1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pickDate(dateSetListener1);
-            }
-        });
+        imageButtonDate_med1.setOnClickListener(view -> pickDate(dateSetListener1));
 
-        imageButtonDate_med2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pickDate(dateSetListener2);
-            }
-        });
+        imageButtonDate_med2.setOnClickListener(view -> pickDate(dateSetListener2));
 
-        textViewDateEnd_med.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pickDate(dateSetListener2);
-            }
-        });
+        textViewDateEnd_med.setOnClickListener(view -> pickDate(dateSetListener2));
 
-        dateSetListener1 = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month += 1;
-                String date = day + "/" + month + "/" + year;
-                textViewDateStart_med.setText(date);
-                dateFormat1 = Date.valueOf((year + "-" + month + "-" + day));
-                textViewDate1_hidden.setText(dateFormat1.toString());
-            }
+        dateSetListener1 = (datePicker, year, month, day) -> {
+            month += 1;
+            String date = day + "/" + month + "/" + year;
+            textViewDateStart_med.setText(date);
+            dateFormat1 = Date.valueOf((year + "-" + month + "-" + day));
+            textViewDate1_hidden.setText(dateFormat1.toString());
         };
 
-        dateSetListener2 = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month += 1;
-                String date = day + "/" + month + "/" + year;
-                textViewDateEnd_med.setText(date);
-                dateFormat2 = Date.valueOf((year + "-" + month + "-" + day));
-                textViewDate2_hidden.setText(dateFormat2.toString());
-            }
+        dateSetListener2 = (datePicker, year, month, day) -> {
+            month += 1;
+            String date = day + "/" + month + "/" + year;
+            textViewDateEnd_med.setText(date);
+            dateFormat2 = Date.valueOf((year + "-" + month + "-" + day));
+            textViewDate2_hidden.setText(dateFormat2.toString());
         };
 
-        checkBoxMed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkCheckBox();
-            }
-        });
+        checkBoxMed.setOnClickListener(view -> checkCheckBox());
 
-        buttonAdd_med.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveMedicament(textViewRequired_med);
-            }
-        });
+        buttonAdd_med.setOnClickListener(view -> saveMedicament(textViewRequired_med));
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().show();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(v -> finish());
-
     }
 
 
@@ -361,21 +296,23 @@ public class AddMedicaments extends AppCompatActivity {
             alert.alertLackOfData("Należy podać nazwę leku.", this);
         } else {
 
-            getDaoMedicaments().insertRecordMed(new MedicamentModel(1, stringName, stringDescription, stringPeriodicity, (stringDate1), (stringDate2)));
+            AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+            DAOMedicaments daoMedicaments = db.daoMedicaments();
+            daoMedicaments.insertRecordMed(new MedicamentModel(1, stringName, stringDescription, stringPeriodicity, (stringDate1), (stringDate2)));
 
             System.out.println("DODANO");
-            getRodentMed(getDaoMedicaments());
-
+            getRodentMed(daoMedicaments);
+            db.close();
             viewMedicaments();
         }
-
     }
 
     public void getRodentMed(DAOMedicaments rodentMedDao) {
 
         if (FlagSetup.getFlagMedAdd() == 2) {
             SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
-            rodentMedDao.insertRecordRodentMed(new RodentMedModel(Integer.valueOf(prefsGetRodentId.getInt("rodentId", 0)), rodentMedDao.getLastIdMed().get(0)));
+            rodentMedDao.insertRecordRodentMed(new RodentMedModel(prefsGetRodentId.getInt("rodentId", 0), rodentMedDao.getLastIdMed().get(0)));
             return;
         }
 

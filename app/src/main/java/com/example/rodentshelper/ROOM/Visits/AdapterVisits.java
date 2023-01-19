@@ -2,7 +2,6 @@ package com.example.rodentshelper.ROOM.Visits;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,9 +22,7 @@ import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
-import com.example.rodentshelper.ROOM.DAOVets;
 import com.example.rodentshelper.ROOM.DAOVisits;
-import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
 import com.example.rodentshelper.ROOM._MTM._RodentVisit.VisitsWithRodentsCrossRef;
 
 import org.jetbrains.annotations.NotNull;
@@ -35,10 +32,8 @@ import java.util.List;
 
 public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder>
 {
-    private List<VisitsWithRodentsCrossRef> visitModel;
+    private final List<VisitsWithRodentsCrossRef> visitModel;
 
-
-    private boolean flag = false;
 
     public AdapterVisits(List<VisitsWithRodentsCrossRef> visitModel) {
         this.visitModel = visitModel;
@@ -67,7 +62,6 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
 
         AppDatabase db = Room.databaseBuilder(holder.editTextReason_visit.getContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAOVets daoVets = db.daoVets();
         DAOVisits daoVisits = db.daoVisits();
         DAONotifications daoNotifications = db.daoNotifications();
 
@@ -145,29 +139,6 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
             holder.textViewVetRelations_visit.append(daoVisits.getVetByVisitId(visitModel.get(position).visitModel.getId_vet()));
         }
 
-      /*  if (visitModel.get(position).visitModel.getId_vet() != null) {
-            List<String> list = daoVisits.getAllVisitsVets(visitModel.get(position).visitModel.getId_vet());
-
-            holder.textViewVetRelations_visit.setText(null);
-            for (int j = 0; j < aaa.size(); j++) {
-                holder.arrayListSelected.add(aaa.get(j));
-                for (int i = 0; i < list.size(); i++) {
-
-                    if (aaa.get(j).equals(list.get(i))) {
-
-                        if ((i + 1) < list.size())
-                            holder.textViewVetRelations_visit.append(list.get(i) + "\n");
-                        else
-                            holder.textViewVetRelations_visit.append(list.get(i));
-
-                        holder.textViewVetRelationsInfo_visit.setVisibility(View.VISIBLE);
-                        holder.textViewVetRelations_visit.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
-        }*/
-
-
 
         holder.buttonDelete_visit.setOnClickListener(view -> deleteVisit(holder.buttonDelete_visit.getContext(), holder, daoVisits));
 
@@ -195,25 +166,17 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Usuwanie wizyty");
         alert.setMessage("Czy na pewno chcesz usunąć wizytę z listy?\n\nProces jest nieodwracalny!");
-        alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(context, "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
+        alert.setPositiveButton("Tak", (dialogInterface, i) -> {
+            Toast.makeText(context, "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
 
-                daoVisits.DeleteAllRodentsVisitsByVisit(visitModel.get(holder.getAdapterPosition()).visitModel.getId_visit());
-                daoVisits.deleteVisitById(visitModel.get(holder.getAdapterPosition()).visitModel.getId_visit());
+            daoVisits.DeleteAllRodentsVisitsByVisit(visitModel.get(holder.getAdapterPosition()).visitModel.getId_visit());
+            daoVisits.deleteVisitById(visitModel.get(holder.getAdapterPosition()).visitModel.getId_visit());
 
-                visitModel.remove(holder.getAdapterPosition());
+            visitModel.remove(holder.getAdapterPosition());
 
-                notifyDataSetChanged();
-            }
+            notifyDataSetChanged();
         });
-        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show();
-            }
-        });
+        alert.setNegativeButton("Nie", (dialogInterface, i) -> Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show());
         alert.create().show();
     }
 
@@ -224,8 +187,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
 
 
 
-
-    class viewHolder extends RecyclerView.ViewHolder
+    static class viewHolder extends RecyclerView.ViewHolder
     {
 
            EditText editTextReason_visit;
@@ -237,7 +199,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
            CheckBox checkBoxVisit1, checkBoxVisit2, checkBoxVisit3;
 
 
-        private ArrayList<String> arrayListSelected;
+        private final ArrayList<String> arrayListSelected;
 
         public viewHolder(@NonNull @NotNull View itemView) {
             super(itemView);

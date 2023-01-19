@@ -14,7 +14,6 @@ import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
 public class SplashScreen extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,21 +31,16 @@ public class SplashScreen extends AppCompatActivity {
         internetAsyncCheck.execute();
 
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        handler.postDelayed(() -> {
 
-
-
-                if (prefsFirstStart.getInt("prefsFirstStart", 0) != 0) {
-                    Intent intent = new Intent(SplashScreen.this, ViewRodents.class);
-                    startActivity(intent);
-                    finish();
-                } else if (prefsFirstStart.getInt("prefsFirstStart", 0) == 0) {
-                    Intent intent = new Intent(SplashScreen.this, FirstStart.class);
-                    startActivity(intent);
-                    finish();
-                }
+            if (prefsFirstStart.getInt("prefsFirstStart", 0) != 0) {
+                Intent intent = new Intent(SplashScreen.this, ViewRodents.class);
+                startActivity(intent);
+                finish();
+            } else if (prefsFirstStart.getInt("prefsFirstStart", 0) == 0) {
+                Intent intent = new Intent(SplashScreen.this, FirstStart.class);
+                startActivity(intent);
+                finish();
             }
         }, 800);
 

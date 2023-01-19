@@ -1,11 +1,9 @@
 package com.example.rodentshelper.ROOM.Visits;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -17,14 +15,11 @@ import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -33,13 +28,13 @@ import androidx.room.Room;
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationVisit;
+import com.example.rodentshelper.R;
+import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
 import com.example.rodentshelper.ROOM.DAORodents;
 import com.example.rodentshelper.ROOM.DAOVets;
 import com.example.rodentshelper.ROOM.DAOVisits;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
-import com.example.rodentshelper.R;
-import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.Vet.VetModel;
 import com.example.rodentshelper.ROOM._MTM._RodentVisit.RodentVisitModel;
 import com.example.rodentshelper.ROOM._MTM._RodentVisit.VisitsWithRodentsCrossRef;
@@ -53,31 +48,12 @@ import java.util.Objects;
 
 public class AddVisits extends AppCompatActivity {
 
-    EditText editTextReason_visit;
-    TextView textViewDate_visit, textViewTime_visit, textViewDate1_visitHidden,
-            textViewVetRelationsInfo_visit, textViewVetRelationsInfo_visit2, textViewVetRelations_visit, textViewReasonInfo_visit;
-    Button buttonEdit_visit, buttonAdd_visit, buttonSaveEdit_visit, buttonDelete_visit;
-    //ImageView imageViewDate1_med, imageViewDate2_med;
-    ListView listViewVisit, listViewVisit2;
-    CheckBox checkBoxVisit1, checkBoxVisit2, checkBoxVisit3;
-
-    private AppDatabase getAppDatabase () {
-        return Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-    }
-
-    private DAOVisits getDaoVisits () {
-        return getAppDatabase().daoVisits();
-    }
-
-    private DAOVets getDaoVets () {
-        return getAppDatabase().daoVets();
-    }
-
-    private DAORodents getDaoRodents () {
-        return getAppDatabase().daoRodents();
-    }
-
+    private EditText editTextReason_visit;
+    private TextView textViewDate_visit, textViewTime_visit, textViewDate1_visitHidden,
+            textViewVetRelationsInfo_visit, textViewVetRelationsInfo_visit2, textViewVetRelations_visit;
+    private Button buttonEdit_visit, buttonAdd_visit, buttonSaveEdit_visit, buttonDelete_visit;
+    private ListView listViewVisit, listViewVisit2;
+    private CheckBox checkBoxVisit1, checkBoxVisit2, checkBoxVisit3;
 
     private DatePickerDialog.OnDateSetListener dateSetListener1;
     private String dateFormat1 = null;
@@ -146,13 +122,18 @@ public class AddVisits extends AppCompatActivity {
         arrayListLV2 = new ArrayList<>();
         arrayListSelected2 = new ArrayList<>();
 
+        AppDatabase db = Room.databaseBuilder(AddVisits.this,
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAOVisits daoVisits = db.daoVisits();
+        DAOVets daoVets = db.daoVets();
+        DAORodents daoRodents = db.daoRodents();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_single_choice, arrayListLV);
-        List<VetModel> vetModel = getDaoVets().getAllVets();
+        List<VetModel> vetModel = daoVets.getAllVets();
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, arrayListLV2);
         SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
-        List<RodentModel> rodentModel = getDaoRodents().getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
+        List<RodentModel> rodentModel = daoRodents.getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
 
         for(int i = 0; i < vetModel.size(); i++) {
             arrayListID.add(vetModel.get(i).getId());
@@ -179,8 +160,6 @@ public class AddVisits extends AppCompatActivity {
             String timeKey = getIntent().getStringExtra("timeKey");
             String reasonKey = getIntent().getStringExtra("reasonKey");
 
-            AppDatabase db = Room.databaseBuilder(AddVisits.this,
-                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
             DAONotifications daoNotifications = db.daoNotifications();
 
             if (daoNotifications.getIdVisitFromVisit(idKey) != null) {
@@ -195,14 +174,14 @@ public class AddVisits extends AppCompatActivity {
 
             checkForCheckbox();
 
-            List<VisitsWithRodentsCrossRef> visitModel = getDaoVisits().getVisitsWithRodents();
+            List<VisitsWithRodentsCrossRef> visitModel = daoVisits.getVisitsWithRodents();
 
 
-            Integer positionKey = Integer.parseInt(getIntent().getStringExtra("positionKey"));
+            int positionKey = Integer.parseInt(getIntent().getStringExtra("positionKey"));
 
             try {
                 if (!(id_vetKey).equals("null")) {
-                    List<String> list = getDaoVisits().getAllVisitsVets(Integer.valueOf(id_vetKey));
+                    List<String> list = daoVisits.getAllVisitsVets(Integer.valueOf(id_vetKey));
                     for (int i = 0; i < arrayListLV.size(); i++) {
                         for (int j = 0; j < list.size(); j++) {
                             if (arrayListLV.get(i).equals(list.get(j))) {
@@ -231,104 +210,65 @@ public class AddVisits extends AppCompatActivity {
 
             checkCheckBox();
 
-            buttonSaveEdit_visit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                        saveEditVisit(idKey, id_vetKey, arrayListSelected, arrayListID, arrayListSelected2, arrayListID2);
-                }
-            });
+            buttonSaveEdit_visit.setOnClickListener(view -> saveEditVisit(idKey, id_vetKey, arrayListSelected, arrayListID, arrayListSelected2, arrayListID2));
 
 
         }
 
 
 
-        textViewDate_visit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pickDate(dateSetListener1);
-            }
-        });
+        textViewDate_visit.setOnClickListener(view -> pickDate(dateSetListener1));
 
 
-        dateSetListener1 = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month += 1;
-                String date = day + "/" + month + "/" + year;
-                textViewDate_visit.setText(date);
-                dateFormat1 = (year + "-" + month + "-" + day);
-                textViewDate1_visitHidden.setText(dateFormat1);
-                checkForCheckbox();
-            }
+        dateSetListener1 = (datePicker, year, month, day) -> {
+            month += 1;
+            String date = day + "/" + month + "/" + year;
+            textViewDate_visit.setText(date);
+            dateFormat1 = (year + "-" + month + "-" + day);
+            textViewDate1_visitHidden.setText(dateFormat1);
+            checkForCheckbox();
         };
 
 
-        checkBoxVisit1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkCheckBox();
+        checkBoxVisit1.setOnClickListener(view -> checkCheckBox());
+
+        checkBoxVisit2.setOnClickListener(view -> checkCheckBox());
+
+        checkBoxVisit3.setOnClickListener(view -> {
+            if (checkBoxVisit3.isChecked()) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(AddVisits.this, R.style.AlertWhiteButtons);
+
+                View mView = AddVisits.this.getLayoutInflater().inflate(R.layout.dialog_spinner, null);
+
+                mBuilder.setTitle("Powiadomienie zostanie wysłane...");
+                Spinner mSpinner = mView.findViewById(R.id.spinner_weight);
+                ArrayAdapter<String> adapter1 = new ArrayAdapter<>(AddVisits.this,
+                        android.R.layout.simple_spinner_item,
+                        AddVisits.this.getResources().getStringArray(R.array.visitList));
+                adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mSpinner.setAdapter(adapter1);
+                mSpinner.setSelection(1);
+
+                mBuilder.setPositiveButton("OK", (dialog, which) -> {
+                    sendTime = mSpinner.getSelectedItem().toString();
+                    dialog.dismiss();
+                });
+
+                mBuilder.setNegativeButton("Anuluj", (dialog, which) -> {
+                    checkBoxVisit3.setChecked(false);
+                    dialog.dismiss();
+                });
+
+                mBuilder.setOnCancelListener(dialog -> checkBoxVisit3.setChecked(false));
+
+                mBuilder.setView(mView);
+                AlertDialog dialog = mBuilder.create();
+                dialog.show();
             }
+
         });
 
-        checkBoxVisit2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkCheckBox();
-            }
-        });
-
-        checkBoxVisit3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (checkBoxVisit3.isChecked()) {
-                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(AddVisits.this, R.style.AlertWhiteButtons);
-                    View mView = AddVisits.this.getLayoutInflater().inflate(R.layout.dialog_spinner, null);
-                    mBuilder.setTitle("Powiadomienie zostanie wysłane...");
-                    Spinner mSpinner = (Spinner) mView.findViewById(R.id.spinner_weight);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddVisits.this,
-                            android.R.layout.simple_spinner_item,
-                            AddVisits.this.getResources().getStringArray(R.array.visitList));
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    mSpinner.setAdapter(adapter);
-                    mSpinner.setSelection(1);
-
-                    mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            sendTime = mSpinner.getSelectedItem().toString();
-                            dialog.dismiss();
-
-                        }
-                    });
-
-                    mBuilder.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            checkBoxVisit3.setChecked(false);
-                            dialog.dismiss();
-                        }
-                    });
-
-                    mBuilder.setOnCancelListener(dialog -> {
-                        checkBoxVisit3.setChecked(false);
-                    });
-
-                    mBuilder.setView(mView);
-                    AlertDialog dialog = mBuilder.create();
-                    dialog.show();
-                }
-
-            }
-        });
-
-        buttonAdd_visit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveVisit(arrayListSelected, arrayListID, arrayListSelected2, arrayListID2, textViewRequired_visit);
-            }
-        });
+        buttonAdd_visit.setOnClickListener(view -> saveVisit(arrayListSelected, arrayListID, arrayListSelected2, arrayListID2, textViewRequired_visit));
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -353,14 +293,11 @@ public class AddVisits extends AppCompatActivity {
         }
 
         public void onClickTime(View view) {
-            TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                    hour = selectedHour;
-                    minute = selectedMinute;
-                    textViewTime_visit.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
-                    checkForCheckbox();
-                }
+            TimePickerDialog.OnTimeSetListener onTimeSetListener = (timePicker, selectedHour, selectedMinute) -> {
+                hour = selectedHour;
+                minute = selectedMinute;
+                textViewTime_visit.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+                checkForCheckbox();
             };
 
             TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, hour, minute, true);
@@ -378,6 +315,10 @@ public class AddVisits extends AppCompatActivity {
         String timeKey = textViewTime_visit.getText().toString();
         String reasonKey = editTextReason_visit.getText().toString();
 
+        AppDatabase db = Room.databaseBuilder(AddVisits.this,
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAOVisits daoVisits = db.daoVisits();
+        DAOVets daoVets = db.daoVets();
 
         if (stringDate1 == null ) {
 
@@ -387,9 +328,9 @@ public class AddVisits extends AppCompatActivity {
             alert.alertLackOfData("Należy wpisać datę wizyty.", AddVisits.this);
         } else {
 
-            Integer id_vetKey = getVisitVet(getDaoVets(), arrayListSelected, arrayListID);
+            Integer id_vetKey = getVisitVet(daoVets, arrayListSelected, arrayListID);
 
-            getDaoVisits().insertRecordVisit(new VisitModel(id_vetKey, Date.valueOf(stringDate1),
+            daoVisits.insertRecordVisit(new VisitModel(id_vetKey, Date.valueOf(stringDate1),
                     timeKey, reasonKey));
 
 
@@ -400,20 +341,16 @@ public class AddVisits extends AppCompatActivity {
                 prefsEditorNotificationVisit.putBoolean("prefsNotificationVisit", true);
                 prefsEditorNotificationVisit.apply();
 
-                AppDatabase db = Room.databaseBuilder(AddVisits.this,
-                        AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
                 DAONotifications daoNotifications = db.daoNotifications();
 
                 NotificationVisit notificationVisit = new NotificationVisit();
                 notificationVisit.setUpNotificationVisit(AddVisits.this, timeKey, dateFormat1, sendTime, daoNotifications.getLastIdFromVisit());
-                db.close();
             }
 
-
             System.out.println("DODANO");
-            getVisitVet(getDaoVets(), arrayListSelected, arrayListID);
-            getRodentVisit(getDaoVisits(), arrayListSelected2, arrayListID2);
-
+            getVisitVet(daoVets, arrayListSelected, arrayListID);
+            getRodentVisit(daoVisits, arrayListSelected2, arrayListID2);
+            db.close();
             viewVisits();
         }
 
@@ -423,18 +360,19 @@ public class AddVisits extends AppCompatActivity {
                                ArrayList<Integer> arrayListSelected2, ArrayList<Integer> arrayListID2) {
         dateFormat1 = textViewDate1_visitHidden.getText().toString();
 
+        AppDatabase db = Room.databaseBuilder(AddVisits.this,
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAOVisits daoVisits = db.daoVisits();
+        DAOVets daoVets = db.daoVets();
+        DAONotifications daoNotifications = db.daoNotifications();
 
-        getDaoVisits().updateVisitById(idKey, null,  Date.valueOf(dateFormat1),
+        daoVisits.updateVisitById(idKey, null,  Date.valueOf(dateFormat1),
                 textViewTime_visit.getText().toString(), editTextReason_visit.getText().toString());
 
         // visitDao.SetVisitsIdVetNull(idKey);
 
-        AppDatabase db = Room.databaseBuilder(AddVisits.this,
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAONotifications daoNotifications = db.daoNotifications();
 
         if (checkBoxVisit3.isChecked()) {
-
             SharedPreferences prefsNotificationVisit = AddVisits.this.getSharedPreferences("prefsNotificationVisit", Context.MODE_PRIVATE);
             SharedPreferences.Editor prefsEditorNotificationVisit = prefsNotificationVisit.edit();
             prefsEditorNotificationVisit.putBoolean("prefsNotificationVisit", true);
@@ -457,20 +395,19 @@ public class AddVisits extends AppCompatActivity {
 
 
         if (checkBoxVisit1.isChecked()) {
-            getDaoVisits().SetVisitsIdVet(getVisitVet(getDaoVets(), arrayListSelected,arrayListID), idKey);
+            daoVisits.SetVisitsIdVet(getVisitVet(daoVets, arrayListSelected,arrayListID), idKey);
         }
         else {
-            if (getVisitVet(getDaoVets(), arrayListSelected,arrayListID) != null)
-                getDaoVisits().SetVisitsIdVetNull(Integer.valueOf(id_vetKey));
+            if (getVisitVet(daoVets, arrayListSelected,arrayListID) != null)
+                daoVisits.SetVisitsIdVetNull(Integer.valueOf(id_vetKey));
         }
 
         for (int i=0; i<arrayListID2.size(); i++) {
-            getDaoVisits().DeleteAllRodentsVisitsByVisitAndRodent(idKey, arrayListID2.get(i));
+            daoVisits.DeleteAllRodentsVisitsByVisitAndRodent(idKey, arrayListID2.get(i));
         }
 
-
-
-        getRodentVisit(getDaoVisits(), arrayListSelected2, arrayListID2);
+        getRodentVisit(daoVisits, arrayListSelected2, arrayListID2);
+        db.close();
 
         viewVisits();
     }
@@ -480,7 +417,7 @@ public class AddVisits extends AppCompatActivity {
 
         if (FlagSetup.getFlagVisitAdd() == 2) {
             SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
-            rodentVisitDao.insertRecordRodentVisit(new RodentVisitModel(Integer.valueOf(prefsGetRodentId.getInt("rodentId", 0)), rodentVisitDao.getLastIdVisit().get(0)));
+            rodentVisitDao.insertRecordRodentVisit(new RodentVisitModel(prefsGetRodentId.getInt("rodentId", 0), rodentVisitDao.getLastIdVisit().get(0)));
             return;
         }
 
@@ -502,7 +439,7 @@ public class AddVisits extends AppCompatActivity {
 
     private Integer getVisitVet(DAOVets visitVetDao, ArrayList<Integer> arrayListSelected, ArrayList<Integer> arrayListID) {
         int listViewLength = listViewVisit.getCount();
-        Integer id_vet = null;
+        Integer id_vet;
         SparseBooleanArray checked = listViewVisit.getCheckedItemPositions();
         for (int i = 0; i < listViewLength; i++)
             if (checked.get(i)) {
@@ -510,12 +447,6 @@ public class AddVisits extends AppCompatActivity {
 
                 id_vet = visitVetDao.getIdofVet(arrayListID.get(i));
 
-               /* if (FlagSetup.getFlagMedAdd() == 1)
-                    visitVetDao.insertRecordRodentMed(new RodentMedModel(arrayListID.get(i), rodentMedDao.getLastIdMed().get(0) ));
-                else {
-                    Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
-                    visitVetDao.insertRecordRodentMed(new RodentMedModel(arrayListID.get(i), idKey));
-                }*/
                 return id_vet;
             }
         return null;
@@ -551,8 +482,6 @@ public class AddVisits extends AppCompatActivity {
 
 
     private void checkForCheckbox() {
-        String stringDate = dateFormat1;
-
         if (!textViewDate_visit.getText().toString().equals("Ustaw...") && !textViewTime_visit.getText().toString().equals("Ustaw...") ) {
             checkBoxVisit3.setVisibility(View.VISIBLE);
         }

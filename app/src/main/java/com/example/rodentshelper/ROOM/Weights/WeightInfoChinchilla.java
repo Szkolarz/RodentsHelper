@@ -13,16 +13,13 @@ import com.example.rodentshelper.R;
 
 public class WeightInfoChinchilla extends Activity {
 
-    TextView textView_weightInfo;
-
-
     @SuppressLint("SetTextI18n")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weight_info_chinchilla);
 
-        textView_weightInfo = findViewById(R.id.textView_weightInfo);
+        TextView textView_weightInfo = findViewById(R.id.textView_weightInfo);
 
         textView_weightInfo.setText("Pamiętaj, że przedstawiona powyżej rozpiska prawidłowej wagi pupila jest kwestią umowną i zależy często od genów, czy od hodowli, z której pochodzi zwierzę.\n" +
                 "Dlatego ewentualne, minimalne odbieganie wagi twojego zwierzęcia od normy nie powinno cię niepokoić.\n\n" +

@@ -20,7 +20,7 @@ public interface DAONotes {
     void deleteNotesById(Integer id);
 
     @Query("UPDATE notes SET topic = :topic, content = :content WHERE id_notes = :id")
-    void updatNotesById(Integer id, String topic, String content);
+    void updateNotesById(Integer id, String topic, String content);
 
 
 
@@ -36,7 +36,7 @@ public interface DAONotes {
 
     @Transaction
     @Query("SELECT * FROM notes WHERE id_rodent = :id_rodent ORDER BY id_notes DESC")
-    public List<RodentWithNotes> getRodentWithNotes(Integer id_rodent);
+    List<RodentWithNotes> getRodentWithNotes(Integer id_rodent);
 
 }
 

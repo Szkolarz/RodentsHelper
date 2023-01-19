@@ -25,9 +25,6 @@ import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
 public class BackupWorkerWeight extends Worker {
 
-    private static final String TAG = "BackupWorker";
-
-
     public BackupWorkerWeight(@NonNull Context context, @NonNull WorkerParameters workerParams ) {
         super ( context, workerParams );
     }
@@ -35,14 +32,13 @@ public class BackupWorkerWeight extends Worker {
     @NonNull
     @Override
     public Result doWork () {
-        //call methods to perform background task
 
         System.out.println("Backup Worker start");
         SharedPreferences prefsNotificationWeight = getApplicationContext().getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
 
         UpdateNotification updateNotification = new UpdateNotification();
         updateNotification.checkIfUserHasMissedNotification(getApplicationContext());
-        //updateNotification.checkNotificationPreferences(getApplicationContext());
+        updateNotification.checkNotificationPreferences(getApplicationContext());
 
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
@@ -75,12 +71,9 @@ public class BackupWorkerWeight extends Worker {
             //to be able to launch your activity from the notification
             builder.setContentIntent(pendingIntent);
 
-
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
 
             managerCompat.notify(requestCode, builder.build());
-
-
 
             daoNotifications.updateUnixTimestampWeight(System.currentTimeMillis());
 
@@ -91,14 +84,7 @@ public class BackupWorkerWeight extends Worker {
             Vibrator v = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(500);
         }
-
-
-
         db.close();
-
         return Result.success ();
     }
-
-
-
 }

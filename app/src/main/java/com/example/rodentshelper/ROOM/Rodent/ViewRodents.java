@@ -1,6 +1,5 @@
 package com.example.rodentshelper.ROOM.Rodent;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -30,7 +29,6 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.DatabaseManagement.ActivityDatabaseManagement;
-import com.example.rodentshelper.DatabaseManagement.ActivityRegister;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.MainViews.FirstStart;
 import com.example.rodentshelper.R;
@@ -42,10 +40,7 @@ import java.util.Objects;
 
 public class ViewRodents extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    TextView textViewEmpty_rodent, textView1_rodent;
-    Button buttonAddRecord;
-
+    private RecyclerView recyclerView;
 
 
     @Override
@@ -102,11 +97,11 @@ public class ViewRodents extends AppCompatActivity {
         imageButton3_health = findViewById(R.id.imageButton3_health);
         imageButton4_other = findViewById(R.id.imageButton4_other);
 
-        textView1_rodent = findViewById(R.id.textView1_rodent);
+        TextView textView1_rodent = findViewById(R.id.textView1_rodent);
         imageButton1_rodent.setColorFilter(Color.WHITE);
         textView1_rodent.setTextColor(Color.WHITE);
 
-        buttonAddRecord = findViewById(R.id.buttonAddRecord);
+        Button buttonAddRecord = findViewById(R.id.buttonAddRecord);
 
         recyclerView = findViewById(R.id.recyclerViewGlobal);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -115,19 +110,14 @@ public class ViewRodents extends AppCompatActivity {
         getRoomData(ViewRodents.this);
 
 
-        textViewEmpty_rodent = findViewById(R.id.textViewEmptyGlobal);
+        TextView textViewEmpty_rodent = findViewById(R.id.textViewEmptyGlobal);
 
         if (getListRodent(ViewRodents.this).isEmpty()) {
             textViewEmpty_rodent.setVisibility(View.VISIBLE);
             textViewEmpty_rodent.setText("Nie ma żadnych pozycji w bazie danych. Aby dodać nowego pupila, kliknij przycisk z plusikiem na górze ekranu.");
         }
 
-            buttonAddRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addNewRodent();
-            }
-        });
+            buttonAddRecord.setOnClickListener(view -> addNewRodent());
 
 
       /*  if (rodentsModelClassList.size() > 0) {
@@ -158,13 +148,7 @@ public class ViewRodents extends AppCompatActivity {
 
         Toast.makeText(this, "Dotknij ponownie, aby zamknąć aplikację", Toast.LENGTH_SHORT).show();
 
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
     }
 
 
@@ -185,9 +169,7 @@ public class ViewRodents extends AppCompatActivity {
         DAORodents daoRodents = db.daoRodents();
 
         List<RodentModel> rodentModel = daoRodents.getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
-
         db.close();
-
 
         return rodentModel;
     }
@@ -202,12 +184,4 @@ public class ViewRodents extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
     }
-
-
-
-
-
-
-
-
 }

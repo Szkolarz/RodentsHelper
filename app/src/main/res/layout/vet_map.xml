@@ -36,7 +36,6 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:onClick="loadMap"
                 android:text="Załaduj mapę"
                 android:textSize="20sp"
                 android:visibility="gone"
@@ -49,7 +48,7 @@
         <LinearLayout
             android:id="@+id/linearLayoutMap_map"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -82,7 +81,7 @@
                 android:id="@+id/textViewName_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="3dp"
                 android:hint="Nazwa"
                 android:maxLength="80"
@@ -95,7 +94,7 @@
                 android:id="@+id/textViewAddress_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="3dp"
                 android:hint="Adres"
                 android:textColor="#014D70"
@@ -115,7 +114,7 @@
                         android:id="@+id/textViewPhoneInfo_map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="3dp"
                         android:text="Telefon:"
                         android:textColor="#014D70"
@@ -127,17 +126,16 @@
                         android:id="@+id/textViewPhone_map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:layout_marginTop="3dp"
                         android:hint="Telefon"
-                        android:inputType="number"
                         android:maxLength="16"
                         android:textColor="#014D70"
                         android:textSize="20sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal">
@@ -146,7 +144,7 @@
                         android:id="@+id/imageButtonCall_map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:background="@drawable/roundbutton_small_green"
                         android:cropToPadding="false"
                         android:padding="10dp"

@@ -43,7 +43,7 @@ public interface DAOVets {
 
     @Transaction
     @Query("SELECT * FROM vets")
-    public List<VetWithRodentsCrossRef> getVetsWithRodents();
+    List<VetWithRodentsCrossRef> getVetsWithRodents();
 
 
     @Transaction

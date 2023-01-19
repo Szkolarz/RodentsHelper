@@ -26,16 +26,9 @@ public class NotificationFeeding {
                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
        DAONotifications daoNotifications = db.daoNotifications();
 
-
-
-       SharedPreferences prefsRequestCodeFeeding = notificationsActivity.getSharedPreferences("prefsRequestCodeFeeding", Context.MODE_PRIVATE);
-
        Integer requestCode;
-
        /** first id **/
        requestCode = daoNotifications.getFirstIdFromNotificationFeeding();
-
-
 
        SharedPreferences prefsNotificationFeeding = notificationsActivity.getSharedPreferences("prefsNotificationFeeding", Context.MODE_PRIVATE);
 
@@ -56,7 +49,6 @@ public class NotificationFeeding {
 
            Calendar calendar = Calendar.getInstance();
 
-
            Integer hour = daoNotifications.getHourFromNotificationFeeding(requestCode);
            Integer minute = daoNotifications.getMinuteFromNotificationFeeding(requestCode);
            Long unixTimeStamps = daoNotifications.getUnixTimestampsFromNotificationFeeding(requestCode);
@@ -72,16 +64,12 @@ public class NotificationFeeding {
            calendar.set(Calendar.MINUTE, minute);
            calendar.set(Calendar.SECOND, 0);
 
-
            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     pendingIntent);
 
            daoNotifications.updateNextNotificationTimeFeeding(calendar.getTimeInMillis(), requestCode);
 
-
            System.out.println("Włączono alarm");
-
-
 
        } else {
 
@@ -99,9 +87,7 @@ public class NotificationFeeding {
 
            System.out.println("Wyłączono alarm");
        }
-
        db.close();
-
    }
 
 
@@ -119,11 +105,6 @@ public class NotificationFeeding {
             alarmManager.cancel(pendingIntentCancel);
         }
 
-
         System.out.println("Wyłączono alarm");
     }
-
-
 }
-
-

@@ -21,7 +21,6 @@ public class DiseasesModel {
 
 
 
-
     public DiseasesModel(Integer id_animal, String name, String description) {
         this.id_animal = id_animal;
         this.name = name;

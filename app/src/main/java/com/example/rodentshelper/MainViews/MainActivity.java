@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.rodentshelper.ROOM.Rodent.AddRodents;
 import com.example.rodentshelper.AsyncActivity;
 import com.example.rodentshelper.R;
+import com.example.rodentshelper.ROOM.Rodent.AddRodents;
 import com.example.rodentshelper.ROOM.Vet.ViewVets;
 import com.example.rodentshelper.SQL.Querries;
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         AsyncActivity internetAsyncCheck = new AsyncActivity();
         internetAsyncCheck.execute();
 
-        System.out.println(internetAsyncCheck.getInternetConnectionInfo());
+        System.out.println(AsyncActivity.getInternetConnectionInfo());
 
 
 
@@ -68,12 +68,12 @@ public class MainActivity extends AppCompatActivity {
 
                     Integer DBversion = Integer.valueOf(a);
 
-                    Boolean internetCheck = internetAsyncCheck.getInternetConnectionInfo();
+                    Boolean internetCheck = AsyncActivity.getInternetConnectionInfo();
 
                     System.out.println("internet check:");
                     System.out.println(internetCheck);
 
-                    if (internetCheck == true) {
+                    if (internetCheck) {
 
                         SharedPreferences prefsFirstStart = getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
                         boolean firstStart = prefsFirstStart.getBoolean("firstStart", true);
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences prefsDB = getSharedPreferences("prefsDB", MODE_PRIVATE);
                         Integer sharedPreferencesDBVersion = prefsDB.getInt("dbversion", DBversion);
 
-                        if (firstStart == true || !sharedPreferencesDBVersion.equals(DBversion)) {
+                        if (firstStart || !sharedPreferencesDBVersion.equals(DBversion)) {
 
                             SharedPreferences.Editor editorFirstStart = prefsFirstStart.edit();
                             editorFirstStart.putBoolean("firstStart", false);

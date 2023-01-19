@@ -1,21 +1,13 @@
 package com.example.rodentshelper.DatabaseManagement;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.room.Room;
 
-import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
-import com.example.rodentshelper.ROOM.DateFormat;
 import com.example.rodentshelper.SQL.Querries;
-
 
 import org.apache.commons.io.IOUtils;
 
@@ -74,13 +66,13 @@ public class ExportAndImport {
     }
 
 
-    private static void deleteRecursive(File databaseDirectory) {
+    /*private static void deleteRecursive(File databaseDirectory) {
         if (databaseDirectory.isDirectory())
             for (File child : databaseDirectory.listFiles()) {
                 deleteRecursive(child);
             }
         databaseDirectory.delete();
-    }
+    }*/
 
 
     private static void turnOffPreferences(Context context) {
@@ -103,7 +95,7 @@ public class ExportAndImport {
 
 
 
-    public static boolean importDatabase(ActivityDatabaseManagement context, String login, File databaseDirectory)
+    public static boolean importDatabase(ActivityDatabaseManagement context, String login)
             throws IOException, SQLException, InterruptedException {
         Querries dbQuerries = new Querries();
         turnOffPreferences(context);

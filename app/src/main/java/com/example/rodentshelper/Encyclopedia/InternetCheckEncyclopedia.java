@@ -3,7 +3,6 @@ package com.example.rodentshelper.Encyclopedia;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -13,24 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.AsyncActivity;
 import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.SQL.Querries;
 
-import org.w3c.dom.Text;
-
 import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
 
 public class InternetCheckEncyclopedia {
-
-    //private String DBversionActual = "0.1_05122022";
-
-
 
     public boolean isNetworkConnected(ViewEncyclopedia viewEncyclopedia) {
         ConnectivityManager cm = (ConnectivityManager) viewEncyclopedia.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -41,12 +32,7 @@ public class InternetCheckEncyclopedia {
                               ProgressBar progressBar_encyclopedia, TextView textViewProgress_encyclopedia, ProgressDialog alertUpdate) throws SQLException, ExecutionException, InterruptedException {
 
         Querries dbQuerries = new Querries();
-
-        AsyncActivity internetAsyncCheck = new AsyncActivity();
-        //internetAsyncCheck.execute();
         AlertDialog.Builder alert = new AlertDialog.Builder(viewEncyclopedia, R.style.AlertDialogStyleUpdate);
-        Alerts alertInfo = new Alerts();
-
 
         SharedPreferences prefsFirstDownload = viewEncyclopedia.getSharedPreferences("prefsFirstDownload", Context.MODE_PRIVATE);
         boolean firstDownload = prefsFirstDownload.getBoolean("firstDownload", true);
@@ -78,86 +64,61 @@ public class InternetCheckEncyclopedia {
                             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
                             StrictMode.setThreadPolicy(policy);
                             try {
-                                if(!versionCodeCheck.isVersionUpToDate(viewEncyclopedia, dbQuerries)) {
-                                    viewEncyclopedia.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            alertUpdate.cancel();
-                                        }
-                                    });
+                                if (!versionCodeCheck.isVersionUpToDate(viewEncyclopedia, dbQuerries)) {
+                                    viewEncyclopedia.runOnUiThread(alertUpdate::cancel);
 
-                                    viewEncyclopedia.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
+                                    viewEncyclopedia.runOnUiThread(() -> {
 
-                                            alert.setTitle("Aktualizacja danych dostępna!");
-                                            alert.setMessage("W internetowej bazie danych pojawiła się aktualizacja. " +
-                                                    "Oznacza to poprawki w formie informacji naniesionych na sekcję 'Encyklopedia'.\n\n" +
-                                                    "Czy chcesz pobrać teraz aktualizację bazy danych do aplikacji?");
+                                        alert.setTitle("Aktualizacja danych dostępna!");
+                                        alert.setMessage("W internetowej bazie danych pojawiła się aktualizacja. " +
+                                                "Oznacza to poprawki w formie informacji naniesionych na sekcję 'Encyklopedia'.\n\n" +
+                                                "Czy chcesz pobrać teraz aktualizację bazy danych do aplikacji?");
 
-                                            alert.setPositiveButton("Tak", (dialogInterface, i) -> {
+                                        alert.setPositiveButton("Tak", (dialogInterface, i) -> {
 
-                                                showDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia);
+                                            showDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia);
 
-                                                Thread thread = new Thread(() -> {
+                                            Thread thread1 = new Thread(() -> {
 
-                                                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
-                                                    StrictMode.setThreadPolicy(policy);
-                                                    try {
-                                                        versionCodeCheck.makeAnUpdate(viewEncyclopedia, dbQuerries, prefsFirstDownload);
-                                                    } catch (ExecutionException | InterruptedException e) {
-                                                        e.printStackTrace();
-                                                    }
+                                                StrictMode.ThreadPolicy policy1 = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
+                                                StrictMode.setThreadPolicy(policy1);
+                                                try {
+                                                    versionCodeCheck.makeAnUpdate(viewEncyclopedia, dbQuerries, prefsFirstDownload);
+                                                } catch (ExecutionException |
+                                                         InterruptedException e) {
+                                                    e.printStackTrace();
+                                                }
 
-                                                    viewEncyclopedia.runOnUiThread(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia);
-                                                        }
-                                                    });
+                                                viewEncyclopedia.runOnUiThread(() -> hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia));
 
-
-                                                });
-
-                                                thread.start();
 
                                             });
 
-                                            alert.setNegativeButton("Nie", (dialogInterface, i) ->
-                                                    Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show());
+                                            thread1.start();
 
-                                            alert.create().show();
+                                        });
 
-                                        }
+                                        alert.setNegativeButton("Nie", (dialogInterface, i) ->
+                                                Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show());
+
+                                        alert.create().show();
+
                                     });
 
 
                                 } else {
-                                    viewEncyclopedia.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            alertUpdate.cancel();
-                                        }
-                                    });
+                                    viewEncyclopedia.runOnUiThread(alertUpdate::cancel);
                                 }
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
-
                         });
 
                         thread.start();
 
                     } else {
-                        viewEncyclopedia.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                alertUpdate.cancel();
-                            }
-                        });
-
+                        viewEncyclopedia.runOnUiThread(alertUpdate::cancel);
                         Toast.makeText(viewEncyclopedia, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show();
-
                     }
 
                 } catch (ExecutionException | InterruptedException e) {
@@ -204,9 +165,7 @@ public class InternetCheckEncyclopedia {
                                 } catch (ExecutionException | InterruptedException e) {
                                     e.printStackTrace();
                                 }
-                                    viewEncyclopedia.runOnUiThread(() -> {
-                                        hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia);
-                                    });
+                                    viewEncyclopedia.runOnUiThread(() -> hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia));
 
                             });
                             thread.start();
@@ -240,11 +199,9 @@ public class InternetCheckEncyclopedia {
             alert.setOnCancelListener(dialogInterface -> {
                 closeEncyclopedia(viewEncyclopedia);
                 Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show();
-
             });
 
             alert.create().show();
-
         }
 
 
@@ -255,6 +212,7 @@ public class InternetCheckEncyclopedia {
         progressBar_encyclopedia.setVisibility(View.VISIBLE);
         linearLayout_encyclopedia.setVisibility(View.GONE);
     }
+
 
     private void hideDownload(TextView textViewProgress_encyclopedia, ProgressBar progressBar_encyclopedia, LinearLayout linearLayout_encyclopedia) {
         textViewProgress_encyclopedia.setVisibility(View.GONE);
@@ -267,7 +225,4 @@ public class InternetCheckEncyclopedia {
         viewEncyclopedia.startActivity(new Intent(viewEncyclopedia, ViewRodents.class));
         viewEncyclopedia.finish();
     }
-
-
-
 }

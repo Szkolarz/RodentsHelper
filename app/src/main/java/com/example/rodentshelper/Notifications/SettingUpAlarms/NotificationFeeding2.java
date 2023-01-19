@@ -9,7 +9,6 @@ import android.os.Build;
 
 import androidx.room.Room;
 
-import com.example.rodentshelper.Notifications.Receivers.NotificationReceiverFeeding;
 import com.example.rodentshelper.Notifications.Receivers.NotificationReceiverFeeding2;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
@@ -17,7 +16,6 @@ import com.example.rodentshelper.ROOM.DAONotifications;
 import java.util.Calendar;
 
 public class NotificationFeeding2 {
-
 
    public void setUpNotificationFeeding(Context notificationsActivity) {
 
@@ -29,10 +27,8 @@ public class NotificationFeeding2 {
 
 
        Integer requestCode;
-
        /** the last id **/
        requestCode = daoNotifications.getLastIdFromNotificationFeeding();
-
 
        SharedPreferences prefsNotificationFeeding2 = notificationsActivity.getSharedPreferences("prefsNotificationFeeding2", Context.MODE_PRIVATE);
 
@@ -69,18 +65,14 @@ public class NotificationFeeding2 {
            calendar.set(Calendar.MINUTE, minute);
            calendar.set(Calendar.SECOND, 0);
 
-
            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     pendingIntent);
 
            daoNotifications.updateNextNotificationTimeFeeding(calendar.getTimeInMillis(), requestCode);
 
-
            System.out.println("Włączono alarm");
 
-
        } else {
-
            PendingIntent pendingIntentCancel;
 
            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -95,9 +87,7 @@ public class NotificationFeeding2 {
 
            System.out.println("Wyłączono alarm");
        }
-
        db.close();
-
    }
 
 
@@ -115,11 +105,6 @@ public class NotificationFeeding2 {
             alarmManager.cancel(pendingIntentCancel);
         }
 
-
         System.out.println("Wyłączono alarm");
     }
-
-
 }
-
-

@@ -3,21 +3,15 @@ package com.example.rodentshelper.MainViews;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
@@ -31,10 +25,6 @@ import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import java.util.Objects;
 
 public class ViewOther extends AppCompatActivity {
-
-    ImageView imageButtonOther_map, imageButtonOther_notifications;
-    TextView textView4_other;
-
 
 
     @Override
@@ -71,6 +61,9 @@ public class ViewOther extends AppCompatActivity {
         imageButton3_health.setOnClickListener(new ActivityHealth());
         imageButton4_other.setOnClickListener(new ActivityOther());
 
+        ImageView imageButtonOther_map, imageButtonOther_notifications;
+        TextView textView4_other;
+
         textView4_other = findViewById(R.id.textView4_other);
         imageButton4_other.setColorFilter(Color.WHITE);
         textView4_other.setTextColor(Color.WHITE);
@@ -80,14 +73,12 @@ public class ViewOther extends AppCompatActivity {
 
         imageButtonOther_map.setOnClickListener(view -> viewMap());
         imageButtonOther_notifications.setOnClickListener(view -> viewNotifications());
-
     }
 
     ProgressDialog progress;
     private boolean flagForProgressDialog = false;
 
     private void viewMap() {
-
 
         progress = new ProgressDialog(this);
         progress.setTitle("Ładowanie mapy...");
@@ -100,13 +91,11 @@ public class ViewOther extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             GoogleMaps googleMaps = new GoogleMaps();
-            googleMaps.closeProgressDialog(ViewOther.this, progress);
+            googleMaps.closeProgressDialog(ViewOther.this);
 
         }));
 
         thread.start();
-
-
     }
 
     @Override

@@ -25,7 +25,7 @@
         android:background="@drawable/rounded"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="10dp"
+        android:padding="5dp"
         android:scaleType="fitCenter">
 
         <LinearLayout
@@ -35,26 +35,27 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/imageButton1_rodent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/roundbutton"
-                android:onClick="onClickNavRodent"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_chinchilla"
-                android:tint="#0A4A97" />
+                app:srcCompat="@drawable/ic_chinchilla"
+                app:tint="#0A4A97" />
 
             <TextView
                 android:id="@+id/textView1_rodent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Pupile" />
+                android:gravity="center"
+                android:text="Pupile"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,26 +65,27 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/imageButton2_encyclopedia"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/roundbutton"
-                android:onClick="onClickNavEncyclopedia"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_encyclopedia"
-                android:tint="#0A4A97" />
+                app:srcCompat="@drawable/ic_encyclopedia"
+                app:tint="#0A4A97" />
 
             <TextView
                 android:id="@+id/textView2_encyclopedia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Encyklopedia" />
+                android:gravity="center"
+                android:text="Encyklopedia"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -93,26 +95,26 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/imageButton3_health"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/roundbutton"
-                android:onClick="onClickNavHealth"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_health"
-                android:tint="#0A4A97" />
+                app:srcCompat="@drawable/ic_health"
+                app:tint="#0A4A97" />
 
             <TextView
                 android:id="@+id/textView3_health"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Zdrowie" />
+                android:gravity="center|center_horizontal"
+                android:text="Zdrowie"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -122,26 +124,27 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/imageButton4_other"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/roundbutton"
-                android:onClick="onClickNavOther"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_other"
-                android:tint="#0A4A97" />
+                app:srcCompat="@drawable/ic_other"
+                app:tint="#0A4A97" />
 
             <TextView
                 android:id="@+id/textView4_other"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Inne" />
+                android:gravity="center"
+                android:text="Inne"
+                android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>

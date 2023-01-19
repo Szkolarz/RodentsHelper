@@ -6,12 +6,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
 
 import androidx.exifinterface.media.ExifInterface;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 public class ImageCompress extends Thread {
@@ -37,17 +35,11 @@ public class ImageCompress extends Thread {
 
     }
 
-    public static byte[] getByteArray (byte[] byteArray) {
-        return byteArray;
-    }
-
 
     //method to properly rotate the image
     //(there is a bug where image is bad rotated after converting - that's why this method is needed)
     private static Bitmap rectifyImage(Bitmap originalBitmap , Context context, Uri uri){
-
         try{
-
             InputStream input = context.getContentResolver().openInputStream(uri);
             ExifInterface ei;
 

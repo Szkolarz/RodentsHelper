@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
         android:text="Id"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="gone" />
 
@@ -36,16 +36,16 @@
                 android:id="@+id/buttonEdit_rodent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:tint="#0375a8"
-                app:srcCompat="@drawable/ic_edit" />
+                app:srcCompat="@drawable/ic_edit"
+                app:tint="#0375a8" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:text="Edytuj"
                 android:textAlignment="center"
                 android:textColor="#014D70"
@@ -64,7 +64,6 @@
                 android:id="@+id/view3"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
-                android:layout_centerVertical="true"
                 android:elevation="32dp"
                 android:gravity="center"
 
@@ -123,10 +122,10 @@
                 android:background="@drawable/roundbutton_small_green"
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"
-                android:tint="#498A32"
                 app:srcCompat="@drawable/ic_pet_health"
                 app:strokeColor="#0375a8"
-                app:strokeWidth="3dp" />
+                app:strokeWidth="3dp"
+                app:tint="#498A32" />
 
             <TextView
                 android:id="@+id/textView9"

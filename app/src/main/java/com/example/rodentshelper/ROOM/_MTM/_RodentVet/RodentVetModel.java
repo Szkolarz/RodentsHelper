@@ -1,17 +1,7 @@
 package com.example.rodentshelper.ROOM._MTM._RodentVet;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Embedded;
 import androidx.room.Entity;
-import androidx.room.Junction;
-import androidx.room.PrimaryKey;
-import androidx.room.Relation;
-
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
-import com.example.rodentshelper.ROOM.Vet.VetModel;
-
-import java.util.List;
 
 @Entity(
         primaryKeys = {"id_rodent", "id_vet"})
@@ -23,27 +13,27 @@ public class RodentVetModel {
     private Integer id_vet;
 
 
-
-    public RodentVetModel(Integer id_rodent, Integer id_vet) {
+    public RodentVetModel(@NonNull Integer id_rodent, @NonNull Integer id_vet) {
         this.id_rodent = id_rodent;
         this.id_vet = id_vet;
     }
 
 
-
+    @NonNull
     public Integer getId_rodent() {
         return id_rodent;
     }
 
-    public void setId_rodent(Integer id_rodent) {
+    public void setId_rodent(@NonNull Integer id_rodent) {
         this.id_rodent = id_rodent;
     }
 
+    @NonNull
     public Integer getId_vet() {
         return id_vet;
     }
 
-    public void setId_vet(Integer id_vet) {
+    public void setId_vet(@NonNull Integer id_vet) {
         this.id_vet = id_vet;
     }
 }

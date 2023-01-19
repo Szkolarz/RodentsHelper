@@ -21,39 +21,19 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.MainViews.ViewEncyclopedia;
-import com.example.rodentshelper.MainViews.ViewHealth;
-import com.example.rodentshelper.MainViews.ViewOther;
-import com.example.rodentshelper.ROOM.DAOMedicaments;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.Visits.ViewVisits;
+import com.example.rodentshelper.ROOM.DAOMedicaments;
 import com.example.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
-
 
 import java.util.List;
 import java.util.Objects;
 
 public class ViewMedicaments extends AppCompatActivity {
-
-    RecyclerView recyclerView;
-    Button buttonAddRecord;
-
-    TextView textViewEmpty_med, textView3_health, textView1_rodent;
+    private RecyclerView recyclerView;
 
     private Toolbar toolbar;
 
-    private AppDatabase getAppDatabase () {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        return db;
-    }
-
-    private DAOMedicaments getDaoMedicaments () {
-        DAOMedicaments daoMedicaments = getAppDatabase().daoMedicaments();
-        return daoMedicaments;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,20 +54,20 @@ public class ViewMedicaments extends AppCompatActivity {
         imageButton3_health.setOnClickListener(new ActivityHealth());
         imageButton4_other.setOnClickListener(new ActivityOther());
 
-        if (FlagSetup.getFlagIsFromHealth() == true) {
-            textView3_health = findViewById(R.id.textView3_health);
+        if (FlagSetup.getFlagIsFromHealth()) {
+            TextView textView3_health = findViewById(R.id.textView3_health);
             imageButton3_health.setColorFilter(Color.WHITE);
             textView3_health.setTextColor(Color.WHITE);
         }
-        if (FlagSetup.getFlagIsFromHealth() == false) {
+        if (!FlagSetup.getFlagIsFromHealth()) {
             FlagSetup.setFlagMedAdd(2);
-            textView1_rodent = findViewById(R.id.textView1_rodent);
+            TextView textView1_rodent = findViewById(R.id.textView1_rodent);
             imageButton1_rodent.setColorFilter(Color.WHITE);
             textView1_rodent.setTextColor(Color.WHITE);
         }
 
 
-        buttonAddRecord = findViewById(R.id.buttonAddRecord);
+        Button buttonAddRecord = findViewById(R.id.buttonAddRecord);
 
         recyclerView = findViewById(R.id.recyclerViewGlobal);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -95,7 +75,7 @@ public class ViewMedicaments extends AppCompatActivity {
 
         getRoomData();
 
-        textViewEmpty_med = findViewById(R.id.textViewEmptyGlobal);
+        TextView textViewEmpty_med = findViewById(R.id.textViewEmptyGlobal);
 
         if (getListMedicament().isEmpty()) {
             textViewEmpty_med.setVisibility(View.VISIBLE);
@@ -122,7 +102,7 @@ public class ViewMedicaments extends AppCompatActivity {
     {
         //1 = new without relations
         //2 = new with static relation
-        if (FlagSetup.getFlagIsFromHealth() == true)
+        if (FlagSetup.getFlagIsFromHealth())
             FlagSetup.setFlagMedAdd(1);
         else
             FlagSetup.setFlagMedAdd(2);
@@ -149,18 +129,21 @@ public class ViewMedicaments extends AppCompatActivity {
 
         List<MedicamentWithRodentsCrossRef> medicamentModel = null;
 
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAOMedicaments daoMedicaments = db.daoMedicaments();
         if (FlagSetup.getFlagMedAdd() == 2) {
             toolbar.setTitle("Leki pupila");
             SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
-            medicamentModel = getDaoMedicaments().getMedsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
+            medicamentModel = daoMedicaments.getMedsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
         }
         else {
             toolbar.setTitle("Leki");
-            medicamentModel = getDaoMedicaments().getMedsWithRodents();
+            medicamentModel = daoMedicaments.getMedsWithRodents();
             FlagSetup.setFlagMedAdd(1);
         }
         /** !!! **/
-        //db.close();
+        db.close();
 
         return medicamentModel;
     }

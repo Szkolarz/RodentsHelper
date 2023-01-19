@@ -23,7 +23,7 @@ import java.util.List;
 
 public class AdapterCageSupply extends RecyclerView.Adapter<AdapterCageSupply.viewHolder>
 {
-    List<CageSupplyModel> cageSupplyModel;
+    private final List<CageSupplyModel> cageSupplyModel;
 
     public AdapterCageSupply(List<CageSupplyModel> cageSupplyModel) {
         this.cageSupplyModel = cageSupplyModel;
@@ -43,13 +43,13 @@ public class AdapterCageSupply extends RecyclerView.Adapter<AdapterCageSupply.vi
         if (FragmentFlag.getFragmentFlag() == 0) {
             holder.linearLayout_treats.setBackgroundColor(Color.parseColor("#a1e3b3"));
             holder.view_treats.setBackgroundColor(Color.parseColor("#6dd188"));
-            if (cageSupplyModel.get(position).getIs_good() == false)
+            if (!cageSupplyModel.get(position).getIs_good())
                 holder.linearLayout_treats.setVisibility(View.GONE);
         }
         else if (FragmentFlag.getFragmentFlag() == 1) {
             holder.linearLayout_treats.setBackgroundColor(Color.parseColor("#e3a6b1"));
             holder.view_treats.setBackgroundColor(Color.parseColor("#d18492"));
-            if (cageSupplyModel.get(position).getIs_good() == true)
+            if (cageSupplyModel.get(position).getIs_good())
                 holder.linearLayout_treats.setVisibility(View.GONE);
         }
 
@@ -76,7 +76,7 @@ public class AdapterCageSupply extends RecyclerView.Adapter<AdapterCageSupply.vi
         return cageSupplyModel.size();
     }
 
-    class viewHolder extends RecyclerView.ViewHolder
+    static class viewHolder extends RecyclerView.ViewHolder
     {
 
            TextView textViewName_treats, textViewDesc_treats;

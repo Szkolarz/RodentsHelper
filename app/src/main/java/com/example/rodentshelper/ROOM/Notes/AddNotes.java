@@ -1,10 +1,8 @@
 package com.example.rodentshelper.ROOM.Notes;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,14 +15,10 @@ import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.ROOM.DateFormat;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAO;
 import com.example.rodentshelper.ROOM.DAONotes;
-
-import org.w3c.dom.Text;
+import com.example.rodentshelper.ROOM.DateFormat;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,10 +28,7 @@ import java.util.Objects;
 
 public class AddNotes extends AppCompatActivity {
 
-    EditText editTextTopic_notes, editTextContent_notes;
-    Button buttonEdit_notes, buttonAdd_notes, buttonSaveEdit_notes, buttonDelete_notes;
-
-
+    private EditText editTextTopic_notes, editTextContent_notes;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,15 +44,14 @@ public class AddNotes extends AppCompatActivity {
         editTextTopic_notes = findViewById(R.id.editTextTopic_notes);
         editTextContent_notes = findViewById(R.id.editTextContent_notes);
 
-        buttonEdit_notes = findViewById(R.id.buttonEdit_notes);
-        buttonAdd_notes = findViewById(R.id.buttonAdd_notes);
-        buttonSaveEdit_notes = findViewById(R.id.buttonSaveEdit_notes);
-        buttonDelete_notes = findViewById(R.id.buttonDelete_notes);
+        Button buttonEdit_notes = findViewById(R.id.buttonEdit_notes);
+        Button buttonAdd_notes = findViewById(R.id.buttonAdd_notes);
+        Button buttonSaveEdit_notes = findViewById(R.id.buttonSaveEdit_notes);
+        Button buttonDelete_notes = findViewById(R.id.buttonDelete_notes);
 
         textViewDate_notes = findViewById(R.id.textViewDate_notes);
         textViewDateHidden_notes = findViewById(R.id.textViewDateHidden_notes);
         textViewRequired_notes = findViewById(R.id.textViewRequired_notes);
-
 
 
         if (FlagSetup.getFlagNotesAdd() == 1) {
@@ -96,24 +86,10 @@ public class AddNotes extends AppCompatActivity {
             editTextContent_notes.setText(contentKey);
             textViewDate_notes.setText( DateFormat.formatDate(java.sql.Date.valueOf(create_dateKey)));
 
-
-
-            buttonSaveEdit_notes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    saveEditNotes(textViewRequired_notes);
-                }
-            });
+            buttonSaveEdit_notes.setOnClickListener(view -> saveEditNotes(textViewRequired_notes));
         }
 
-
-
-        buttonAdd_notes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveNotes(textViewDateHidden_notes, textViewRequired_notes);
-            }
-        });
+        buttonAdd_notes.setOnClickListener(view -> saveNotes(textViewDateHidden_notes, textViewRequired_notes));
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -143,6 +119,7 @@ public class AddNotes extends AppCompatActivity {
 
             dao.insertRecordNotes(new NotesModel(prefsGetRodentId.getInt("rodentId", 0), topicKey, contentKey,
                     java.sql.Date.valueOf(textViewDateHidden_notes.getText().toString()), null));
+            db.close();
             System.out.println("DODANO");
             viewNotes();
         }
@@ -160,7 +137,8 @@ public class AddNotes extends AppCompatActivity {
             DAONotes dao = db.daoNotes();
 
             Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
-            dao.updatNotesById(idKey, editTextTopic_notes.getText().toString(), editTextContent_notes.getText().toString());
+            dao.updateNotesById(idKey, editTextTopic_notes.getText().toString(), editTextContent_notes.getText().toString());
+            db.close();
 
             viewNotes();
         }

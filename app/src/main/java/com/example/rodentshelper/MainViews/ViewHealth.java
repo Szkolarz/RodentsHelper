@@ -3,9 +3,7 @@ package com.example.rodentshelper.MainViews;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.health.HealthStats;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,8 +15,8 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.FlagSetup;
-import com.example.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.R;
+import com.example.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.ROOM.Vet.ViewVets;
 import com.example.rodentshelper.ROOM.Visits.ViewVisits;
@@ -26,9 +24,6 @@ import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 import java.util.Objects;
 
 public class ViewHealth extends AppCompatActivity {
-
-    ImageView imageButtonVet1, imageButtonMed, imageButtonVisit;
-    TextView textView3_health;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +62,8 @@ public class ViewHealth extends AppCompatActivity {
         FlagSetup.setFlagVisitAdd(0);
         FlagSetup.setFlagMedAdd(0);
 
+        ImageView imageButtonVet1, imageButtonMed, imageButtonVisit;
+        TextView textView3_health;
 
         imageButtonVet1 = findViewById(R.id.imageButtonVet1);
         imageButtonMed = findViewById(R.id.imageButtonMed);
@@ -78,32 +75,11 @@ public class ViewHealth extends AppCompatActivity {
         textView3_health.setTextColor(Color.WHITE);
 
 
-        imageButtonVet1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewVets();
-            }
-        });
+        imageButtonVet1.setOnClickListener(view -> viewVets());
 
-        imageButtonMed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewMeds();
-            }
-        });
+        imageButtonMed.setOnClickListener(view -> viewMeds());
 
-        imageButtonVisit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewVisits();
-            }
-        });
-
-
-
-
-
-
+        imageButtonVisit.setOnClickListener(view -> viewVisits());
     }
 
 
@@ -128,7 +104,6 @@ public class ViewHealth extends AppCompatActivity {
 
 
 
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
@@ -138,6 +113,5 @@ public class ViewHealth extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
 }

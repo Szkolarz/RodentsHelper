@@ -5,15 +5,14 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.rodentshelper.Encyclopedia.CageSupply.AdapterCageSupply;
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
@@ -28,9 +27,6 @@ import java.util.List;
 
 
 public class EncyclopediaTab extends Fragment {
-
-    private final String title;
-
 
     public List getListOfRecords(Context context){
         AppDatabase db = Room.databaseBuilder(context,
@@ -73,7 +69,6 @@ public class EncyclopediaTab extends Fragment {
     }
 
     public EncyclopediaTab(String title) {
-        this.title = title;
     }
 
     private View root;
@@ -81,10 +76,9 @@ public class EncyclopediaTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-         root = inflater.inflate(R.layout.fragment_encyclopedia_tab, container, false);
+        root = inflater.inflate(R.layout.fragment_encyclopedia_tab, container, false);
 
         Context context = getActivity();
-
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView_treats_cagesupply);
         recyclerView.setNestedScrollingEnabled(true );

@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -26,32 +25,22 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.AsyncActivity;
-import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAO;
-import com.example.rodentshelper.ROOM.DAORodents;
-import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.SQL.Querries;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
-import java.util.regex.Pattern;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class ActivityLogin extends AppCompatActivity {
 
-    private Button buttonLogin_login;
-
-    private EditText editTextLogin_login, editTextPassword_login;
-    private TextView textViewBadLoginOrPassword_login;
 
 
     @Override
@@ -79,11 +68,10 @@ public class ActivityLogin extends AppCompatActivity {
             finish();
         });
 
-
-        buttonLogin_login = findViewById(R.id.buttonLogin_login);
-        editTextLogin_login = findViewById(R.id.editTextLogin_login);
-        editTextPassword_login = findViewById(R.id.editTextPassword_login);
-        textViewBadLoginOrPassword_login = findViewById(R.id.textViewBadLoginOrPassword_login);
+        Button buttonLogin_login = findViewById(R.id.buttonLogin_login);
+        EditText editTextLogin_login = findViewById(R.id.editTextLogin_login);
+        EditText editTextPassword_login = findViewById(R.id.editTextPassword_login);
+        TextView textViewBadLoginOrPassword_login = findViewById(R.id.textViewBadLoginOrPassword_login);
 
         try {
             Intent intent = getIntent();
@@ -124,7 +112,7 @@ public class ActivityLogin extends AppCompatActivity {
 
                                 Querries dbQuerries = new Querries();
 
-                                ResultSet resultSetLogin = null;
+                                ResultSet resultSetLogin;
                                 try {
                                     resultSetLogin = dbQuerries.checkLoginAndPassword(ActivityLogin.this);
 
@@ -203,9 +191,7 @@ public class ActivityLogin extends AppCompatActivity {
                                 AlertDialog.Builder alert = new AlertDialog.Builder(ActivityLogin.this, R.style.AlertDialogStyleUpdate);
                                 alert.setTitle("Nie można się połączyć z serwerem");
                                 alert.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
-                                alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> {
-                                    Toast.makeText(ActivityLogin.this, "Brak połączenia z serwerem", Toast.LENGTH_SHORT).show();
-                                });
+                                alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> Toast.makeText(ActivityLogin.this, "Brak połączenia z serwerem", Toast.LENGTH_SHORT).show());
                                 alert.show();
                             });
                         }

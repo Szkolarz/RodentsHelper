@@ -19,39 +19,34 @@ import com.example.rodentshelper.ROOM.DAONotifications;
 import java.util.Calendar;
 
 public class NotificationWeight {
-    private static final int NOTIFICATION_ID = 3;
 
+    public void setUpNotificationWeight(Context notificationsActivity) {
 
+        Intent notifyIntent = new Intent(notificationsActivity.getApplicationContext(), NotificationReceiverWeight.class);
 
-   public void setUpNotificationWeight(Context notificationsActivity) {
-
-       Intent notifyIntent = new Intent(notificationsActivity.getApplicationContext(), NotificationReceiverWeight.class);
-
-       AppDatabase db = Room.databaseBuilder(notificationsActivity,
+        AppDatabase db = Room.databaseBuilder(notificationsActivity,
                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-       DAONotifications daoNotifications = db.daoNotifications();
-       Integer requestCode = daoNotifications.getIdFromNotificationWeight();
+        DAONotifications daoNotifications = db.daoNotifications();
+        Integer requestCode = daoNotifications.getIdFromNotificationWeight();
 
-       SharedPreferences prefsNotificationWeight = notificationsActivity.getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
+        SharedPreferences prefsNotificationWeight = notificationsActivity.getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
 
-       PendingIntent pendingIntent;
-       AlarmManager alarmManager = (AlarmManager) notificationsActivity.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-           pendingIntent = PendingIntent.getBroadcast
+        PendingIntent pendingIntent;
+        AlarmManager alarmManager = (AlarmManager) notificationsActivity.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            pendingIntent = PendingIntent.getBroadcast
                    (notificationsActivity.getApplicationContext(), requestCode, notifyIntent, PendingIntent.FLAG_MUTABLE);
-       } else {
-           pendingIntent = PendingIntent.getBroadcast
+        } else {
+            pendingIntent = PendingIntent.getBroadcast
                    (notificationsActivity.getApplicationContext(), requestCode, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
        }
 
        //if prefs == true
        if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
 
-           cancelAlarm (notificationsActivity, alarmManager, notifyIntent, requestCode);
+           cancelAlarm(notificationsActivity, alarmManager, notifyIntent, requestCode);
 
            Calendar calendar = Calendar.getInstance();
-
-
 
            Integer hour = daoNotifications.getHourFromNotificationWeight();
            Integer minute = daoNotifications.getMinuteFromNotificationWeight();
@@ -60,15 +55,6 @@ public class NotificationWeight {
 
            calendar.setTimeInMillis(unixTimeStamps);
 
-
-
-       /*if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= hour) {
-           Log.e(TAG, "Alarm will schedule for next day!");
-           calendar.add(Calendar.DAY_OF_YEAR, 1); // add, not set!
-       }
-       else{
-           Log.e(TAG, "Alarm will schedule for today!");
-       }*/
 
            if (periodicity.equals("Codziennie")) {
                Log.e(TAG, "Alarm will schedule for next day!");
@@ -86,14 +72,9 @@ public class NotificationWeight {
                calendar.add(Calendar.DAY_OF_YEAR, 182);
            }
 
-           System.out.println(hour + " godzina");
-           System.out.println(minute + " minuta");
-
            calendar.set(Calendar.HOUR_OF_DAY, hour);
            calendar.set(Calendar.MINUTE, minute);
            calendar.set(Calendar.SECOND, 0);
-
-           System.out.println(calendar.getTimeInMillis() + " time in milli");
 
            //setWindows unfortunately sometimes does not want to fire
            //so we need to swap it to 'setExact' to be sure that
@@ -101,9 +82,7 @@ public class NotificationWeight {
            /*alarmManager.setWindow(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                    10000 * 60, pendingIntent);*/
            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    pendingIntent);
-
-           System.out.println(requestCode + " WAZENIE REQUEST");
+                   pendingIntent);
 
            daoNotifications.updateNextNotificationTimeWeight(calendar.getTimeInMillis());
            db.close();
@@ -113,13 +92,6 @@ public class NotificationWeight {
            alarmManager.cancel(pendingIntent);
            System.out.println("Wyłączono alarm wazenie");
        }
-
-
-
-
-                /*alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,  System.currentTimeMillis(),
-                        1000 * 60, pendingIntent);*/
-       //1000 * 60 * 60 * 24    600000
    }
 
 
@@ -137,12 +109,8 @@ public class NotificationWeight {
             alarmManager.cancel(pendingIntentCancel);
         }
 
-
         System.out.println("Wyłączono alarm");
     }
-
-
-
 }
 
 

@@ -10,7 +10,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -24,15 +23,12 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
+import com.example.rodentshelper.Encyclopedia.Common.ViewCagesupplyAndTreats;
 import com.example.rodentshelper.Encyclopedia.Common.ViewGeneralAndDiseases;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
 import com.example.rodentshelper.Encyclopedia.InternetCheckEncyclopedia;
-import com.example.rodentshelper.Encyclopedia.Common.ViewCagesupplyAndTreats;
-import com.example.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
-import com.example.rodentshelper.ROOM.Vet.ViewVets;
-import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 
 import java.sql.SQLException;
 import java.util.Objects;
@@ -40,11 +36,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ViewEncyclopedia extends AppCompatActivity {
 
-    ImageView imageButtonGeneral, imageButtonFood, imageButtonSupply, imageButtonDisease;
-    TextView textView2_encyclopedia, textViewProgress_encyclopedia;
 
-    ProgressBar progressBar_encyclopedia;
-    LinearLayout linearLayout_encyclopedia;
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
@@ -55,14 +47,8 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.update_encyclopedia:
-
-                //finish();
-                break;
-            default:
+        if (item.getItemId() == R.id.update_encyclopedia) {//finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -78,13 +64,10 @@ public class ViewEncyclopedia extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ViewEncyclopedia.this, ViewRodents.class);
-                startActivity(intent);
-                finish();
-            }
+        toolbar.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(ViewEncyclopedia.this, ViewRodents.class);
+            startActivity(intent);
+            finish();
         });
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
@@ -99,14 +82,18 @@ public class ViewEncyclopedia extends AppCompatActivity {
         imageButton3_health.setOnClickListener(new ActivityHealth());
         imageButton4_other.setOnClickListener(new ActivityOther());
 
-        imageButtonGeneral = findViewById(R.id.imageButtonGeneral);
-        imageButtonFood = findViewById(R.id.imageButtonFood);
-        imageButtonSupply = findViewById(R.id.imageButtonSupply);
-        imageButtonDisease = findViewById(R.id.imageButtonDisease);
+        ImageView imageButtonGeneral = findViewById(R.id.imageButtonGeneral);
+        ImageView imageButtonFood = findViewById(R.id.imageButtonFood);
+        ImageView imageButtonSupply = findViewById(R.id.imageButtonSupply);
+        ImageView imageButtonDisease = findViewById(R.id.imageButtonDisease);
 
-        textView2_encyclopedia = findViewById(R.id.textView2_encyclopedia);
+        TextView textView2_encyclopedia = findViewById(R.id.textView2_encyclopedia);
         imageButton2_encyclopedia.setColorFilter(Color.WHITE);
         textView2_encyclopedia.setTextColor(Color.WHITE);
+
+        TextView textViewProgress_encyclopedia;
+        ProgressBar progressBar_encyclopedia;
+        LinearLayout linearLayout_encyclopedia;
 
         textViewProgress_encyclopedia = findViewById(R.id.textViewProgress_encyclopedia);
         progressBar_encyclopedia = findViewById(R.id.progressBar_encyclopedia);
@@ -117,13 +104,11 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
         InternetCheckEncyclopedia internetCheckEncyclopedia = new InternetCheckEncyclopedia();
 
-
         SharedPreferences prefsFirstDownload = viewEncyclopedia.getSharedPreferences("prefsFirstDownload", Context.MODE_PRIVATE);
 
         final ProgressDialog progress = new ProgressDialog(this);
         if (!prefsFirstDownload.getBoolean("firstDownload", true))
         {
-
             progress.setTitle("Sprawdzanie aktualizacji...");
             progress.setMessage("Proszę czekać...");
 
@@ -163,13 +148,6 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
 
 
-
-    public void viewVets()
-    {
-        Intent intent = new Intent(ViewEncyclopedia.this, ViewVets.class);
-        startActivity(intent);
-    }
-
     public void viewGeneral()
     {
         Intent intent = new Intent(ViewEncyclopedia.this, ViewGeneralAndDiseases.class);
@@ -188,31 +166,6 @@ public class ViewEncyclopedia extends AppCompatActivity {
         FragmentFlag.setEncyclopediaTypeFlag(3);
         Intent intent = new Intent(ViewEncyclopedia.this, ViewCagesupplyAndTreats.class);
         startActivity(intent);
-    }
-
-    public void viewOther()
-    {
-        Intent intent = new Intent(ViewEncyclopedia.this, ViewOther.class);
-        startActivity(intent);
-    }
-
-    public void viewMeds()
-    {
-        Intent intent = new Intent(ViewEncyclopedia.this, ViewMedicaments.class);
-        startActivity(intent);
-    }
-
-    public void viewVisits()
-    {
-        Intent intent = new Intent(ViewEncyclopedia.this, ViewVisits.class);
-        startActivity(intent);
-    }
-
-    public void viewRodents()
-    {
-        Intent intent = new Intent(ViewEncyclopedia.this, ViewRodents.class);
-        startActivity(intent);
-        finish();
     }
 
 

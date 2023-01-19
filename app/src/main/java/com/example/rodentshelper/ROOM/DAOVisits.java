@@ -7,10 +7,8 @@ import androidx.room.Transaction;
 import androidx.room.TypeConverters;
 
 import com.example.rodentshelper.ROOM.Visits.VisitModel;
-import com.example.rodentshelper.ROOM._MTM._RodentMed.RodentMedModel;
-import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
-import com.example.rodentshelper.ROOM._MTM._RodentVisit.VisitsWithRodentsCrossRef;
 import com.example.rodentshelper.ROOM._MTM._RodentVisit.RodentVisitModel;
+import com.example.rodentshelper.ROOM._MTM._RodentVisit.VisitsWithRodentsCrossRef;
 
 import java.sql.Date;
 import java.util.List;
@@ -46,7 +44,7 @@ public interface DAOVisits {
 
     @Transaction
     @Query("SELECT * FROM visits")
-    public List<VisitsWithRodentsCrossRef> getVisitsWithRodents();
+    List<VisitsWithRodentsCrossRef> getVisitsWithRodents();
 
     @Transaction
     @Query ("SELECT visits.id_visit, visits.id_vet, visits.date, visits.time, visits.reason FROM visits\n" +

@@ -9,7 +9,6 @@ import com.example.rodentshelper.Encyclopedia.Diseases.DiseasesModel;
 import com.example.rodentshelper.Encyclopedia.General.GeneralModel;
 import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.Encyclopedia.Version.VersionModel;
-import com.example.rodentshelper.ROOM.Medicaments.MedicamentModel;
 
 import java.util.List;
 

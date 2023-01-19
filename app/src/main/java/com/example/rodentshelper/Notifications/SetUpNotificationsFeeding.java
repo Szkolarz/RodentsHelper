@@ -1,14 +1,11 @@
 package com.example.rodentshelper.Notifications;
 
-import android.app.Notification;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.room.Room;
 
@@ -17,7 +14,6 @@ import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeedi
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding2;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAONotifications;
-import com.example.rodentshelper.ROOM.DateFormat;
 
 import java.util.Locale;
 
@@ -25,83 +21,68 @@ public class SetUpNotificationsFeeding {
 
     private int hour, minute;
 
-
-
     public void notificationFeeding (NotificationsActivity notificationsActivity,
                                TextView textView3_notifications, TextView textView4_notifications,
                                CheckBox checkBoxNotifications2) {
 
-        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                    hour = selectedHour;
-                    minute = selectedMinute;
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = (timePicker, selectedHour, selectedMinute) -> {
+            hour = selectedHour;
+            minute = selectedMinute;
+
+            AppDatabase db = Room.databaseBuilder(notificationsActivity,
+                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+            DAONotifications daoNotifications = db.daoNotifications();
+
+            if (FlagSetupFeeding.getFlagIsNotificationFirst()) {
+                daoNotifications.deleteNotificationFeeding();
+            }
+            daoNotifications.insertRecordNotification(new NotificationsModel(null, hour, minute,
+                    null, System.currentTimeMillis(), null,"feeding"));
+
+            SharedPreferences prefsNotificationFeeding = notificationsActivity.getSharedPreferences("prefsNotificationFeeding", Context.MODE_PRIVATE);
+            SharedPreferences.Editor prefsEditorNotificationFeeding = prefsNotificationFeeding.edit();
+            prefsEditorNotificationFeeding.putBoolean("prefsNotificationFeeding", true);
+            prefsEditorNotificationFeeding.apply();
+
+            SharedPreferences prefsNotificationFeeding2 = notificationsActivity.getSharedPreferences("prefsNotificationFeeding2", Context.MODE_PRIVATE);
+            SharedPreferences.Editor prefsEditorNotificationFeeding2 = prefsNotificationFeeding2.edit();
+            prefsEditorNotificationFeeding2.putBoolean("prefsNotificationFeeding2", true);
+            prefsEditorNotificationFeeding2.apply();
+
+            NotificationFeeding notificationFeeding = new NotificationFeeding();
+            NotificationFeeding2 notificationFeeding2 = new NotificationFeeding2();
+
+            if (FlagSetupFeeding.getFlagIsNotificationFirst()) {
+                notificationFeeding.setUpNotificationFeeding(notificationsActivity.getApplicationContext());
+            } else {
+                notificationFeeding2.setUpNotificationFeeding(notificationsActivity.getApplicationContext());
+            }
 
 
-                    AppDatabase db = Room.databaseBuilder(notificationsActivity,
-                            AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                    DAONotifications daoNotifications = db.daoNotifications();
+            if (!FlagSetupFeeding.getFlagIsNotificationFirst()) {
+                checkBoxNotifications2.setChecked(true);
+                setUpCheckbox(checkBoxNotifications2, textView3_notifications, textView4_notifications, notificationsActivity);
 
-                    if (FlagSetupFeeding.getFlagIsNotificationFirst()) {
-                        daoNotifications.deleteNotificationFeeding();
-                    }
-                    daoNotifications.insertRecordNotification(new NotificationsModel(null, hour, minute,
-                            null, System.currentTimeMillis(), null,"feeding"));
+                Alerts alert = new Alerts();
+                alert.simpleInfo("Dodano nowe powiadomienie", "Pomyślnie dodano nowe powiadomienie!" +
+                        "Powiadomienia o karmieniu będą wysyłane codziennie, zaczynając od jutra.", notificationsActivity);
+                FlagSetupFeeding.setFlagIsNotificationFirst(true);
+            } else {
+                FlagSetupFeeding.setFlagIsNotificationFirst(false);
+                notificationFeeding(notificationsActivity, textView3_notifications,
+                        textView4_notifications, checkBoxNotifications2);
+            }
 
+            db.close();
 
-                    SharedPreferences prefsNotificationFeeding = notificationsActivity.getSharedPreferences("prefsNotificationFeeding", notificationsActivity.MODE_PRIVATE);
-                    SharedPreferences.Editor prefsEditorNotificationFeeding = prefsNotificationFeeding.edit();
-                    prefsEditorNotificationFeeding.putBoolean("prefsNotificationFeeding", true);
-                    prefsEditorNotificationFeeding.apply();
-
-                    SharedPreferences prefsNotificationFeeding2 = notificationsActivity.getSharedPreferences("prefsNotificationFeeding2", notificationsActivity.MODE_PRIVATE);
-                    SharedPreferences.Editor prefsEditorNotificationFeeding2 = prefsNotificationFeeding2.edit();
-                    prefsEditorNotificationFeeding2.putBoolean("prefsNotificationFeeding2", true);
-                    prefsEditorNotificationFeeding2.apply();
-
-                    NotificationFeeding notificationFeeding = new NotificationFeeding();
-                    NotificationFeeding2 notificationFeeding2 = new NotificationFeeding2();
-
-                    if (FlagSetupFeeding.getFlagIsNotificationFirst()) {
-                        notificationFeeding.setUpNotificationFeeding(notificationsActivity.getApplicationContext());
-                    } else {
-                        notificationFeeding2.setUpNotificationFeeding(notificationsActivity.getApplicationContext());
-                    }
-
-
-
-                    if (!FlagSetupFeeding.getFlagIsNotificationFirst()) {
-                        checkBoxNotifications2.setChecked(true);
-                        setUpCheckbox(checkBoxNotifications2, textView3_notifications, textView4_notifications, notificationsActivity);
-
-                        Alerts alert = new Alerts();
-                        alert.simpleInfo("Dodano nowe powiadomienie", "Pomyślnie dodano nowe powiadomienie!" +
-                                "Powiadomienia o karmieniu będą wysyłane codziennie, zaczynając od jutra.", notificationsActivity);
-                        FlagSetupFeeding.setFlagIsNotificationFirst(true);
-                    } else {
-                        FlagSetupFeeding.setFlagIsNotificationFirst(false);
-                        notificationFeeding(notificationsActivity, textView3_notifications,
-                                textView4_notifications, checkBoxNotifications2);
-                    }
-
-                    db.close();
-
-                }
-            };
-
+        };
 
             TimePickerDialog timePickerDialog = new TimePickerDialog(notificationsActivity, onTimeSetListener, hour, minute, true);
 
+            timePickerDialog.setOnCancelListener (dialog -> {
+                    checkBoxNotifications2.setChecked(false);
+                    setUpCheckbox(checkBoxNotifications2, textView3_notifications, textView4_notifications, notificationsActivity);
 
-            timePickerDialog.setOnCancelListener (new DialogInterface.OnCancelListener () {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-
-                        System.out.println("DISSMIS");
-                        checkBoxNotifications2.setChecked(false);
-                        setUpCheckbox(checkBoxNotifications2, textView3_notifications, textView4_notifications, notificationsActivity);
-
-                }
             });
 
 

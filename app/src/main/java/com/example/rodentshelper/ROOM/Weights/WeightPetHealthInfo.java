@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 public class WeightPetHealthInfo {
 
-
     public void getPreference(Context context, Integer ageYear, Integer ageMonth, Integer ageDay, Integer weight, TextView textViewInfo_weight) {
         SharedPreferences prefsFirstStart = context.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
@@ -23,7 +22,7 @@ public class WeightPetHealthInfo {
         }
     }
 
-    public void petHealth3(Integer ageYear, Integer ageMonth, Integer ageDay, Integer weight, TextView textViewInfo_weight) {
+    private void petHealth3(Integer ageYear, Integer ageMonth, Integer ageDay, Integer weight, TextView textViewInfo_weight) {
         //30g - 100g
         if (ageYear == 0 && ageMonth == 0 && ageDay < 14) {
             if (weight >= 30 && weight <= 100)
@@ -140,8 +139,4 @@ public class WeightPetHealthInfo {
         str.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return str;
     }
-
-
-
-
 }

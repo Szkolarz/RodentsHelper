@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.rodentshelper.Encyclopedia.General.GeneralModel;
 import com.example.rodentshelper.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +18,7 @@ import java.util.List;
 
 public class AdapterDiseases extends RecyclerView.Adapter<AdapterDiseases.viewHolder>
 {
-    List<DiseasesModel> diseasesModel;
+    private final List<DiseasesModel> diseasesModel;
 
     public AdapterDiseases(List<DiseasesModel> diseasesModel) {
         this.diseasesModel = diseasesModel;
@@ -40,8 +39,6 @@ public class AdapterDiseases extends RecyclerView.Adapter<AdapterDiseases.viewHo
         holder.linearLayout_general.setBackgroundColor(Color.parseColor("#f6fad4"));
         holder.textViewName_general.setText(diseasesModel.get(position).getName());
         holder.textViewDesc_general.setText(diseasesModel.get(position).getDescription());
-
-
     }
 
 
@@ -50,7 +47,7 @@ public class AdapterDiseases extends RecyclerView.Adapter<AdapterDiseases.viewHo
         return diseasesModel.size();
     }
 
-    class viewHolder extends RecyclerView.ViewHolder
+    static class viewHolder extends RecyclerView.ViewHolder
     {
            TextView textViewName_general, textViewDesc_general;
            LinearLayout linearLayout_general;
@@ -60,7 +57,6 @@ public class AdapterDiseases extends RecyclerView.Adapter<AdapterDiseases.viewHo
 
                textViewName_general = itemView.findViewById(R.id.textViewName_general);
                textViewDesc_general = itemView.findViewById(R.id.textViewDesc_general);
-
                linearLayout_general = itemView.findViewById(R.id.linearLayout_general);
            }
        }

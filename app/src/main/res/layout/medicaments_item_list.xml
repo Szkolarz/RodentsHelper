@@ -3,7 +3,6 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ACC5E1">
@@ -150,8 +149,8 @@
                 android:id="@+id/textViewDateStart_med"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:gravity="left"
+                android:layout_marginStart="20dp"
+                android:gravity="start"
                 android:textColor="#014D70"
                 android:textSize="20sp" />
 
@@ -159,7 +158,7 @@
                 android:id="@+id/imageButtonDate_med1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:background="@drawable/roundbutton_small"
                 android:padding="5dp"
                 android:src="@drawable/ic_calendar_vet1"
@@ -191,9 +190,9 @@
                 android:id="@+id/textViewDateEnd_med"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginBottom="10dp"
-                android:gravity="left"
+                android:gravity="start"
                 android:textColor="#014D70"
                 android:textSize="20sp" />
 
@@ -201,7 +200,7 @@
                 android:id="@+id/imageButtonDate_med2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:background="@drawable/roundbutton_small"
                 android:padding="5dp"
                 android:src="@drawable/ic_calendar_vet1"
@@ -230,7 +229,7 @@
             android:id="@+id/textViewRodentRelations_med"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:ellipsize="none"
             android:maxLines="8"
             android:textColor="#014D70"

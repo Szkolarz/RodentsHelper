@@ -48,7 +48,7 @@ public interface DAOMedicaments {
 
     @Transaction
     @Query("SELECT * FROM medicaments")
-    public List<MedicamentWithRodentsCrossRef> getMedsWithRodents();
+    List<MedicamentWithRodentsCrossRef> getMedsWithRodents();
 
     @Transaction
     @Query ("SELECT medicaments.id_medicament, medicaments.id_vet, medicaments.name, medicaments.description," +

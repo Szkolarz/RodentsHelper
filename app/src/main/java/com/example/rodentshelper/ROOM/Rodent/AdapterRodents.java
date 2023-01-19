@@ -79,46 +79,35 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
         int id = rodentModel.get(holder.getAdapterPosition()).getId();
 
 
-        holder.buttonEdit_rodent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(new Intent(holder.buttonEdit_rodent.getContext(), AddRodents.class));
-                intent.putExtra("idKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId()));
-                intent.putExtra("id_animalKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId_animal()));
-                intent.putExtra("nameKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getName()));
-                intent.putExtra("genderKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getGender()));
-                intent.putExtra("birthKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getBirth()));
-                intent.putExtra("furKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getFur()));
-                intent.putExtra("notesKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getNotes()));
+        holder.buttonEdit_rodent.setOnClickListener(view -> {
+            Intent intent = new Intent(new Intent(holder.buttonEdit_rodent.getContext(), AddRodents.class));
+            intent.putExtra("idKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId()));
+            intent.putExtra("id_animalKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId_animal()));
+            intent.putExtra("nameKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getName()));
+            intent.putExtra("genderKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getGender()));
+            intent.putExtra("birthKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getBirth()));
+            intent.putExtra("furKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getFur()));
+            intent.putExtra("notesKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getNotes()));
 
-
-                //0 = edit
-                FlagSetup.setFlagRodentAdd(0);
-                holder.buttonEdit_rodent.getContext().startActivity(intent);
-                ((Activity)holder.buttonEdit_rodent.getContext()).finish();
-            }
+            //0 = edit
+            FlagSetup.setFlagRodentAdd(0);
+            holder.buttonEdit_rodent.getContext().startActivity(intent);
+            ((Activity)holder.buttonEdit_rodent.getContext()).finish();
         });
 
-        holder.buttonRodentsPetHealth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(new Intent(holder.buttonRodentsPetHealth.getContext(), ViewPetHealth.class));
-                intent.putExtra("idKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId()));
-                intent.putExtra("id_animalKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId_animal()));
-                intent.putExtra("nameKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getName()));
+        holder.buttonRodentsPetHealth.setOnClickListener(view -> {
+            Intent intent = new Intent(new Intent(holder.buttonRodentsPetHealth.getContext(), ViewPetHealth.class));
+            intent.putExtra("idKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId()));
+            intent.putExtra("id_animalKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId_animal()));
+            intent.putExtra("nameKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getName()));
 
-                SharedPreferences prefsGetRodentId = holder.buttonRodentsPetHealth.getContext().getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
-                SharedPreferences.Editor editorGetRodentName = prefsGetRodentId.edit();
-                editorGetRodentName.putInt("rodentId", rodentModel.get(holder.getAdapterPosition()).getId());
-                editorGetRodentName.apply();
+            SharedPreferences prefsGetRodentId = holder.buttonRodentsPetHealth.getContext().getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
+            SharedPreferences.Editor editorGetRodentName = prefsGetRodentId.edit();
+            editorGetRodentName.putInt("rodentId", rodentModel.get(holder.getAdapterPosition()).getId());
+            editorGetRodentName.apply();
 
-                holder.buttonRodentsPetHealth.getContext().startActivity(intent);
-            }
+            holder.buttonRodentsPetHealth.getContext().startActivity(intent);
         });
-
-
-
-
     }
 
     @Override
@@ -126,7 +115,7 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
         return rodentModel.size();
     }
 
-    class viewHolder extends RecyclerView.ViewHolder
+    static class viewHolder extends RecyclerView.ViewHolder
        {
 
            TextView textViewName, textViewGender, textViewDate, textViewFur, textViewNotes;

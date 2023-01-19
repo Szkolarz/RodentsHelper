@@ -7,8 +7,6 @@ import androidx.room.TypeConverters;
 
 import com.example.rodentshelper.ROOM.Converters;
 
-import java.sql.Date;
-
 @Entity(tableName = "Notification")
 public class NotificationsModel {
 

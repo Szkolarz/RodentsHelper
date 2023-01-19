@@ -1,18 +1,14 @@
 package com.example.rodentshelper.ROOM.Rodent;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,7 +16,6 @@ import android.provider.MediaStore;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,13 +29,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import com.example.rodentshelper.Alerts;
-import com.example.rodentshelper.DatabaseManagement.CloudAccountModel;
 import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.ImageCompress;
-import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
-import com.example.rodentshelper.ROOM.DAO;
 import com.example.rodentshelper.ROOM.DAORodents;
 
 import java.io.ByteArrayOutputStream;
@@ -52,27 +44,17 @@ import java.util.Objects;
 
 public class AddRodents extends AppCompatActivity {
 
-    EditText editTextNotes, editTextName, editTextFur;
-    Button buttonAdd_rodent, buttonEdit_rodent;
-    ImageView buttonDelete_rodent;
-    TextView textViewDeleteImage_rodent, textViewRequired_rodent1, textViewRequired_rodent2;
-    RadioButton radioButtonGender1, radioButtonGender2;
-
-    RadioGroup radioGroup;
-    RadioButton radioButton;
-
-    ImageButton imageButtonDate_rodent;
-    ImageView imageView_rodent;
-
-
-    private List<RodentModel> rodentModel;
-    private TextView textViewDate, textViewDate_hidden;
-
+    private EditText editTextNotes, editTextName, editTextFur;
+    private Button buttonAdd_rodent, buttonEdit_rodent;
+    private ImageView buttonDelete_rodent, imageView_rodent;
+    private TextView textViewDeleteImage_rodent, textViewRequired_rodent1, textViewRequired_rodent2,
+            textViewDate, textViewDate_hidden;
+    private RadioButton radioButtonGender1, radioButtonGender2, radioButton;
+    private RadioGroup radioGroup;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private String dateFormat;
 
     byte[] byteArray;
-
 
 
     @Override
@@ -105,7 +87,7 @@ public class AddRodents extends AppCompatActivity {
 
 
         imageView_rodent = findViewById(R.id.imageView_rodent);
-        imageButtonDate_rodent = findViewById(R.id.imageButtonDate_rodent);
+        ImageButton imageButtonDate_rodent = findViewById(R.id.imageButtonDate_rodent);
 
 
         textViewDate = findViewById(R.id.textViewDate);
@@ -124,103 +106,67 @@ public class AddRodents extends AppCompatActivity {
         }
 
 
-        imageView_rodent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Intent intent = new Intent (Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                Intent intent = new Intent (Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
+        imageView_rodent.setOnClickListener(view -> {
+            // Intent intent = new Intent (Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            Intent intent = new Intent (Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
 
-                startActivityForResult(intent, 3);
+            startActivityForResult(intent, 3);
 
-            }
         });
 
-        textViewDeleteImage_rodent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imageView_rodent.setImageDrawable(getDrawable(R.drawable.ic_chinchilla));
-                byteArray = null;
-                textViewDeleteImage_rodent.setVisibility(View.GONE);
+        textViewDeleteImage_rodent.setOnClickListener(view -> {
+            imageView_rodent.setImageDrawable(getDrawable(R.drawable.ic_chinchilla));
+            byteArray = null;
+            textViewDeleteImage_rodent.setVisibility(View.GONE);
 
-            }
         });
 
 
-        imageButtonDate_rodent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onDateClick();
-            }
-        });
+        imageButtonDate_rodent.setOnClickListener(view -> onDateClick());
 
-        textViewDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onDateClick();
-            }
-        });
+        textViewDate.setOnClickListener(view -> onDateClick());
 
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month += 1;
+        dateSetListener = (datePicker, year, month, day) -> {
+            month += 1;
 
-                String date = day + "/" + month + "/" + year;
-                textViewDate.setText(date);
+            String date = day + "/" + month + "/" + year;
+            textViewDate.setText(date);
 
-                dateFormat = (year + "-" + month + "-" + day);
-                textViewDate_hidden.setText(dateFormat);
+            dateFormat = (year + "-" + month + "-" + day);
+            textViewDate_hidden.setText(dateFormat);
 
-            }
         };
 
-        buttonDelete_rodent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        buttonDelete_rodent.setOnClickListener(view -> {
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(buttonDelete_rodent.getContext(), R.style.AlertDialogStyle);
-                alert.setTitle("Usuwanie pupila");
-                alert.setMessage("Czy na pewno chcesz usunąć pupila z listy?\n\nProces jest nieodwracalny!");
+            AlertDialog.Builder alert = new AlertDialog.Builder(buttonDelete_rodent.getContext(), R.style.AlertDialogStyle);
+            alert.setTitle("Usuwanie pupila");
+            alert.setMessage("Czy na pewno chcesz usunąć pupila z listy?\n\nProces jest nieodwracalny!");
 
-                alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getApplicationContext(), "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
+            alert.setPositiveButton("Tak", (dialogInterface, i) -> {
+                Toast.makeText(getApplicationContext(), "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
 
 
 
-                        Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
+                Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
 
-                        //rodentDao.DeleteAllRodentsVetsByRodent(idKey);
-                        daoRodents.deleteRodentById(idKey);
-
-
-                        viewRodents();
-
-                    }
-                });
-                alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getApplicationContext(), "Anulowano", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                alert.create().show();
+                //rodentDao.DeleteAllRodentsVetsByRodent(idKey);
+                daoRodents.deleteRodentById(idKey);
 
 
-            }
+                viewRodents();
+
+            });
+            alert.setNegativeButton("Nie", (dialogInterface, i) -> Toast.makeText(getApplicationContext(), "Anulowano", Toast.LENGTH_SHORT).show());
+
+            alert.create().show();
+
+
         });
 
 
-        buttonAdd_rodent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveRodent();
-
-            }
-        });
+        buttonAdd_rodent.setOnClickListener(view -> saveRodent());
 
         if (FlagSetup.getFlagRodentAdd() == 0) {
 
@@ -257,15 +203,7 @@ public class AddRodents extends AppCompatActivity {
             imageView_rodent.setImageBitmap(bitmap);
 
 
-            buttonEdit_rodent.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    onClickSaveEdit(daoRodents, idKey, id_animalKey, nameKey);
-
-
-                }
-            });
+            buttonEdit_rodent.setOnClickListener(view -> onClickSaveEdit(daoRodents, idKey, id_animalKey, nameKey));
         }
 
 
@@ -287,7 +225,6 @@ public class AddRodents extends AppCompatActivity {
         });
 
         db.close();
-
     }
 
     private void onDateClick() {
@@ -303,20 +240,6 @@ public class AddRodents extends AppCompatActivity {
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         datePickerDialog.show();
     }
-
-    private String getRealPathFromURI(Uri contentURI) {
-
-        String thePath = "no-path-found";
-        String[] filePathColumn = {MediaStore.Images.Media.DISPLAY_NAME};
-        Cursor cursor = getContentResolver().query(contentURI, filePathColumn, null, null, null);
-        if(cursor.moveToFirst()){
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            thePath = cursor.getString(columnIndex);
-        }
-        cursor.close();
-        return  thePath;
-    }
-
 
 
     @Override
@@ -338,7 +261,7 @@ public class AddRodents extends AppCompatActivity {
             Thread thread = new Thread(() -> {
 
 
-            Bitmap bitmapTemp = null;
+            Bitmap bitmapTemp;
             Bitmap bitmap = null;
 
             try {
@@ -352,26 +275,26 @@ public class AddRodents extends AppCompatActivity {
 
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            try {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            } catch (NullPointerException e) {
+               System.out.println("Bitmap error " + e);
+            }
             byteArray = stream.toByteArray();
 
             final Bitmap bitmapView = bitmap;
 
-                runOnUiThread(new Runnable() {
+                runOnUiThread(() -> {
 
-                    @Override
-                    public void run() {
+                    imageView_rodent.setImageBitmap(bitmapView);
 
-                        imageView_rodent.setImageBitmap(bitmapView);
-
-                        buttonEdit_rodent.setEnabled(true);
-                        buttonAdd_rodent.setEnabled(true);
-                        buttonAdd_rodent.setBackgroundColor(Color.parseColor("#5397DF"));
-                        buttonEdit_rodent.setBackgroundColor(Color.parseColor("#5397DF"));
-                        buttonAdd_rodent.setTextColor(Color.WHITE);
-                        buttonEdit_rodent.setTextColor(Color.WHITE);
-                        checkImage();
-                    }
+                    buttonEdit_rodent.setEnabled(true);
+                    buttonAdd_rodent.setEnabled(true);
+                    buttonAdd_rodent.setBackgroundColor(Color.parseColor("#5397DF"));
+                    buttonEdit_rodent.setBackgroundColor(Color.parseColor("#5397DF"));
+                    buttonAdd_rodent.setTextColor(Color.WHITE);
+                    buttonEdit_rodent.setTextColor(Color.WHITE);
+                    checkImage();
                 });
 
             });
@@ -390,7 +313,7 @@ public class AddRodents extends AppCompatActivity {
     @SuppressLint("SuspiciousIndentation")
     private void checkImage() {
         if (byteArray != null)
-        textViewDeleteImage_rodent.setVisibility(View.VISIBLE);
+            textViewDeleteImage_rodent.setVisibility(View.VISIBLE);
     }
 
 
@@ -438,7 +361,7 @@ public class AddRodents extends AppCompatActivity {
 
 
         int selectedRadio = radioGroup.getCheckedRadioButtonId();
-        radioButton = (RadioButton) findViewById(selectedRadio);
+        radioButton = findViewById(selectedRadio);
 
         String stringGender;
         if (!radioButtonGender1.isChecked() && !radioButtonGender2.isChecked())
@@ -460,7 +383,7 @@ public class AddRodents extends AppCompatActivity {
             Alerts alert = new Alerts();
             alert.simpleInfo("Imię już istnieje", "Aplikacja zakłada, że nie mogą istnieć " +
                     "dokładnie dwa takie same imiona pupili.\n\nJeśli rzeczywiście posiadasz dwa zwierzęta " +
-                    "z tym samym imieniem, możesz je lekko zmienić, np. '" + stringName.trim() + " - szczur', albo " +
+                    "z tym samym imieniem, możesz je lekko zmienić, np. '" + stringName.trim() + " (szczur)', albo " +
                     "'" + stringName.trim() + " 2'.", this);
         } else {
             if (byteArray == null) {
@@ -496,12 +419,12 @@ public class AddRodents extends AppCompatActivity {
             Alerts alert = new Alerts();
             alert.simpleInfo("Imię już istnieje", "Aplikacja zakłada, że nie mogą istnieć " +
                     "dokładnie dwa takie same imiona pupili.\n\nJeśli rzeczywiście posiadasz dwa zwierzęta " +
-                    "z tym samym imieniem, możesz je lekko zmienić, np. '" + editTextName.getText().toString().trim() + " - szczur', albo " +
+                    "z tym samym imieniem, możesz je lekko zmienić, np. '" + editTextName.getText().toString().trim() + " (szczur)', albo " +
                     "'" + editTextName.getText().toString().trim() + " 2'.", this);
         } else {
 
             int selectedRadio = radioGroup.getCheckedRadioButtonId();
-            radioButton = (RadioButton) findViewById(selectedRadio);
+            radioButton = findViewById(selectedRadio);
 
             String stringGender;
             if (!radioButtonGender1.isChecked() && !radioButtonGender2.isChecked())

@@ -16,7 +16,6 @@ import androidx.room.Room;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding;
 import com.example.rodentshelper.Notifications.SettingUpAlarms.NotificationFeeding2;
 import com.example.rodentshelper.Notifications.UpdateNotification;
 import com.example.rodentshelper.R;
@@ -25,8 +24,6 @@ import com.example.rodentshelper.ROOM.DAONotifications;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
 public class BackupWorkerFeeding2 extends Worker {
-
-
 
     public BackupWorkerFeeding2(@NonNull Context context, @NonNull WorkerParameters workerParams ) {
         super ( context, workerParams );
@@ -42,7 +39,7 @@ public class BackupWorkerFeeding2 extends Worker {
 
         UpdateNotification updateNotification = new UpdateNotification();
         updateNotification.checkIfUserHasMissedNotification(getApplicationContext());
-        //updateNotification.checkNotificationPreferences(getApplicationContext());
+        updateNotification.checkNotificationPreferences(getApplicationContext());
 
 
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -50,15 +47,9 @@ public class BackupWorkerFeeding2 extends Worker {
         DAONotifications daoNotifications = db.daoNotifications();
 
 
-
-
         if (prefsNotificationFeeding2.getBoolean("prefsNotificationFeeding2", false)) {
 
-            SharedPreferences prefsRequestCodeFeeding = getApplicationContext().getSharedPreferences("prefsRequestCodeFeeding", Context.MODE_PRIVATE);
-
-
             Integer requestCode;
-
 
             /** the last id */
             requestCode = daoNotifications.getLastIdFromNotificationFeeding();
@@ -85,14 +76,11 @@ public class BackupWorkerFeeding2 extends Worker {
                 pendingIntent = PendingIntent.getActivity(getApplicationContext(), requestCode, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-
             builder.setContentIntent(pendingIntent);
 
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
 
-
             managerCompat.notify(requestCode, builder.build());
-
 
             daoNotifications.updateUnixTimestampFeeding(System.currentTimeMillis(), requestCode);
 
@@ -108,7 +96,4 @@ public class BackupWorkerFeeding2 extends Worker {
 
         return Result.success ();
     }
-
-
-
 }

@@ -2,7 +2,6 @@ package com.example.rodentshelper.ROOM.Vet;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -25,7 +24,6 @@ import com.example.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOVets;
-import com.example.rodentshelper.ROOM.Visits.ViewVisits;
 import com.example.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +33,7 @@ import java.util.List;
 
 public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
 {
-    List<VetWithRodentsCrossRef> vetModel;
+    private final List<VetWithRodentsCrossRef> vetModel;
 
 
     public AdapterVets(List<VetWithRodentsCrossRef> vetModel) {
@@ -130,29 +128,19 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Usuwanie weterynarza");
         alert.setMessage("Czy na pewno chcesz usunąć weterynarza z listy?\n\nProces jest nieodwracalny!");
-        alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(context, "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
+        alert.setPositiveButton("Tak", (dialogInterface, i) -> {
+            Toast.makeText(context, "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
 
-                //vetDao.DeleteAllRodentsVetsByVet(vetModel.get(holder.getAdapterPosition()).getId());
-                vetDao.deleteVetById(vetModel.get(holder.getAdapterPosition()).vetModel.getId());
+            //vetDao.DeleteAllRodentsVetsByVet(vetModel.get(holder.getAdapterPosition()).getId());
+            vetDao.deleteVetById(vetModel.get(holder.getAdapterPosition()).vetModel.getId());
 
-                //vetDao.SetVisitsIdVetNull(vetModel.get(holder.getAdapterPosition()).getId());
-                vetModel.remove(holder.getAdapterPosition());
+            //vetDao.SetVisitsIdVetNull(vetModel.get(holder.getAdapterPosition()).getId());
+            vetModel.remove(holder.getAdapterPosition());
 
-                notifyDataSetChanged();
-            }
+            notifyDataSetChanged();
         });
-        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show();
-            }
-        });
+        alert.setNegativeButton("Nie", (dialogInterface, i) -> Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show());
         alert.create().show();
-
-
     }
 
     private void onClickEdit(DAOVets vetDao, viewHolder holder) {
@@ -200,7 +188,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
            ImageButton imageButtonCall_vet;
 
            //lista z querry join
-           private ArrayList<String> arrayListSelected;
+           private final ArrayList<String> arrayListSelected;
 
 
 

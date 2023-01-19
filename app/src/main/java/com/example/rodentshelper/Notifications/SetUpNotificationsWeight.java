@@ -3,14 +3,12 @@ package com.example.rodentshelper.Notifications;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.room.Room;
 
@@ -37,78 +35,66 @@ public class SetUpNotificationsWeight {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(notificationsActivity, R.style.AlertWhiteButtons);
         View mView = notificationsActivity.getLayoutInflater().inflate(R.layout.dialog_spinner, null);
         mBuilder.setTitle("Częstotliwość powiadomień");
-        Spinner mSpinner = (Spinner) mView.findViewById(R.id.spinner_weight);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(notificationsActivity,
+        Spinner mSpinner = mView.findViewById(R.id.spinner_weight);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(notificationsActivity,
                 android.R.layout.simple_spinner_item,
                 notificationsActivity.getResources().getStringArray(R.array.weightList));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
         mSpinner.setSelection(3);
 
-        mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
 
-                dialog.dismiss();
+        mBuilder.setPositiveButton("OK", (dialog, which) -> {
+            dialog.dismiss();
 
-                TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        hour = selectedHour;
-                        minute = selectedMinute;
+            TimePickerDialog.OnTimeSetListener onTimeSetListener = (timePicker, selectedHour, selectedMinute) -> {
+                hour = selectedHour;
+                minute = selectedMinute;
 
-                        AppDatabase db = Room.databaseBuilder(notificationsActivity,
-                                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                        DAONotifications daoNotifications = db.daoNotifications();
+                AppDatabase db = Room.databaseBuilder(notificationsActivity,
+                        AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+                DAONotifications daoNotifications = db.daoNotifications();
 
 
-                        daoNotifications.deleteNotificationWeight();
-                        daoNotifications.insertRecordNotification(new NotificationsModel(null, hour, minute,
-                                mSpinner.getSelectedItem().toString(), System.currentTimeMillis(), null,"weight"));
-                        db.close();
-                        Alerts alert = new Alerts();
-                        alert.simpleInfo("Dodano nowe powiadomienie", "Pomyślnie dodano nowe powiadomienie!", notificationsActivity);
+                daoNotifications.deleteNotificationWeight();
+                daoNotifications.insertRecordNotification(new NotificationsModel(null, hour, minute,
+                        mSpinner.getSelectedItem().toString(), System.currentTimeMillis(), null,"weight"));
+                db.close();
+                Alerts alert = new Alerts();
+                alert.simpleInfo("Dodano nowe powiadomienie", "Pomyślnie dodano nowe powiadomienie!", notificationsActivity);
 
-                        SharedPreferences prefsNotificationWeight = notificationsActivity.getSharedPreferences("prefsNotificationWeight", notificationsActivity.MODE_PRIVATE);
-                        SharedPreferences.Editor prefsEditorNotificationWeight = prefsNotificationWeight.edit();
-                        prefsEditorNotificationWeight.putBoolean("prefsNotificationWeight", true);
-                        prefsEditorNotificationWeight.apply();
+                SharedPreferences prefsNotificationWeight = notificationsActivity.getSharedPreferences("prefsNotificationWeight", Context.MODE_PRIVATE);
+                SharedPreferences.Editor prefsEditorNotificationWeight = prefsNotificationWeight.edit();
+                prefsEditorNotificationWeight.putBoolean("prefsNotificationWeight", true);
+                prefsEditorNotificationWeight.apply();
 
-                        NotificationWeight notificationWeight = new NotificationWeight();
-                        notificationWeight.setUpNotificationWeight(notificationsActivity.getApplicationContext());
+                NotificationWeight notificationWeight = new NotificationWeight();
+                notificationWeight.setUpNotificationWeight(notificationsActivity.getApplicationContext());
 
-                        setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, notificationsActivity);
-                        ifTimeSet = true;
-                    }
-                };
-
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(notificationsActivity, onTimeSetListener, hour, minute, true);
-
-                timePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        if (!ifTimeSet) {
-                            checkBoxNotifications1.setChecked(false);
-                            setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, notificationsActivity);
-                        }
-                    }
-                });
+                setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, notificationsActivity);
+                ifTimeSet = true;
+            };
 
 
-                timePickerDialog.setTitle("Wybierz godzinę, o której dostaniesz powiadomienie");
-                timePickerDialog.show();
+            TimePickerDialog timePickerDialog = new TimePickerDialog(notificationsActivity, onTimeSetListener, hour, minute, true);
 
-            }
+            timePickerDialog.setOnDismissListener(dialog1 -> {
+                if (!ifTimeSet) {
+                    checkBoxNotifications1.setChecked(false);
+                    setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, notificationsActivity);
+                }
+            });
+
+
+            timePickerDialog.setTitle("Wybierz godzinę, o której dostaniesz powiadomienie");
+            timePickerDialog.show();
+
         });
 
-        mBuilder.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                checkBoxNotifications1.setChecked(false);
-                setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, notificationsActivity);
-                dialog.dismiss();
-            }
+        mBuilder.setNegativeButton("Anuluj", (dialog, which) -> {
+            checkBoxNotifications1.setChecked(false);
+            setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, notificationsActivity);
+            dialog.dismiss();
         });
 
         mBuilder.setOnCancelListener(dialog -> {

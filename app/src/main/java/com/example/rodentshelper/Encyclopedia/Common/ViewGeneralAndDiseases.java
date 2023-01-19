@@ -1,6 +1,5 @@
 package com.example.rodentshelper.Encyclopedia.Common;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,19 +26,14 @@ import com.example.rodentshelper.Encyclopedia.Diseases.DiseasesModel;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
 import com.example.rodentshelper.Encyclopedia.General.AdapterGeneral;
 import com.example.rodentshelper.Encyclopedia.General.GeneralModel;
-import com.example.rodentshelper.MainViews.ViewHealth;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOEncyclopedia;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 
 import java.util.List;
 import java.util.Objects;
 
 public class ViewGeneralAndDiseases extends AppCompatActivity  {
-
-
-    RecyclerView recyclerView;
 
 
     @Override
@@ -78,12 +72,10 @@ public class ViewGeneralAndDiseases extends AppCompatActivity  {
         View view_general = findViewById(R.id.view_general);
 
 
-        LinearLayout linearLayout_encyclopedia = findViewById(R.id.linearLayout_encyclopedia);
-
         InsertRecords insertRecords = new InsertRecords();
 
         SharedPreferences prefsFirstStart = ViewGeneralAndDiseases.this.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
-        Integer prefsRodentId = prefsFirstStart.getInt("prefsFirstStart", 0);
+        int prefsRodentId = prefsFirstStart.getInt("prefsFirstStart", 0);
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 1) {
             toolbar.setTitle("Ogólne informacje");
@@ -128,7 +120,6 @@ public class ViewGeneralAndDiseases extends AppCompatActivity  {
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOEncyclopedia daoEncyclopedia = db.daoEncyclopedia();
 
-
         List<GeneralModel> generalModel = daoEncyclopedia.getAllGeneral(prefsRodentId);
 
         db.close();
@@ -140,7 +131,6 @@ public class ViewGeneralAndDiseases extends AppCompatActivity  {
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOEncyclopedia daoEncyclopedia = db.daoEncyclopedia();
 
-
         List<DiseasesModel> diseasesModel = daoEncyclopedia.getAllDiseases(prefsRodentId);
 
         db.close();
@@ -150,11 +140,7 @@ public class ViewGeneralAndDiseases extends AppCompatActivity  {
 
     private void getRoomData(Integer prefsRodentId) {
 
-
-
-
-
-        recyclerView = findViewById(R.id.recyclerView_general);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView_general);
         recyclerView.setLayoutManager(new LinearLayoutManager(ViewGeneralAndDiseases.this));
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 1) {

@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -25,18 +23,10 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.Alerts;
 import com.example.rodentshelper.AsyncActivity;
-import com.example.rodentshelper.MainViews.ViewEncyclopedia;
 import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.SQL.Querries;
 
-import org.apache.commons.io.IOUtils;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -47,9 +37,8 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class ActivityRegister extends AppCompatActivity {
 
-    private Button buttonRegister_register;
-    private EditText editTextLogin_register, editTextPassword_register, editTextRepeatPassword_register;
-    private TextView textViewLoginExists_register, textViewBadPassword_register, textViewPasswordsNotMatch_register,
+
+    private TextView textViewBadPassword_register, textViewPasswordsNotMatch_register,
             textViewLoginTooShort_register;
 
 
@@ -72,21 +61,18 @@ public class ActivityRegister extends AppCompatActivity {
         imageButton4_other = findViewById(R.id.imageButton4_other);
 
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ActivityRegister.this, ViewRodents.class);
-                startActivity(intent);
-                finish();
-            }
+        toolbar.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(ActivityRegister.this, ViewRodents.class);
+            startActivity(intent);
+            finish();
         });
 
 
-        buttonRegister_register = findViewById(R.id.buttonRegister_register);
-        editTextLogin_register = findViewById(R.id.editTextLogin_register);
-        editTextPassword_register = findViewById(R.id.editTextPassword_register);
-        editTextRepeatPassword_register = findViewById(R.id.editTextRepeatPassword_register);
-        textViewLoginExists_register = findViewById(R.id.textViewLoginExists_register);
+        Button buttonRegister_register = findViewById(R.id.buttonRegister_register);
+        EditText editTextLogin_register = findViewById(R.id.editTextLogin_register);
+        EditText editTextPassword_register = findViewById(R.id.editTextPassword_register);
+        EditText editTextRepeatPassword_register = findViewById(R.id.editTextRepeatPassword_register);
+        TextView textViewLoginExists_register = findViewById(R.id.textViewLoginExists_register);
         textViewBadPassword_register = findViewById(R.id.textViewBadPassword_register);
         textViewPasswordsNotMatch_register = findViewById(R.id.textViewPasswordsNotMatch_register);
         textViewLoginTooShort_register = findViewById(R.id.textViewLoginTooShort_register);
@@ -180,9 +166,7 @@ public class ActivityRegister extends AppCompatActivity {
                                 AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRegister.this, R.style.AlertDialogStyleUpdate);
                                 alert.setTitle("Nie można się połączyć z serwerem");
                                 alert.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
-                                alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> {
-                                    Toast.makeText(ActivityRegister.this, "Brak połączenia z serwerem", Toast.LENGTH_SHORT).show();
-                                });
+                                alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> Toast.makeText(ActivityRegister.this, "Brak połączenia z serwerem", Toast.LENGTH_SHORT).show());
                                 alert.show();
                             });
                         }
@@ -222,34 +206,26 @@ public class ActivityRegister extends AppCompatActivity {
 
         if (login.length() <= 0 || password.length() <= 0 || passwordRepeat.length() <= 0) {
             Alerts alert = new Alerts();
-            runOnUiThread(() -> {
-                alert.alertLackOfData("Wszystkie pola muszą być uzupełnione.", context);
-            });
+            runOnUiThread(() -> alert.alertLackOfData("Wszystkie pola muszą być uzupełnione.", context));
 
             flag = false;
         }
 
         if (login.length() < 4) {
-            runOnUiThread(() -> {
-                textViewLoginTooShort_register.setVisibility(View.VISIBLE);
-            });
+            runOnUiThread(() -> textViewLoginTooShort_register.setVisibility(View.VISIBLE));
 
             flag = false;
         }
 
         if (!password.equals(passwordRepeat)) {
-            runOnUiThread(() -> {
-                textViewPasswordsNotMatch_register.setVisibility(View.VISIBLE);
-            });
+            runOnUiThread(() -> textViewPasswordsNotMatch_register.setVisibility(View.VISIBLE));
 
             flag = false;
         }
 
         if ((password.length() < 8) || (!letterPattern.matcher(password).find()) ||
                 (!digitCasePatten.matcher(password).find())) {
-            runOnUiThread(() -> {
-                textViewBadPassword_register.setVisibility(View.VISIBLE);
-            });
+            runOnUiThread(() -> textViewBadPassword_register.setVisibility(View.VISIBLE));
 
             flag = false;
         }

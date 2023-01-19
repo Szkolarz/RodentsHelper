@@ -23,7 +23,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
@@ -68,7 +68,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:layout_marginBottom="5dp"
-                                    android:layout_weight="1"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/roundbutton"
                                     android:padding="15dp"
@@ -79,7 +78,6 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:text="Weterynarz"
                                     android:textColor="#014D70" />
 
@@ -88,7 +86,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginRight="15dp"
+                                android:layout_marginEnd="15dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="vertical">
@@ -134,11 +132,11 @@
 
                                 <ImageView
                                     android:id="@+id/imageButtonMed"
+                                    android:contentDescription="imageButtonMed"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:layout_marginBottom="5dp"
-                                    android:layout_weight="1"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/roundbutton"
                                     android:onClick="onClickVet"
@@ -150,7 +148,6 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:text="Leki"
                                     android:textColor="#014D70" />
 
@@ -159,7 +156,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginRight="15dp"
+                                android:layout_marginEnd="15dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="vertical">
@@ -204,11 +201,11 @@
 
                                 <ImageView
                                     android:id="@+id/imageButtonVisit"
+                                    android:contentDescription="imageButtonVisit"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:layout_marginBottom="5dp"
-                                    android:layout_weight="1"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/roundbutton"
                                     android:onClick="onClickVet"
@@ -220,7 +217,6 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:text="Wizyty u weterynarza"
                                     android:textColor="#014D70" />
                             </LinearLayout>
@@ -228,7 +224,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginRight="15dp"
+                                android:layout_marginEnd="15dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="vertical">
@@ -279,7 +275,7 @@
                 layout="@layout/bottom_navbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"></include>
+                android:layout_gravity="bottom" />
         </LinearLayout>
 
     </LinearLayout>

@@ -34,7 +34,7 @@ public class UpdateNotification {
         if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
         System.out.println("ABABA");
 
-            Long actualTimeStamp = System.currentTimeMillis();
+            long actualTimeStamp = System.currentTimeMillis();
             Long unixTimeStamps = daoNotifications.getUnixTimestampsFromNotificationWeight();
             Long nextNotificationTime = daoNotifications.getNextNotificationTimeWeight();
 
@@ -59,7 +59,7 @@ public class UpdateNotification {
 
         if (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false)) {
 
-            Long actualTimeStamp = System.currentTimeMillis();
+            long actualTimeStamp = System.currentTimeMillis();
 
             Long nextNotificationDate;
             Integer id_notification;
@@ -94,7 +94,7 @@ public class UpdateNotification {
 
         if (prefsNotificationFeeding2.getBoolean("prefsNotificationFeeding2", false)) {
 
-            Long actualTimeStamp = System.currentTimeMillis();
+            long actualTimeStamp = System.currentTimeMillis();
 
             Long nextNotificationDate;
             Integer id_notification;
@@ -168,8 +168,8 @@ public class UpdateNotification {
 
             List<NotificationsModel> notificationsModel = daoNotifications.getAllNotificationsVisit();
 
-            String timeKey = null, dateFormat = null, sendTime = null;
-            Integer id_visit = null;
+            String timeKey, dateFormat, sendTime;
+            Integer id_visit;
 
             NotificationVisit notificationVisit = new NotificationVisit();
             for (int i=0; i<notificationsModel.size(); i++) {

@@ -3,11 +3,6 @@ package com.example.rodentshelper.DatabaseManagement;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
-
-import com.example.rodentshelper.ROOM.Converters;
-
-import java.sql.Date;
 
 @Entity(tableName = "DatabaseManagement")
 public class DatabaseManagementModel {

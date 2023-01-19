@@ -1,17 +1,10 @@
 package com.example.rodentshelper.ROOM.Weights;
 
 
-import com.example.rodentshelper.ROOM.DateFormat;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class AgeCalculator {
 
@@ -23,7 +16,6 @@ public class AgeCalculator {
         int years = 0;
         int months = 0;
         int days = 0;
-
 
         //create calendar object for birth day
         Calendar birthDay = Calendar.getInstance();
@@ -75,14 +67,11 @@ public class AgeCalculator {
             }
         }
 
-
         List<Integer> listOfAge = new ArrayList<>();
         listOfAge.add(days);
         listOfAge.add(months);
         listOfAge.add(years);
         return listOfAge;
     }
-
-
 
 }

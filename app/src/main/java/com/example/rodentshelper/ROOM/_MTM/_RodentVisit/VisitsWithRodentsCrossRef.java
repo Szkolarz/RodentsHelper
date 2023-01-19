@@ -7,11 +7,9 @@ import androidx.room.Relation;
 import com.example.rodentshelper.ROOM.Rodent.RodentModel;
 import com.example.rodentshelper.ROOM.Visits.VisitModel;
 
-
 import java.util.List;
 
 public class VisitsWithRodentsCrossRef {
-
 
     @Embedded
     public VisitModel visitModel;

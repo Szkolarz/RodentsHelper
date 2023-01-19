@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +29,7 @@ import java.util.List;
 
 public class AdapterWeights extends RecyclerView.Adapter<AdapterWeights.viewHolder>
 {
-    List<RodentWithWeights> weightModel;
+    private final List<RodentWithWeights> weightModel;
 
     public AdapterWeights(List<RodentWithWeights> weightModel) {
         this.weightModel = weightModel;
@@ -51,23 +50,8 @@ public class AdapterWeights extends RecyclerView.Adapter<AdapterWeights.viewHold
         holder.textViewWeight_view.setText(weightModel.get(position).weightModel.getWeight().toString());
         holder.textViewDate_view.setText( DateFormat.formatDate(weightModel.get(position).weightModel.getDate()) );
 
-
-        holder.buttonDelete_weight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteWeight(holder.buttonDelete_weight.getContext(), holder);
-            }
-        });
-
-        holder.buttonEdit_weight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editWeight(holder);
-            }
-        });
-
-
-
+        holder.buttonDelete_weight.setOnClickListener(view -> deleteWeight(holder.buttonDelete_weight.getContext(), holder));
+        holder.buttonEdit_weight.setOnClickListener(view -> editWeight(holder));
     }
 
     private void deleteWeight(Context context, viewHolder holder) {
@@ -76,36 +60,29 @@ public class AdapterWeights extends RecyclerView.Adapter<AdapterWeights.viewHold
         alert.setTitle("Usuwanie wagi");
         alert.setMessage("Czy na pewno chcesz usunąć wagę z listy?\n\nProces jest nieodwracalny!");
 
-        alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(context, "Pomyślnie usunięto wagę", Toast.LENGTH_SHORT).show();
+        alert.setPositiveButton("Tak", (dialogInterface, i) -> {
+            Toast.makeText(context, "Pomyślnie usunięto wagę", Toast.LENGTH_SHORT).show();
 
-                AppDatabase db = Room.databaseBuilder(context,
-                        AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                DAOWeight daoWeight = db.daoWeight();
+            AppDatabase db = Room.databaseBuilder(context,
+                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+            DAOWeight daoWeight = db.daoWeight();
 
-                daoWeight.deleteWeightById(weightModel.get(holder.getAdapterPosition()).weightModel.getId_weight());
+            daoWeight.deleteWeightById(weightModel.get(holder.getAdapterPosition()).weightModel.getId_weight());
+            db.close();
 
-                weightModel.remove(holder.getAdapterPosition());
+            weightModel.remove(holder.getAdapterPosition());
 
-                FlagSetup.setFlagWeightAdd(1);
+            FlagSetup.setFlagWeightAdd(1);
 
-                Intent intent = new Intent(context, WeightView.class);
-                context.startActivity(intent);
+            Intent intent = new Intent(context, WeightView.class);
+            context.startActivity(intent);
 
-                ((Activity) holder.buttonDelete_weight.getContext()).finish();
+            ((Activity) holder.buttonDelete_weight.getContext()).finish();
 
-                notifyDataSetChanged();
+            notifyDataSetChanged();
 
-            }
         });
-        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show();
-            }
-        });
+        alert.setNegativeButton("Nie", (dialogInterface, i) -> Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show());
         alert.create().show();
 
     }
@@ -127,7 +104,7 @@ public class AdapterWeights extends RecyclerView.Adapter<AdapterWeights.viewHold
         return weightModel.size();
     }
 
-    class viewHolder extends RecyclerView.ViewHolder
+    static class viewHolder extends RecyclerView.ViewHolder
     {
 
            TextView textViewWeight_view, textViewDate_view;

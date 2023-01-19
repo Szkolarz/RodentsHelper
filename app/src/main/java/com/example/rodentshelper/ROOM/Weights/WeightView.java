@@ -37,10 +37,8 @@ import com.example.rodentshelper.R;
 import com.example.rodentshelper.ROOM.AppDatabase;
 import com.example.rodentshelper.ROOM.DAOWeight;
 import com.example.rodentshelper.ROOM.DateFormat;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.example.rodentshelper.ROOM._MTM._RodentWeight.RodentWithWeights;
 import com.github.mikephil.charting.charts.LineChart;
-
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,19 +51,11 @@ import java.util.Objects;
 
 public class WeightView extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-
-    EditText editTextWeight;
-    TextView textViewDate, textViewDateWeight_hidden, textViewInfo_weight, textViewChart_weight;
-    Button buttonAdd_weight, buttonSaveEdit_weight;
-    ImageButton imageButtonDate_weight, imageButtonQuestion_weight;
-    LineChart lineChart_weight;
-    LinearLayout linearLayoutChart_weight, linearLayoutChartInfo_weight;
-    ScrollView scrollView_weight;
-
-
+    private RecyclerView recyclerView;
+    private EditText editTextWeight;
+    private TextView textViewDate, textViewDateWeight_hidden;
+    private ScrollView scrollView_weight;
     private DatePickerDialog.OnDateSetListener dateSetListener;
-
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -103,20 +93,20 @@ public class WeightView extends AppCompatActivity {
 
         editTextWeight = findViewById(R.id.editTextWeight);
         textViewDate = findViewById(R.id.textViewDate);
-        textViewInfo_weight = findViewById(R.id.textViewInfo_weight);
+        TextView textViewInfo_weight = findViewById(R.id.textViewInfo_weight);
 
 
 
         textViewDateWeight_hidden = findViewById(R.id.textViewDateWeight_hidden);
 
-        buttonAdd_weight = findViewById(R.id.buttonAdd_weight);
-        buttonSaveEdit_weight = findViewById(R.id.buttonSaveEdit_weight);
-        imageButtonDate_weight = findViewById(R.id.imageButtonDate_weight);
-        imageButtonQuestion_weight = findViewById(R.id.imageButtonQuestion_weight);
+        Button buttonAdd_weight = findViewById(R.id.buttonAdd_weight);
+        Button buttonSaveEdit_weight = findViewById(R.id.buttonSaveEdit_weight);
+        ImageButton imageButtonDate_weight = findViewById(R.id.imageButtonDate_weight);
+        ImageButton imageButtonQuestion_weight = findViewById(R.id.imageButtonQuestion_weight);
 
-        lineChart_weight = findViewById(R.id.lineChart_weight);
-        linearLayoutChart_weight = findViewById(R.id.linearLayoutChart_weight);
-        linearLayoutChartInfo_weight = findViewById(R.id.linearLayoutChartInfo_weight);
+        LineChart lineChart_weight = findViewById(R.id.lineChart_weight);
+        LinearLayout linearLayoutChart_weight = findViewById(R.id.linearLayoutChart_weight);
+        LinearLayout linearLayoutChartInfo_weight = findViewById(R.id.linearLayoutChartInfo_weight);
         scrollView_weight = findViewById(R.id.scrollView_weight);
 
 
@@ -166,14 +156,13 @@ public class WeightView extends AppCompatActivity {
         SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
         List<RodentWithWeights> theLastWeight = daoWeight.getLastWeightByRodentId(prefsGetRodentId.getInt("rodentId", 0));
 
-        AgeCalculator ageCalculator = new AgeCalculator();
 
         try {
 
             Date birth = java.sql.Date.valueOf( theLastWeight.get(0).rodents.get(0).getBirth().toString());
 
             List<Integer> listAge = new ArrayList<>();
-            listAge = ageCalculator.calculateAge(birth);
+            listAge = AgeCalculator.calculateAge(birth);
             //list.get(0) = days list.get(1) = months; list.get(2) = years
 
 
@@ -199,57 +188,36 @@ public class WeightView extends AppCompatActivity {
 
 
 
-        imageButtonDate_weight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onDateClick();
-            }
-        });
+        imageButtonDate_weight.setOnClickListener(view -> onDateClick());
 
-        imageButtonQuestion_weight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", Context.MODE_PRIVATE);
+        imageButtonQuestion_weight.setOnClickListener(view -> {
+            SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", Context.MODE_PRIVATE);
 
-                WeightPetHealthInfo weightPetHealthInfo = new WeightPetHealthInfo();
-                if (prefsFirstStart.getInt("prefsFirstStart", 0) == 1)
-                    weightPetHealthInfo.tableInfoChinchilla(WeightView.this); // do zmiany
-                else if (prefsFirstStart.getInt("prefsFirstStart", 0) == 2)
-                    weightPetHealthInfo.tableInfoChinchilla(WeightView.this); //do zmiany
-                else if (prefsFirstStart.getInt("prefsFirstStart", 0) == 3)
-                    weightPetHealthInfo.tableInfoChinchilla(WeightView.this);
+            WeightPetHealthInfo weightPetHealthInfo = new WeightPetHealthInfo();
+            if (prefsFirstStart.getInt("prefsFirstStart", 0) == 1)
+                weightPetHealthInfo.tableInfoChinchilla(WeightView.this); // do zmiany
+            else if (prefsFirstStart.getInt("prefsFirstStart", 0) == 2)
+                weightPetHealthInfo.tableInfoChinchilla(WeightView.this); //do zmiany
+            else if (prefsFirstStart.getInt("prefsFirstStart", 0) == 3)
+                weightPetHealthInfo.tableInfoChinchilla(WeightView.this);
 
-                finish();
-            }
+            finish();
         });
 
 
 
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month += 1;
+        dateSetListener = (datePicker, year, month, day) -> {
+            month += 1;
 
-                String date = (year + "-" + month + "-" + day);
-                textViewDateWeight_hidden.setText(date);
-                textViewDate.setText(DateFormat.formatDate(java.sql.Date.valueOf(date)));
-            }
+            String date = (year + "-" + month + "-" + day);
+            textViewDateWeight_hidden.setText(date);
+            textViewDate.setText(DateFormat.formatDate(java.sql.Date.valueOf(date)));
         };
 
 
-        buttonAdd_weight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveWeight();
-            }
-        });
+        buttonAdd_weight.setOnClickListener(view -> saveWeight());
 
-        buttonSaveEdit_weight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveEditWeight();
-            }
-        });
+        buttonSaveEdit_weight.setOnClickListener(view -> saveEditWeight());
 
 
     }
@@ -296,7 +264,7 @@ public class WeightView extends AppCompatActivity {
 
 
         if (daoWeight.isDateTheSame(prefsGetRodentId.getInt("rodentId", 0),
-                java.sql.Date.valueOf(textViewDateWeight_hidden.getText().toString())) == true) {
+                java.sql.Date.valueOf(textViewDateWeight_hidden.getText().toString()))) {
             Alerts alert = new Alerts();
             alert.simpleError("Data już istnieje", "Waga z taką datą już istnieje. Można dodawać maksymalnie jeden pomiar w ciągu danego dnia.\n\n" +
                     "Jeśli chcesz zedytować pomiar w tym dniu, znajdź go w liście po prawej stronie i kliknij przycisk edycji.", this);
@@ -339,7 +307,6 @@ public class WeightView extends AppCompatActivity {
 
 
     public void test (){
-
         recyclerView.getAdapter().notifyDataSetChanged();
     }
 

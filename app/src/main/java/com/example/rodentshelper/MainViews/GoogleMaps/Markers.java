@@ -1,44 +1,12 @@
 package com.example.rodentshelper.MainViews.GoogleMaps;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.location.Location;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 
-import com.example.rodentshelper.R;
-import com.example.rodentshelper.ROOM.Rodent.ViewRodents;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.net.PlacesClient;
-
-import java.util.List;
 
 public class Markers implements GoogleMap.OnMarkerClickListener {
 
@@ -330,8 +298,8 @@ public class Markers implements GoogleMap.OnMarkerClickListener {
 
         map.addMarker(new MarkerOptions()
                 .title("Klinika małych zwierząt")
-                .position(new LatLng (52.1626156749537, 21.048833648343347))
-                .snippet("Klinika małych zwierząt, Nowoursynowska 159c, 02-776 Warszawa\n"));
+                .position(new LatLng (52.160183679949355, 21.048729106379266))
+                .snippet("Klinika małych zwierząt, Nowoursynowska 159c, 02-776 Warszawa\n228473740"));
 
         map.addMarker(new MarkerOptions()
                 .title("EDINA Przychodnia Weterynaryjna PulsVet")

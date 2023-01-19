@@ -3,15 +3,10 @@ package com.example.rodentshelper.ROOM;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Transaction;
 import androidx.room.TypeConverters;
 
 import com.example.rodentshelper.Notifications.NotificationsModel;
-import com.example.rodentshelper.ROOM.Notes.NotesModel;
-import com.example.rodentshelper.ROOM.Weights.WeightModel;
-import com.example.rodentshelper.ROOM._MTM._RodentWeight.RodentWithWeights;
 
-import java.sql.Date;
 import java.util.List;
 
 @Dao
