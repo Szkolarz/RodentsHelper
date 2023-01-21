@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -85,33 +87,35 @@ public class ViewPetHealth extends AppCompatActivity {
         textView4_petHealth = findViewById(R.id.textView4_petHealth);
         textView5_petHealth = findViewById(R.id.textView5_petHealth);
 
+        TextView textViewPetName_petHealth = findViewById(R.id.textViewPetName_petHealth);
+        TextView textViewInfoPetName_petHealth = findViewById(R.id.textViewInfoPetName_petHealth);
+        ImageButton imageButtonQuestion_petHealth = findViewById(R.id.imageButtonQuestion_petHealth);
+
         SpannableString boldName = boldText(nameKey);
 
 
-        textView1_petHealth.setText("Na podstawie wagi pupila: ");
-        textView1_petHealth.append(boldName);
-        textView1_petHealth.append(", otrzymasz informacje o stanie zdrowia zwierzęcia oraz małe porady dotyczące karmienia.");
+        textViewPetName_petHealth.append(boldName);
+        textViewPetName_petHealth.append(".");
 
-        textView2_petHealth.setText("Możesz tutaj pisać dowolne notatki na temat twojego pupila. Każda notatka będzie przypisana pupilowi: ");
-        textView2_petHealth.append(boldName);
-        textView2_petHealth.append(".");
-
-        textView3_petHealth.setText("Pozwala zapisać i przejrzeć weterynarzy twojego pupila: ");
-        textView3_petHealth.append(boldName);
-        textView3_petHealth.append(". Lista wszystkich weterynarzy jest w zakładce u dołu ekranu: 'Zdrowie'.");
-
-        textView4_petHealth.setText("Pozwala zapisać umówione wizyty z weterynarzem dla pupila: ");
-        textView4_petHealth.append(boldName);
-        textView4_petHealth.append(". Lista wszystkich wizyt jest u dołu ekrany w zakładce: 'Zdrowie'");
-
-        textView5_petHealth.setText("Umożliwia dodawanie przepisanych leków wraz z ich dawkowaniem pupilowi: ");
-        textView5_petHealth.append(boldName);
-        textView5_petHealth.append(". Lista wszystkich twoich zapisanych leków znajduje się w zakładce 'Zdrowie' u dołu ekranu.");
+        textViewInfoPetName_petHealth.setText("Pod poniższymi przyciskami wyświetlają się tylko elementy, " +
+                "do których przypisane jest Twoje zwierzę.\nPrzykładowo: jeśli z poziomu poniższych opcji zostanie " +
+                "dodany np. nowy weterynarz - będzie on automatycznie przypisany aktualnie wybranemu pupilowi (");
+        textViewInfoPetName_petHealth.append(boldName);
+        textViewInfoPetName_petHealth.append(") i nie będzie widoczny z poziomu zielonego przycisku 'Opieka' u innych pupili.");
 
 
         textView1_rodent = findViewById(R.id.textView1_rodent);
         imageButton1_rodent.setColorFilter(Color.WHITE);
         textView1_rodent.setTextColor(Color.WHITE);
+
+
+
+        imageButtonQuestion_petHealth.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                showPetHealthInfo(textViewInfoPetName_petHealth, imageButtonQuestion_petHealth);
+            }
+        });
+
 
 
         imageButtonVet1.setOnClickListener(view -> viewVets());
@@ -125,12 +129,28 @@ public class ViewPetHealth extends AppCompatActivity {
         imageButtonPetHealth_weight.setOnClickListener(view -> viewWeight());
     }
 
+    private Boolean imageButtonQuestionFlag = true;
+
     private SpannableString boldText(String boldText) {
         SpannableString str = new SpannableString(boldText);
         str.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return str;
     }
 
+    private void showPetHealthInfo(TextView textViewInfoPetName_petHealth, ImageButton imageButtonQuestion_petHealth) {
+        if (imageButtonQuestionFlag) {
+            textViewInfoPetName_petHealth.setVisibility(View.VISIBLE);
+            imageButtonQuestion_petHealth.setColorFilter(Color.parseColor("#FFFFFF"));
+            imageButtonQuestionFlag = false;
+            return;
+        }
+        if (!imageButtonQuestionFlag) {
+            textViewInfoPetName_petHealth.setVisibility(View.GONE);
+            imageButtonQuestion_petHealth.setColorFilter(Color.parseColor("#0A4A97"));
+            imageButtonQuestionFlag = true;
+        }
+
+    }
 
     public void viewVets()
     {

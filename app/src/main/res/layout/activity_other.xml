@@ -96,7 +96,7 @@
                                     android:id="@+id/textView1_Other"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Interaktywna mapa pozwalająca przejrzeć dostępnych weterynarzy w pobliżu"
+                                    android:text="Interaktywna mapa pozwalająca przejrzeć dostępnych weterynarzy w okolicy."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -163,7 +163,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Skonfigurujesz tutaj szereg różnych powiadomień dotyczących aplikacji oraz twojego zwierzęcia"
+                                    android:text="Kategoria pozwala na konfigurację różnych powiadomień."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>

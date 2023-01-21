@@ -122,7 +122,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Ogólny spis faktów o wybranym gatunku zwierzęcia."
+                                    android:text="Ogólny spis informacji o wybranym gatunku zwierzęcia."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -191,7 +191,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Każdy gryzoń ma swój jadłospis. Ta kategoria pozwala dowiedzieć się co może, a czego nie może jeść twój pupil"
+                                    android:text="Każdy gryzoń ma swój jadłospis. Ta kategoria pozwala dowiedzieć się co może, a czego nie może jeść twój pupil."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -260,7 +260,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Każda woliera lub klatka potrzebuje odpowiedniego wyposażenia, aby zadowolić zwierzę. Tutaj dowiesz się, w co powinieneś się wyposażyć. "
+                                    android:text="Każda woliera lub klatka potrzebuje odpowiedniego wyposażenia, aby zadowolić zwierzę. Kategoria pozwala dowiedzieć się, w co należy się wyposażyć ."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>

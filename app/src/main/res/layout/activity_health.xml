@@ -94,7 +94,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Pozwala zapisać nowego weterynarza na liście kontaktów wraz z jego danymi"
+                                    android:text="Pozwala zapisać nowego weterynarza na liście kontaktów wraz z jego danymi."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -164,7 +164,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Umożliwia dodawanie przepisanych leków do listy oraz pozwala określić częstotliwość ich podawania"
+                                    android:text="Umożliwia dodawanie przepisanych leków do listy oraz pozwala określić częstotliwość ich podawania."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -233,7 +233,7 @@
                                     android:id="@+id/textView4_petHealth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Pozwala zapisać umówione wizyty z weterynarzem i ustawić przypomnienia"
+                                    android:text="Kategoria pozwala zapisać umówione wizyty z weterynarzem i ustawić przypomnienia."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>

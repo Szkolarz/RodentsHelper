@@ -70,11 +70,11 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/textView1_petHealth2"
+                                android:id="@+id/textViewPetName_petHealth"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Wszystkie poniższe zakładki dotyczą tylko wybranego pupila, czyli: Szymek. "
+                                android:text="Wszystkie poniższe zakładki dotyczą tylko wybranego pupila o imieniu: "
                                 android:textColor="#014D70" />
                         </LinearLayout>
 
@@ -95,6 +95,18 @@
                         </LinearLayout>
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textViewInfoPetName_petHealth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:gravity="center"
+                        android:text="Pod poszczególnymi przyciskami wyświetlają się tylko elementy, do których przypisane jest Twoje zwierzę. Przykładowo: jeśli z poziomu poniższych opcji zostanie dodany np. nowy weterynarz - będzie on automatycznie przypisany aktualnie wybranemu pupilowi (Szymek) i nie będzie widoczny z poziomu zielonego przycisku &quot;Opieka&quot; u innych pupili."
+                        android:textColor="#014D70"
+                        android:visibility="gone" />
 
                     <View
                         android:layout_width="match_parent"
@@ -162,7 +174,7 @@
                                     android:id="@+id/textView1_petHealth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Na podstawie wagi twojego pupila otrzymasz informacje o stanie zdrowia oraz małe porady dotyczące karmienia"
+                                    android:text="Kategoria pozwala spisywać wagę zwierzęcia w określonych dniach. Znajduje się tu również wykres oraz tabela określająca prawidłową wagę w danym wieku."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -230,7 +242,7 @@
                                     android:id="@+id/textView2_petHealth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Na podstawie wagi twojego pupila otrzymasz informacje o stanie zdrowia oraz małe porady dotyczące karmienia"
+                                    android:text="Tworzenie prostych notatek w formie tekstu, które są automatycznie przypisane do wybranego zwierzęcia."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -298,7 +310,7 @@
                                     android:id="@+id/textView3_petHealth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Pozwala zapisać i przejrzeć weterynarzy pupila. Lista ogólnych weterynarzy jest w zakładce u dołu: &quot;Zdrowie&quot;"
+                                    android:text="Pozwala zapisać i przejrzeć weterynarzy pupila. Lista ogólnych weterynarzy jest w zakładce na dole: &quot;Zdrowie&quot;."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -365,7 +377,7 @@
                                     android:id="@+id/textView4_petHealth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Pozwala zapisać umówione wizyty z weterynarzem dla pupila: . Lista wszystkich wizyt jest u dołu ekrany w zakładce: &quot;Zdrowie&quot;"
+                                    android:text="Kategoria umożliwia zapisać umówione wizyty z weterynarzem dla wybranego zwierzęcia. Lista wszystkich wizyt jest u dołu ekranu w zakładce: &quot;Zdrowie&quot;."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -433,7 +445,7 @@
                                     android:id="@+id/textView5_petHealth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Umożliwia dodawanie przepisanych leków wraz z ich dawkowaniem pupilowi: . Lista wszystkich twoich zapisanych leków znajduje się w zakładce &quot;Zdrowie&quot; u dołu ekranu"
+                                    android:text="Umożliwia dodawanie przepisanych leków wraz z ich dawkowaniem. Lista wszystkich twoich zapisanych leków znajduje się w zakładce &quot;Zdrowie&quot; u dołu ekranu."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
