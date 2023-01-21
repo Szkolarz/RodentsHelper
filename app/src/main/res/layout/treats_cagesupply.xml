@@ -65,6 +65,7 @@
             </LinearLayout>
 
             <ScrollView
+                android:id="@+id/scrollView_treats_cagesupply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -107,6 +108,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="12dp"
+                                    android:layout_marginEnd="5dp"
                                     android:text="Info"
                                     android:textColor="#014D70"
                                     android:textSize="16sp" />

@@ -26,7 +26,7 @@ public class InsertRecords {
             return daoEncyclopedia.getGeneralAdditionalInfo(prefsRodentId);
         }
         if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
-            return daoEncyclopedia.getAllTreats3(prefsRodentId);
+            return daoEncyclopedia.getTreatsAdditionalInfo(prefsRodentId);
         }
         if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
             return daoEncyclopedia.getCageSupplyAdditionalInfo(prefsRodentId);

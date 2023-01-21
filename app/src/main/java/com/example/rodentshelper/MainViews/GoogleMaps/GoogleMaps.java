@@ -12,6 +12,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -137,7 +138,7 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
                     "<font color='#206399'>Niebieskie</font> - weterynarze polecani przez użytkowników for oraz grup " +
                     "dyskusyjnych, zweryfikowani przez " + link + ";<br><br>" +
                     "<font color='#6b15cf'>Fioletowe</font> - weterynarze wybrani przez autora aplikacji (na podstawie dobrych ocen " +
-                    "według Opinii Google).";
+                    "według Opinii Google).<br><br>Ostatnia aktualizacja znaczników: 18.01.2023";
 
 
             AlertDialog.Builder alert = new AlertDialog.Builder(GoogleMaps.this, R.style.InfoDialogStyle);
@@ -158,7 +159,8 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vet_map);
 
-
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         toolbar.setTitle("Mapa weterynarzy");
@@ -219,7 +221,8 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
     private void loadMapToActivity () {
 
         Thread threadPrepare = new Thread(() -> runOnUiThread(() -> new Handler().postDelayed(() -> {
-
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
             Thread thread = new Thread(() -> {
 
                 SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

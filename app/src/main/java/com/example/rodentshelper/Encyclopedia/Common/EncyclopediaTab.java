@@ -39,12 +39,24 @@ public class EncyclopediaTab extends Fragment {
         List<CageSupplyModel> cageSupplyModel;
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
-            treatsModel = daoEncyclopedia.getAllTreats3(prefsFirstStart.getInt("prefsFirstStart", 0));
-            return treatsModel;
+            if (FragmentFlag.getFragmentFlag() == 0) {
+                treatsModel = daoEncyclopedia.getAllTreatsHealthy(prefsFirstStart.getInt("prefsFirstStart", 0));
+                return treatsModel;
+            } else {
+                treatsModel = daoEncyclopedia.getAllTreatsNotHealthy(prefsFirstStart.getInt("prefsFirstStart", 0));
+                return treatsModel;
+            }
+
         }
         if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
-            cageSupplyModel = daoEncyclopedia.getAllCageSupplies(prefsFirstStart.getInt("prefsFirstStart", 0));
-            return cageSupplyModel;
+
+            if (FragmentFlag.getFragmentFlag() == 0) {
+                cageSupplyModel = daoEncyclopedia.getAllCageSuppliesGood(prefsFirstStart.getInt("prefsFirstStart", 0));
+                return cageSupplyModel;
+            } else {
+                cageSupplyModel = daoEncyclopedia.getAllCageSuppliesNotGood(prefsFirstStart.getInt("prefsFirstStart", 0));
+                return cageSupplyModel;
+            }
         }
 
         return null;
@@ -57,41 +69,63 @@ public class EncyclopediaTab extends Fragment {
         setProperHeightOfView();
     }
 
+
+    //without this method the recyclerview in tablayout is messing up
+    //and leaves some empty-scrollable space
     private void setProperHeightOfView() {
 
-        if (root!=null) {
-            ViewGroup.LayoutParams layoutParams = root.getLayoutParams();
-            if (layoutParams!=null) {
-                layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                root.requestLayout();
+        //if Fragment = Treats
+        if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
+            if (root != null) {
+                ViewGroup.LayoutParams layoutParams = root.getLayoutParams();
+                if (layoutParams != null) {
+                    adapterTreats = new AdapterTreats(getListOfRecords(context));
+                    recyclerView.setAdapter(adapterTreats);
+                }
+            }
+        }
+
+        //if Fragment = CageSupply
+        if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
+            if (root != null) {
+                ViewGroup.LayoutParams layoutParams = root.getLayoutParams();
+                if (layoutParams != null) {
+                    adapterCageSupply = new AdapterCageSupply(getListOfRecords(context));
+                    recyclerView.setAdapter(adapterCageSupply);
+                }
             }
         }
     }
 
-    public EncyclopediaTab(String title) {
-    }
 
+
+    private AdapterTreats adapterTreats;
+    private AdapterCageSupply adapterCageSupply;
+    private Context context;
+    private RecyclerView recyclerView;
     private View root;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_encyclopedia_tab, container, false);
+        context = getActivity();
 
-        Context context = getActivity();
-
-        RecyclerView recyclerView = root.findViewById(R.id.recyclerView_treats_cagesupply);
+        recyclerView = root.findViewById(R.id.recyclerView_treats_cagesupply);
         recyclerView.setNestedScrollingEnabled(true );
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
-            AdapterTreats adapter = new AdapterTreats(getListOfRecords(context));
-            recyclerView.setAdapter(adapter);
+            adapterTreats = new AdapterTreats(getListOfRecords(context));
+            recyclerView.setNestedScrollingEnabled(false);
+            recyclerView.setAdapter(adapterTreats);
         }
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
-            AdapterCageSupply adapter = new AdapterCageSupply(getListOfRecords(context));
-            recyclerView.setAdapter(adapter);
+            adapterCageSupply = new AdapterCageSupply(getListOfRecords(context));
+            recyclerView.setNestedScrollingEnabled(false);
+            recyclerView.setAdapter(adapterCageSupply);
         }
 
         return root;

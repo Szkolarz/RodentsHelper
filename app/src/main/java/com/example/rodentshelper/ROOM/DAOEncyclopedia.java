@@ -32,27 +32,34 @@ public interface DAOEncyclopedia {
 
     @Query("DELETE FROM Version")
     void deleteVersion();
-    @Query("DELETE FROM Treats WHERE id_animal = :id_animal")
-    void deleteTreats(Integer id_animal);
+
 
 
 
 
     /******************/
-    /** 3 Chinchilla **/
+    /**  Treats **/
     /******************/
 
     @Insert
     void insertRecordTreats(TreatsModel Treats);
 
-    @Query("SELECT * FROM Treats WHERE id_animal = :id_animal ORDER BY id ASC")
-    List<TreatsModel> getAllTreats3(Integer id_animal);
+    @Query("SELECT * FROM Treats WHERE id_animal = :id_animal AND is_healthy = 1 " +
+            "EXCEPT SELECT * FROM Treats WHERE name = 'Info' ORDER BY id ASC")
+    List<TreatsModel> getAllTreatsHealthy(Integer id_animal);
 
-    @Query("SELECT * FROM Treats WHERE id_animal = 3 AND is_healthy = 1")
-    List<TreatsModel> getAllTreatsTrue3();
+    @Query("SELECT * FROM Treats WHERE id_animal = :id_animal AND is_healthy = 0 " +
+            "EXCEPT SELECT * FROM Treats WHERE name = 'Info' ORDER BY id ASC")
+    List<TreatsModel> getAllTreatsNotHealthy(Integer id_animal);
 
-    @Query("SELECT * FROM Treats WHERE id_animal = 3 AND is_healthy = 0")
-    List<TreatsModel> getAllTreatsFalse3();
+    @Query("SELECT * FROM Treats WHERE name ='Info' AND id_animal = :id_animal")
+    List<TreatsModel> getTreatsAdditionalInfo(Integer id_animal);
+
+    @Query("DELETE FROM Treats WHERE id_animal = :id_animal")
+    void deleteTreats(Integer id_animal);
+
+
+
 
 
 
@@ -63,9 +70,16 @@ public interface DAOEncyclopedia {
     @Insert
     void insertRecordCageSupply(CageSupplyModel CageSupply);
 
-    @Query("SELECT * FROM CageSupply WHERE id_animal = :id_animal EXCEPT SELECT * FROM CageSupply WHERE name = 'Info'" +
-            " ORDER BY id ASC")
-    List<CageSupplyModel> getAllCageSupplies(Integer id_animal);
+    @Query("SELECT * FROM CageSupply WHERE id_animal = :id_animal AND is_good = 1 " +
+            "EXCEPT SELECT * FROM CageSupply WHERE name = 'Info' ORDER BY id ASC")
+    List<CageSupplyModel> getAllCageSuppliesGood(Integer id_animal);
+
+    @Query("SELECT * FROM CageSupply WHERE id_animal = :id_animal AND is_good = 0 " +
+            "EXCEPT SELECT * FROM CageSupply WHERE name = 'Info' ORDER BY id ASC")
+    List<CageSupplyModel> getAllCageSuppliesNotGood(Integer id_animal);
+
+
+
 
     @Query("SELECT * FROM CageSupply WHERE name ='Info' AND id_animal = :id_animal")
     List<CageSupplyModel> getCageSupplyAdditionalInfo(Integer id_animal);

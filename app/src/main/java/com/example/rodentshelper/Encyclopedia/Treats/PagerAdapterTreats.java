@@ -21,7 +21,7 @@ public class PagerAdapterTreats extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return new EncyclopediaTab(ViewCagesupplyAndTreats.getData()[position]);
+        return new EncyclopediaTab();
     }
 
 

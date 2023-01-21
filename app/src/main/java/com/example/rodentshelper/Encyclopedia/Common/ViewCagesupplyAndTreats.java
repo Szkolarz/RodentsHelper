@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.example.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.example.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
 import com.example.rodentshelper.Encyclopedia.FragmentFlag;
 import com.example.rodentshelper.Encyclopedia.Treats.PagerAdapterTreats;
+import com.example.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.example.rodentshelper.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -70,6 +72,11 @@ public class ViewCagesupplyAndTreats extends AppCompatActivity  {
         imageButton3_health.setOnClickListener(new ActivityHealth());
         imageButton4_other.setOnClickListener(new ActivityOther());
 
+        ScrollView scrollView_treats_cagesupply = findViewById(R.id.scrollView_treats_cagesupply);
+        scrollView_treats_cagesupply.post(() -> scrollView_treats_cagesupply.fullScroll(View.FOCUS_BACKWARD));
+
+
+
 
         textView2_encyclopedia = findViewById(R.id.textView2_encyclopedia);
         imageButton2_encyclopedia.setColorFilter(Color.WHITE);
@@ -85,32 +92,24 @@ public class ViewCagesupplyAndTreats extends AppCompatActivity  {
         TextView textViewInfo_encyclopedia = findViewById(R.id.textViewInfo_encyclopedia);
         LinearLayout linearLayout_encyclopedia = findViewById(R.id.linearLayout_encyclopedia);
 
-        SharedPreferences prefsFirstStart = ViewCagesupplyAndTreats.this.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
-        int prefsRodentId = prefsFirstStart.getInt("prefsFirstStart", 0);
 
         InsertRecords insertRecords = new InsertRecords();
         if (FragmentFlag.getEncyclopediaTypeFlag() == 2) {
-
-            if (prefsRodentId == 3)
-                textViewInfo_encyclopedia.setText("Szynszyle mają bardzo restrykcyjny jadłospis w przeciwieństwie do innych gryzoni. " +
-                        "Przede wszystkim należy pamiętać o kategorycznym zakazie karmienia ich 'mokrym' jedzeniem, tj. świeżymi owocami, " +
-                        "czy warzywami. Sama dieta tych zwierząt nie wymaga częstego podawania przysmaków, najbardziej należy się skupić " +
-                        "na sianie, suszonych ziołach oraz granulowanej karmie.");
-            else if (prefsRodentId == 2)
-                textViewInfo_encyclopedia.setText("TESTOWY TEKST2");
-            else if (prefsRodentId == 1)
-                textViewInfo_encyclopedia.setText("TESTOWY TEKST1");
-
             toolbar.setTitle("Żywienie");
+
+            List<TreatsModel> treatsModel = insertRecords.getListOfRecords(getApplicationContext());
+            textViewInfo_encyclopedia.setText(treatsModel.get(0).getDescription());
+            linearLayout_encyclopedia.setVisibility(View.GONE);
+
         } else if (FragmentFlag.getEncyclopediaTypeFlag() == 3) {
             toolbar.setTitle("Wyposażenie klatki");
-            List<CageSupplyModel> cageSupplyModel = insertRecords.getListOfRecords(getApplicationContext());
-            textViewInfo_encyclopedia.setText(cageSupplyModel.get(0).getDescription());
 
-            linearLayout_encyclopedia.setVisibility(View.VISIBLE);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(cageSupplyModel.get(0).getImage(),
-                    0, cageSupplyModel.get(0).getImage().length);
-            imageView_encyclopedia.setImageBitmap(bitmap);
+                List<CageSupplyModel> cageSupplyModel = insertRecords.getListOfRecords(getApplicationContext());
+                textViewInfo_encyclopedia.setText(cageSupplyModel.get(0).getDescription());
+                linearLayout_encyclopedia.setVisibility(View.VISIBLE);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(cageSupplyModel.get(0).getImage(),
+                        0, cageSupplyModel.get(0).getImage().length);
+                imageView_encyclopedia.setImageBitmap(bitmap);
         }
 
 
@@ -140,7 +139,6 @@ public class ViewCagesupplyAndTreats extends AppCompatActivity  {
             @Override
             public void onTabSelected(TabLayout.Tab tab){
                 FragmentFlag.setFragmentFlag(tab.getPosition());
-
             }
 
             @Override

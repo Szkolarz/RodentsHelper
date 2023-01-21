@@ -142,6 +142,7 @@ public class ViewGeneralAndDiseases extends AppCompatActivity  {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView_general);
         recyclerView.setLayoutManager(new LinearLayoutManager(ViewGeneralAndDiseases.this));
+        recyclerView.setNestedScrollingEnabled(false);
 
         if (FragmentFlag.getEncyclopediaTypeFlag() == 1) {
             AdapterGeneral adapter = new AdapterGeneral(getListGeneral(prefsRodentId));
