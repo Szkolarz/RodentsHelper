@@ -63,9 +63,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
+                android:backgroundTint="#014D70"
                 android:hint="Nazwa leku"
                 android:maxLines="2"
                 android:textColor="#014D70"
+                android:textColorHint="#707070"
                 android:textSize="24sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -101,9 +103,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:backgroundTint="#014D70"
             android:hint="Opis"
             android:maxLines="3"
             android:textColor="#014D70"
+            android:textColorHint="#707070"
             android:textSize="24sp" />
 
 
@@ -124,8 +128,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:backgroundTint="#014D70"
             android:hint="Dawkowanie"
             android:textColor="#014D70"
+            android:textColorHint="#707070"
             android:textSize="24sp" />
 
 

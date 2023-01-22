@@ -69,10 +69,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
+                    android:backgroundTint="#014D70"
                     android:hint="Nazwa"
                     android:maxLength="100"
                     android:maxLines="3"
                     android:textColor="#014D70"
+                    android:textColorHint="#707070"
                     android:textSize="24sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -97,9 +99,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
+                android:backgroundTint="#014D70"
                 android:hint="Adres"
                 android:maxLines="3"
                 android:textColor="#014D70"
+                android:textColorHint="#707070"
                 android:textSize="24sp" />
 
             <TextView
@@ -129,10 +133,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:backgroundTint="#014D70"
                         android:hint="Telefon"
                         android:inputType="phone"
                         android:maxLength="16"
                         android:textColor="#014D70"
+                        android:textColorHint="#707070"
                         android:textSize="24sp" />
                 </LinearLayout>
 
@@ -162,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Ewentualne notatki:"
+                android:text="Notatki:"
                 android:textColor="#014D70"
                 android:textColorHint="#77147A"
                 android:textSize="16sp" />
@@ -173,10 +179,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:hint="Notatki"
+                android:backgroundTint="#014D70"
+                android:hint="Ewentualne notatki"
                 android:maxLength="300"
                 android:maxLines="5"
                 android:textColor="#014D70"
+                android:textColorHint="#707070"
                 android:textSize="24sp" />
 
             <TextView

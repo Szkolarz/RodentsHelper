@@ -144,6 +144,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                android:backgroundTint="#014D70"
                 android:ems="10"
                 android:hint="Imię twojego pupila"
                 android:maxLength="80"
@@ -238,6 +239,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:backgroundTint="#014D70"
             android:ems="10"
             android:hint="Umaszczenie"
             android:inputType="textPersonName"
@@ -251,10 +253,12 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:backgroundTint="#014D70"
             android:ems="10"
             android:hint="Ewentualne notatki..."
             android:textColor="#014D70"
-            android:textColorHint="#707070" />
+            android:textColorHint="#707070"
+            tools:backgroundTint="#014D70" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonAdd_rodent"

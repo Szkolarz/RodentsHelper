@@ -32,9 +32,6 @@ public class RodentModel {
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     private byte[] image;
 
-    public RodentModel() {
-
-    }
 
     public RodentModel(Integer id_animal, String name, String gender, Date birth, String fur, String notes, byte[] image) {
         this.id_animal = id_animal;

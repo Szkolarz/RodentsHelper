@@ -82,6 +82,18 @@ public class ViewRodents extends AppCompatActivity {
         toolbar.setTitle("");
 
 
+        TextView textViewYourRodent = findViewById(R.id.textViewYourRodent);
+        SharedPreferences prefsFirstStart = this.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
+
+        if (prefsFirstStart.getInt("prefsFirstStart", 0) == 1)
+            textViewYourRodent.setText("Twoje świnki morskie");
+        if (prefsFirstStart.getInt("prefsFirstStart", 0) == 2)
+            textViewYourRodent.setText("Twoje szczury");
+        if (prefsFirstStart.getInt("prefsFirstStart", 0) == 3)
+            textViewYourRodent.setText("Twoje szynszyle");
+
+
+
       // toolbar.setNavigationIcon(R.drawable.id_encyclopedia);
 
         setSupportActionBar(toolbar);

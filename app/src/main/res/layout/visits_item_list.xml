@@ -123,9 +123,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:backgroundTint="#014D70"
             android:hint="Cel wizyty"
             android:maxLines="3"
             android:textColor="#014D70"
+            android:textColorHint="#707070"
             android:textSize="24sp" />
 
 

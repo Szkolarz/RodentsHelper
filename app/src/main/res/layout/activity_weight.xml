@@ -164,6 +164,7 @@
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
+                                    android:backgroundTint="#014D70"
                                     android:hint="Waga"
                                     android:inputType="number"
                                     android:maxLength="4"
