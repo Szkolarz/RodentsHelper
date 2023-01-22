@@ -136,7 +136,7 @@ public class AddVisits extends AppCompatActivity {
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, arrayListLV2);
         SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
-        List<RodentModel> rodentModel = daoRodents.getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
+        List<RodentModel> rodentModel = daoRodents.getAllRodentsTEST();
 
         for(int i = 0; i < vetModel.size(); i++) {
             arrayListID.add(vetModel.get(i).getId());

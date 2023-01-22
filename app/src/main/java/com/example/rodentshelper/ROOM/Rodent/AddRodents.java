@@ -1,6 +1,7 @@
 package com.example.rodentshelper.ROOM.Rodent;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -45,7 +46,7 @@ import java.util.Objects;
 public class AddRodents extends AppCompatActivity {
 
     private EditText editTextNotes, editTextName, editTextFur;
-    private Button buttonAdd_rodent, buttonEdit_rodent;
+    private Button buttonAdd_rodent, buttonSaveEdit_rodent;
     private ImageView buttonDelete_rodent, imageView_rodent;
     private TextView textViewDeleteImage_rodent, textViewRequired_rodent1, textViewRequired_rodent2,
             textViewDate, textViewDate_hidden;
@@ -79,7 +80,7 @@ public class AddRodents extends AppCompatActivity {
         radioGroup = findViewById(R.id.radioEditGroup1);
 
         buttonAdd_rodent = findViewById(R.id.buttonAdd_rodent);
-        buttonEdit_rodent = findViewById(R.id.buttonSaveEdit_rodent);
+        buttonSaveEdit_rodent = findViewById(R.id.buttonSaveEdit_rodent);
         buttonDelete_rodent = findViewById(R.id.buttonDelete_rodent);
         textViewDeleteImage_rodent = findViewById(R.id.textViewDeleteImage_rodent);
         textViewRequired_rodent1 = findViewById(R.id.textViewRequired_rodent1);
@@ -96,13 +97,13 @@ public class AddRodents extends AppCompatActivity {
         if (FlagSetup.getFlagRodentAdd() == 1) {
             toolbar.setTitle("Dodawanie zwierzęcia");
             buttonAdd_rodent.setVisibility(View.VISIBLE);
-            buttonEdit_rodent.setVisibility(View.GONE);
+            buttonSaveEdit_rodent.setVisibility(View.GONE);
             buttonDelete_rodent.setVisibility(View.GONE);
         }
         else {
             toolbar.setTitle("Edytowanie zwierzęcia");
             buttonAdd_rodent.setVisibility(View.GONE);
-            buttonEdit_rodent.setVisibility(View.VISIBLE);
+            buttonSaveEdit_rodent.setVisibility(View.VISIBLE);
         }
 
 
@@ -203,7 +204,7 @@ public class AddRodents extends AppCompatActivity {
             imageView_rodent.setImageBitmap(bitmap);
 
 
-            buttonEdit_rodent.setOnClickListener(view -> onClickSaveEdit(daoRodents, idKey, id_animalKey, nameKey));
+            buttonSaveEdit_rodent.setOnClickListener(view -> onClickSaveEdit(daoRodents, idKey, id_animalKey, nameKey));
         }
 
 
@@ -251,12 +252,12 @@ public class AddRodents extends AppCompatActivity {
 
             Drawable res = getResources().getDrawable(R.drawable.loading);
             imageView_rodent.setImageDrawable(res);
-            buttonEdit_rodent.setEnabled(false);
+            buttonSaveEdit_rodent.setEnabled(false);
             buttonAdd_rodent.setEnabled(false);
             buttonAdd_rodent.setBackgroundColor(Color.GRAY);
             buttonAdd_rodent.setTextColor(Color.BLACK);
-            buttonEdit_rodent.setTextColor(Color.BLACK);
-            buttonEdit_rodent.setBackgroundColor(Color.GRAY);
+            buttonSaveEdit_rodent.setTextColor(Color.BLACK);
+            buttonSaveEdit_rodent.setBackgroundColor(Color.GRAY);
 
             Thread thread = new Thread(() -> {
 
@@ -288,12 +289,12 @@ public class AddRodents extends AppCompatActivity {
 
                     imageView_rodent.setImageBitmap(bitmapView);
 
-                    buttonEdit_rodent.setEnabled(true);
+                    buttonSaveEdit_rodent.setEnabled(true);
                     buttonAdd_rodent.setEnabled(true);
                     buttonAdd_rodent.setBackgroundColor(Color.parseColor("#5397DF"));
-                    buttonEdit_rodent.setBackgroundColor(Color.parseColor("#5397DF"));
+                    buttonSaveEdit_rodent.setBackgroundColor(Color.parseColor("#5397DF"));
                     buttonAdd_rodent.setTextColor(Color.WHITE);
-                    buttonEdit_rodent.setTextColor(Color.WHITE);
+                    buttonSaveEdit_rodent.setTextColor(Color.WHITE);
                     checkImage();
                 });
 
@@ -448,7 +449,6 @@ public class AddRodents extends AppCompatActivity {
                     editTextFur.getText().toString(), editTextNotes.getText().toString(), byteArray);
 
 
-            viewRodents();
         }
 
     }

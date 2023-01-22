@@ -182,7 +182,7 @@ public class ViewRodents extends AppCompatActivity {
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAORodents daoRodents = db.daoRodents();
 
-        List<RodentModel> rodentModel = daoRodents.getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
+        List<RodentModel> rodentModel = daoRodents.getAllRodentsWhereIdAnimal(prefsFirstStart.getInt("prefsFirstStart", 0));
         db.close();
 
         return rodentModel;

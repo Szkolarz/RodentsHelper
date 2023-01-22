@@ -32,6 +32,15 @@ public class NotesModel {
     @ColumnInfo(name = "edit_date")
     private Date edit_date;
 
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] image1;
+
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] image2;
+
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] image3;
+
 
     public NotesModel(Integer id_rodent, String topic, String content, Date create_date, Date edit_date) {
         this.id_rodent = id_rodent;
@@ -88,5 +97,29 @@ public class NotesModel {
 
     public void setEdit_date(Date edit_date) {
         this.edit_date = edit_date;
+    }
+
+    public byte[] getImage1() {
+        return image1;
+    }
+
+    public void setImage1(byte[] image1) {
+        this.image1 = image1;
+    }
+
+    public byte[] getImage2() {
+        return image2;
+    }
+
+    public void setImage2(byte[] image2) {
+        this.image2 = image2;
+    }
+
+    public byte[] getImage3() {
+        return image3;
+    }
+
+    public void setImage3(byte[] image3) {
+        this.image3 = image3;
     }
 }

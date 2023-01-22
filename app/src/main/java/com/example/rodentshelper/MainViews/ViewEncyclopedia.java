@@ -1,5 +1,7 @@
 package com.example.rodentshelper.MainViews;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,16 +9,21 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
@@ -47,7 +54,36 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.update_encyclopedia) {//finish();
+        if (item.getItemId() == R.id.update_encyclopedia) {
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(ViewEncyclopedia.this);
+
+            View inflateView;
+            LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflateView = inflater.inflate(R.layout.btn_share, null);
+
+            dialog.setCustomTitle(inflateView);
+            SwitchCompat switch_encyclopedia = inflateView.findViewById(R.id.switch_encyclopedia);
+
+            SharedPreferences prefsAutoUpdate = getSharedPreferences("prefsAutoUpdate", MODE_PRIVATE);
+
+            if (prefsAutoUpdate.getBoolean("prefsAutoUpdate", true)) {
+                switch_encyclopedia.setChecked(true);
+            } else {
+                switch_encyclopedia.setChecked(false);
+            }
+
+            switch_encyclopedia.setOnClickListener(v -> {
+                if (switch_encyclopedia.isChecked()) {
+                    SharedPreferences.Editor editorAutoUpdate = prefsAutoUpdate.edit();
+                    editorAutoUpdate.putBoolean("prefsAutoUpdate", true);
+                    editorAutoUpdate.apply();
+                } else {
+                    SharedPreferences.Editor editorAutoUpdate = prefsAutoUpdate.edit();
+                    editorAutoUpdate.putBoolean("prefsAutoUpdate", false);
+                    editorAutoUpdate.apply();
+                }
+            });
+            dialog.create().show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -99,16 +135,22 @@ public class ViewEncyclopedia extends AppCompatActivity {
         progressBar_encyclopedia = findViewById(R.id.progressBar_encyclopedia);
         linearLayout_encyclopedia = findViewById(R.id.linearLayout_encyclopedia);
 
+
+
+
+
+
         ViewEncyclopedia viewEncyclopedia;
         viewEncyclopedia = ViewEncyclopedia.this;
 
         InternetCheckEncyclopedia internetCheckEncyclopedia = new InternetCheckEncyclopedia();
 
         SharedPreferences prefsFirstDownload = viewEncyclopedia.getSharedPreferences("prefsFirstDownload", Context.MODE_PRIVATE);
+        SharedPreferences prefsAutoUpdate = viewEncyclopedia.getSharedPreferences("prefsAutoUpdate", Context.MODE_PRIVATE);
+        boolean isAutoUpdateOn = prefsAutoUpdate.getBoolean("prefsAutoUpdate", true);
 
         final ProgressDialog progress = new ProgressDialog(this);
-        if (!prefsFirstDownload.getBoolean("firstDownload", true))
-        {
+        if (!prefsFirstDownload.getBoolean("firstDownload", true) && isAutoUpdateOn) {
             progress.setTitle("Sprawdzanie aktualizacji...");
             progress.setMessage("Proszę czekać...");
 
@@ -179,6 +221,7 @@ public class ViewEncyclopedia extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
 
 
 }

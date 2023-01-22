@@ -104,7 +104,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="15dp"
                         android:gravity="center"
-                        android:text="Pod poszczególnymi przyciskami wyświetlają się tylko elementy, do których przypisane jest Twoje zwierzę. Przykładowo: jeśli z poziomu poniższych opcji zostanie dodany np. nowy weterynarz - będzie on automatycznie przypisany aktualnie wybranemu pupilowi (Szymek) i nie będzie widoczny z poziomu zielonego przycisku &quot;Opieka&quot; u innych pupili."
+                        android:text="Pod poszczególnymi przyciskami wyświetlają się tylko elementy, do których przypisane jest Twoje zwierzę. Przykładowo: jeśli z poziomu poniższych opcji zostanie dodany nowy weterynarz - będzie on automatycznie przypisany aktualnie wybranemu pupilowi (Szymek) i nie będzie widoczny z poziomu zielonego przycisku &quot;Opieka&quot; u innych pupili."
                         android:textColor="#014D70"
                         android:visibility="gone" />
 

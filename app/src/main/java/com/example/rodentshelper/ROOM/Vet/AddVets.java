@@ -99,7 +99,7 @@ public class AddVets extends AppCompatActivity {
         DAORodents daoRodents = db.daoRodents();
         DAOVets daoVets = db.daoVets();
 
-        List<RodentModel> rodentModel = daoRodents.getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
+        List<RodentModel> rodentModel = daoRodents.getAllRodentsTEST();
 
         //List<RodentModel> list = rodentDao.getAllRodentsVets(idKey);
 

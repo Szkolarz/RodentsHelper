@@ -46,13 +46,15 @@ public class InternetCheckEncyclopedia {
             firstDownload = prefsFirstDownload.getBoolean("firstDownload", true);
         }
 
+        SharedPreferences prefsAutoUpdate = viewEncyclopedia.getSharedPreferences("prefsAutoUpdate", Context.MODE_PRIVATE);
+        boolean isAutoUpdateOn = prefsAutoUpdate.getBoolean("prefsAutoUpdate", true);
 
         boolean internetCheck = isNetworkConnected(viewEncyclopedia);
 
         if (!internetCheck)
             alertUpdate.cancel();
 
-        if (!firstDownload && internetCheck ) {
+        if (!firstDownload && internetCheck && isAutoUpdateOn) {
 
             Thread threadInit = new Thread(() -> viewEncyclopedia.runOnUiThread(() -> {
 

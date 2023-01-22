@@ -20,7 +20,10 @@ public interface DAORodents {
     Boolean is_exist(Integer id);*/
 
     @Query("SELECT * FROM rodents WHERE id_animal = :id_animal ORDER BY id_rodent ASC")
-    List<RodentModel> getAllRodents(Integer id_animal);
+    List<RodentModel> getAllRodentsWhereIdAnimal(Integer id_animal);
+
+    @Query("SELECT * FROM rodents ORDER BY id_rodent ASC")
+    List<RodentModel> getAllRodentsTEST();
 
     @Query("SELECT name1 FROM rodents ORDER BY id_rodent ASC")
     List<String> getAllNameRodents();

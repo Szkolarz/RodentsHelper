@@ -25,8 +25,6 @@ public class WeightModel {
     @ColumnInfo(name = "date")
     private Date date;
 
-    public WeightModel() {}
-
     public WeightModel(Integer id_rodent, Integer weight, Date date) {
         this.id_rodent = id_rodent;
         this.weight = weight;

@@ -114,7 +114,7 @@ public class AddMedicaments extends AppCompatActivity {
         DAORodents daoRodents = db.daoRodents();
         DAOMedicaments daoMedicaments = db.daoMedicaments();
 
-        List<RodentModel> rodentModel = daoRodents.getAllRodents(prefsFirstStart.getInt("prefsFirstStart", 0));
+        List<RodentModel> rodentModel = daoRodents.getAllRodentsTEST();
 
         for(int i = 0; i < rodentModel.size(); i++) {
             arrayListID.add(rodentModel.get(i).getId());
