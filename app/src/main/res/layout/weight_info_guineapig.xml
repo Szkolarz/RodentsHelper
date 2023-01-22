@@ -16,7 +16,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Prawidłowa waga szynszyla"
+                android:text="Prawidłowa waga świnki morskiej"
                 android:textColor="#014D70"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -30,7 +30,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Prawidłowa waga szynszyla na podstawie jego wieku (opracowanie własne według różnych źródeł):"
+                android:text="Prawidłowa waga świnki morskiej na podstawie jego wieku (opracowanie własne według różnych źródeł). Należy pamiętać, że samce zazwyczaj są znacznie cięższe od samic. Poniższa tabela bierze pod uwagę średnią obu płci."
                 android:textColor="#014D70"
                 android:textSize="16sp" />
 
@@ -92,7 +92,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/table_border"
                         android:gravity="center"
-                        android:text="30 g - 100 g"
+                        android:text="60 g - 160 g"
                         android:textColor="#014D70"
                         android:textSize="16sp" />
 
@@ -121,7 +121,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/table_border"
                         android:gravity="center"
-                        android:text="70 g - 150 g"
+                        android:text="100 g - 310 g"
                         android:textColor="#014D70"
                         android:textSize="16sp" />
 
@@ -150,7 +150,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/table_border"
                         android:gravity="center"
-                        android:text="100 g - 250 g"
+                        android:text="200 g - 500 g"
                         android:textColor="#014D70"
                         android:textSize="16sp" />
 
@@ -179,7 +179,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/table_border"
                         android:gravity="center"
-                        android:text="200 g - 350g"
+                        android:text="340 g - 830 g"
                         android:textColor="#014D70"
                         android:textSize="16sp" />
 
@@ -208,7 +208,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/table_border"
                         android:gravity="center"
-                        android:text="300 g - 480 g"
+                        android:text="550 g - 980 g"
                         android:textColor="#014D70"
                         android:textSize="16sp" />
 
@@ -237,7 +237,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/table_border"
                         android:gravity="center"
-                        android:text="380 g - 560 g"
+                        android:text="690 g - 1180 g"
                         android:textColor="#014D70"
                         android:textSize="16sp" />
 
@@ -266,7 +266,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/table_border"
                         android:gravity="center"
-                        android:text="420 g - 800 g"
+                        android:text="730 g - 1320 g"
                         android:textColor="#014D70"
                         android:textSize="16sp" />
 

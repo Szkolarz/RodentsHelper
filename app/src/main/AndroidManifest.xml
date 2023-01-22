@@ -127,7 +127,7 @@
             android:name=".Encyclopedia.Common.ViewGeneralAndDiseases"
             android:exported="true" />
         <activity
-            android:name=".ROOM.Weights.WeightInfoChinchilla"
+            android:name=".ROOM.Weights.WeightInfoTable"
             android:exported="true" />
         <activity
             android:name=".Notifications.NotificationsActivity"

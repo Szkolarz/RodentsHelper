@@ -1,5 +1,6 @@
 package com.example.rodentshelper.ROOM.Rodent;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,7 +43,6 @@ import java.util.Objects;
 public class ViewRodents extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
@@ -78,8 +79,9 @@ public class ViewRodents extends AppCompatActivity {
 
 
         Toolbar toolbar = findViewById(R.id.app_bar_rodents);
-
         toolbar.setTitle("");
+
+
       // toolbar.setNavigationIcon(R.drawable.id_encyclopedia);
 
         setSupportActionBar(toolbar);
