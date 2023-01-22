@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ACC5E1"
-    tools:context=".Encyclopedia.Common.EncyclopediaTab">
+    tools:context="com.android.rodentshelper.Encyclopedia.Common.EncyclopediaTab">
 
     <!-- TODO: Update blank fragment layout -->
 

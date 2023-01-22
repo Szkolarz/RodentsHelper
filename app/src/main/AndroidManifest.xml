@@ -48,7 +48,7 @@
             android:value="@string/map_key"/>
 
         <activity
-            android:name=".ROOM.Rodent.ViewRodents"
+            android:name="com.android.rodentshelper.ROOM.Rodent.ViewRodents"
             android:exported="false"
             android:icon="@drawable/ic_bin">
             <meta-data
@@ -56,13 +56,13 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ROOM.Vet.ViewVets"
+            android:name="com.android.rodentshelper.ROOM.Vet.ViewVets"
             android:exported="true" />
         <activity
-            android:name=".MainViews.MainActivity"
+            android:name="com.android.rodentshelper.MainViews.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".MainViews.SplashScreen"
+            android:name="com.android.rodentshelper.MainViews.SplashScreen"
             android:exported="true"
             android:noHistory="true">
             <intent-filter>
@@ -76,101 +76,101 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainViews.FirstStart"
+            android:name="com.android.rodentshelper.MainViews.FirstStart"
             android:exported="true" />
         <activity
-            android:name=".ROOM.Rodent.AddRodents"
+            android:name="com.android.rodentshelper.ROOM.Rodent.AddRodents"
             android:exported="true" />
         <activity
-            android:name=".ROOM.Vet.AddVets"
+            android:name="com.android.rodentshelper.ROOM.Vet.AddVets"
             android:exported="true" />
         <activity
-            android:name=".ROOM.Medicaments.ViewMedicaments"
+            android:name="com.android.rodentshelper.ROOM.Medicaments.ViewMedicaments"
             android:exported="true" />
         <activity
-            android:name=".ROOM.Medicaments.AddMedicaments"
+            android:name="com.android.rodentshelper.ROOM.Medicaments.AddMedicaments"
             android:exported="true" />
         <activity
-            android:name=".ROOM.Visits.ViewVisits"
+            android:name="com.android.rodentshelper.ROOM.Visits.ViewVisits"
             android:exported="true" />
         <activity
-            android:name=".ROOM.Visits.AddVisits"
+            android:name="com.android.rodentshelper.ROOM.Visits.AddVisits"
             android:exported="true" />
         <activity
-            android:name=".MainViews.ViewHealth"
+            android:name="com.android.rodentshelper.MainViews.ViewHealth"
             android:exported="true" />
         <activity
-            android:name=".MainViews.ViewEncyclopedia"
+            android:name="com.android.rodentshelper.MainViews.ViewEncyclopedia"
             android:exported="true" />
         <activity
-            android:name=".MainViews.ViewPetHealth"
+            android:name="com.android.rodentshelper.MainViews.ViewPetHealth"
             android:exported="true" />
         <activity
-            android:name=".ROOM.Notes.ViewNotes"
+            android:name="com.android.rodentshelper.ROOM.Notes.ViewNotes"
             android:exported="true" />
         <activity
-            android:name=".ROOM.Notes.AddNotes"
+            android:name="com.android.rodentshelper.ROOM.Notes.AddNotes"
             android:exported="true" />
         <activity
-            android:name=".MainViews.ViewOther"
+            android:name="com.android.rodentshelper.MainViews.ViewOther"
             android:exported="true" />
         <activity
-            android:name=".ROOM.Weights.WeightView"
+            android:name="com.android.rodentshelper.ROOM.Weights.WeightView"
             android:exported="true" />
         <activity
-            android:name=".MainViews.GoogleMaps.GoogleMaps"
+            android:name="com.android.rodentshelper.MainViews.GoogleMaps.GoogleMaps"
             android:exported="true" />
         <activity
-            android:name=".Encyclopedia.Common.ViewCagesupplyAndTreats"
+            android:name="com.android.rodentshelper.Encyclopedia.Common.ViewCagesupplyAndTreats"
             android:exported="true" />
         <activity
-            android:name=".Encyclopedia.Common.ViewGeneralAndDiseases"
+            android:name="com.android.rodentshelper.Encyclopedia.Common.ViewGeneralAndDiseases"
             android:exported="true" />
         <activity
-            android:name=".ROOM.Weights.WeightInfoTable"
+            android:name="com.android.rodentshelper.ROOM.Weights.WeightInfoTable"
             android:exported="true" />
         <activity
-            android:name=".Notifications.NotificationsActivity"
+            android:name="com.android.rodentshelper.Notifications.NotificationsActivity"
             android:exported="true" />
         <activity
-            android:name=".DatabaseManagement.ActivityLogin"
-            android:exported="true" />
-
-        <activity
-            android:name=".DatabaseManagement.ActivityRegister"
+            android:name="com.android.rodentshelper.DatabaseManagement.ActivityLogin"
             android:exported="true" />
 
         <activity
-            android:name=".DatabaseManagement.ActivityDatabaseManagement"
+            android:name="com.android.rodentshelper.DatabaseManagement.ActivityRegister"
+            android:exported="true" />
+
+        <activity
+            android:name="com.android.rodentshelper.DatabaseManagement.ActivityDatabaseManagement"
             android:exported="true" />
 
 
         <receiver
-            android:name=".Notifications.Receivers.NotificationReceiverWeight"
+            android:name="com.android.rodentshelper.Notifications.Receivers.NotificationReceiverWeight"
             android:enabled="true"
             android:exported="true">
         </receiver>
 
         <receiver
-            android:name=".Notifications.Receivers.NotificationReceiverFeeding"
+            android:name="com.android.rodentshelper.Notifications.Receivers.NotificationReceiverFeeding"
             android:enabled="true"
             android:exported="true">
         </receiver>
 
         <receiver
-            android:name=".Notifications.Receivers.NotificationReceiverFeeding2"
+            android:name="com.android.rodentshelper.Notifications.Receivers.NotificationReceiverFeeding2"
             android:enabled="true"
             android:exported="true">
         </receiver>
 
         <receiver
-            android:name=".Notifications.Receivers.NotificationReceiverVisit"
+            android:name="com.android.rodentshelper.Notifications.Receivers.NotificationReceiverVisit"
             android:enabled="true"
             android:exported="true">
         </receiver>
 
         <receiver
-            android:name=".Notifications.Receivers.BootReceiver"
+            android:name="com.android.rodentshelper.Notifications.Receivers.BootReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">

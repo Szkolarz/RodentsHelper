@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:background="#ACC5E1"
             android:orientation="vertical"
-            tools:context=".ROOM.Vet.ViewVets">
+            tools:context="com.android.rodentshelper.ROOM.Vet.ViewVets">
 
 
             <TextView
@@ -227,7 +227,7 @@
                 android:fillViewport="false"
                 android:orientation="vertical">
 
-                <com.example.rodentshelper.CustomListView
+                <com.android.rodentshelper.CustomListView
                     android:id="@+id/ListViewVet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

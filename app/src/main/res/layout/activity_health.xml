@@ -7,7 +7,7 @@
     android:layout_weight="1"
     android:orientation="vertical"
     android:background="#ACC5E1"
-    tools:context=".MainViews.ViewHealth">
+    tools:context="com.android.rodentshelper.MainViews.ViewHealth">
 
 
     <LinearLayout
@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    tools:context=".ROOM.Medicaments.ViewMedicaments">
+                    tools:context="com.android.rodentshelper.ROOM.Medicaments.ViewMedicaments">
 
 
                     <LinearLayout
@@ -132,14 +132,13 @@
 
                                 <ImageView
                                     android:id="@+id/imageButtonMed"
-                                    android:contentDescription="imageButtonMed"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:layout_marginBottom="5dp"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/roundbutton"
-                                    android:onClick="onClickVet"
+                                    android:contentDescription="imageButtonMed"
                                     android:padding="15dp"
                                     android:scaleType="fitCenter"
                                     app:srcCompat="@drawable/ic_medicine"
@@ -201,14 +200,13 @@
 
                                 <ImageView
                                     android:id="@+id/imageButtonVisit"
-                                    android:contentDescription="imageButtonVisit"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:layout_marginBottom="5dp"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/roundbutton"
-                                    android:onClick="onClickVet"
+                                    android:contentDescription="imageButtonVisit"
                                     android:padding="15dp"
                                     android:scaleType="fitCenter"
                                     app:srcCompat="@drawable/ic_calendar_vet"

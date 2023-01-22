@@ -16,7 +16,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        tools:context=".ROOM.Visits.ViewVisits">
+        tools:context="com.android.rodentshelper.ROOM.Visits.ViewVisits">
 
         <LinearLayout
             android:id="@+id/linearLayoutToolbar"
@@ -200,7 +200,7 @@
             android:textSize="16sp" />
 
 
-        <com.example.rodentshelper.CustomListView
+        <com.android.rodentshelper.CustomListView
             android:id="@+id/listViewVisit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -219,7 +219,7 @@
             android:textColor="#014D70"
             android:textSize="16sp" />
 
-        <com.example.rodentshelper.CustomListView
+        <com.android.rodentshelper.CustomListView
             android:id="@+id/listViewVisit2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

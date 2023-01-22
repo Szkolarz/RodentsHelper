@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="#ACC5E1"
         android:orientation="vertical"
-        tools:context=".ROOM.Notes.ViewNotes">
+        tools:context="com.android.rodentshelper.ROOM.Notes.ViewNotes">
 
         <LinearLayout
             android:id="@+id/linearLayoutToolbar"

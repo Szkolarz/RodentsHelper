@@ -7,7 +7,7 @@
     android:layout_weight="1"
     android:orientation="vertical"
     android:background="#ACC5E1"
-    tools:context=".MainViews.ViewOther">
+    tools:context="com.android.rodentshelper.MainViews.ViewOther">
 
 
     <LinearLayout
@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    tools:context=".ROOM.Medicaments.ViewMedicaments">
+                    tools:context="com.android.rodentshelper.ROOM.Medicaments.ViewMedicaments">
 
 
                     <LinearLayout

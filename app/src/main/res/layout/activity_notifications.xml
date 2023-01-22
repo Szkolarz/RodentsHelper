@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_weight="1"
     android:background="#ACC5E1"
-    tools:context=".Notifications.NotificationsActivity">
+    tools:context="com.android.rodentshelper.Notifications.NotificationsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

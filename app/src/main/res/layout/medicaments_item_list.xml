@@ -252,7 +252,7 @@
             android:textSize="16sp" />
 
 
-        <com.example.rodentshelper.CustomListView
+        <com.android.rodentshelper.CustomListView
             android:id="@+id/listViewMed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
