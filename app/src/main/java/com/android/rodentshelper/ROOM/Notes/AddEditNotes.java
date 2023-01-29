@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
-public class AddNotes extends AppCompatActivity {
+public class AddEditNotes extends AppCompatActivity {
 
     private EditText editTextTopic_notes, editTextContent_notes;
 
@@ -97,7 +97,7 @@ public class AddNotes extends AppCompatActivity {
         getSupportActionBar().show();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(v -> {
-            Intent intent = new Intent(AddNotes.this, ViewNotes.class);
+            Intent intent = new Intent(AddEditNotes.this, ViewNotes.class);
             startActivity(intent);
             finish();
         });
@@ -159,7 +159,7 @@ public class AddNotes extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(AddNotes.this, ViewNotes.class);
+            Intent intent = new Intent(AddEditNotes.this, ViewNotes.class);
             startActivity(intent);
             finish();
         }

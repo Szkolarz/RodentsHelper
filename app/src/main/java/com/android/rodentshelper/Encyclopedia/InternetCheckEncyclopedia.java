@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.StrictMode;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,6 +28,8 @@ public class InternetCheckEncyclopedia {
         ConnectivityManager cm = (ConnectivityManager) viewEncyclopedia.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
+
+
 
     public void checkInternet(ViewEncyclopedia viewEncyclopedia, LinearLayout linearLayout_encyclopedia,
                               ProgressBar progressBar_encyclopedia, TextView textViewProgress_encyclopedia, ProgressDialog alertUpdate) throws SQLException, ExecutionException, InterruptedException {
@@ -78,7 +81,7 @@ public class InternetCheckEncyclopedia {
 
                                         alert.setPositiveButton("Tak", (dialogInterface, i) -> {
 
-                                            showDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia);
+                                            showDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia, viewEncyclopedia);
 
                                             Thread thread1 = new Thread(() -> {
 
@@ -91,7 +94,7 @@ public class InternetCheckEncyclopedia {
                                                     e.printStackTrace();
                                                 }
 
-                                                viewEncyclopedia.runOnUiThread(() -> hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia));
+                                                viewEncyclopedia.runOnUiThread(() -> hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia, viewEncyclopedia));
 
 
                                             });
@@ -129,7 +132,7 @@ public class InternetCheckEncyclopedia {
                 }));
             threadInit.start();
 
-            hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia);
+            hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia, viewEncyclopedia);
 
 
         }
@@ -151,7 +154,7 @@ public class InternetCheckEncyclopedia {
 
             alert.setPositiveButton("Tak", (dialogInterface, i) -> {
 
-                showDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia);
+                showDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia, viewEncyclopedia);
 
 
                 Thread threadInit = new Thread(() -> viewEncyclopedia.runOnUiThread(() -> {
@@ -167,13 +170,13 @@ public class InternetCheckEncyclopedia {
                                 } catch (ExecutionException | InterruptedException e) {
                                     e.printStackTrace();
                                 }
-                                    viewEncyclopedia.runOnUiThread(() -> hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia));
+                                    viewEncyclopedia.runOnUiThread(() -> hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia, viewEncyclopedia));
 
                             });
                             thread.start();
 
                         } else {
-                            hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia);
+                            hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia, viewEncyclopedia);
                             AlertDialog.Builder alert1 = new AlertDialog.Builder(viewEncyclopedia, R.style.AlertDialogStyleUpdate);
                             alert1.setTitle("Brak połączenia z internetem");
                             alert1.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
@@ -209,14 +212,30 @@ public class InternetCheckEncyclopedia {
 
     }
 
-    private void showDownload(TextView textViewProgress_encyclopedia, ProgressBar progressBar_encyclopedia, LinearLayout linearLayout_encyclopedia) {
+
+
+
+    private void showDownload(TextView textViewProgress_encyclopedia, ProgressBar progressBar_encyclopedia,
+                              LinearLayout linearLayout_encyclopedia, ViewEncyclopedia viewEncyclopedia) {
+
+        viewEncyclopedia.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
         textViewProgress_encyclopedia.setVisibility(View.VISIBLE);
         progressBar_encyclopedia.setVisibility(View.VISIBLE);
+        progressBar_encyclopedia.setIndeterminate(true);
+
         linearLayout_encyclopedia.setVisibility(View.GONE);
+
+
     }
 
 
-    private void hideDownload(TextView textViewProgress_encyclopedia, ProgressBar progressBar_encyclopedia, LinearLayout linearLayout_encyclopedia) {
+    private void hideDownload(TextView textViewProgress_encyclopedia, ProgressBar progressBar_encyclopedia,
+                              LinearLayout linearLayout_encyclopedia, ViewEncyclopedia viewEncyclopedia) {
+
+        viewEncyclopedia.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
         textViewProgress_encyclopedia.setVisibility(View.GONE);
         progressBar_encyclopedia.setVisibility(View.GONE);
         linearLayout_encyclopedia.setVisibility(View.VISIBLE);

@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class AddVets extends AppCompatActivity {
+public class AddEditVets extends AppCompatActivity {
 
     private EditText editTextName_vet, editTextAddress_vet, editTextPhone_vet, editTextNotes_vet;
     private Button buttonDelete_vet, buttonEdit_vet, buttonAdd_vet, buttonSaveEdit_vet;
@@ -157,8 +157,8 @@ public class AddVets extends AppCompatActivity {
                 if (editTextName_vet.getText().toString().length() <= 0) {
                     textViewRequired_vet.setVisibility(View.VISIBLE);
                     Alerts alert = new Alerts();
-                    alert.alertLackOfData("Wprowadź nazwę weterynarza", AddVets.this);
-                    Toast.makeText(AddVets.this, "Wprowadź wszystkie dane", Toast.LENGTH_SHORT).show();
+                    alert.alertLackOfData("Wprowadź nazwę weterynarza", AddEditVets.this);
+                    Toast.makeText(AddEditVets.this, "Wprowadź wszystkie dane", Toast.LENGTH_SHORT).show();
                 } else {
                     AppDatabase db1 = Room.databaseBuilder(getApplicationContext(),
                             AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
@@ -196,7 +196,7 @@ public class AddVets extends AppCompatActivity {
         getSupportActionBar().show();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(v -> {
-            Intent intent = new Intent(AddVets.this, ViewVets.class);
+            Intent intent = new Intent(AddEditVets.this, ViewVets.class);
             startActivity(intent);
             finish();
         });
@@ -217,7 +217,7 @@ public class AddVets extends AppCompatActivity {
             textViewRequired_vet.setVisibility(View.VISIBLE);
             Alerts alert = new Alerts();
             alert.alertLackOfData("Wprowadź nazwę weterynarza", this);
-            Toast.makeText(AddVets.this, "Wprowadź wszystkie dane", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddEditVets.this, "Wprowadź wszystkie dane", Toast.LENGTH_SHORT).show();
         } else {
 
             AppDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -310,7 +310,7 @@ public class AddVets extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(AddVets.this, ViewVets.class);
+            Intent intent = new Intent(AddEditVets.this, ViewVets.class);
             startActivity(intent);
             finish();
         }

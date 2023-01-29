@@ -133,7 +133,7 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
     }
 
     private void onClickEditMed(DAOMedicaments daoMedicaments, viewHolder holder) {
-        Intent intent = new Intent(new Intent(holder.buttonEdit_med.getContext(), AddMedicaments.class));
+        Intent intent = new Intent(new Intent(holder.buttonEdit_med.getContext(), AddEditMedicaments.class));
         intent.putExtra("idKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_medicament()));
         intent.putExtra("id_vetKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_vet()));
         intent.putExtra("nameKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getName()));

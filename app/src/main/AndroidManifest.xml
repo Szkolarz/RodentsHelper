@@ -50,21 +50,25 @@
         <activity
             android:name="com.android.rodentshelper.ROOM.Rodent.ViewRodents"
             android:exported="false"
-            android:icon="@drawable/ic_bin">
+            android:icon="@drawable/ic_bin"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name="com.android.rodentshelper.ROOM.Vet.ViewVets"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.android.rodentshelper.MainViews.MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.android.rodentshelper.MainViews.SplashScreen"
             android:exported="true"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -77,72 +81,96 @@
         </activity>
         <activity
             android:name="com.android.rodentshelper.MainViews.FirstStart"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Rodent.AddRodents"
-            android:exported="true" />
+            android:name="com.android.rodentshelper.ROOM.Rodent.AddEditRodents"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Vet.AddVets"
-            android:exported="true" />
+            android:name="com.android.rodentshelper.ROOM.Vet.AddEditVets"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.ROOM.Medicaments.ViewMedicaments"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Medicaments.AddMedicaments"
-            android:exported="true" />
+            android:name="com.android.rodentshelper.ROOM.Medicaments.AddEditMedicaments"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.ROOM.Visits.ViewVisits"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Visits.AddVisits"
-            android:exported="true" />
+            android:name="com.android.rodentshelper.ROOM.Visits.AddEditVisits"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.MainViews.ViewHealth"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.MainViews.ViewEncyclopedia"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.MainViews.ViewPetHealth"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.ROOM.Notes.ViewNotes"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Notes.AddNotes"
-            android:exported="true" />
+            android:name="com.android.rodentshelper.ROOM.Notes.AddEditNotes"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.MainViews.ViewOther"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.ROOM.Weights.WeightView"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.MainViews.GoogleMaps.GoogleMaps"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.Encyclopedia.Common.ViewCagesupplyAndTreats"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.Encyclopedia.Common.ViewGeneralAndDiseases"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.ROOM.Weights.WeightInfoTable"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.Notifications.NotificationsActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.DatabaseManagement.ActivityLogin"
-            android:exported="true" />
-
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.DatabaseManagement.ActivityRegister"
-            android:exported="true" />
-
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.android.rodentshelper.DatabaseManagement.ActivityDatabaseManagement"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.android.rodentshelper.ActivityAboutApp"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
 
 
         <receiver

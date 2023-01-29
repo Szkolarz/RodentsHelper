@@ -38,7 +38,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-public class AddMedicaments extends AppCompatActivity {
+public class AddEditMedicaments extends AppCompatActivity {
 
     private EditText editTextName_med, editTextDescription_med, editTextPeriodicity_med;
     private TextView textViewDateStart_med, textViewDateEnd_med, textViewDate1_hidden, textViewDate2_hidden,
@@ -184,7 +184,7 @@ public class AddMedicaments extends AppCompatActivity {
                 if (editTextName_med.getText().toString().length() <= 0 ) {
                     textViewRequired_med.setVisibility(View.VISIBLE);
                     Alerts alert = new Alerts();
-                    alert.alertLackOfData("Należy podać nazwę leku.", AddMedicaments.this);
+                    alert.alertLackOfData("Należy podać nazwę leku.", AddEditMedicaments.this);
                 } else {
 
 
@@ -250,7 +250,7 @@ public class AddMedicaments extends AppCompatActivity {
         getSupportActionBar().show();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(v -> {
-            Intent intent = new Intent(AddMedicaments.this, ViewMedicaments.class);
+            Intent intent = new Intent(AddEditMedicaments.this, ViewMedicaments.class);
             startActivity(intent);
             finish();
         });
@@ -263,7 +263,7 @@ public class AddMedicaments extends AppCompatActivity {
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(AddMedicaments.this,
+            DatePickerDialog datePickerDialog = new DatePickerDialog(AddEditMedicaments.this,
                     android.R.style.Theme_Holo_Dialog, dateSetListener, year, month, day);
 
             datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -393,7 +393,7 @@ public class AddMedicaments extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(AddMedicaments.this, ViewMedicaments.class);
+            Intent intent = new Intent(AddEditMedicaments.this, ViewMedicaments.class);
             startActivity(intent);
             finish();
         }

@@ -57,10 +57,9 @@ public class NotificationWeight {
 
 
            if (periodicity.equals("Codziennie")) {
-               Log.e(TAG, "Alarm will schedule for next day!");
                calendar.add(Calendar.DAY_OF_YEAR, 1); // add, not set!
            } else if (periodicity.equals("Co tydzień")) {
-               Log.e(TAG, "Alarm will schedule for next week!");
+               //Log.e(TAG, "Alarm will schedule for next week!");
                calendar.add(Calendar.DAY_OF_YEAR, 7);
            } else if (periodicity.equals("Co dwa tygodnie")) {
                calendar.add(Calendar.DAY_OF_YEAR, 14);

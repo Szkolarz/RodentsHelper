@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class AddVisits extends AppCompatActivity {
+public class AddEditVisits extends AppCompatActivity {
 
     private EditText editTextReason_visit;
     private TextView textViewDate_visit, textViewTime_visit, textViewDate1_visitHidden,
@@ -123,7 +123,7 @@ public class AddVisits extends AppCompatActivity {
         arrayListLV2 = new ArrayList<>();
         arrayListSelected2 = new ArrayList<>();
 
-        AppDatabase db = Room.databaseBuilder(AddVisits.this,
+        AppDatabase db = Room.databaseBuilder(AddEditVisits.this,
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOVisits daoVisits = db.daoVisits();
         DAOVets daoVets = db.daoVets();
@@ -237,15 +237,15 @@ public class AddVisits extends AppCompatActivity {
 
         checkBoxVisit3.setOnClickListener(view -> {
             if (checkBoxVisit3.isChecked()) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(AddVisits.this, R.style.AlertWhiteButtons);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(AddEditVisits.this, R.style.AlertWhiteButtons);
 
-                View mView = AddVisits.this.getLayoutInflater().inflate(R.layout.dialog_spinner, null);
+                View mView = AddEditVisits.this.getLayoutInflater().inflate(R.layout.dialog_spinner, null);
 
                 mBuilder.setTitle("Powiadomienie zostanie wysłane...");
                 Spinner mSpinner = mView.findViewById(R.id.spinner_weight);
-                ArrayAdapter<String> adapter1 = new ArrayAdapter<>(AddVisits.this,
+                ArrayAdapter<String> adapter1 = new ArrayAdapter<>(AddEditVisits.this,
                         android.R.layout.simple_spinner_item,
-                        AddVisits.this.getResources().getStringArray(R.array.visitList));
+                        AddEditVisits.this.getResources().getStringArray(R.array.visitList));
                 adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mSpinner.setAdapter(adapter1);
                 mSpinner.setSelection(1);
@@ -276,7 +276,7 @@ public class AddVisits extends AppCompatActivity {
         getSupportActionBar().show();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(v -> {
-            Intent intent = new Intent(AddVisits.this, ViewVisits.class);
+            Intent intent = new Intent(AddEditVisits.this, ViewVisits.class);
             startActivity(intent);
             finish();
         });
@@ -289,7 +289,7 @@ public class AddVisits extends AppCompatActivity {
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(AddVisits.this,
+            DatePickerDialog datePickerDialog = new DatePickerDialog(AddEditVisits.this,
                     android.R.style.Theme_Holo_Dialog, dateSetListener, year, month, day);
 
             datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -319,7 +319,7 @@ public class AddVisits extends AppCompatActivity {
         String timeKey = textViewTime_visit.getText().toString();
         String reasonKey = editTextReason_visit.getText().toString();
 
-        AppDatabase db = Room.databaseBuilder(AddVisits.this,
+        AppDatabase db = Room.databaseBuilder(AddEditVisits.this,
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOVisits daoVisits = db.daoVisits();
         DAOVets daoVets = db.daoVets();
@@ -329,7 +329,7 @@ public class AddVisits extends AppCompatActivity {
             textViewRequired_visit.setVisibility(View.VISIBLE);
 
             Alerts alert = new Alerts();
-            alert.alertLackOfData("Należy wpisać datę wizyty.", AddVisits.this);
+            alert.alertLackOfData("Należy wpisać datę wizyty.", AddEditVisits.this);
         } else {
 
             Integer id_vetKey = getVisitVet(daoVets, arrayListSelected, arrayListID);
@@ -340,7 +340,7 @@ public class AddVisits extends AppCompatActivity {
 
             if (checkBoxVisit3.isChecked()) {
 
-                SharedPreferences prefsNotificationVisit = AddVisits.this.getSharedPreferences("prefsNotificationVisit", Context.MODE_PRIVATE);
+                SharedPreferences prefsNotificationVisit = AddEditVisits.this.getSharedPreferences("prefsNotificationVisit", Context.MODE_PRIVATE);
                 SharedPreferences.Editor prefsEditorNotificationVisit = prefsNotificationVisit.edit();
                 prefsEditorNotificationVisit.putBoolean("prefsNotificationVisit", true);
                 prefsEditorNotificationVisit.apply();
@@ -348,7 +348,7 @@ public class AddVisits extends AppCompatActivity {
                 DAONotifications daoNotifications = db.daoNotifications();
 
                 NotificationVisit notificationVisit = new NotificationVisit();
-                notificationVisit.setUpNotificationVisit(AddVisits.this, timeKey, dateFormat1, sendTime, daoNotifications.getLastIdFromVisit());
+                notificationVisit.setUpNotificationVisit(AddEditVisits.this, timeKey, dateFormat1, sendTime, daoNotifications.getLastIdFromVisit());
             }
 
             System.out.println("DODANO");
@@ -364,7 +364,7 @@ public class AddVisits extends AppCompatActivity {
                                ArrayList<Integer> arrayListSelected2, ArrayList<Integer> arrayListID2) {
         dateFormat1 = textViewDate1_visitHidden.getText().toString();
 
-        AppDatabase db = Room.databaseBuilder(AddVisits.this,
+        AppDatabase db = Room.databaseBuilder(AddEditVisits.this,
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOVisits daoVisits = db.daoVisits();
         DAOVets daoVets = db.daoVets();
@@ -377,7 +377,7 @@ public class AddVisits extends AppCompatActivity {
 
 
         if (checkBoxVisit3.isChecked()) {
-            SharedPreferences prefsNotificationVisit = AddVisits.this.getSharedPreferences("prefsNotificationVisit", Context.MODE_PRIVATE);
+            SharedPreferences prefsNotificationVisit = AddEditVisits.this.getSharedPreferences("prefsNotificationVisit", Context.MODE_PRIVATE);
             SharedPreferences.Editor prefsEditorNotificationVisit = prefsNotificationVisit.edit();
             prefsEditorNotificationVisit.putBoolean("prefsNotificationVisit", true);
             prefsEditorNotificationVisit.apply();
@@ -389,10 +389,17 @@ public class AddVisits extends AppCompatActivity {
 
             NotificationVisit notificationVisit = new NotificationVisit();
 
-            notificationVisit.setUpNotificationVisit(AddVisits.this, textViewTime_visit.getText().toString(), dateFormat1, sendTime, idKey);
+            notificationVisit.setUpNotificationVisit(AddEditVisits.this, textViewTime_visit.getText().toString(), dateFormat1, sendTime, idKey);
 
         } else {
-            daoNotifications.deleteNotificationByVisitId(idKey);
+            //daoNotifications.updateMaxIdFromNotificationVisit(idKey);
+
+            if (daoNotifications.selectIdVisitFromNotificationVisit(idKey) != null) {
+                NotificationVisit notificationVisit = new NotificationVisit();
+                notificationVisit.cancelAlarm(AddEditVisits.this, idKey);
+                daoNotifications.deleteNotificationByVisitId(idKey);
+            }
+
         }
 
         db.close();
@@ -533,7 +540,7 @@ public class AddVisits extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(AddVisits.this, ViewVisits.class);
+            Intent intent = new Intent(AddEditVisits.this, ViewVisits.class);
             startActivity(intent);
             finish();
         }

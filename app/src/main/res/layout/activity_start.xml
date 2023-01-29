@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ACC5E1"
@@ -29,16 +30,18 @@
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="10dp"
             android:elevation="10dp"
-            app:cardCornerRadius="8dp">
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp">
 
             <ImageView
                 android:id="@+id/imageButtonGuineaPig"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:adjustViewBounds="true"
-                android:background="@drawable/rounded_image_view"
-                app:srcCompat="@drawable/rodent_icon1"
-                android:contentDescription="Guinea pig"/>
+                android:contentDescription="Guinea pig"
+                app:srcCompat="@drawable/rodent_icon1" />
         </androidx.cardview.widget.CardView>
 
         <View
@@ -57,15 +60,18 @@
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="10dp"
             android:elevation="10dp"
-            app:cardCornerRadius="8dp">
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp">
 
             <ImageView
                 android:id="@+id/imageButtonRat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:adjustViewBounds="true"
-                app:srcCompat="@drawable/rodent_icon2"
-                android:contentDescription="Domestic rat"/>
+                android:contentDescription="Domestic rat"
+                app:srcCompat="@drawable/rodent_icon2" />
         </androidx.cardview.widget.CardView>
 
         <View
@@ -84,15 +90,19 @@
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="10dp"
             android:elevation="10dp"
-            app:cardCornerRadius="8dp">
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            tools:cardBackgroundColor="@android:color/transparent">
 
             <ImageView
                 android:id="@+id/imageButtonChinchilla"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:adjustViewBounds="true"
-                app:srcCompat="@drawable/rodent_icon3"
-                android:contentDescription="Chinchilla" />
+                android:contentDescription="Chinchilla"
+                app:srcCompat="@drawable/rodent_icon3" />
         </androidx.cardview.widget.CardView>
 
         <View

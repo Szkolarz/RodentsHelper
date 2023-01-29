@@ -150,7 +150,7 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
     }
 
     private void onClickEdit(DAOVets vetDao, viewHolder holder) {
-        Intent intent = new Intent(new Intent(holder.buttonEdit_vet.getContext(), AddVets.class));
+        Intent intent = new Intent(new Intent(holder.buttonEdit_vet.getContext(), AddEditVets.class));
         intent.putExtra("idKey",String.valueOf(vetModel.get(holder.getAdapterPosition()).vetModel.getId()));
         intent.putExtra("nameKey",String.valueOf(vetModel.get(holder.getAdapterPosition()).vetModel.getName()));
         intent.putExtra("addressKey",String.valueOf(vetModel.get(holder.getAdapterPosition()).vetModel.getAddress()));

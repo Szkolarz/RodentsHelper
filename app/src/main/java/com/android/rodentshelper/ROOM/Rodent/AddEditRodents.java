@@ -42,7 +42,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-public class AddRodents extends AppCompatActivity {
+public class AddEditRodents extends AppCompatActivity {
 
     private EditText editTextNotes, editTextName, editTextFur;
     private Button buttonAdd_rodent, buttonSaveEdit_rodent;
@@ -219,7 +219,7 @@ public class AddRodents extends AppCompatActivity {
         getSupportActionBar().show();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(v -> {
-            Intent intent = new Intent(AddRodents.this, ViewRodents.class);
+            Intent intent = new Intent(AddEditRodents.this, ViewRodents.class);
             startActivity(intent);
             finish();
         });
@@ -233,7 +233,7 @@ public class AddRodents extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(AddRodents.this,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(AddEditRodents.this,
                 android.R.style.Theme_Holo_Dialog, dateSetListener, year, month, day);
 
         datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -447,7 +447,7 @@ public class AddRodents extends AppCompatActivity {
                     stringGender, Date.valueOf(dateFormat),
                     editTextFur.getText().toString(), editTextNotes.getText().toString(), byteArray);
 
-
+            viewRodents();
         }
 
     }

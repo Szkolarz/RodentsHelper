@@ -85,7 +85,7 @@ public class ViewNotes extends AppCompatActivity {
         //1 = nowy
         FlagSetup.setFlagNotesAdd(1);
         final Context context = this;
-        Intent intent = new Intent(context, AddNotes.class);
+        Intent intent = new Intent(context, AddEditNotes.class);
         startActivity(intent);
         finish();
     }

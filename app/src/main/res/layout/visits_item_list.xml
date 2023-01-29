@@ -128,7 +128,7 @@
             android:maxLines="3"
             android:textColor="#014D70"
             android:textColorHint="#707070"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
 
         <TextView
@@ -183,7 +183,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="Powiadomienie ustawione "
+            android:layout_marginEnd="20dp"
+            android:text="Powiadomienie ustawione na: "
             android:textColor="#014D70"
             android:textColorHint="#77147A"
             android:textSize="16sp"

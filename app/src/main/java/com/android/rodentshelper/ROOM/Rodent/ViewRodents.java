@@ -28,6 +28,9 @@ import com.android.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.android.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.android.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.android.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
+import com.android.rodentshelper.ActivityAboutApp;
+import com.android.rodentshelper.Alerts;
+import com.android.rodentshelper.DatabaseManagement.ActivityLogin;
 import com.android.rodentshelper.MainViews.FirstStart;
 import com.android.rodentshelper.DatabaseManagement.ActivityDatabaseManagement;
 import com.android.rodentshelper.FlagSetup;
@@ -63,6 +66,9 @@ public class ViewRodents extends AppCompatActivity {
                 finish();
                 break;
             case R.id.about_app:
+                Intent intentAboutApp = new Intent(ViewRodents.this, ActivityAboutApp.class);
+                startActivity(intentAboutApp);
+                finish();
                 break;
             default:
         }
@@ -90,9 +96,11 @@ public class ViewRodents extends AppCompatActivity {
         if (prefsFirstStart.getInt("prefsFirstStart", 0) == 3)
             textViewYourRodent.setText("Twoje szynszyle");
 
+        SharedPreferences prefsFirstStartTip = getSharedPreferences("prefsFirstStartTip", MODE_PRIVATE);
+        if (prefsFirstStartTip.getInt("prefsFirstStartTip", 0) == 0) {
+            firstStartTip();
+        }
 
-
-      // toolbar.setNavigationIcon(R.drawable.id_encyclopedia);
 
         setSupportActionBar(toolbar);
 
@@ -168,7 +176,7 @@ public class ViewRodents extends AppCompatActivity {
     {
         //1 = nowy
         FlagSetup.setFlagRodentAdd(1);
-        Intent intent = new Intent(ViewRodents.this, AddRodents.class);
+        Intent intent = new Intent(ViewRodents.this, AddEditRodents.class);
         startActivity(intent);
         finish();
     }
@@ -187,7 +195,7 @@ public class ViewRodents extends AppCompatActivity {
     }
 
 
-    public void getRoomData(ViewRodents viewRodents)
+    private void getRoomData(ViewRodents viewRodents)
     {
         recyclerView = findViewById(R.id.recyclerViewGlobal);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -195,5 +203,21 @@ public class ViewRodents extends AppCompatActivity {
         AdapterRodents adapter = new AdapterRodents(getListRodent(viewRodents));
 
         recyclerView.setAdapter(adapter);
+    }
+
+
+    private void firstStartTip () {
+        SharedPreferences prefsFirstStartTip = getSharedPreferences("prefsFirstStartTip", MODE_PRIVATE);
+
+        SharedPreferences.Editor prefsEitorFirstStartTip = prefsFirstStartTip.edit();
+        prefsEitorFirstStartTip.putInt("prefsFirstStartTip", 1);
+        prefsEitorFirstStartTip.apply();
+
+        Alerts alert = new Alerts();
+
+        alert.simpleInfo("Witaj w aplikacji!", "Aby rozszerzyć możliwości aplikacji, " +
+                "możesz zacząć od dodania nowego zwierzęcia na tym ekranie.\n\n" +
+                "Nie jest to jednak wymagane; za pomocą przycisków u dołu ekranu możesz przenieść " +
+                "się do pozostałych modułów, zawartych w aplikacji.", ViewRodents.this);
     }
 }

@@ -110,7 +110,7 @@ public class ViewVisits extends AppCompatActivity {
         //1 = nowy
         //FlagSetup.setFlagVisitAdd(1);
         final Context context = this;
-        Intent intent = new Intent(context, AddVisits.class);
+        Intent intent = new Intent(context, AddEditVisits.class);
         startActivity(intent);
         finish();
     }

@@ -108,7 +108,7 @@ public class ViewMedicaments extends AppCompatActivity {
             FlagSetup.setFlagMedAdd(2);
 
         final Context context = this;
-        Intent intent = new Intent(context, AddMedicaments.class);
+        Intent intent = new Intent(context, AddEditMedicaments.class);
         startActivity(intent);
         finish();
     }

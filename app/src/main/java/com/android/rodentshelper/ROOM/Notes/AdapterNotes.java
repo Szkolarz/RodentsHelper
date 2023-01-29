@@ -84,7 +84,7 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
          holder.buttonEdit_notes.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
-                  Intent intent = new Intent(new Intent(holder.buttonEdit_notes.getContext(), AddNotes.class));
+                  Intent intent = new Intent(new Intent(holder.buttonEdit_notes.getContext(), AddEditNotes.class));
                   intent.putExtra("idKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).notesModel.getId_notes()));
                   intent.putExtra("id_animalKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).notesModel.getId_rodent()));
                   intent.putExtra("topicKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).notesModel.getTopic()));

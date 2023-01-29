@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.rodentshelper.AsyncActivity;
 import com.example.rodentshelper.R;
-import com.android.rodentshelper.ROOM.Rodent.AddRodents;
+import com.android.rodentshelper.ROOM.Rodent.AddEditRodents;
 import com.android.rodentshelper.ROOM.Vet.ViewVets;
 import com.android.rodentshelper.SQL.Querries;
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     public void addRodents(View view)
     {
         final Context context = this;
-        Intent intent = new Intent(context, AddRodents.class);
+        Intent intent = new Intent(context, AddEditRodents.class);
         startActivity(intent);
     }
 

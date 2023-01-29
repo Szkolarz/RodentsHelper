@@ -111,7 +111,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
                             android:gravity="center"
-                            android:text="Utworzenie konta pozwoli na zapisywanie twoich danych do chmury, co pozwoli na odzyskiwanie ich w dowolnym momencie. Opcja przydaje się, kiedy przykładowo zmieniasz telefon na inny."
+                            android:text="Utworzenie konta pozwoli na zapisywanie twoich danych do chmury, dzięki czemu można je odzyskać w dowolnym momencie. Opcja przydaje się, kiedy przykładowo zmieniasz telefon na inny."
                             android:textColor="#014D70" />
 
                     </LinearLayout>

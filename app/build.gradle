@@ -56,7 +56,7 @@ dependencies {
     implementation 'androidx.work:work-runtime:2.7.1'
     implementation 'com.google.guava:guava:27.0.1-android'
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 
     implementation group: 'commons-io', name: 'commons-io', version: '2.5'
 

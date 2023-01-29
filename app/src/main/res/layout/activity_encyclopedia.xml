@@ -45,6 +45,7 @@
                         android:layout_height="100dp"
                         android:layout_marginTop="40dp"
                         android:layout_weight="1"
+                        android:clickable="true"
                         android:indeterminateTint="#0375a8"
                         android:visibility="gone">
 
@@ -332,7 +333,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Ta kategoria pozwala dowiedzieć się o najczęściej występowanych chorobach oraz jak je rozpoznać"
+                                    android:text="Ta kategoria pozwala dowiedzieć się o najczęściej występowanych chorobach oraz jak je rozpoznać."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>

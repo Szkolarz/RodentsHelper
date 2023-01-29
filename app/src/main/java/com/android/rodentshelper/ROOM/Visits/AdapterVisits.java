@@ -111,8 +111,6 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
         holder.listViewVisit.setAdapter(adapter);
 
 
-        System.out.println(visitModel.get(position).visitModel.getId_vet() + "test");
-
 
         try {
             for (int i = 0; i < visitModel.get(position).rodents.size(); i++) {
@@ -144,7 +142,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
         holder.buttonDelete_visit.setOnClickListener(view -> deleteVisit(holder.buttonDelete_visit.getContext(), holder, daoVisits));
 
         holder.buttonEdit_visit.setOnClickListener(view -> {
-            Intent intent = new Intent(new Intent(holder.buttonEdit_visit.getContext(), AddVisits.class));
+            Intent intent = new Intent(new Intent(holder.buttonEdit_visit.getContext(), AddEditVisits.class));
             intent.putExtra("idKey",String.valueOf(visitModel.get(holder.getAdapterPosition()).visitModel.getId_visit()));
             intent.putExtra("id_vetKey",String.valueOf(visitModel.get(holder.getAdapterPosition()).visitModel.getId_vet()));
             intent.putExtra("dateKey",String.valueOf(visitModel.get(holder.getAdapterPosition()).visitModel.getDate()));

@@ -80,7 +80,7 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
 
 
         holder.buttonEdit_rodent.setOnClickListener(view -> {
-            Intent intent = new Intent(new Intent(holder.buttonEdit_rodent.getContext(), AddRodents.class));
+            Intent intent = new Intent(new Intent(holder.buttonEdit_rodent.getContext(), AddEditRodents.class));
             intent.putExtra("idKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId()));
             intent.putExtra("id_animalKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getId_animal()));
             intent.putExtra("nameKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getName()));

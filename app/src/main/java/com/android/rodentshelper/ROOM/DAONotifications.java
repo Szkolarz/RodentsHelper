@@ -154,6 +154,15 @@ public interface DAONotifications {
     String getSendTimeNotificationVisit(Integer id_visit);
 
 
+    //important change
+   /* @Query("UPDATE Notification SET id_notification = (SELECT MAX( id_notification ) + 1 " +
+            "FROM Notification WHERE id_visit = :id_visit) WHERE id_visit = :id_visit")
+    void updateMaxIdFromNotificationVisit(Integer id_visit);*/
+    @Query("SELECT id_notification FROM Notification WHERE id_visit = :id_visit")
+    Integer selectIdVisitFromNotificationVisit(Integer id_visit);
+
+
+
 
 
 

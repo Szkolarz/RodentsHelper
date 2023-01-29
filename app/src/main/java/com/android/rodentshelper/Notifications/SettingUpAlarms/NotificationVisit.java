@@ -61,10 +61,8 @@ public class NotificationVisit {
 
 
                if (sendTime.equals("30 minut przed czasem")) {
-                   Log.e(TAG, "Alarm will schedule for next day!");
                    calendar.add(Calendar.MINUTE, -30); // add, not set!
                } else if (sendTime.equals("1 godzinę przed czasem")) {
-                   Log.e(TAG, "Alarm will schedule for next week!");
                    calendar.add(Calendar.HOUR_OF_DAY, -1);
                } else if (sendTime.equals("3 godziny przed czasem")) {
                    calendar.add(Calendar.HOUR_OF_DAY, -3);
@@ -92,4 +90,30 @@ public class NotificationVisit {
        }
        db.close();
    }
+
+
+    public void cancelAlarm (Context context, Integer id_visit) {
+        PendingIntent pendingIntentCancel;
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent notifyIntent = new Intent(context, NotificationReceiverVisit.class);
+
+        AppDatabase db = Room.databaseBuilder(context,
+                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+        DAONotifications daoNotifications = db.daoNotifications();
+        Integer requestCode = daoNotifications.selectIdVisitFromNotificationVisit(id_visit);
+        db.close();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            pendingIntentCancel = PendingIntent.getBroadcast
+                    (context.getApplicationContext(), requestCode, notifyIntent, PendingIntent.FLAG_MUTABLE);
+            alarmManager.cancel(pendingIntentCancel);
+        } else {
+            pendingIntentCancel = PendingIntent.getBroadcast
+                    (context.getApplicationContext(), requestCode, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager.cancel(pendingIntentCancel);
+        }
+
+        System.out.println("Wyłączono alarm wizyty");
+    }
 }

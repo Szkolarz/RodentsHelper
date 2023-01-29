@@ -97,7 +97,7 @@ public class ViewVets extends AppCompatActivity {
         //1 = nowy
         //FlagSetup.setFlagVetAdd(1);
         final Context context = this;
-        Intent intent = new Intent(context, AddVets.class);
+        Intent intent = new Intent(context, AddEditVets.class);
         startActivity(intent);
         finish();
     }
