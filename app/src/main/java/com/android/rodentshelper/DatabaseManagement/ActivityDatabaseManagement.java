@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -118,14 +119,19 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
 
             buttonExport.setOnClickListener(view -> {
 
-                if (isNetworkConnected(ActivityDatabaseManagement.this)) {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
 
+                if (isNetworkConnected(ActivityDatabaseManagement.this)) {
                     final ProgressDialog progressExport = new ProgressDialog(this);
-                    progressExport.setTitle("Zapisywanie danych do chmury...");
-                    progressExport.setMessage("Proszę czekać...");
-                    progressExport.setCanceledOnTouchOutside(false);
-                    progressExport.setCancelable(false);
-                    progressExport.show();
+                    runOnUiThread(() -> {
+                        StrictMode.setThreadPolicy(policy);
+                            progressExport.setTitle("Zapisywanie danych do chmury...");
+                            progressExport.setMessage("Proszę czekać...");
+                            progressExport.setCanceledOnTouchOutside(false);
+                            progressExport.setCancelable(false);
+                            progressExport.show();
+                        });
 
                     Thread thread = new Thread(() -> {
                         try {
@@ -185,15 +191,24 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
 
                 alert.setPositiveButton("Tak", (dialogInterface, i) -> {
 
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+
                     if (isNetworkConnected(ActivityDatabaseManagement.this)) {
                         final ProgressDialog progressImport = new ProgressDialog(ActivityDatabaseManagement.this);
-                        progressImport.setTitle("Ładowanie danych z chmury...");
-                        progressImport.setMessage("Proszę czekać...");
-                        progressImport.setCanceledOnTouchOutside(false);
-                        progressImport.setCancelable(false);
-                        progressImport.show();
+
+                        runOnUiThread(() -> {
+                            StrictMode.setThreadPolicy(policy);
+                            progressImport.setTitle("Ładowanie danych z chmury...");
+                            progressImport.setMessage("Proszę czekać...");
+                            progressImport.setCanceledOnTouchOutside(false);
+                            progressImport.setCancelable(false);
+                            progressImport.show();
+                        });
+
 
                         Thread thread = new Thread(() -> {
+
                             try {
                                 if (new AsyncActivity().execute().get()) {
 
@@ -210,6 +225,7 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
 
                                     runOnUiThread(() -> {
                                         try {
+
                                             boolean haveDataImported = ExportAndImport.importDatabase(ActivityDatabaseManagement.this,
                                                     prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"));
 

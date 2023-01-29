@@ -79,16 +79,20 @@ public class ViewOther extends AppCompatActivity {
     private boolean flagForProgressDialog = false;
 
     private void viewMap() {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-        progress = new ProgressDialog(this);
-        progress.setTitle("Ładowanie mapy...");
-        progress.setMessage("Proszę czekać...");
+        runOnUiThread(() -> {
+            StrictMode.setThreadPolicy(policy);
+            progress = new ProgressDialog(this);
+            progress.setTitle("Ładowanie mapy...");
+            progress.setMessage("Proszę czekać...");
 
-        progress.show();
-        flagForProgressDialog = true;
+            progress.show();
+            flagForProgressDialog = true;
+        });
 
         Thread thread = new Thread(() -> runOnUiThread(() -> {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             GoogleMaps googleMaps = new GoogleMaps();
             googleMaps.closeProgressDialog(ViewOther.this);

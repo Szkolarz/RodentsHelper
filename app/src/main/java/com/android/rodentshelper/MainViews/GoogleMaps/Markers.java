@@ -42,9 +42,6 @@ public class Markers implements GoogleMap.OnMarkerClickListener {
 
     private void addedByAuthor (GoogleMap map) {
 
-        addVioletMarker(map, "Weterynarz XYZ", 51.84565936553562, 20.434564205694805,
-                "Słoneczna 26/2, 33-333 Miejscowość", "123321123");
-
         addVioletMarker(map, "Dudkowiak S., lek. wet. Lecznica dla zwierząt", 50.598249864718504, 17.03987761354501,
                 "Przemysłowa 5, 57-220 Ziębice", "748191266");
 
