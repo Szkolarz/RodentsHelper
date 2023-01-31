@@ -252,7 +252,7 @@
             android:textSize="16sp" />
 
 
-        <com.android.rodentshelper.CustomListView
+        <com.gryzoniopedia.rodentshelper.CustomListView
             android:id="@+id/listViewMed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -16,7 +16,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        tools:context="com.android.rodentshelper.ROOM.Visits.ViewVisits">
+        tools:context="com.gryzoniopedia.rodentshelper.ROOM.Visits.ViewVisits">
 
         <LinearLayout
             android:id="@+id/linearLayoutToolbar"
@@ -201,7 +201,7 @@
             android:textSize="16sp" />
 
 
-        <com.android.rodentshelper.CustomListView
+        <com.gryzoniopedia.rodentshelper.CustomListView
             android:id="@+id/listViewVisit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -220,7 +220,7 @@
             android:textColor="#014D70"
             android:textSize="16sp" />
 
-        <com.android.rodentshelper.CustomListView
+        <com.gryzoniopedia.rodentshelper.CustomListView
             android:id="@+id/listViewVisit2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -130,8 +130,8 @@
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/cardView_encyclopedia"
-                                android:layout_width="300px"
-                                android:layout_height="404px"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:elevation="32dp"
 
                                 android:gravity="center"
@@ -142,8 +142,8 @@
 
                                 <ImageView
                                     android:id="@+id/imageView_encyclopedia"
-                                    android:layout_width="300px"
-                                    android:layout_height="404px"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:adjustViewBounds="true"
 

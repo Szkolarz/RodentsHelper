@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="#ACC5E1"
     android:orientation="vertical"
-    tools:context="com.android.rodentshelper.ROOM.Notes.ViewNotes">
+    tools:context="com.gryzoniopedia.rodentshelper.ROOM.Notes.ViewNotes">
 
 
     <LinearLayout
@@ -105,17 +105,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textViewPhoneInfo_map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="3dp"
                         android:text="Telefon:"
@@ -128,6 +130,7 @@
                         android:id="@+id/textViewPhone_map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="3dp"
                         android:hint="Telefon"
@@ -138,7 +141,7 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -146,12 +149,16 @@
                         android:id="@+id/imageButtonCall_map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginStart="5dp"
+                        android:adjustViewBounds="true"
                         android:background="@drawable/roundbutton_small_green"
-                        android:cropToPadding="false"
-                        android:padding="10dp"
 
-                        android:src="@android:drawable/stat_sys_speakerphone"
+                        android:cropToPadding="false"
+                        android:padding="7dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/call"
+                        app:tint="#FFFFFF"
                         tools:ignore="SpeakableTextPresentCheck" />
                 </LinearLayout>
 

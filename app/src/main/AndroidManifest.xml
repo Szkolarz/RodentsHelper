@@ -48,7 +48,7 @@
             android:value="@string/map_key"/>
 
         <activity
-            android:name="com.android.rodentshelper.ROOM.Rodent.ViewRodents"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Rodent.ViewRodents"
             android:exported="false"
             android:icon="@drawable/ic_bin"
             android:screenOrientation="portrait" >
@@ -57,15 +57,15 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Vet.ViewVets"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Vet.ViewVets"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.android.rodentshelper.MainViews.MainActivity"
+            android:name="com.gryzoniopedia.rodentshelper.MainViews.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.android.rodentshelper.MainViews.SplashScreen"
+            android:name="com.gryzoniopedia.rodentshelper.MainViews.SplashScreen"
             android:exported="true"
             android:noHistory="true"
             android:screenOrientation="portrait">
@@ -80,125 +80,125 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.android.rodentshelper.MainViews.FirstStart"
+            android:name="com.gryzoniopedia.rodentshelper.MainViews.FirstStart"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Rodent.AddEditRodents"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Rodent.AddEditRodents"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Vet.AddEditVets"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Vet.AddEditVets"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Medicaments.ViewMedicaments"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Medicaments.ViewMedicaments"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Medicaments.AddEditMedicaments"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Medicaments.AddEditMedicaments"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Visits.ViewVisits"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Visits.ViewVisits"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Visits.AddEditVisits"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Visits.AddEditVisits"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.MainViews.ViewHealth"
+            android:name="com.gryzoniopedia.rodentshelper.MainViews.ViewHealth"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.MainViews.ViewEncyclopedia"
+            android:name="com.gryzoniopedia.rodentshelper.MainViews.ViewEncyclopedia"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.MainViews.ViewPetHealth"
+            android:name="com.gryzoniopedia.rodentshelper.MainViews.ViewPetHealth"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Notes.ViewNotes"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Notes.ViewNotes"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Notes.AddEditNotes"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Notes.AddEditNotes"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.MainViews.ViewOther"
+            android:name="com.gryzoniopedia.rodentshelper.MainViews.ViewOther"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Weights.WeightView"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Weights.WeightView"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.MainViews.GoogleMaps.GoogleMaps"
+            android:name="com.gryzoniopedia.rodentshelper.MainViews.GoogleMaps.GoogleMaps"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.Encyclopedia.Common.ViewCagesupplyAndTreats"
+            android:name="com.gryzoniopedia.rodentshelper.Encyclopedia.Common.ViewCagesupplyAndTreats"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.Encyclopedia.Common.ViewGeneralAndDiseases"
+            android:name="com.gryzoniopedia.rodentshelper.Encyclopedia.Common.ViewGeneralAndDiseases"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ROOM.Weights.WeightInfoTable"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Weights.WeightInfoTable"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.Notifications.NotificationsActivity"
+            android:name="com.gryzoniopedia.rodentshelper.Notifications.NotificationsActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.DatabaseManagement.ActivityLogin"
+            android:name="com.gryzoniopedia.rodentshelper.DatabaseManagement.ActivityLogin"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.DatabaseManagement.ActivityRegister"
+            android:name="com.gryzoniopedia.rodentshelper.DatabaseManagement.ActivityRegister"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.DatabaseManagement.ActivityDatabaseManagement"
+            android:name="com.gryzoniopedia.rodentshelper.DatabaseManagement.ActivityDatabaseManagement"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.android.rodentshelper.ActivityAboutApp"
+            android:name="com.gryzoniopedia.rodentshelper.ActivityAboutApp"
             android:exported="true"
             android:screenOrientation="portrait"/>
 
 
         <receiver
-            android:name="com.android.rodentshelper.Notifications.Receivers.NotificationReceiverWeight"
+            android:name="com.gryzoniopedia.rodentshelper.Notifications.Receivers.NotificationReceiverWeight"
             android:enabled="true"
             android:exported="true">
         </receiver>
 
         <receiver
-            android:name="com.android.rodentshelper.Notifications.Receivers.NotificationReceiverFeeding"
+            android:name="com.gryzoniopedia.rodentshelper.Notifications.Receivers.NotificationReceiverFeeding"
             android:enabled="true"
             android:exported="true">
         </receiver>
 
         <receiver
-            android:name="com.android.rodentshelper.Notifications.Receivers.NotificationReceiverFeeding2"
+            android:name="com.gryzoniopedia.rodentshelper.Notifications.Receivers.NotificationReceiverFeeding2"
             android:enabled="true"
             android:exported="true">
         </receiver>
 
         <receiver
-            android:name="com.android.rodentshelper.Notifications.Receivers.NotificationReceiverVisit"
+            android:name="com.gryzoniopedia.rodentshelper.Notifications.Receivers.NotificationReceiverVisit"
             android:enabled="true"
             android:exported="true">
         </receiver>
 
         <receiver
-            android:name="com.android.rodentshelper.Notifications.Receivers.BootReceiver"
+            android:name="com.gryzoniopedia.rodentshelper.Notifications.Receivers.BootReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">

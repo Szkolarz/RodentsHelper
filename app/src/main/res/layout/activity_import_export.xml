@@ -7,7 +7,7 @@
     android:layout_weight="1"
     android:background="#ACC5E1"
     android:orientation="horizontal"
-    tools:context="com.android.rodentshelper.MainViews.ViewOther">
+    tools:context="com.gryzoniopedia.rodentshelper.MainViews.ViewOther">
 
 
     <LinearLayout
@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    tools:context="com.android.rodentshelper.ROOM.Medicaments.ViewMedicaments">
+                    tools:context="com.gryzoniopedia.rodentshelper.ROOM.Medicaments.ViewMedicaments">
 
 
                     <LinearLayout

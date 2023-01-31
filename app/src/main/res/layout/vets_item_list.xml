@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:background="#ACC5E1"
             android:orientation="vertical"
-            tools:context="com.android.rodentshelper.ROOM.Vet.ViewVets">
+            tools:context="com.gryzoniopedia.rodentshelper.ROOM.Vet.ViewVets">
 
 
             <TextView
@@ -154,9 +154,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:adjustViewBounds="true"
                         android:background="@drawable/roundbutton_small_green"
-                        android:padding="15dp"
-                        app:srcCompat="@android:drawable/stat_sys_speakerphone"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/call"
+                        app:tint="#FFFFFF"
                         tools:ignore="SpeakableTextPresentCheck" />
                 </LinearLayout>
 
@@ -227,7 +229,7 @@
                 android:fillViewport="false"
                 android:orientation="vertical">
 
-                <com.android.rodentshelper.CustomListView
+                <com.gryzoniopedia.rodentshelper.CustomListView
                     android:id="@+id/ListViewVet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
