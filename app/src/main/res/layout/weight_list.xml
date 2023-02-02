@@ -52,19 +52,6 @@
                     android:textColorHint="#77147A"
                     android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/textViewDeleteImage_rodent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Wyczyść zdjęcie..."
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    android:textColor="#014D70"
-                    android:textColorHint="#77147A"
-                    android:textSize="16sp"
-                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout

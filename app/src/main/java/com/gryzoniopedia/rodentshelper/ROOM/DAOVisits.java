@@ -80,7 +80,7 @@ public interface DAOVisits {
 
 
     @Transaction
-    @Query ("SELECT rodents.name1 FROM rodents\n" +
+    @Query ("SELECT rodents.name FROM rodents\n" +
             "JOIN visits  ON (rodents_visits.id_visit = visits.id_visit)\n" +
             "JOIN rodents_visits ON (rodents.id_rodent = rodents_visits.id_rodent)\n" +
             "WHERE visits.id_visit = :id_visit")

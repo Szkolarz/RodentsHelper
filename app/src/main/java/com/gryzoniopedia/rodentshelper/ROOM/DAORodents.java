@@ -25,7 +25,7 @@ public interface DAORodents {
     @Query("SELECT * FROM rodents ORDER BY id_rodent ASC")
     List<RodentModel> getAllRodentsTEST();
 
-    @Query("SELECT name1 FROM rodents ORDER BY id_rodent ASC")
+    @Query("SELECT name FROM rodents ORDER BY id_rodent ASC")
     List<String> getAllNameRodents();
 
     //@Query("SELECT id FROM rodents ORDER BY id ASC")
@@ -35,11 +35,16 @@ public interface DAORodents {
     void deleteRodentById(Integer id);
 
     @TypeConverters(Converters.class)
-    @Query("UPDATE rodents SET id_animal = :id_animal, name1 = :name, gender = :gender, birth = :date, fur = :fur, notes1 = :notes, image = :image WHERE id_rodent = :id")
+    @Query("UPDATE rodents SET id_animal = :id_animal, name = :name, gender = :gender, birth = :date, fur = :fur, notes = :notes, image = :image WHERE id_rodent = :id")
     void updateRodentById(Integer id, Integer id_animal, String name, String gender, Date date, String fur, String notes, byte[] image);
 
     @Query("SELECT image FROM rodents WHERE id_rodent = :id")
     byte[] getImageById(Integer id);
+
+    @Query("UPDATE rodents SET image = NULL WHERE id_rodent = :id_rodent")
+    void setImageNullById(Integer id_rodent);
+
+
 
 /*    @Query ("SELECT vets.id, vets.name, vets.address, vets.phone_number, vets.notes FROM vets\n" +
             "LEFT JOIN rodents  ON (rodents_vets.id_vet = vets.id)\n" +

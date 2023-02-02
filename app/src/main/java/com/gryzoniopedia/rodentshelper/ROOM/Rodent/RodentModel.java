@@ -1,5 +1,6 @@
 package com.gryzoniopedia.rodentshelper.ROOM.Rodent;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -17,7 +18,7 @@ public class RodentModel {
     @ColumnInfo(name = "id_animal")
     private Integer id_animal;
 
-    @ColumnInfo(name = "name1")
+    @ColumnInfo(name = "name")
     private String name;
     @ColumnInfo(name = "gender")
     private String gender;
@@ -26,7 +27,7 @@ public class RodentModel {
     private Date birth;
     @ColumnInfo(name = "fur")
     private String fur;
-    @ColumnInfo(name = "notes1")
+    @ColumnInfo(name = "notes")
     private String notes;
 
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)

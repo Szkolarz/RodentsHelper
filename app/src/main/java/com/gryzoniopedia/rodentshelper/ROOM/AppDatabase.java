@@ -14,6 +14,8 @@ import com.gryzoniopedia.rodentshelper.Notifications.NotificationsModel;
 import com.gryzoniopedia.rodentshelper.ROOM.Medicaments.MedicamentModel;
 import com.gryzoniopedia.rodentshelper.ROOM.Notes.NotesModel;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.RodentModel;
+import com.gryzoniopedia.rodentshelper.ROOM.Unused.MedicalTestsModel;
+import com.gryzoniopedia.rodentshelper.ROOM.Unused.SoundsModel;
 import com.gryzoniopedia.rodentshelper.ROOM.Vet.VetModel;
 import com.gryzoniopedia.rodentshelper.ROOM.Visits.VisitModel;
 import com.gryzoniopedia.rodentshelper.ROOM.Weights.WeightModel;
@@ -29,7 +31,8 @@ import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentVisit.RodentVisitModel;
         NotificationsModel.class,
         TreatsModel.class, CageSupplyModel.class,
         GeneralModel.class, DiseasesModel.class, DatabaseManagementModel.class,
-        CloudAccountModel.class},
+        CloudAccountModel.class,
+        MedicalTestsModel.class, SoundsModel.class},
         version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract DAO dao();

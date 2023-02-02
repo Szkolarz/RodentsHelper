@@ -63,13 +63,13 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/view2"
+                    android:id="@+id/cardView_rodent"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
                     android:elevation="32dp"
                     android:gravity="center"
 
-                    app:cardBackgroundColor="#A31A1A"
+                    app:cardBackgroundColor="#FFFFFF"
                     app:cardCornerRadius="60dp">
 
 

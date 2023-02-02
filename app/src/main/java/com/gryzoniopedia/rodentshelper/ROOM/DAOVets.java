@@ -65,7 +65,7 @@ public interface DAOVets {
 
     /** RODENTS **/
 
-    @Query("SELECT id_rodent, name1 FROM rodents where id_rodent = :id")
+    @Query("SELECT id_rodent, name FROM rodents where id_rodent = :id")
     List<RodentModel> getAllRodentsVets(Integer id);
 
 

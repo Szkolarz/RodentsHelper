@@ -39,7 +39,10 @@ public interface ConnectionSQL {
                 String datasourceLogin = props.getProperty("dbLogin");
                 String datasourcePassword = props.getProperty("dbPassword");
 
-                final Connection con = DriverManager.getConnection(datasourceUrl,
+                System.out.println(datasourceUrl + " qqqqq");
+
+                final Connection con = DriverManager.getConnection
+                        (datasourceUrl,
                         datasourceLogin, datasourcePassword);
 
                 inputStream.close();

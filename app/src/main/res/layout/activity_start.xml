@@ -41,7 +41,7 @@
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:contentDescription="Guinea pig"
-                app:srcCompat="@drawable/rodent_icon1" />
+                app:srcCompat="@drawable/rodent_icon1_not" />
         </androidx.cardview.widget.CardView>
 
         <View
@@ -71,7 +71,7 @@
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:contentDescription="Domestic rat"
-                app:srcCompat="@drawable/rodent_icon2" />
+                app:srcCompat="@drawable/rodent_icon2_not" />
         </androidx.cardview.widget.CardView>
 
         <View

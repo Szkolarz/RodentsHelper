@@ -36,25 +36,25 @@ public class FirstStart extends AppCompatActivity {
 
         imageButtonHamster.setOnClickListener(view -> {
 
-            SharedPreferences.Editor spEitorFirstStart = spFirstStart.edit();
+            /*SharedPreferences.Editor spEitorFirstStart = spFirstStart.edit();
             spEitorFirstStart.putInt("prefsFirstStart", 1);
             spEitorFirstStart.apply();
 
             Intent intent = new Intent(FirstStart.this, ViewRodents.class);
             startActivity(intent);
-            finish();
+            finish();*/
 
         });
 
         imageButtonRat.setOnClickListener(view -> {
 
-            SharedPreferences.Editor spEitorFirstStart = spFirstStart.edit();
+            /*SharedPreferences.Editor spEitorFirstStart = spFirstStart.edit();
             spEitorFirstStart.putInt("prefsFirstStart", 2);
             spEitorFirstStart.apply();
 
             Intent intent = new Intent(FirstStart.this, ViewRodents.class);
             startActivity(intent);
-            finish();
+            finish();*/
 
         });
 

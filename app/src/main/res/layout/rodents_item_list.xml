@@ -61,7 +61,7 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/view3"
+                android:id="@+id/cardView_rodent"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:elevation="32dp"
