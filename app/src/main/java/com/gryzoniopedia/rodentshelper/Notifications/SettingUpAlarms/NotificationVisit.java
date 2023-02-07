@@ -9,7 +9,7 @@ import android.os.Build;
 
 import androidx.room.Room;
 
-import com.gryzoniopedia.rodentshelper.Notifications.NotificationsModel;
+import com.gryzoniopedia.rodentshelper.Notifications.Model.NotificationsModel;
 import com.gryzoniopedia.rodentshelper.Notifications.Receivers.NotificationReceiverVisit;
 import com.gryzoniopedia.rodentshelper.ROOM.AppDatabase;
 import com.gryzoniopedia.rodentshelper.ROOM.DAONotifications;

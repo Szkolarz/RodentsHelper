@@ -29,7 +29,7 @@ import java.util.List;
 
 public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHolder>
 {
-    List<RodentModel> rodentModel;
+    private final List<RodentModel> rodentModel;
 
     public AdapterRodents(List<RodentModel> rodentModel) {
         this.rodentModel = rodentModel;
@@ -39,8 +39,8 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
     @NotNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.rodents_item_list,parent,false);
-
+        View view= LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.rodents_item_list,parent,false);
         return new viewHolder(view);
     }
 
@@ -116,7 +116,7 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
     }
 
     static class viewHolder extends RecyclerView.ViewHolder
-       {
+    {
 
            TextView textViewName, textViewGender, textViewDate, textViewFur, textViewNotes;
            TextView textViewFur_rodentText, textViewNotes_rodentText;
@@ -146,5 +146,5 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
                buttonRodentsPetHealth = itemView.findViewById(R.id.buttonRodentsPetHealth);
 
            }
-       }
+    }
 }

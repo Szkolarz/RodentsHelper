@@ -10,7 +10,7 @@ import com.gryzoniopedia.rodentshelper.Encyclopedia.Diseases.DiseasesModel;
 import com.gryzoniopedia.rodentshelper.Encyclopedia.General.GeneralModel;
 import com.gryzoniopedia.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.gryzoniopedia.rodentshelper.Encyclopedia.Version.VersionModel;
-import com.gryzoniopedia.rodentshelper.Notifications.NotificationsModel;
+import com.gryzoniopedia.rodentshelper.Notifications.Model.NotificationsModel;
 import com.gryzoniopedia.rodentshelper.ROOM.Medicaments.MedicamentModel;
 import com.gryzoniopedia.rodentshelper.ROOM.Notes.NotesModel;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.RodentModel;

@@ -5,7 +5,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.TypeConverters;
 
-import com.gryzoniopedia.rodentshelper.Notifications.NotificationsModel;
+import com.gryzoniopedia.rodentshelper.Notifications.Model.NotificationsModel;
 
 import java.util.List;
 

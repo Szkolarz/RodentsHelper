@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import androidx.room.Room;
 
+import com.gryzoniopedia.rodentshelper.Notifications.Model.NotificationsModel;
 import com.gryzoniopedia.rodentshelper.Notifications.SettingUpAlarms.NotificationVisit;
 import com.gryzoniopedia.rodentshelper.Notifications.SettingUpAlarms.NotificationWeight;
 import com.gryzoniopedia.rodentshelper.ROOM.DAONotifications;

@@ -289,5 +289,18 @@
                 android:textColor="#014D70"
                 android:textSize="16sp" />
 
+            <TextView
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Uwaga: powyższa tabela nie bierze pod uwagę rasy cuy, która może osiągnąć nawet 3,5 kg masy ciała."
+                android:textColor="#014D70"
+                android:textSize="16sp" />
+
         </LinearLayout>
 </ScrollView>

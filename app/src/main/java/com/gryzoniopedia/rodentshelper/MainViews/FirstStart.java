@@ -23,7 +23,7 @@ public class FirstStart extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        ImageView imageButtonHamster = findViewById(R.id.imageButtonGuineaPig);
+        ImageView imageButtonGuineaPig = findViewById(R.id.imageButtonGuineaPig);
         ImageView imageButtonRat = findViewById(R.id.imageButtonRat);
         ImageView imageButtonChinchilla = findViewById(R.id.imageButtonChinchilla);
 
@@ -34,15 +34,15 @@ public class FirstStart extends AppCompatActivity {
         //int firstStart = spFirstStart.getInt("firstStart", 1);
 
 
-        imageButtonHamster.setOnClickListener(view -> {
+        imageButtonGuineaPig.setOnClickListener(view -> {
 
-            /*SharedPreferences.Editor spEitorFirstStart = spFirstStart.edit();
+            SharedPreferences.Editor spEitorFirstStart = spFirstStart.edit();
             spEitorFirstStart.putInt("prefsFirstStart", 1);
             spEitorFirstStart.apply();
 
             Intent intent = new Intent(FirstStart.this, ViewRodents.class);
             startActivity(intent);
-            finish();*/
+            finish();
 
         });
 

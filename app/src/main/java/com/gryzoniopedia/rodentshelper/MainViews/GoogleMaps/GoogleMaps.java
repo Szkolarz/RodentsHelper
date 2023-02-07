@@ -129,13 +129,15 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.info_maps) {
             String link = "<a href=\"https://stowarzyszenie.forum-szynszyla.pl/\">Stowarzyszenie Miłośników Szynszyli Małej</a>";
+            String link2 = "<a href=\"https://stowarzyszenie.forum-szynszyla.pl/\">Stowarzyszenia Miłośników Szynszyli Małej</a>";
             String linkOriginalMap ="<a href=\"https://www.google.com/maps/d/u/0/viewer?mid=13Dn6XmgOhnlnB8zFTQ6QxABR6MPUsg0o&ll=52.38497927622458%2C19.90813578222235&z=7&fbclid=IwAR16s6IUjow4yXDb0t9tW2NTsfmIf3f1chR58JHWB14xAlmH73D8WIog3rA/\">tutaj</a>";
 
             String alertText = "Znaczniki na mapie zostały oznaczone różnymi kolorami w zależności od " +
                     "ich pochodzenia.<br><br>" +
                     "<font color='#b33429'>Czerwone</font> - sprawdzeni i polecani weterynarze przez " + link + ";<br><br>" +
                     "<font color='#206399'>Niebieskie</font> - weterynarze polecani przez użytkowników for oraz grup " +
-                    "dyskusyjnych, zweryfikowani przez " + link + ";<br><br>" +
+                    "dyskusyjnych, również znajdujący się na mapie " + link2 + ". Są to znaczniki powstałe na podstawie subiektywnych " +
+                    "opinii użytkowników;<br><br>" +
                     "<font color='#6b15cf'>Fioletowe</font> - weterynarze wybrani przez autora aplikacji (na podstawie dobrych ocen " +
                     "według Opinii Google).<br><br>Ostatnia aktualizacja znaczników: 18.01.2023<br><br>" +
                     "Oryginalna i aktualizowana na bieżąco mapa Stowarzyszenia Miłośników Szynszyli Małej znajduje się " + linkOriginalMap + ".";

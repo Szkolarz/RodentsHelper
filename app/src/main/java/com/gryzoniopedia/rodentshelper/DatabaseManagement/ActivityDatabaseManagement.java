@@ -215,8 +215,6 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
                                     String s = getDatabasePath("rodents_helper").toString();
                                     String s1 = s.substring(0,s.lastIndexOf("/") + 1);
                                     s1.trim();
-                                    File databaseDirectory = new File(s1);
-
 
                                     Date dateGet = Calendar.getInstance().getTime();
                                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());

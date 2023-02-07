@@ -147,11 +147,11 @@ public class NotificationsActivity extends AppCompatActivity {
             checkBoxNotifications2.setChecked(true);
         }
 
-        SetUpNotificationsWeight setUpNotificationsWeight = new SetUpNotificationsWeight();
-        setUpNotificationsWeight.setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, NotificationsActivity.this);
+        NotificationsWeightSettings notificationsWeightSettings = new NotificationsWeightSettings();
+        notificationsWeightSettings.setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, NotificationsActivity.this);
 
-        SetUpNotificationsFeeding setUpNotificationsFeeding = new SetUpNotificationsFeeding();
-        setUpNotificationsFeeding.setUpCheckbox(checkBoxNotifications2, textView3_notifications, textView4_notifications, NotificationsActivity.this);
+        NotificationsFeedingSettings notificationsFeedingSettings = new NotificationsFeedingSettings();
+        notificationsFeedingSettings.setUpCheckbox(checkBoxNotifications2, textView3_notifications, textView4_notifications, NotificationsActivity.this);
 
 
 
@@ -164,7 +164,7 @@ public class NotificationsActivity extends AppCompatActivity {
 
             if (checkBoxNotifications1.isChecked()) {
                 checkBoxNotifications1.setText("Włączone");
-                setUpNotificationsWeight.notificationWeight(NotificationsActivity.this, textView1_notifications,
+                notificationsWeightSettings.notificationWeight(NotificationsActivity.this, textView1_notifications,
                         textView2_notifications, checkBoxNotifications1);
 
             } else {
@@ -175,7 +175,7 @@ public class NotificationsActivity extends AppCompatActivity {
                 NotificationWeight notificationWeight = new NotificationWeight();
                 //it's turning off alarm in 'if'
                 notificationWeight.setUpNotificationWeight(getApplicationContext());
-                setUpNotificationsWeight.setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, NotificationsActivity.this);
+                notificationsWeightSettings.setUpCheckbox(checkBoxNotifications1, textView1_notifications, textView2_notifications, NotificationsActivity.this);
             }
 
         });
@@ -193,7 +193,7 @@ public class NotificationsActivity extends AppCompatActivity {
                 alert.setPositiveButton("Rozumiem", (dialogInterface, i) -> {
                     checkBoxNotifications2.setText("Włączone");
                     FlagSetupFeeding.setFlagIsNotificationFirst(true);
-                    setUpNotificationsFeeding.notificationFeeding(NotificationsActivity.this, textView3_notifications,
+                    notificationsFeedingSettings.notificationFeeding(NotificationsActivity.this, textView3_notifications,
                             textView4_notifications, checkBoxNotifications2);
                 });
 
@@ -223,7 +223,7 @@ public class NotificationsActivity extends AppCompatActivity {
 
                 System.out.println("WYLACZONE");
                 //it's turning off alarm in 'if'
-                setUpNotificationsFeeding.setUpCheckbox(checkBoxNotifications2, textView3_notifications, textView4_notifications, NotificationsActivity.this);
+                notificationsFeedingSettings.setUpCheckbox(checkBoxNotifications2, textView3_notifications, textView4_notifications, NotificationsActivity.this);
             }
 
         });

@@ -69,11 +69,11 @@
         android:layout_height="65dp"
         android:layout_centerVertical="true"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="20dp"
         android:gravity="center"
 
         app:cardBackgroundColor="#ACC5E1"
-        app:cardCornerRadius="35dp"
+        app:cardCornerRadius="32dp"
 
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"

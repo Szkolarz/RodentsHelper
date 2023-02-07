@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="wrap_content"
-    android:background="#ACC5E1"
+    android:layout_marginLeft="25dp"
+    android:layout_marginTop="28dp"
+    android:layout_marginRight="25dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/rounded_rodent_list"
+    android:orientation="vertical"
     tools:context="com.gryzoniopedia.rodentshelper.ROOM.Rodent.ViewRodents">
 
     <TextView
@@ -36,7 +39,7 @@
                 android:id="@+id/buttonEdit_rodent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 app:srcCompat="@drawable/ic_edit"
                 app:tint="#0375a8" />
@@ -45,7 +48,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="8dp"
                 android:text="Edytuj"
                 android:textAlignment="center"
                 android:textColor="#014D70"
@@ -54,7 +57,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="25dp"
+            android:layout_width="55dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center|top"
@@ -67,9 +70,9 @@
                 android:elevation="32dp"
                 android:gravity="center"
 
-                app:cardBackgroundColor="#A31A1A"
+                app:cardBackgroundColor="#FFFFFF"
                 app:cardCornerRadius="60dp"
-                app:cardElevation="5dp">
+                app:cardElevation="0dp">
 
 
                 <ImageView
@@ -270,15 +273,9 @@
         android:textSize="24sp" />
 
     <LinearLayout
-        android:layout_margin="6dp"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="wrap_content"
         android:layout_margin="6dp"
-        android:background="#5397DF" />
+        android:orientation="horizontal" />
 
 </LinearLayout>

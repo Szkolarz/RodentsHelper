@@ -16,7 +16,7 @@ import androidx.room.Room;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.gryzoniopedia.rodentshelper.Notifications.NotificationsModel;
+import com.gryzoniopedia.rodentshelper.Notifications.Model.NotificationsModel;
 import com.example.rodentshelper.R;
 import com.gryzoniopedia.rodentshelper.ROOM.AppDatabase;
 import com.gryzoniopedia.rodentshelper.ROOM.DAONotifications;

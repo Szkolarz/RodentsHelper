@@ -15,18 +15,23 @@ public class RodentModel {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id_rodent;
+
     @ColumnInfo(name = "id_animal")
     private Integer id_animal;
 
     @ColumnInfo(name = "name")
     private String name;
+
     @ColumnInfo(name = "gender")
     private String gender;
+
     @TypeConverters(Converters.class)
     @ColumnInfo(name = "birth")
     private Date birth;
+
     @ColumnInfo(name = "fur")
     private String fur;
+
     @ColumnInfo(name = "notes")
     private String notes;
 
