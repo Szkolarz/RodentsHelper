@@ -33,7 +33,6 @@ public class UpdateNotification {
         DAONotifications daoNotifications = db.daoNotifications();
         //if = true
         if (prefsNotificationWeight.getBoolean("prefsNotificationWeight", false)) {
-        System.out.println("ABABA");
 
             long actualTimeStamp = System.currentTimeMillis();
             Long unixTimeStamps = daoNotifications.getUnixTimestampsFromNotificationWeight();
@@ -49,13 +48,10 @@ public class UpdateNotification {
                     //+ one day
                     nextNotificationTime += 1000 * 60 * 60 * 24;
                     calendar.add(Calendar.DAY_OF_YEAR, 1);
-
                 }
                 daoNotifications.updateUnixTimestampWeight(calendar.getTimeInMillis());
                 // next notificatoin time is setting up in NotificationFeeding
-
             }
-
         }
 
         if (prefsNotificationFeeding.getBoolean("prefsNotificationFeeding", false)) {

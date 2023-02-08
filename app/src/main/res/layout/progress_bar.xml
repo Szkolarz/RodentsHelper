@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="#ACC5E1"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ProgressBar
+            style="@android:style/Widget.Material.Light.ProgressBar.Large"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:indeterminateTint="#0375a8"
+            android:visibility="visible">
+
+        </ProgressBar>
+
+        <TextView
+            android:id="@+id/textViewProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:textAlignment="center"
+            android:textColor="#014D70"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="Proszę czekać..."
+            android:textAlignment="center"
+            android:textColor="#014D70"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/textViewProgressBarBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="Okienko powinno zamknąć się automatycznie. \nProsimy o cierpliwość."
+            android:textAlignment="center"
+            android:textColor="#014D70"
+            android:textSize="22sp"
+            android:visibility="invisible"
+            tools:layout_gravity="center" />
+    </LinearLayout>
+
+</RelativeLayout>

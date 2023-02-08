@@ -2,6 +2,7 @@ package com.gryzoniopedia.rodentshelper.DatabaseManagement;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.room.Room;
 
@@ -61,7 +62,7 @@ public class ExportAndImport {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("ExportAndImport", Log.getStackTraceString(e));
         }
     }
 
@@ -123,7 +124,7 @@ public class ExportAndImport {
                     else if (flag == 3)
                         IOUtils.copy(inputStream, new FileOutputStream(databaseFilePath + "/rodents_helper-wal"));
                 } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                    Log.e("importDatabase", Log.getStackTraceString(e));
                 }
 
                 inputStream.close();

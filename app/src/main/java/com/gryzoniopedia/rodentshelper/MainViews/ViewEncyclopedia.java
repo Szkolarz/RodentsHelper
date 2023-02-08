@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -161,7 +162,7 @@ public class ViewEncyclopedia extends AppCompatActivity {
                     internetCheckEncyclopedia.checkInternet(viewEncyclopedia, linearLayout_encyclopedia,
                             progressBar_encyclopedia, textViewProgress_encyclopedia, progress);
                 } catch (SQLException | ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
+                    Log.e("ViewEncyclopedia", Log.getStackTraceString(e));
                 }
             }));
 

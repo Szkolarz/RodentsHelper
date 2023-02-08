@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -91,7 +92,7 @@ public class InternetCheckEncyclopedia {
                                                     versionCodeCheck.makeAnUpdate(viewEncyclopedia, dbQuerries, prefsFirstDownload);
                                                 } catch (ExecutionException |
                                                          InterruptedException e) {
-                                                    e.printStackTrace();
+                                                    Log.e("95 internetCheck", Log.getStackTraceString(e));
                                                 }
 
                                                 viewEncyclopedia.runOnUiThread(() -> hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia, viewEncyclopedia));
@@ -115,7 +116,7 @@ public class InternetCheckEncyclopedia {
                                     viewEncyclopedia.runOnUiThread(alertUpdate::cancel);
                                 }
                             } catch (SQLException e) {
-                                e.printStackTrace();
+                                Log.e("119 internetCheck", Log.getStackTraceString(e));
                             }
                         });
 
@@ -127,7 +128,7 @@ public class InternetCheckEncyclopedia {
                     }
 
                 } catch (ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
+                    Log.e("131 internetCheck", Log.getStackTraceString(e));
                 }
                 }));
             threadInit.start();
@@ -168,7 +169,7 @@ public class InternetCheckEncyclopedia {
                                 try {
                                     versionCodeCheck.makeAnUpdate(viewEncyclopedia, dbQuerries, prefsFirstDownload);
                                 } catch (ExecutionException | InterruptedException e) {
-                                    e.printStackTrace();
+                                    Log.e("172 internetCheck", Log.getStackTraceString(e));
                                 }
                                     viewEncyclopedia.runOnUiThread(() -> hideDownload(textViewProgress_encyclopedia, progressBar_encyclopedia, linearLayout_encyclopedia, viewEncyclopedia));
 
@@ -188,7 +189,7 @@ public class InternetCheckEncyclopedia {
                             alert1.show();
                        }
                     } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
+                        Log.e("192 internetCheck", Log.getStackTraceString(e));
                     }
                 }));
                 threadInit.start();

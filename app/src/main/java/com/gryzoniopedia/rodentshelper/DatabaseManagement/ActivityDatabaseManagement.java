@@ -1,13 +1,16 @@
 package com.gryzoniopedia.rodentshelper.DatabaseManagement;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -24,12 +27,15 @@ import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
+import com.gryzoniopedia.rodentshelper.ActivityProgressBar;
+import com.gryzoniopedia.rodentshelper.Notifications.NotificationsActivity;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.gryzoniopedia.rodentshelper.AsyncActivity;
 import com.example.rodentshelper.R;
 import com.gryzoniopedia.rodentshelper.ROOM.AppDatabase;
 import com.gryzoniopedia.rodentshelper.ROOM.DAO;
 import com.gryzoniopedia.rodentshelper.ROOM.DateFormat;
+import com.gryzoniopedia.rodentshelper.ROOM.Visits.ViewVisits;
 
 import java.io.File;
 import java.io.IOException;
@@ -119,19 +125,14 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
 
             buttonExport.setOnClickListener(view -> {
 
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
-
                 if (isNetworkConnected(ActivityDatabaseManagement.this)) {
-                    final ProgressDialog progressExport = new ProgressDialog(this);
-                    runOnUiThread(() -> {
-                        StrictMode.setThreadPolicy(policy);
-                            progressExport.setTitle("Zapisywanie danych do chmury...");
-                            progressExport.setMessage("Proszę czekać...");
-                            progressExport.setCanceledOnTouchOutside(false);
-                            progressExport.setCancelable(false);
-                            progressExport.show();
-                        });
+
+                    Thread threadProgressBar = new Thread(() -> {
+                        Intent intent = new Intent(ActivityDatabaseManagement.this, ActivityProgressBar.class);
+                        intent.putExtra("content", "Zapisywanie danych na serwer...");
+                        startActivityForResult(intent, 1);
+                    });
+                    threadProgressBar.start();
 
                     Thread thread = new Thread(() -> {
                         try {
@@ -141,8 +142,8 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
                                 File dbWal = getDatabasePath("rodents_helper-wal");
 
                                 ExportAndImport.exportDatabase(dbMain, dbShm, dbWal, prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"), ActivityDatabaseManagement.this);
+                                finishActivity(1);
                                 runOnUiThread(() -> {
-                                    progressExport.cancel();
                                     AlertDialog.Builder alert = new AlertDialog.Builder(ActivityDatabaseManagement.this, R.style.AlertDialogStyleUpdate);
                                     alert.setTitle("Pomyślnie zapisano dane do chmury!");
                                     alert.setMessage("Wszystkie twoje dane zostały pomyślnie zapisane w internetowej chmurze.\n\n" +
@@ -155,14 +156,12 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
                                     alert.show();
                                 });
                             } else {
-                                runOnUiThread(() -> {
-                                    progressExport.cancel();
-                                    serverErrorAlert();
-                                });
+                                finishActivity(1);
+                                runOnUiThread(this::serverErrorAlert);
                             }
                         } catch (ExecutionException | InterruptedException e) {
-                            progressExport.cancel();
-                            e.printStackTrace();
+                            finishActivity(1);
+                            Log.e("164 ActivityDatabaseManagement", Log.getStackTraceString(e));
                         }
                     });
                     thread.start();
@@ -182,6 +181,8 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
                     whenExportDate = textViewExportDate_export_import.getText().toString();
                 }
 
+
+
                 AlertDialog.Builder alert = new AlertDialog.Builder(ActivityDatabaseManagement.this, R.style.AlertDialogStyle);
                 alert.setTitle("Wczytywanie danych z chmury");
                 alert.setMessage("Czy na pewno chcesz zaimportować dane z chmury?\n\n" +
@@ -191,27 +192,20 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
 
                 alert.setPositiveButton("Tak", (dialogInterface, i) -> {
 
-                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                    StrictMode.setThreadPolicy(policy);
 
                     if (isNetworkConnected(ActivityDatabaseManagement.this)) {
-                        final ProgressDialog progressImport = new ProgressDialog(ActivityDatabaseManagement.this);
 
-                        runOnUiThread(() -> {
-                            StrictMode.setThreadPolicy(policy);
-                            progressImport.setTitle("Ładowanie danych z chmury...");
-                            progressImport.setMessage("Proszę czekać...");
-                            progressImport.setCanceledOnTouchOutside(false);
-                            progressImport.setCancelable(false);
-                            progressImport.show();
+                        Thread threadProgressBar = new Thread(() -> {
+                                Intent intent = new Intent(ActivityDatabaseManagement.this, ActivityProgressBar.class);
+                                intent.putExtra("content", "Wczytywanie danych z bazy...");
+                                startActivityForResult(intent, 1);
                         });
+                        threadProgressBar.start();
 
 
                         Thread thread = new Thread(() -> {
-
                             try {
                                 if (new AsyncActivity().execute().get()) {
-
                                     String s = getDatabasePath("rodents_helper").toString();
                                     String s1 = s.substring(0,s.lastIndexOf("/") + 1);
                                     s1.trim();
@@ -220,57 +214,67 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
                                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                                     String formattedDate = df.format(dateGet);
 
-
-                                    runOnUiThread(() -> {
                                         try {
-
                                             boolean haveDataImported = ExportAndImport.importDatabase(ActivityDatabaseManagement.this,
                                                     prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"));
 
                                             if (haveDataImported) {
-                                                progressImport.cancel();
-                                                AlertDialog.Builder alert1 = new AlertDialog.Builder(ActivityDatabaseManagement.this, R.style.AlertDialogStyleUpdate);
-                                                alert1.setTitle("Pomyślnie wczytano dane z chmury!");
-                                                alert1.setMessage("Wszystkie twoje dane zapisane w dniu " + textViewExportDate_export_import.getText().toString() +
-                                                        " zostały pomyślnie załadowane do aplikacji." );
-                                                alert1.setPositiveButton("Ok", (dialogInterface1, i1) -> {
-                                                    Toast.makeText(ActivityDatabaseManagement.this, "Pomyślnie załadowano dane z chmury", Toast.LENGTH_SHORT).show();
-                                                    AppDatabase db1 = Room.databaseBuilder(getApplicationContext(),
-                                                            AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-                                                    dao.updateCloudAccountImportDate((java.sql.Date.valueOf(formattedDate)), prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"));
-                                                    db1.close();
-                                                    reloadActivity();
+
+                                                AppDatabase db1 = Room.databaseBuilder(getApplicationContext(),
+                                                        AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+                                                dao.updateCloudAccountImportDate((java.sql.Date.valueOf(formattedDate)), prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"));
+                                                db1.close();
+
+                                                finishActivity(1);
+                                                runOnUiThread(() -> {
+                                                    AlertDialog.Builder alert1 = new AlertDialog.Builder(ActivityDatabaseManagement.this, R.style.AlertDialogStyleUpdate);
+                                                    alert1.setTitle("Pomyślnie wczytano dane z chmury!");
+                                                    alert1.setMessage("Wszystkie twoje dane zapisane w dniu " + textViewExportDate_export_import.getText().toString() +
+                                                            " zostały pomyślnie załadowane do aplikacji." );
+                                                    alert1.setPositiveButton("Ok", (dialogInterface1, i1) -> {
+                                                        Toast.makeText(ActivityDatabaseManagement.this, "Pomyślnie załadowano dane z chmury", Toast.LENGTH_SHORT).show();
+                                                        reloadActivity();
+                                                    });
+                                                    alert1.setOnCancelListener(dialog -> {
+                                                        Toast.makeText(ActivityDatabaseManagement.this, "Pomyślnie załadowano dane z chmury", Toast.LENGTH_SHORT).show();
+                                                        reloadActivity();
+                                                    });
+                                                    alert1.show();
                                                 });
-                                                alert1.show();
                                             } else {
-                                                progressImport.cancel();
-                                                AlertDialog.Builder alert1 = new AlertDialog.Builder(ActivityDatabaseManagement.this, R.style.AlertDialogStyleUpdate);
-                                                alert1.setTitle("Brak zapisu w chmurze");
-                                                alert1.setMessage("W twojej prywatnej chmurze nie znajdują się jeszcze żadne dane.\n\n" +
-                                                        "Możesz je dodać za pomocą przycisku 'Eksportuj dane'.");
-                                                alert1.setPositiveButton("Ok", (dialogInterface1, i1) -> {
-                                                    Toast.makeText(ActivityDatabaseManagement.this, "Brak zapisu w chmurze", Toast.LENGTH_SHORT).show();
-                                                    reloadActivity();
+
+                                                finishActivity(1);
+                                                runOnUiThread(() -> {
+                                                    AlertDialog.Builder alert1 = new AlertDialog.Builder(ActivityDatabaseManagement.this, R.style.AlertDialogStyleUpdate);
+                                                    alert1.setTitle("Brak zapisu w chmurze");
+                                                    alert1.setMessage("W twojej prywatnej chmurze nie znajdują się jeszcze żadne dane.\n\n" +
+                                                            "Możesz je dodać za pomocą przycisku 'Eksportuj dane'.");
+                                                    alert1.setPositiveButton("Ok", (dialogInterface1, i1) -> {
+                                                        Toast.makeText(ActivityDatabaseManagement.this, "Brak zapisu w chmurze", Toast.LENGTH_SHORT).show();
+                                                        reloadActivity();
+                                                    });
+                                                    alert1.setOnCancelListener(dialog -> {
+                                                        Toast.makeText(ActivityDatabaseManagement.this, "Brak zapisu w chmurze", Toast.LENGTH_SHORT).show();
+                                                        reloadActivity();
+                                                    });
+                                                    alert1.show();
                                                 });
-                                                alert1.show();
                                             }
 
                                         } catch (IOException | SQLException | InterruptedException e) {
-                                            progressImport.cancel();
-                                            e.printStackTrace();
+                                            finishActivity(1);
+                                            Log.e("266 ActivityDatabaseManagement", Log.getStackTraceString(e));
                                         }
-                                    });
-                                } else {
-                                    runOnUiThread(() -> {
-                                        progressImport.cancel();
-                                        serverErrorAlert();
-                                    });
 
+                                } else {
+                                    finishActivity(1);
+                                    runOnUiThread(this::serverErrorAlert);
                                 }
                             } catch (ExecutionException | InterruptedException e) {
-                                e.printStackTrace();
+                                Log.e("274 ActivityDatabaseManagement", Log.getStackTraceString(e));
                             }
                         });
+
                         thread.start();
 
                     } else {

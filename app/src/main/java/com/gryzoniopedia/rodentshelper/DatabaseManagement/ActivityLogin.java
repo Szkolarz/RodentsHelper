@@ -8,11 +8,15 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +28,7 @@ import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
+import com.gryzoniopedia.rodentshelper.ActivityProgressBar;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.ViewRodents;
 import com.gryzoniopedia.rodentshelper.SQL.Querries;
 import com.gryzoniopedia.rodentshelper.Alerts;
@@ -42,7 +47,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class ActivityLogin extends AppCompatActivity {
 
-
+    private Boolean allowBackButton = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,9 @@ public class ActivityLogin extends AppCompatActivity {
         EditText editTextPassword_login = findViewById(R.id.editTextPassword_login);
         TextView textViewBadLoginOrPassword_login = findViewById(R.id.textViewBadLoginOrPassword_login);
 
+        LinearLayout linearLayoutLoginProgress = findViewById(R.id.linearLayoutLoginProgress);
+        ProgressBar progressBarLogin = findViewById(R.id.progressBarLogin);
+
         try {
             Intent intent = getIntent();
             String loginIntent = intent.getExtras().getString("loginIntent");
@@ -90,15 +98,15 @@ public class ActivityLogin extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
 
             if (isNetworkConnected(ActivityLogin.this)) {
-                final ProgressDialog progress = new ProgressDialog(this);
-                runOnUiThread(() -> {
-                    StrictMode.setThreadPolicy(policy);
-                    progress.setTitle("Logowanie...");
-                    progress.setMessage("Proszę czekać...");
-                    progress.setCanceledOnTouchOutside(false);
-                    progress.setCancelable(false);
-                    progress.show();
-                });
+
+                Thread threadProgressBar = new Thread(() -> runOnUiThread(() -> {
+                    allowBackButton = false;
+                    this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    progressBarLogin.setIndeterminate(true);
+                    linearLayoutLoginProgress.setVisibility(View.VISIBLE);
+                }));
+                threadProgressBar.start();
 
                 Thread thread = new Thread(() -> {
                     StrictMode.setThreadPolicy(policy);
@@ -112,7 +120,8 @@ public class ActivityLogin extends AppCompatActivity {
                             if (login.length() <= 0 || password.length() <= 0) {
                                 Alerts alert = new Alerts();
                                 runOnUiThread(() -> {
-                                    progress.cancel();
+                                    linearLayoutLoginProgress.setVisibility(View.GONE); allowBackButton = true;
+                                    this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                     alert.alertLackOfData("Login i hasło nie mogą zostać puste!", ActivityLogin.this);
                                 });
                             } else {
@@ -164,7 +173,8 @@ public class ActivityLogin extends AppCompatActivity {
                                         prefsEditorLoginName.apply();
 
                                         runOnUiThread(() -> {
-                                            progress.cancel();
+                                            linearLayoutLoginProgress.setVisibility(View.GONE); allowBackButton = true;
+                                            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                             AlertDialog.Builder alert = new AlertDialog.Builder(ActivityLogin.this, R.style.AlertDialogStyleUpdate);
                                             alert.setTitle("Pomyślnie zalogowano!");
                                             alert.setMessage(login + ", twoje konto pozostanie zalogowane, nie musisz " +
@@ -175,26 +185,39 @@ public class ActivityLogin extends AppCompatActivity {
                                                 startActivity(new Intent(ActivityLogin.this, ActivityDatabaseManagement.class));
                                                 finish();
                                             });
+                                            alert.setOnCancelListener(dialog -> {
+                                                startActivity(new Intent(ActivityLogin.this, ActivityDatabaseManagement.class));
+                                                finish();
+                                            });
                                             alert.show();
                                         });
 
                                     } else {
                                         runOnUiThread(() -> {
                                             textViewBadLoginOrPassword_login.setVisibility(View.VISIBLE);
-                                            progress.cancel();
+                                            linearLayoutLoginProgress.setVisibility(View.GONE); allowBackButton = true;
+                                            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                         });
                                     }
 
                                 } catch (SQLException | InterruptedException e) {
-                                    runOnUiThread(progress::cancel);
-                                    e.printStackTrace();
+                                    runOnUiThread(() -> {
+                                        linearLayoutLoginProgress.setVisibility(View.GONE); allowBackButton = true;
+                                        this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    });
+
+                                    Log.e("191 ActivityLogin", Log.getStackTraceString(e));
                                 }
-                                runOnUiThread(progress::cancel);
+                                runOnUiThread(() -> {
+                                    linearLayoutLoginProgress.setVisibility(View.GONE); allowBackButton = true;
+                                    this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                });
                             }
 
                         } else {
                             runOnUiThread(() -> {
-                                progress.cancel();
+                                linearLayoutLoginProgress.setVisibility(View.GONE); allowBackButton = true;
+                                this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 AlertDialog.Builder alert = new AlertDialog.Builder(ActivityLogin.this, R.style.AlertDialogStyleUpdate);
                                 alert.setTitle("Nie można się połączyć z serwerem");
                                 alert.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
@@ -203,7 +226,7 @@ public class ActivityLogin extends AppCompatActivity {
                             });
                         }
                     } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
+                        Log.e("ActivityLogin", Log.getStackTraceString(e));
                     }
 
                 });
@@ -235,14 +258,14 @@ public class ActivityLogin extends AppCompatActivity {
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
+
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+    public void onBackPressed() {
+        if (allowBackButton) {
             Intent intent = new Intent(ActivityLogin.this, ViewRodents.class);
             startActivity(intent);
             finish();
         }
-        return super.onKeyDown(keyCode, event);
     }
 
 }

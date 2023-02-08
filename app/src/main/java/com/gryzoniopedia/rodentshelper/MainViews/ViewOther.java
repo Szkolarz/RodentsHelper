@@ -17,6 +17,8 @@ import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
+import com.gryzoniopedia.rodentshelper.ActivityProgressBar;
+import com.gryzoniopedia.rodentshelper.DatabaseManagement.ActivityDatabaseManagement;
 import com.gryzoniopedia.rodentshelper.MainViews.GoogleMaps.GoogleMaps;
 import com.gryzoniopedia.rodentshelper.Notifications.NotificationsActivity;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.ViewRodents;
@@ -75,38 +77,40 @@ public class ViewOther extends AppCompatActivity {
         imageButtonOther_notifications.setOnClickListener(view -> viewNotifications());
     }
 
-    ProgressDialog progress;
+
     private boolean flagForProgressDialog = false;
 
     private void viewMap() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        runOnUiThread(() -> {
-            StrictMode.setThreadPolicy(policy);
-            progress = new ProgressDialog(this);
-            progress.setTitle("Ładowanie mapy...");
-            progress.setMessage("Proszę czekać...");
 
-            progress.show();
-            flagForProgressDialog = true;
-        });
+        Thread threadActivity = new Thread(() -> {
+            Thread threadProgressBar = new Thread(() -> runOnUiThread(() -> {
+                Intent intent = new Intent(this, ActivityProgressBar.class);
+                intent.putExtra("content", "Ładowanie mapy...");
+                startActivityForResult(intent, 1);
+                flagForProgressDialog = true;
+            }));
+            threadProgressBar.start();
+        }); threadActivity.start();
+
 
         Thread thread = new Thread(() -> runOnUiThread(() -> {
             StrictMode.setThreadPolicy(policy);
             GoogleMaps googleMaps = new GoogleMaps();
             googleMaps.closeProgressDialog(ViewOther.this);
-
         }));
-
         thread.start();
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         if (flagForProgressDialog)
-            progress.dismiss();
+            finishActivity(1);
     }
 
     private void viewNotifications()

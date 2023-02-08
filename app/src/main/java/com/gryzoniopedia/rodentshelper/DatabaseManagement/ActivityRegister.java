@@ -7,11 +7,15 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +46,7 @@ public class ActivityRegister extends AppCompatActivity {
     private TextView textViewBadPassword_register, textViewPasswordsNotMatch_register,
             textViewLoginTooShort_register;
 
+    private Boolean allowBackButton = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,8 @@ public class ActivityRegister extends AppCompatActivity {
         textViewPasswordsNotMatch_register = findViewById(R.id.textViewPasswordsNotMatch_register);
         textViewLoginTooShort_register = findViewById(R.id.textViewLoginTooShort_register);
 
+        LinearLayout linearLayoutRegisterProgress = findViewById(R.id.linearLayoutRegisterProgress);
+        ProgressBar progressBarRegister = findViewById(R.id.progressBarRegister);
 
 
         buttonRegister_register.setOnClickListener(view -> {
@@ -90,15 +97,15 @@ public class ActivityRegister extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
 
             if (isNetworkConnected(ActivityRegister.this)) {
-                final ProgressDialog progress = new ProgressDialog(this);
-                runOnUiThread(() -> {
-                    StrictMode.setThreadPolicy(policy);
-                    progress.setTitle("Rejestracja konta...");
-                    progress.setMessage("Proszę czekać...");
-                    progress.setCanceledOnTouchOutside(false);
-                    progress.setCancelable(false);
-                    progress.show();
-                });
+
+                Thread threadProgressBar = new Thread(() -> runOnUiThread(() -> {
+                    allowBackButton = false;
+                    this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    progressBarRegister.setIndeterminate(true);
+                    linearLayoutRegisterProgress.setVisibility(View.VISIBLE);
+                }));
+                threadProgressBar.start();
 
 
                 Thread thread = new Thread(() -> {
@@ -118,17 +125,13 @@ public class ActivityRegister extends AppCompatActivity {
                                     try {
                                         ResultSet resultSetRegister = dbQuerries.checkLoginAvailability(ActivityRegister.this);
 
-
                                         boolean isLoginAvailable = true;
 
                                         while (resultSetRegister.next()) {
                                             if (login.equals(resultSetRegister.getString("login"))) {
-
                                                 runOnUiThread(() -> textViewLoginExists_register.setVisibility(View.VISIBLE));
-
                                                 isLoginAvailable = false;
                                             }
-
                                         }
 
                                         if (isLoginAvailable) {
@@ -141,13 +144,19 @@ public class ActivityRegister extends AppCompatActivity {
                                                     hashedPassword, ActivityRegister.this);
 
                                             runOnUiThread(() -> {
-                                                progress.cancel();
+                                                linearLayoutRegisterProgress.setVisibility(View.GONE); allowBackButton = true;
+                                                this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                                 AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRegister.this, R.style.AlertDialogStyleUpdate);
                                                 alert.setTitle("Pomyślnie dodano nowe konto!");
                                                 alert.setMessage("Możesz teraz się zalogować, aby odblokować możliwość zapisywania" +
                                                         " swoich danych do chmury.");
-
                                                 alert.setPositiveButton("Ok", (dialogInterface, i) -> {
+                                                    Intent intent = new Intent(ActivityRegister.this, ActivityLogin.class);
+                                                    intent.putExtra("loginIntent", login);
+                                                    startActivity(intent);
+                                                    finish();
+                                                });
+                                                alert.setOnCancelListener(dialog -> {
                                                     Intent intent = new Intent(ActivityRegister.this, ActivityLogin.class);
                                                     intent.putExtra("loginIntent", login);
                                                     startActivity(intent);
@@ -155,21 +164,30 @@ public class ActivityRegister extends AppCompatActivity {
                                                 });
                                                 alert.show();
                                             });
-
-
                                         }
 
                                     } catch (SQLException | NullPointerException | InterruptedException e) {
-                                        runOnUiThread(progress::cancel);
-                                        e.printStackTrace();
+                                        runOnUiThread(() -> {
+                                            linearLayoutRegisterProgress.setVisibility(View.GONE); allowBackButton = true;
+                                            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                        });
+                                        Log.e("ActivityRegister 165", Log.getStackTraceString(e));
                                     }
-                                    runOnUiThread(progress::cancel);
-                                } else
-                                    runOnUiThread(progress::cancel);
-
+                                    runOnUiThread(() -> {
+                                        linearLayoutRegisterProgress.setVisibility(View.GONE); allowBackButton = true;
+                                        this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    });
+                                } else {
+                                    runOnUiThread(() -> {
+                                        linearLayoutRegisterProgress.setVisibility(View.GONE);
+                                        allowBackButton = true;
+                                        this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    });
+                                }
                         } else {
                             runOnUiThread(() -> {
-                                progress.cancel();
+                                linearLayoutRegisterProgress.setVisibility(View.GONE); allowBackButton = true;
+                                this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRegister.this, R.style.AlertDialogStyleUpdate);
                                 alert.setTitle("Nie można się połączyć z serwerem");
                                 alert.setMessage("Użyj innej sieci lub spróbuj ponownie później.");
@@ -179,12 +197,10 @@ public class ActivityRegister extends AppCompatActivity {
                         }
 
                     } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
+                        Log.e("ActivityRegister", Log.getStackTraceString(e));
                     }
                 });
-
                 thread.start();
-
 
             } else {
                 AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRegister.this, R.style.AlertDialogStyleUpdate);
@@ -248,12 +264,12 @@ public class ActivityRegister extends AppCompatActivity {
 
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+    public void onBackPressed() {
+        if (allowBackButton) {
             Intent intent = new Intent(ActivityRegister.this, ViewRodents.class);
             startActivity(intent);
             finish();
         }
-        return super.onKeyDown(keyCode, event);
     }
+
 }

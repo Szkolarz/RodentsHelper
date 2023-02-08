@@ -1,5 +1,7 @@
 package com.gryzoniopedia.rodentshelper.Encyclopedia.Treats;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -45,6 +47,12 @@ public class AdapterTreats extends RecyclerView.Adapter<AdapterTreats.viewHolder
             holder.view_treats.setBackgroundColor(Color.parseColor("#6dd188"));
             if (!treatsModel.get(position).getIs_healthy())
                 holder.linearLayout_treats.setVisibility(View.GONE);
+
+            if (treatsModel.get(position).getName().equals("Bakalie; nasiona")) {
+                holder.linearLayout_treats.setBackgroundColor(Color.parseColor("#f6fad4"));
+                holder.view_treats.setBackgroundColor(Color.parseColor("#f3ff8c"));
+            }
+
         }
         else if (FragmentFlag.getFragmentFlag() == 1) {
             holder.linearLayout_treats.setBackgroundColor(Color.parseColor("#e3a6b1"));

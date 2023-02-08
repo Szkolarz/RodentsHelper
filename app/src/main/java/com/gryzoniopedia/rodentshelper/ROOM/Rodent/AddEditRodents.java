@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -269,7 +270,7 @@ public class AddEditRodents extends AppCompatActivity {
                 ImageCompress imageCompress = new ImageCompress();
                 bitmap = imageCompress.compressChosenImage(getApplicationContext(), selectedImageUri, bitmapTemp);
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("AddEditRodents", Log.getStackTraceString(e));
             }
 
 

@@ -2,6 +2,7 @@ package com.gryzoniopedia.rodentshelper.SQL;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -45,7 +46,7 @@ public class Querries implements ConnectionSQL{
             myres = stat.executeQuery("SELECT * FROM `Version` WHERE id_animal = " + id_animal);
             connectToVPS(context).close();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("checkVersion", Log.getStackTraceString(e));
         }
         return myres;
     }
@@ -58,7 +59,7 @@ public class Querries implements ConnectionSQL{
             myres = stat.executeQuery("SELECT * from `Version`");
             connectToVPS(context).close();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("Select Version", Log.getStackTraceString(e));
         }
         return myres;
     }
@@ -71,7 +72,7 @@ public class Querries implements ConnectionSQL{
             myres = stat.executeQuery("SELECT * FROM `General` WHERE id_animal = " + id_animal);
             connectToVPS(context).close();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("Select General", Log.getStackTraceString(e));
         }
 
         return myres;
@@ -85,7 +86,7 @@ public class Querries implements ConnectionSQL{
             myres = stat.executeQuery("SELECT * FROM `Diseases` WHERE id_animal = " + id_animal);
             connectToVPS(context).close();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("selectDiseases", Log.getStackTraceString(e));
         }
         return myres;
     }
@@ -97,7 +98,7 @@ public class Querries implements ConnectionSQL{
             myres = stat.executeQuery("SELECT * from `Treats` WHERE id_animal = " + id_animal);
             connectToVPS(context).close();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("selectTreats", Log.getStackTraceString(e));
         }
         return myres;
     }
@@ -109,7 +110,7 @@ public class Querries implements ConnectionSQL{
             myres = stat.executeQuery("SELECT * from `CageSupply` WHERE id_animal = " + id_animal);
             connectToVPS(context).close();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("selectCageSupply", Log.getStackTraceString(e));
         }
         return myres;
     }
@@ -125,7 +126,7 @@ public class Querries implements ConnectionSQL{
             preparedStmt.execute();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("deleteBeforeExport", Log.getStackTraceString(e));
         }
     }
 
@@ -141,7 +142,7 @@ public class Querries implements ConnectionSQL{
             preparedStmt.execute();
             connectToVPS(context).close();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("exportLocalDatabase", Log.getStackTraceString(e));
         }
     }
 
@@ -153,7 +154,7 @@ public class Querries implements ConnectionSQL{
             myres = stat.executeQuery("SELECT file from `LocalData` WHERE login = '" + login + "'");
             connectToVPS(context).close();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("importLocalDatabase", Log.getStackTraceString(e));
         }
         return myres;
     }
@@ -169,7 +170,7 @@ public class Querries implements ConnectionSQL{
             preparedStmt.execute();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("setExportDate", Log.getStackTraceString(e));
         }
     }
     public ResultSet getExportDate (String login, Context context) throws SQLException, InterruptedException {
@@ -179,7 +180,7 @@ public class Querries implements ConnectionSQL{
             myres = stat.executeQuery("SELECT export_date from `Accounts` WHERE login = '" + login + "'");
             connectToVPS(context).close();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("getExportDate", Log.getStackTraceString(e));
         }
         return myres;
     }
@@ -191,7 +192,7 @@ public class Querries implements ConnectionSQL{
             myres = stat.executeQuery("SELECT login from `Accounts`");
             connectToVPS(context).close();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("checkLoginAvailability", Log.getStackTraceString(e));
         }
         return myres;
     }
@@ -203,7 +204,7 @@ public class Querries implements ConnectionSQL{
             myres = stat.executeQuery("SELECT login, password from `Accounts`");
             connectToVPS(context).close();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("checkLoginAndPassword", Log.getStackTraceString(e));
         }
         return myres;
     }
@@ -219,7 +220,7 @@ public class Querries implements ConnectionSQL{
             preparedStmt.execute();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("registerNewAccount", Log.getStackTraceString(e));
         }
     }
 }
