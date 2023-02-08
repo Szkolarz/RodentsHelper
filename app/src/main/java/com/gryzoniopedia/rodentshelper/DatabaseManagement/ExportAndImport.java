@@ -130,6 +130,13 @@ public class ExportAndImport {
                 inputStream.close();
                 flag++;
             }
+
+            AppDatabase db = Room.databaseBuilder(context,
+                    AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
+            DAO dao = db.dao();
+            dao.updateCloudAccountImportDateToNull();
+            db.close();
+            
             return true;
         }
     }

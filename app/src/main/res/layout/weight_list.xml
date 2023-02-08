@@ -19,7 +19,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="15dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
@@ -45,7 +45,7 @@
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp"
+                    android:layout_marginStart="2dp"
                     android:layout_marginTop="6dp"
                     android:text="g"
                     android:textColor="#014D70"
@@ -57,7 +57,6 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center|top"
                 android:orientation="horizontal">
 
                 <TextView
@@ -75,52 +74,45 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:gravity="end"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <ImageView
+                        android:id="@+id/buttonEdit_weight"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="20dp"
 
-                        <ImageView
-                            android:id="@+id/buttonEdit_weight"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_edit"
+                        android:src="@drawable/ic_edit"
+                        app:tint="#0375a8" />
+                </LinearLayout>
 
-                            app:tint="#0375a8" />
-                    </LinearLayout>
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/buttonDelete_weight"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:layout_gravity="end"
-                        android:layout_marginEnd="15dp"
-                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
                         android:src="@drawable/ic_bin"
                         app:tint="#DC3E3E" />
-
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
-
-                </LinearLayout>
-
             </LinearLayout>
 
         </LinearLayout>

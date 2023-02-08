@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -66,6 +68,12 @@ public class AddEditVisits extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.visits_item_list);
+
+        ScrollView scrollViewVisits = findViewById(R.id.scrollViewVisits);
+
+        ScrollView.LayoutParams scrollViewLayoutParams = new ScrollView.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        scrollViewVisits.setLayoutParams(scrollViewLayoutParams);
 
         TextView textViewRequired_visit = findViewById(R.id.textViewRequired_visit);
 

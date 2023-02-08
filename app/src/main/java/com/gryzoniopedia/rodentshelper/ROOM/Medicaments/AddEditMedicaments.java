@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,6 +62,12 @@ public class AddEditMedicaments extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medicaments_item_list);
+
+        ScrollView scrollViewMedicaments = findViewById(R.id.scrollViewMedicaments);
+
+        ScrollView.LayoutParams scrollViewLayoutParams = new ScrollView.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        scrollViewMedicaments.setLayoutParams(scrollViewLayoutParams);
 
         ImageButton imageButtonDate_med1, imageButtonDate_med2;
         TextView textViewRequired_med = findViewById(R.id.textViewRequired_med);

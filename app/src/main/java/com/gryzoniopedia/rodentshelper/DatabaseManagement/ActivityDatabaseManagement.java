@@ -153,6 +153,10 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
                                         Toast.makeText(ActivityDatabaseManagement.this, "Pomyślnie zapisano dane do chmury", Toast.LENGTH_SHORT).show();
                                         reloadActivity();
                                     });
+                                    alert.setOnCancelListener(dialog -> {
+                                        Toast.makeText(ActivityDatabaseManagement.this, "Pomyślnie zapisano dane do chmury", Toast.LENGTH_SHORT).show();
+                                        reloadActivity();
+                                    });
                                     alert.show();
                                 });
                             } else {

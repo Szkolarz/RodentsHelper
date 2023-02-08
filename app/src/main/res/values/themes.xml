@@ -8,6 +8,8 @@
         <item name="colorPrimaryVariant">#048FCD</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="android:windowBackground">#ACC5E1</item>
+        <item name="backgroundColor">#0375a8</item>
+
         <!-- Secondary brand color. -->
 
         <!-- Status bar color. -->

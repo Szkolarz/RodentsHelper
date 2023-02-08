@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +57,12 @@ public class AddEditVets extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vets_item_list);
+
+        ScrollView scrollViewVets = findViewById(R.id.scrollViewVets);
+
+        ScrollView.LayoutParams scrollViewLayoutParams = new ScrollView.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        scrollViewVets.setLayoutParams(scrollViewLayoutParams);
 
         TextView textViewRequired_vet = findViewById(R.id.textViewRequired_vet);
 

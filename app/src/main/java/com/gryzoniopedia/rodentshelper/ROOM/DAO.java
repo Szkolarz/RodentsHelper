@@ -29,6 +29,10 @@ public interface DAO {
     @Query("UPDATE CloudAccount SET import_date = :import_date WHERE login = :login")
     void updateCloudAccountImportDate(Date import_date, String login);
 
+    @TypeConverters(Converters.class)
+    @Query("UPDATE CloudAccount SET import_date = null")
+    void updateCloudAccountImportDateToNull();
+
     @Query ("DELETE FROM CloudAccount")
     void DeleteCloudAccount();
 
