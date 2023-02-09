@@ -40,6 +40,7 @@ import com.gryzoniopedia.rodentshelper.ROOM.DAO;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -164,7 +165,17 @@ public class ActivityLogin extends AppCompatActivity {
                                         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                                                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
                                         DAO dao = db.dao();
-                                        dao.insertRecordCloudAccountData(new CloudAccountModel(login, export_date, null));
+
+                                        List<String> loginCheck = dao.getAllCloudAccountLogin();
+                                        boolean doesLoginExist = false;
+                                        for (int i=0; i < loginCheck.size(); i++) {
+                                            if (loginCheck.get(i).equals(login))
+                                                doesLoginExist = true;
+                                            System.out.println("ODLICZANIEEEEE");
+                                        }
+
+                                        if (!doesLoginExist)
+                                            dao.insertRecordCloudAccountData(new CloudAccountModel(login, export_date, null));
                                         db.close();
 
                                         SharedPreferences prefsLoginName = getApplicationContext().getSharedPreferences("prefsLoginName", Context.MODE_PRIVATE);

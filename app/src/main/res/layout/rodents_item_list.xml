@@ -8,6 +8,7 @@
     android:layout_marginTop="28dp"
     android:layout_marginRight="25dp"
     android:layout_marginBottom="5dp"
+    android:animateLayoutChanges="true"
     android:background="@drawable/rounded_rodent_list"
     android:orientation="vertical"
     tools:context="com.gryzoniopedia.rodentshelper.ROOM.Rodent.ViewRodents">
@@ -258,7 +259,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:text="Ewentualne notatki:"
+        android:text="Notatki:"
         android:textColor="#014D70"
         android:textColorHint="#77147A"
         android:textSize="16sp" />

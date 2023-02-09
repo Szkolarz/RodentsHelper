@@ -42,6 +42,7 @@ public class ExportAndImport {
             AppDatabase db = Room.databaseBuilder(context,
                     AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
             DAO dao = db.dao();
+
             dao.updateCloudAccountExportDate(java.sql.Date.valueOf(formattedDate), login);
             db.close();
 
@@ -134,6 +135,7 @@ public class ExportAndImport {
             AppDatabase db = Room.databaseBuilder(context,
                     AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
             DAO dao = db.dao();
+            dao.deleteCloudAccountsExceptOne(login);
             dao.updateCloudAccountImportDateToNull();
             db.close();
             

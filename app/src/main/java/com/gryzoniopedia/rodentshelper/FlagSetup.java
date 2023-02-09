@@ -17,6 +17,9 @@ public class FlagSetup {
     private static Integer flagWeightAdd;
 
 
+    private static Boolean allowBackInEncyclopedia = true;
+
+
     public FlagSetup() {
     }
 
@@ -74,5 +77,14 @@ public class FlagSetup {
 
     public static void setFlagWeightAdd(Integer flagWeightAdd) {
         FlagSetup.flagWeightAdd = flagWeightAdd;
+    }
+
+
+    public static Boolean getAllowBackInEncyclopedia() {
+        return allowBackInEncyclopedia;
+    }
+
+    public static void setAllowBackInEncyclopedia(Boolean allowBackInEncyclopedia) {
+        FlagSetup.allowBackInEncyclopedia = allowBackInEncyclopedia;
     }
 }

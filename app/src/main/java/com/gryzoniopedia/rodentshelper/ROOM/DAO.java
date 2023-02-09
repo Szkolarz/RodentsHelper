@@ -21,6 +21,9 @@ public interface DAO {
     @Query("SELECT * FROM CloudAccount")
     List<CloudAccountModel> getAllCloudAccountData();
 
+    @Query("SELECT login FROM CloudAccount")
+    List<String> getAllCloudAccountLogin();
+
     @TypeConverters(Converters.class)
     @Query("UPDATE CloudAccount SET export_date = :export_date WHERE login = :login")
     void updateCloudAccountExportDate(Date export_date, String login);
@@ -32,6 +35,16 @@ public interface DAO {
     @TypeConverters(Converters.class)
     @Query("UPDATE CloudAccount SET import_date = null")
     void updateCloudAccountImportDateToNull();
+
+    @TypeConverters(Converters.class)
+    @Query("UPDATE CloudAccount SET export_date = null")
+    void updateCloudAccountExportDateToNull();
+
+    @Query("DELETE FROM CloudAccount WHERE login NOT IN ( SELECT login FROM CloudAccount WHERE login = :login)")
+    void deleteCloudAccountsExceptOne(String login);
+
+
+
 
     @Query ("DELETE FROM CloudAccount")
     void DeleteCloudAccount();

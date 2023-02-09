@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,6 +32,7 @@ import com.gryzoniopedia.rodentshelper.Encyclopedia.FragmentFlag;
 import com.gryzoniopedia.rodentshelper.Encyclopedia.InternetCheckEncyclopedia;
 import com.gryzoniopedia.rodentshelper.Encyclopedia.Common.ViewGeneralAndDiseases;
 import com.example.rodentshelper.R;
+import com.gryzoniopedia.rodentshelper.FlagSetup;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.ViewRodents;
 
 import java.sql.SQLException;
@@ -41,7 +41,8 @@ import java.util.concurrent.ExecutionException;
 
 public class ViewEncyclopedia extends AppCompatActivity {
 
-
+    private TextView textViewProgress_encyclopedia3;
+    private TextView textViewProgress_encyclopedia2;
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
@@ -92,6 +93,8 @@ public class ViewEncyclopedia extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encyclopedia);
 
+        FlagSetup.setAllowBackInEncyclopedia(true);
+
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         toolbar.setTitle("Encyklopedia");
         setSupportActionBar(toolbar);
@@ -126,12 +129,17 @@ public class ViewEncyclopedia extends AppCompatActivity {
         textView2_encyclopedia.setTextColor(Color.WHITE);
 
         TextView textViewProgress_encyclopedia;
-        ProgressBar progressBar_encyclopedia;
-        LinearLayout linearLayout_encyclopedia;
+        ProgressBar progressBar_encyclopedia, progressBarHorizontal_encyclopedia;
+        LinearLayout linearLayout_encyclopedia, linearLayoutUpdateCheck;
 
         textViewProgress_encyclopedia = findViewById(R.id.textViewProgress_encyclopedia);
+        textViewProgress_encyclopedia3 = findViewById(R.id.textViewProgress_encyclopedia3);
+        textViewProgress_encyclopedia2 = findViewById(R.id.textViewProgress_encyclopedia2);
         progressBar_encyclopedia = findViewById(R.id.progressBar_encyclopedia);
+        progressBarHorizontal_encyclopedia = findViewById(R.id.progressBarHorizontal_encyclopedia);
+
         linearLayout_encyclopedia = findViewById(R.id.linearLayout_encyclopedia);
+        linearLayoutUpdateCheck = findViewById(R.id.linearLayoutUpdateCheck);
 
 
 
@@ -147,20 +155,22 @@ public class ViewEncyclopedia extends AppCompatActivity {
         SharedPreferences prefsAutoUpdate = viewEncyclopedia.getSharedPreferences("prefsAutoUpdate", Context.MODE_PRIVATE);
         boolean isAutoUpdateOn = prefsAutoUpdate.getBoolean("prefsAutoUpdate", true);
 
-        final ProgressDialog progress = new ProgressDialog(this);
-        if (!prefsFirstDownload.getBoolean("firstDownload", true) && isAutoUpdateOn) {
-            progress.setTitle("Sprawdzanie aktualizacji...");
-            progress.setMessage("Proszę czekać...");
 
-            if (internetCheckEncyclopedia.isNetworkConnected(ViewEncyclopedia.this))
-                progress.show();
+        if (!prefsFirstDownload.getBoolean("firstDownload", true) && isAutoUpdateOn) {
+
+            if (internetCheckEncyclopedia.isNetworkConnected(ViewEncyclopedia.this)) {
+                linearLayoutUpdateCheck.setVisibility(View.VISIBLE);
+                progressBarHorizontal_encyclopedia.setIndeterminate(true);
+            }
+
         }
 
 
             Thread thread = new Thread(() -> runOnUiThread(() -> {
                 try {
                     internetCheckEncyclopedia.checkInternet(viewEncyclopedia, linearLayout_encyclopedia,
-                            progressBar_encyclopedia, textViewProgress_encyclopedia, progress);
+                            progressBar_encyclopedia, textViewProgress_encyclopedia, textViewProgress_encyclopedia2,
+                            textViewProgress_encyclopedia3, linearLayoutUpdateCheck);
                 } catch (SQLException | ExecutionException | InterruptedException e) {
                     Log.e("ViewEncyclopedia", Log.getStackTraceString(e));
                 }
@@ -211,15 +221,15 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+    public void onBackPressed() {
+        if (FlagSetup.getAllowBackInEncyclopedia()) {
             Intent intent = new Intent(ViewEncyclopedia.this, ViewRodents.class);
             startActivity(intent);
             finish();
+        } else {
+            textViewProgress_encyclopedia3.setVisibility(View.VISIBLE);
         }
-        return super.onKeyDown(keyCode, event);
     }
-
 
 
 }

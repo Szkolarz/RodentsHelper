@@ -86,12 +86,12 @@ public class ViewOther extends AppCompatActivity {
 
 
         Thread threadActivity = new Thread(() -> {
-            Thread threadProgressBar = new Thread(() -> runOnUiThread(() -> {
+            Thread threadProgressBar = new Thread(() -> {
                 Intent intent = new Intent(this, ActivityProgressBar.class);
                 intent.putExtra("content", "Ładowanie mapy...");
                 startActivityForResult(intent, 1);
                 flagForProgressDialog = true;
-            }));
+            });
             threadProgressBar.start();
         }); threadActivity.start();
 
