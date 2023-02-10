@@ -8,6 +8,8 @@ import android.os.StrictMode;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +30,8 @@ import java.util.Objects;
 
 public class ViewOther extends AppCompatActivity {
 
+    private LinearLayout linearLayoutLoadingMapProgress;
+    private ProgressBar progressBarMapLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,8 @@ public class ViewOther extends AppCompatActivity {
 
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
+        linearLayoutLoadingMapProgress = findViewById(R.id.linearLayoutLoadingMapProgress);
+        progressBarMapLoading = findViewById(R.id.progressBarMapLoading);
 
         imageButton1_rodent = findViewById(R.id.imageButton1_rodent);
         imageButton2_encyclopedia = findViewById(R.id.imageButton2_encyclopedia);
@@ -73,52 +79,40 @@ public class ViewOther extends AppCompatActivity {
         imageButtonOther_map = findViewById(R.id.imageButtonOther_map);
         imageButtonOther_notifications = findViewById(R.id.imageButtonOther_notifications);
 
-        imageButtonOther_map.setOnClickListener(view -> viewMap());
+        imageButtonOther_map.setOnClickListener(view -> viewMap(linearLayoutLoadingMapProgress, progressBarMapLoading));
         imageButtonOther_notifications.setOnClickListener(view -> viewNotifications());
     }
 
 
-    private boolean flagForProgressDialog = false;
+    private void viewMap(LinearLayout linearLayoutLoadingMapProgress, ProgressBar progressBarMapLoading) {
 
-    private void viewMap() {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        runOnUiThread(() -> {
+            linearLayoutLoadingMapProgress.setVisibility(View.VISIBLE);
+            progressBarMapLoading.setIndeterminate(true);
+        });
 
+        Thread threadActivity = new Thread(() -> runOnUiThread(() -> {
+            Intent intent = new Intent(this, GoogleMaps.class);
+            startActivity(intent);
 
-        Thread threadActivity = new Thread(() -> {
-            Thread threadProgressBar = new Thread(() -> {
-                Intent intent = new Intent(this, ActivityProgressBar.class);
-                intent.putExtra("content", "Ładowanie mapy...");
-                startActivityForResult(intent, 1);
-                flagForProgressDialog = true;
-            });
-            threadProgressBar.start();
-        }); threadActivity.start();
-
-
-        Thread thread = new Thread(() -> runOnUiThread(() -> {
-            StrictMode.setThreadPolicy(policy);
-            GoogleMaps googleMaps = new GoogleMaps();
-            googleMaps.closeProgressDialog(ViewOther.this);
-        }));
-        thread.start();
+        })); threadActivity.start();
     }
+
 
     @Override
     public void onStop() {
         super.onStop();
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        if (flagForProgressDialog)
-            finishActivity(1);
+
+        linearLayoutLoadingMapProgress.setVisibility(View.GONE);
+        progressBarMapLoading.setIndeterminate(false);
     }
+
 
     private void viewNotifications()
     {
         Intent intent = new Intent(ViewOther.this, NotificationsActivity.class);
         startActivity(intent);
     }
-
 
 
     @Override
@@ -130,6 +124,4 @@ public class ViewOther extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
 }

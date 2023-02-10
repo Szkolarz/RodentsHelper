@@ -7,6 +7,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.MapsInitializer;
 import com.gryzoniopedia.rodentshelper.AsyncActivity;
 import com.gryzoniopedia.rodentshelper.Notifications.UpdateNotification;
 import com.example.rodentshelper.R;
@@ -29,7 +30,8 @@ public class SplashScreen extends AppCompatActivity {
 
         AsyncActivity internetAsyncCheck = new AsyncActivity();
         internetAsyncCheck.execute();
-
+        MapsInitializer.initialize(this);
+        
         Handler handler = new Handler();
         handler.postDelayed(() -> {
 

@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -113,10 +114,6 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
     }
 
 
-    public void closeProgressDialog(ViewOther viewOther) {
-        Intent intent = new Intent(viewOther, GoogleMaps.class);
-        viewOther.startActivity(intent);
-    }
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
@@ -161,8 +158,7 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vet_map);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        finishActivity(1);
 
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         toolbar.setTitle("Mapa weterynarzy");
@@ -197,17 +193,15 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
 
         buttonLoadMap_map.setOnClickListener(view -> {
             runOnUiThread(() -> {
-                StrictMode.setThreadPolicy(policy);
                 buttonLoadMap_map.setVisibility(View.GONE);
                 linearLayoutMap_map.setVisibility(View.VISIBLE);
                 SharedPreferences.Editor prefsEditorLoadMap = prefsLoadMap.edit();
                 prefsEditorLoadMap.putBoolean("prefsLoadMap", true);
                 prefsEditorLoadMap.apply();
-                MapsInitializer.initialize(this);
+
                 loadMapToActivity();
             });
         });
-
 
 
 
@@ -226,27 +220,24 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
     private void loadMapToActivity () {
 
         Thread threadPrepare = new Thread(() -> runOnUiThread(() -> new Handler().postDelayed(() -> {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
+
             Thread thread = new Thread(() -> {
 
                 SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.vetMap);
 
                 runOnUiThread(() -> {
-                    StrictMode.setThreadPolicy(policy);
+
                     assert mapFragment != null;
                     mapFragment.getMapAsync(googleMap -> {
                         map = googleMap;
                         map.setOnMapClickListener(position -> linearLayoutData_map.setVisibility(View.GONE));
 
                         Thread thread1 = new Thread(() -> {
-                            StrictMode.setThreadPolicy(policy);
                             getLocationPermission();
                             getDeviceLocation();
 
                             runOnUiThread(() -> {
-                                StrictMode.setThreadPolicy(policy);
                                 updateLocationUI();
                                 loadMarkers();
                             });
@@ -262,7 +253,7 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
 
             thread.start();
 
-        }, 500)));
+        }, 0)));
         threadPrepare.start();
 
         // Construct a FusedLocationProviderClient.
@@ -325,7 +316,7 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady (@NonNull GoogleMap googleMap){
-
+        finishActivity(1);
     }
 
 

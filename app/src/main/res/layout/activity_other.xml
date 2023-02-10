@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1"
-    android:orientation="vertical"
+    android:animateLayoutChanges="false"
     android:background="#ACC5E1"
+    android:orientation="vertical"
     tools:context="com.gryzoniopedia.rodentshelper.MainViews.ViewOther">
 
 
@@ -19,8 +20,7 @@
 
         <include
             android:id="@+id/app_bar"
-            layout="@layout/app_bar_global">
-        </include>
+            layout="@layout/app_bar_global"></include>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,6 +39,43 @@
                     android:orientation="vertical"
                     tools:context="com.gryzoniopedia.rodentshelper.ROOM.Medicaments.ViewMedicaments">
 
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutLoadingMapProgress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ProgressBar
+                            android:id="@+id/progressBarMapLoading"
+                            style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="30dp"
+                            android:clickable="true"
+                            android:indeterminateTint="#0375a8"
+                            android:visibility="visible">
+
+                        </ProgressBar>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:text="Wczytywanie mapy..."
+                            android:textAlignment="center"
+                            android:textColor="#014D70"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
