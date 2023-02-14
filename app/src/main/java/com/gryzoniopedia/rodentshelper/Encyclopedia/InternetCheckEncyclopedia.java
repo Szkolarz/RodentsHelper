@@ -81,8 +81,8 @@ public class InternetCheckEncyclopedia {
 
                                         alert.setTitle("Aktualizacja danych dostępna!");
                                         alert.setMessage("W internetowej bazie danych pojawiła się aktualizacja. " +
-                                                "Oznacza to poprawki w formie informacji naniesionych na sekcję 'Encyklopedia'.\n\n" +
-                                                "Czy chcesz pobrać teraz aktualizację bazy danych do aplikacji?");
+                                                "Oznacza to poprawki lub nowe informacje w sekcji 'Encyklopedia'.\n\n" +
+                                                "Czy chcesz pobrać teraz aktualizację encyklopedii?");
 
                                         alert.setPositiveButton("Tak", (dialogInterface, i) -> {
 

@@ -142,17 +142,10 @@ public class ViewEncyclopedia extends AppCompatActivity {
         linearLayoutUpdateCheck = findViewById(R.id.linearLayoutUpdateCheck);
 
 
-
-
-
-
-        ViewEncyclopedia viewEncyclopedia;
-        viewEncyclopedia = ViewEncyclopedia.this;
-
         InternetCheckEncyclopedia internetCheckEncyclopedia = new InternetCheckEncyclopedia();
 
-        SharedPreferences prefsFirstDownload = viewEncyclopedia.getSharedPreferences("prefsFirstDownload", Context.MODE_PRIVATE);
-        SharedPreferences prefsAutoUpdate = viewEncyclopedia.getSharedPreferences("prefsAutoUpdate", Context.MODE_PRIVATE);
+        SharedPreferences prefsFirstDownload = ViewEncyclopedia.this.getSharedPreferences("prefsFirstDownload", Context.MODE_PRIVATE);
+        SharedPreferences prefsAutoUpdate = ViewEncyclopedia.this.getSharedPreferences("prefsAutoUpdate", Context.MODE_PRIVATE);
         boolean isAutoUpdateOn = prefsAutoUpdate.getBoolean("prefsAutoUpdate", true);
 
 
@@ -168,7 +161,7 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
             Thread thread = new Thread(() -> runOnUiThread(() -> {
                 try {
-                    internetCheckEncyclopedia.checkInternet(viewEncyclopedia, linearLayout_encyclopedia,
+                    internetCheckEncyclopedia.checkInternet(ViewEncyclopedia.this, linearLayout_encyclopedia,
                             progressBar_encyclopedia, textViewProgress_encyclopedia, textViewProgress_encyclopedia2,
                             textViewProgress_encyclopedia3, linearLayoutUpdateCheck);
                 } catch (SQLException | ExecutionException | InterruptedException e) {
@@ -184,9 +177,15 @@ public class ViewEncyclopedia extends AppCompatActivity {
             viewGeneral();
         });
 
-        imageButtonFood.setOnClickListener(view -> viewTreats());
+        imageButtonFood.setOnClickListener(view -> {
+            FragmentFlag.setEncyclopediaTypeFlag(2);
+            viewTreats();
+        });
 
-        imageButtonSupply.setOnClickListener(view -> viewCageSupply());
+        imageButtonSupply.setOnClickListener(view -> {
+            FragmentFlag.setEncyclopediaTypeFlag(3);
+            viewCageSupply();
+        });
 
         imageButtonDisease.setOnClickListener(view -> {
             FragmentFlag.setEncyclopediaTypeFlag(4);
@@ -206,14 +205,12 @@ public class ViewEncyclopedia extends AppCompatActivity {
 
     public void viewTreats()
     {
-        FragmentFlag.setEncyclopediaTypeFlag(2);
         Intent intent = new Intent(ViewEncyclopedia.this, ViewCagesupplyAndTreats.class);
         startActivity(intent);
     }
 
     public void viewCageSupply()
     {
-        FragmentFlag.setEncyclopediaTypeFlag(3);
         Intent intent = new Intent(ViewEncyclopedia.this, ViewCagesupplyAndTreats.class);
         startActivity(intent);
     }

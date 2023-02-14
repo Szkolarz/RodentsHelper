@@ -126,12 +126,12 @@ public class ViewRodents extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        getRoomData(ViewRodents.this);
+        getRoomData();
 
 
         TextView textViewEmpty_rodent = findViewById(R.id.textViewEmptyGlobal);
 
-        if (getListRodent(ViewRodents.this).isEmpty()) {
+        if (getListRodent().isEmpty()) {
             textViewEmpty_rodent.setVisibility(View.VISIBLE);
             textViewEmpty_rodent.setText("Nie ma żadnych pozycji w bazie danych. Aby dodać nowego pupila, kliknij przycisk z plusikiem na górze ekranu.");
         }
@@ -180,8 +180,8 @@ public class ViewRodents extends AppCompatActivity {
         finish();
     }
 
-    public List getListRodent(ViewRodents viewRodents){
-        SharedPreferences prefsFirstStart = viewRodents.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
+    public List getListRodent(){
+        SharedPreferences prefsFirstStart = ViewRodents.this.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
 
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
@@ -194,12 +194,12 @@ public class ViewRodents extends AppCompatActivity {
     }
 
 
-    private void getRoomData(ViewRodents viewRodents)
+    private void getRoomData()
     {
         recyclerView = findViewById(R.id.recyclerViewGlobal);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        AdapterRodents adapter = new AdapterRodents(getListRodent(viewRodents));
+        AdapterRodents adapter = new AdapterRodents(getListRodent());
 
         recyclerView.setAdapter(adapter);
     }
@@ -214,9 +214,9 @@ public class ViewRodents extends AppCompatActivity {
 
         Alerts alert = new Alerts();
 
-        alert.simpleInfo("Witaj w aplikacji!", "Aby rozszerzyć możliwości aplikacji, " +
-                "możesz zacząć od dodania nowego zwierzęcia na tym ekranie.\n\n" +
-                "Nie jest to jednak wymagane; za pomocą przycisków u dołu ekranu możesz przenieść " +
+        alert.simpleInfo("Witaj w aplikacji!", "Aby zacząć, możesz dodać zwierzę na tym ekranie, by " +
+                "od razu rozszerzyć możliwości aplikacji.\n\n" +
+                "Nie jest to jednak wymagane; za pomocą przycisków u dołu ekranu możesz również przenieść " +
                 "się do pozostałych modułów, zawartych w aplikacji.", ViewRodents.this);
     }
 }

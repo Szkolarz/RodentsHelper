@@ -94,7 +94,10 @@ public class AddEditRodents extends AppCompatActivity {
         textViewDate = findViewById(R.id.textViewDate);
         textViewDate_hidden = findViewById(R.id.textViewDate_hidden);
 
-        if (FlagSetup.getFlagRodentAdd() == 1) {
+        boolean isEdit = getIntent().getBooleanExtra("flagKey", false);
+
+        //FlagSetup.getFlagRodentAdd() == 1 = dodawanie
+        if (!isEdit) {
             toolbar.setTitle("Dodawanie zwierzęcia");
             buttonAdd_rodent.setVisibility(View.VISIBLE);
             buttonSaveEdit_rodent.setVisibility(View.GONE);
@@ -108,7 +111,6 @@ public class AddEditRodents extends AppCompatActivity {
 
 
         imageView_rodent.setOnClickListener(view -> {
-            // Intent intent = new Intent (Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             Intent intent = new Intent (Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
 
@@ -117,10 +119,10 @@ public class AddEditRodents extends AppCompatActivity {
         });
 
         textViewDeleteImage_rodent.setOnClickListener(view -> {
-            imageView_rodent.setImageDrawable(getDrawable(R.drawable.ic_chinchilla));
+            daoRodents.setImageNullById(Integer.parseInt(getIntent().getStringExtra("idKey")));
+            imageView_rodent.setImageDrawable(getDrawable(R.drawable.no_photo));
             byteArray = null;
             textViewDeleteImage_rodent.setVisibility(View.GONE);
-
         });
 
 
@@ -148,10 +150,7 @@ public class AddEditRodents extends AppCompatActivity {
             alert.setPositiveButton("Tak", (dialogInterface, i) -> {
                 Toast.makeText(getApplicationContext(), "Pomyślnie usunięto", Toast.LENGTH_SHORT).show();
 
-
-
                 Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
-
                 //rodentDao.DeleteAllRodentsVetsByRodent(idKey);
                 daoRodents.deleteRodentById(idKey);
 
@@ -169,7 +168,7 @@ public class AddEditRodents extends AppCompatActivity {
 
         buttonAdd_rodent.setOnClickListener(view -> saveRodent());
 
-        if (FlagSetup.getFlagRodentAdd() == 0) {
+        if (getIntent().getBooleanExtra("flagKey", false)) {
 
             Integer idKey = Integer.parseInt(getIntent().getStringExtra("idKey"));
             Integer id_animalKey = Integer.parseInt(getIntent().getStringExtra("id_animalKey"));
@@ -185,10 +184,7 @@ public class AddEditRodents extends AppCompatActivity {
             if (genderKey.equals("Samica"))
                 radioButtonGender2.setChecked(true);
 
-
-
             byte[] byteImage = daoRodents.getImageById(idKey);
-
 
             editTextName.setText(nameKey);
             textViewDate.setText(birthKey);
@@ -200,25 +196,21 @@ public class AddEditRodents extends AppCompatActivity {
 
             checkImage();
 
-            Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            imageView_rodent.setImageBitmap(bitmap);
-
-
+            if (byteArray != null) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                imageView_rodent.setImageBitmap(bitmap);
+            } else {
+                imageView_rodent.setImageDrawable(getDrawable(R.drawable.no_photo));
+            }
             buttonSaveEdit_rodent.setOnClickListener(view -> onClickSaveEdit(daoRodents, idKey, id_animalKey, nameKey));
         }
 
 
-        /*buttonEdit_rodent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), ViewRodents.class));
-            }
-        });*/
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().show();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().show();
         toolbar.setNavigationOnClickListener(v -> {
             Intent intent = new Intent(AddEditRodents.this, ViewRodents.class);
             startActivity(intent);
@@ -272,7 +264,6 @@ public class AddEditRodents extends AppCompatActivity {
             } catch (IOException e) {
                 Log.e("AddEditRodents", Log.getStackTraceString(e));
             }
-
 
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -371,7 +362,6 @@ public class AddEditRodents extends AppCompatActivity {
             stringGender = radioButton.getText().toString();
 
 
-
         if (stringName.length() <= 0 || stringDate == null) {
             textViewRequired_rodent1.setVisibility(View.VISIBLE);
             textViewRequired_rodent2.setVisibility(View.VISIBLE);
@@ -387,17 +377,13 @@ public class AddEditRodents extends AppCompatActivity {
                     "z tym samym imieniem, możesz je lekko zmienić, np. '" + stringName.trim() + " (szczur)', albo " +
                     "'" + stringName.trim() + " 2'.", this);
         } else {
+            SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
             if (byteArray == null) {
-                Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                        R.drawable.ic_chinchilla);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byteArray = stream.toByteArray();
+                daoRodents.insertRecordRodent(new RodentModel(prefsFirstStart.getInt("prefsFirstStart", 0), stringName.trim(), stringGender, Date.valueOf(stringDate), stringFur, stringNotes, null));
+            } else {
+                daoRodents.insertRecordRodent(new RodentModel(prefsFirstStart.getInt("prefsFirstStart", 0), stringName.trim(), stringGender, Date.valueOf(stringDate), stringFur, stringNotes, byteArray));
             }
 
-            SharedPreferences prefsFirstStart = getApplicationContext().getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
-
-            daoRodents.insertRecordRodent(new RodentModel(prefsFirstStart.getInt("prefsFirstStart", 0), stringName.trim(), stringGender, Date.valueOf(stringDate), stringFur, stringNotes, byteArray));
 
             Toast.makeText(getApplicationContext(), "Pomyślnie dodano", Toast.LENGTH_SHORT).show();
             viewRodents();
@@ -435,14 +421,6 @@ public class AddEditRodents extends AppCompatActivity {
 
 
             dateFormat = textViewDate_hidden.getText().toString();
-
-            if (byteArray == null) {
-                Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                        R.drawable.ic_chinchilla);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byteArray = stream.toByteArray();
-            }
 
             daoRodents.updateRodentById(idKey, id_animalKey, editTextName.getText().toString().trim(),
                     stringGender, Date.valueOf(dateFormat),

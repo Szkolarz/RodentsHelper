@@ -48,13 +48,13 @@ public class FirstStart extends AppCompatActivity {
 
         imageButtonRat.setOnClickListener(view -> {
 
-            /*SharedPreferences.Editor spEitorFirstStart = spFirstStart.edit();
+            SharedPreferences.Editor spEitorFirstStart = spFirstStart.edit();
             spEitorFirstStart.putInt("prefsFirstStart", 2);
             spEitorFirstStart.apply();
 
             Intent intent = new Intent(FirstStart.this, ViewRodents.class);
             startActivity(intent);
-            finish();*/
+            finish();
 
         });
 

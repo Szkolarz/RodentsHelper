@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gryzoniopedia.rodentshelper.MainViews.ViewPetHealth;
@@ -62,8 +63,12 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
         }
 
 
-        Bitmap bitmap = BitmapFactory.decodeByteArray(rodentModel.get(position).getImage(), 0, rodentModel.get(position).getImage().length);
-        holder.imageViewList_rodent.setImageBitmap(bitmap);
+        if (rodentModel.get(position).getImage() == null) {
+            holder.cardView_rodent.setVisibility(View.GONE);
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(rodentModel.get(position).getImage(), 0, rodentModel.get(position).getImage().length);
+            holder.imageViewList_rodent.setImageBitmap(bitmap);
+        }
 
         holder.textViewName.setText(rodentModel.get(position).getName());
         holder.textViewGender.setText(rodentModel.get(position).getGender());
@@ -88,6 +93,7 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
             intent.putExtra("birthKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getBirth()));
             intent.putExtra("furKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getFur()));
             intent.putExtra("notesKey",String.valueOf(rodentModel.get(holder.getAdapterPosition()).getNotes()));
+            intent.putExtra("flagKey",Boolean.valueOf(true));
 
             //0 = edit
             FlagSetup.setFlagRodentAdd(0);
@@ -123,6 +129,7 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
            Button buttonListDelete;
            ImageButton buttonRodentsPetHealth;
            ImageView buttonEdit_rodent, imageViewList_rodent, imageViewMale_rodent, imageViewFemale_rodent;
+           CardView cardView_rodent;
 
            public viewHolder(@NonNull @NotNull View itemView) {
                super(itemView);
@@ -136,6 +143,7 @@ public class AdapterRodents extends RecyclerView.Adapter<AdapterRodents.viewHold
                textViewFur = itemView.findViewById(R.id.textViewFur_rodent);
                textViewNotes = itemView.findViewById(R.id.textViewNotes_rodent);
                imageViewList_rodent = itemView.findViewById(R.id.imageViewList_rodent);
+               cardView_rodent = itemView.findViewById(R.id.cardView_rodent);
 
                buttonListDelete = itemView.findViewById(R.id.buttonDelete_rodent);
                buttonEdit_rodent = itemView.findViewById(R.id.buttonEdit_rodent);

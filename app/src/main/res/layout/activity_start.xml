@@ -71,7 +71,7 @@
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:contentDescription="Domestic rat"
-                app:srcCompat="@drawable/rodent_icon2_not" />
+                app:srcCompat="@drawable/rodent_icon2" />
         </androidx.cardview.widget.CardView>
 
         <View
@@ -129,8 +129,8 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:contentDescription="Coming soon..."
-                android:visibility="gone"
-                app:srcCompat="@drawable/rodent_icon_unknown" />
+                android:visibility="visible"
+                app:srcCompat="@drawable/coming_soon" />
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
