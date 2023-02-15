@@ -3,6 +3,7 @@ package com.gryzoniopedia.rodentshelper.ROOM;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.TypeConverters;
 
 import com.gryzoniopedia.rodentshelper.Encyclopedia.CageSupply.CageSupplyModel;
 import com.gryzoniopedia.rodentshelper.Encyclopedia.Diseases.DiseasesModel;
@@ -10,6 +11,7 @@ import com.gryzoniopedia.rodentshelper.Encyclopedia.General.GeneralModel;
 import com.gryzoniopedia.rodentshelper.Encyclopedia.Treats.TreatsModel;
 import com.gryzoniopedia.rodentshelper.Encyclopedia.Version.VersionModel;
 
+import java.sql.Date;
 import java.util.List;
 
 @Dao
@@ -43,6 +45,10 @@ public interface DAOEncyclopedia {
 
     @Insert
     void insertRecordTreats(TreatsModel Treats);
+
+    @Query("UPDATE Version SET code = :code WHERE id_animal = :id_animal")
+    void updateCodeById(String code, Integer id_animal);
+
 
     @Query("SELECT * FROM Treats WHERE id_animal = :id_animal AND is_healthy = 1 " +
             "EXCEPT SELECT * FROM Treats WHERE name = 'Info' ORDER BY id ASC")

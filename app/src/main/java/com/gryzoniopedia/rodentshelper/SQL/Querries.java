@@ -64,6 +64,18 @@ public class Querries implements ConnectionSQL{
         return myres;
     }
 
+    public ResultSet selectVersionById(Integer id_animal, Context context) throws SQLException {
+        ResultSet myres = null;
+        try {
+            Statement stat = connectToVPS(context).createStatement();
+            myres = stat.executeQuery("SELECT * from `Version` WHERE id_animal = " + id_animal);
+            connectToVPS(context).close();
+        } catch (NullPointerException e) {
+            Log.e("Select Version Where ID ", Log.getStackTraceString(e));
+        }
+        return myres;
+    }
+
 
     public ResultSet selectGeneral(Integer id_animal, Context context) throws SQLException {
         ResultSet myres = null;

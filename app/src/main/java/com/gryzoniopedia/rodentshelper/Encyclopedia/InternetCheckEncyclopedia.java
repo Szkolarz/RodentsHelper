@@ -43,13 +43,18 @@ public class InternetCheckEncyclopedia {
         AlertDialog.Builder alert = new AlertDialog.Builder(viewEncyclopedia, R.style.AlertDialogStyleUpdate);
 
         SharedPreferences prefsFirstDownload = viewEncyclopedia.getSharedPreferences("prefsFirstDownload", Context.MODE_PRIVATE);
-        boolean firstDownload = prefsFirstDownload.getBoolean("firstDownload", true);
+        boolean firstDownload;
 
         VersionCodeCheck versionCodeCheck = new VersionCodeCheck();
 
         if (versionCodeCheck.getTestCountRecords(viewEncyclopedia) <= 0) {
             SharedPreferences.Editor editorFirstDownload = prefsFirstDownload.edit();
             editorFirstDownload.putBoolean("firstDownload", true);
+            editorFirstDownload.apply();
+            firstDownload = prefsFirstDownload.getBoolean("firstDownload", true);
+        } else {
+            SharedPreferences.Editor editorFirstDownload = prefsFirstDownload.edit();
+            editorFirstDownload.putBoolean("firstDownload", false);
             editorFirstDownload.apply();
             firstDownload = prefsFirstDownload.getBoolean("firstDownload", true);
         }
@@ -78,41 +83,43 @@ public class InternetCheckEncyclopedia {
                                     viewEncyclopedia.runOnUiThread(() -> linearLayoutUpdateCheck.setVisibility(View.GONE));
 
                                     viewEncyclopedia.runOnUiThread(() -> {
+                                        try {
+                                            alert.setTitle("Aktualizacja danych dostępna!");
+                                            alert.setMessage("W internetowej bazie danych pojawiła się aktualizacja. " +
+                                                    "Oznacza to poprawki lub nowe informacje w sekcji 'Encyklopedia'.\n\n" +
+                                                    "Czy chcesz pobrać teraz aktualizację encyklopedii?");
 
-                                        alert.setTitle("Aktualizacja danych dostępna!");
-                                        alert.setMessage("W internetowej bazie danych pojawiła się aktualizacja. " +
-                                                "Oznacza to poprawki lub nowe informacje w sekcji 'Encyklopedia'.\n\n" +
-                                                "Czy chcesz pobrać teraz aktualizację encyklopedii?");
+                                            alert.setPositiveButton("Tak", (dialogInterface, i) -> {
 
-                                        alert.setPositiveButton("Tak", (dialogInterface, i) -> {
+                                                showDownload(textViewProgress_encyclopedia, textViewProgress_encyclopedia2, progressBar_encyclopedia, linearLayout_encyclopedia, viewEncyclopedia);
 
-                                            showDownload(textViewProgress_encyclopedia, textViewProgress_encyclopedia2, progressBar_encyclopedia, linearLayout_encyclopedia, viewEncyclopedia);
+                                                Thread thread1 = new Thread(() -> {
 
-                                            Thread thread1 = new Thread(() -> {
+                                                    StrictMode.ThreadPolicy policy1 = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
+                                                    StrictMode.setThreadPolicy(policy1);
+                                                    try {
+                                                        versionCodeCheck.makeAnUpdate(viewEncyclopedia, dbQuerries, prefsFirstDownload);
+                                                    } catch (ExecutionException |
+                                                             InterruptedException e) {
+                                                        Log.e("95 internetCheck", Log.getStackTraceString(e));
+                                                    }
 
-                                                StrictMode.ThreadPolicy policy1 = new StrictMode.ThreadPolicy.Builder().penaltyDeath().permitAll().build();
-                                                StrictMode.setThreadPolicy(policy1);
-                                                try {
-                                                    versionCodeCheck.makeAnUpdate(viewEncyclopedia, dbQuerries, prefsFirstDownload);
-                                                } catch (ExecutionException |
-                                                         InterruptedException e) {
-                                                    Log.e("95 internetCheck", Log.getStackTraceString(e));
-                                                }
+                                                    viewEncyclopedia.runOnUiThread(() -> hideDownload(textViewProgress_encyclopedia, textViewProgress_encyclopedia2, textViewProgress_encyclopedia3,
+                                                            progressBar_encyclopedia, linearLayout_encyclopedia, viewEncyclopedia));
+                                                });
 
-                                                viewEncyclopedia.runOnUiThread(() -> hideDownload(textViewProgress_encyclopedia, textViewProgress_encyclopedia2, textViewProgress_encyclopedia3,
-                                                        progressBar_encyclopedia, linearLayout_encyclopedia, viewEncyclopedia));
-
+                                                thread1.start();
 
                                             });
 
-                                            thread1.start();
+                                            alert.setNegativeButton("Nie", (dialogInterface, i) ->
+                                                    Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show());
 
-                                        });
+                                            alert.create().show();
+                                        } catch (WindowManager.BadTokenException e) {
+                                            Log.e("BadTokenException_InternetCheckEncyclopedia ", Log.getStackTraceString(e));
+                                        }
 
-                                        alert.setNegativeButton("Nie", (dialogInterface, i) ->
-                                                Toast.makeText(viewEncyclopedia, "Spróbuj ponownie później", Toast.LENGTH_SHORT).show());
-
-                                        alert.create().show();
 
                                     });
 
@@ -156,7 +163,6 @@ public class InternetCheckEncyclopedia {
             alert.setMessage("Encyklopedia jest modułem, który musi zostać pobrany z internetu. " +
                     "Proces jest jednorazowy, raz pobrana baza danych może być później odczytywana bez internetu.\n\n" +
                     "Czy chcesz pobrać teraz zawartość bazy danych do aplikacji?");
-
 
 
             alert.setPositiveButton("Tak", (dialogInterface, i) -> {
@@ -217,7 +223,6 @@ public class InternetCheckEncyclopedia {
 
             alert.create().show();
         }
-
 
     }
 

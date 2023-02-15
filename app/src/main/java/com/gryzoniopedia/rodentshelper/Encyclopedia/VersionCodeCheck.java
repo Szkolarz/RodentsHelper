@@ -103,7 +103,7 @@ public class VersionCodeCheck {
                 String sharedPreferencesDBVersion = prefsDB.getString("dbversion", "0");
 
                 if (!sharedPreferencesDBVersion.equals(DBversion)) {
-                    readDataFromVPS(context, dbQuerries, prefsFirstStart);
+                    readDataFromVPS(context, dbQuerries, prefsFirstStart, prefsFirstDownload);
                     SharedPreferences.Editor editorFirstDownload = prefsFirstDownload.edit();
                     editorFirstDownload.putBoolean("firstDownload", false);
                     editorFirstDownload.apply();
@@ -144,15 +144,20 @@ public class VersionCodeCheck {
     }
 
 
-    public void readDataFromVPS (Context context, Querries dbQuerries, SharedPreferences prefsFirstStart) {
+    public void readDataFromVPS (Context context, Querries dbQuerries, SharedPreferences prefsFirstStart,
+                                 SharedPreferences prefsFirstDownload) {
         try {
             Integer idAnimal = prefsFirstStart.getInt("prefsFirstStart", 0);
+            Boolean firstDownload = prefsFirstDownload.getBoolean("firstDownload", false);
 
             ResultSet resultSetGeneral = dbQuerries.selectGeneral(idAnimal, context);
             ResultSet resultSetTreats = dbQuerries.selectTreats(idAnimal, context);
             ResultSet resultSetCageSupply = dbQuerries.selectCageSupply(idAnimal, context);
             ResultSet resultSetDiseases = dbQuerries.selectDiseases(idAnimal, context);
-            ResultSet resultSetVersion = dbQuerries.selectVersion(context);
+            ResultSet resultSetVersion = null;
+            ResultSet resultSetVersionById = null;
+
+
 
             AppDatabase db = Room.databaseBuilder(context,
                     AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
@@ -162,13 +167,26 @@ public class VersionCodeCheck {
             daoEncyclopedia.deleteTreats(idAnimal);
             daoEncyclopedia.deleteCageSupply(idAnimal);
             daoEncyclopedia.deleteDiseases(idAnimal);
-            daoEncyclopedia.deleteVersion();
+
+            //daoEncyclopedia.deleteVersion();
+
+            String codeNumberById = daoEncyclopedia.getVersionCode(idAnimal);
+            Integer count = daoEncyclopedia.getTreatsCountTest(prefsFirstStart.getInt("prefsFirstStart", 0));
 
 
-            while (resultSetVersion.next()) {
-                /* Version */
-                daoEncyclopedia.insertRecordVersion(new VersionModel(
-                        resultSetVersion.getInt("id_animal"), resultSetVersion.getString("code")));
+            if (count <=0 && firstDownload && codeNumberById == null) {
+                resultSetVersion = dbQuerries.selectVersion(context);
+                while (resultSetVersion.next()) {
+                    /* Version */
+                    daoEncyclopedia.insertRecordVersion(new VersionModel(
+                            resultSetVersion.getInt("id_animal"), resultSetVersion.getString("code")));
+                }
+            } else {
+                resultSetVersionById = dbQuerries.selectVersionById(idAnimal, context);
+                while (resultSetVersionById.next()) {
+                    daoEncyclopedia.updateCodeById(resultSetVersionById.getString("code"), idAnimal);
+                }
+
             }
 
             while (resultSetGeneral.next()) {
