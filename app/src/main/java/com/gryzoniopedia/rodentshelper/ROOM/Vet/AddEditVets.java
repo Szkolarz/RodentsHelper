@@ -2,6 +2,7 @@ package com.gryzoniopedia.rodentshelper.ROOM.Vet;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -39,7 +41,8 @@ import java.util.Objects;
 public class AddEditVets extends AppCompatActivity {
 
     private EditText editTextName_vet, editTextAddress_vet, editTextPhone_vet, editTextNotes_vet;
-    private Button buttonDelete_vet, buttonEdit_vet, buttonAdd_vet, buttonSaveEdit_vet;
+    private Button buttonAdd_vet, buttonSaveEdit_vet;
+    private ImageView buttonEdit_vet, buttonDelete_vet;
     private ListView ListViewVet;
     private CheckBox checkBoxVet;
 
@@ -63,6 +66,12 @@ public class AddEditVets extends AppCompatActivity {
         ScrollView.LayoutParams scrollViewLayoutParams = new ScrollView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         scrollViewVets.setLayoutParams(scrollViewLayoutParams);
+
+        LinearLayout linearLayoutCard_vet = findViewById(R.id.linearLayoutCard_vet);
+        LinearLayout linearLayoutED_vet = findViewById(R.id.linearLayoutED_vet);
+
+        linearLayoutCard_vet.setBackgroundColor(Color.parseColor("#ACC5E1"));
+        linearLayoutED_vet.setVisibility(View.GONE);
 
         TextView textViewRequired_vet = findViewById(R.id.textViewRequired_vet);
 

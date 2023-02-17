@@ -61,10 +61,17 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
         if (medicamentModel.get(position).medicamentModel.getDescription().equals("")) {
             holder.textViewDescription_med.setVisibility(View.GONE);
             holder.editTextDescription_med.setVisibility(View.GONE);
+        } else {
+            holder.textViewDescription_med.setVisibility(View.VISIBLE);
+            holder.editTextDescription_med.setVisibility(View.VISIBLE);
         }
+
         if (medicamentModel.get(position).medicamentModel.getPeriodicity().equals("")) {
             holder.textViewPeriodicity_med.setVisibility(View.GONE);
             holder.editTextPeriodicity_med.setVisibility(View.GONE);
+        } else {
+            holder.textViewPeriodicity_med.setVisibility(View.VISIBLE);
+            holder.editTextPeriodicity_med.setVisibility(View.VISIBLE);
         }
 
 
@@ -123,9 +130,9 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
         holder.listViewMed.setAdapter(adapter);
 
 
-        holder.buttonDelete_med.setOnClickListener(view -> onClickDeleteMed(holder.buttonDelete_med.getContext(), holder, daoMedicaments));
+        holder.buttonDelete_medicament.setOnClickListener(view -> onClickDeleteMed(holder.buttonDelete_medicament.getContext(), holder, daoMedicaments));
 
-        holder.buttonEdit_med.setOnClickListener(view -> onClickEditMed(daoMedicaments, holder));
+        holder.buttonEdit_medicament.setOnClickListener(view -> onClickEditMed(daoMedicaments, holder));
 
 
         holder.arrayListSelected.clear();
@@ -133,7 +140,7 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
     }
 
     private void onClickEditMed(DAOMedicaments daoMedicaments, viewHolder holder) {
-        Intent intent = new Intent(new Intent(holder.buttonEdit_med.getContext(), AddEditMedicaments.class));
+        Intent intent = new Intent(new Intent(holder.buttonEdit_medicament.getContext(), AddEditMedicaments.class));
         intent.putExtra("idKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_medicament()));
         intent.putExtra("id_vetKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_vet()));
         intent.putExtra("nameKey",String.valueOf(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getName()));
@@ -145,8 +152,8 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
         intent.putExtra("positionKey",String.valueOf(daoMedicaments.getRealPositionFromMed(medicamentModel.get(holder.getAdapterPosition()).medicamentModel.getId_medicament()) -1 ));
         //0 = edit
         FlagSetup.setFlagMedAdd(0);
-        holder.buttonEdit_med.getContext().startActivity(intent);
-        ((Activity)holder.buttonEdit_med.getContext()).finish();
+        holder.buttonEdit_medicament.getContext().startActivity(intent);
+        ((Activity)holder.buttonEdit_medicament.getContext()).finish();
     }
 
     /** usuwanie **/
@@ -183,8 +190,8 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
            EditText editTextName_med, editTextDescription_med, editTextPeriodicity_med;
            TextView textViewDateStart_med, textViewDateEnd_med, textViewRodentRelations_med, textViewRodentRelationsInfo_med,
                    textViewDescription_med, textViewPeriodicity_med, textViewDate1_med, textViewDate2_med;
-           Button buttonEdit_med, buttonAdd_med, buttonSaveEdit_med, buttonDelete_med;
-           ImageView imageButtonDate_med1, imageButtonDate_med2;
+           Button buttonAdd_med, buttonSaveEdit_med;
+           ImageView buttonEdit_medicament, buttonDelete_medicament, imageButtonDate_med1, imageButtonDate_med2;
            ListView listViewMed;
            CheckBox checkBoxMed;
 
@@ -208,10 +215,11 @@ public class AdapterMedicaments extends RecyclerView.Adapter<AdapterMedicaments.
             imageButtonDate_med1 = itemView.findViewById(R.id.imageButtonDate_med1);
             imageButtonDate_med2 = itemView.findViewById(R.id.imageButtonDate_med2);
 
-            buttonEdit_med = itemView.findViewById(R.id.buttonEdit_med);
+
+            buttonEdit_medicament = itemView.findViewById(R.id.buttonEdit_medicament);
             buttonAdd_med = itemView.findViewById(R.id.buttonAdd_med);
             buttonSaveEdit_med = itemView.findViewById(R.id.buttonSaveEdit_med);
-            buttonDelete_med = itemView.findViewById(R.id.buttonDelete_med);
+            buttonDelete_medicament = itemView.findViewById(R.id.buttonDelete_medicament);
 
             listViewMed = itemView.findViewById(R.id.listViewMed);
             listViewMed.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);

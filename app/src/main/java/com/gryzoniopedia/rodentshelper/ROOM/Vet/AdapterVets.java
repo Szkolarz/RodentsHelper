@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,19 +55,30 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
     @Override
     public void onBindViewHolder(@NonNull @NotNull viewHolder holder, int position) {
 
-
         if (vetModel.get(position).vetModel.getAddress().equals("")) {
             holder.textViewAddress_vet.setVisibility(View.GONE);
             holder.editTextAddress_vet.setVisibility(View.GONE);
+        } else {
+            holder.textViewAddress_vet.setVisibility(View.VISIBLE);
+            holder.editTextAddress_vet.setVisibility(View.VISIBLE);
         }
+
         if (vetModel.get(position).vetModel.getPhone_number().equals("")) {
             holder.textViewPhone_vet.setVisibility(View.GONE);
             holder.editTextPhone_vet.setVisibility(View.GONE);
             holder.imageButtonCall_vet.setVisibility(View.GONE);
+        } else {
+            holder.textViewPhone_vet.setVisibility(View.VISIBLE);
+            holder.editTextPhone_vet.setVisibility(View.VISIBLE);
+            holder.imageButtonCall_vet.setVisibility(View.VISIBLE);
         }
+
         if (vetModel.get(position).vetModel.getNotes().equals("")) {
             holder.textViewNotes_vet.setVisibility(View.GONE);
             holder.editTextNotes_vet.setVisibility(View.GONE);
+        } else {
+            holder.textViewNotes_vet.setVisibility(View.VISIBLE);
+            holder.editTextNotes_vet.setVisibility(View.VISIBLE);
         }
 
         AppDatabase db = Room.databaseBuilder(holder.editTextName_vet.getContext(),
@@ -145,7 +157,8 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
 
             notifyDataSetChanged();
         });
-        alert.setNegativeButton("Nie", (dialogInterface, i) -> Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show());
+        alert.setNegativeButton("Nie", (dialogInterface, i) ->
+                Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show());
         alert.create().show();
     }
 
@@ -187,7 +200,8 @@ public class AdapterVets extends RecyclerView.Adapter<AdapterVets.viewHolder>
     {
 
            EditText editTextName_vet, editTextAddress_vet, editTextPhone_vet, editTextNotes_vet;
-           Button buttonDelete_vet, buttonEdit_vet, buttonAdd_vet, buttonSaveEdit_vet;
+           Button buttonAdd_vet, buttonSaveEdit_vet;
+           ImageView buttonEdit_vet, buttonDelete_vet;
            ListView ListViewVet;
            TextView textViewRodentRelations_vet, textViewRodentRelationsInfo_vet,
                    textViewAddress_vet, textViewPhone_vet, textViewNotes_vet;

@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,11 +57,21 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
         if (visitModel.get(position).visitModel.getTime().equals("Ustaw...")) {
             holder.textViewTimeInfo_visit.setVisibility(View.GONE);
             holder.textViewTime_visit.setVisibility(View.GONE);
+        } else {
+            holder.textViewTimeInfo_visit.setVisibility(View.VISIBLE);
+            holder.textViewTime_visit.setVisibility(View.VISIBLE);
         }
+
         if (visitModel.get(position).visitModel.getReason().equals("")) {
             holder.textViewReasonInfo_visit.setVisibility(View.GONE);
             holder.editTextReason_visit.setVisibility(View.GONE);
+        } else {
+            holder.textViewReasonInfo_visit.setVisibility(View.VISIBLE);
+            holder.editTextReason_visit.setVisibility(View.VISIBLE);
         }
+
+        holder.imageButtonTime_visit.setVisibility(View.GONE);
+        holder.imageButtonDate_visit.setVisibility(View.GONE);
 
         AppDatabase db = Room.databaseBuilder(holder.editTextReason_visit.getContext(),
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
@@ -103,6 +115,7 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
             holder.textViewDate_visit.setText("nie podano");
         else
             holder.textViewDate_visit.setText(visitModel.get(position).visitModel.getDate().toString());
+
 
 
 
@@ -193,7 +206,9 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
            TextView textViewDate_visit, textViewTime_visit, textViewVetRelationsInfo_visit, textViewVetRelations_visit,
                     textViewVetRelationsInfo_visit2, textViewVetRelations_visit2, textViewNotificationSet_visit,
                     textViewReasonInfo_visit, textViewTimeInfo_visit;
-           Button buttonEdit_visit, buttonAdd_visit, buttonSaveEdit_visit, buttonDelete_visit;
+           Button buttonAdd_visit, buttonSaveEdit_visit;
+           ImageView buttonEdit_visit, buttonDelete_visit;
+           ImageButton imageButtonDate_visit, imageButtonTime_visit;
            ListView listViewVisit, listViewVisit2;
            CheckBox checkBoxVisit1, checkBoxVisit2, checkBoxVisit3;
 
@@ -215,6 +230,9 @@ public class AdapterVisits extends RecyclerView.Adapter<AdapterVisits.viewHolder
             buttonAdd_visit = itemView.findViewById(R.id.buttonAdd_visit);
             buttonSaveEdit_visit = itemView.findViewById(R.id.buttonSaveEdit_visit);
             buttonDelete_visit = itemView.findViewById(R.id.buttonDelete_visit);
+
+            imageButtonDate_visit = itemView.findViewById(R.id.imageButtonDate_visit);
+            imageButtonTime_visit = itemView.findViewById(R.id.imageButtonTime_visit);
 
             listViewVisit = itemView.findViewById(R.id.listViewVisit);
             listViewVisit.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);

@@ -123,11 +123,12 @@
 
                         <ImageButton
                             android:id="@+id/imageButtonQuestion_weight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
                             android:layout_marginStart="10dp"
                             android:background="@drawable/roundbutton_small"
                             android:padding="5dp"
+                            android:scaleType="centerInside"
                             android:src="@drawable/ic_question_mark"
                             app:tint="#0A4A97" />
 
@@ -211,12 +212,13 @@
 
                                 <ImageButton
                                     android:id="@+id/imageButtonDate_weight"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="45dp"
+                                    android:layout_height="45dp"
                                     android:layout_marginStart="5dp"
                                     android:background="@drawable/roundbutton_small"
                                     android:padding="5dp"
-                                    android:src="@drawable/ic_calendar_vet1"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/ic_calendar_vet"
                                     app:tint="#0A4A97" />
                             </LinearLayout>
 

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -45,7 +46,8 @@ public class AddEditMedicaments extends AppCompatActivity {
     private EditText editTextName_med, editTextDescription_med, editTextPeriodicity_med;
     private TextView textViewDateStart_med, textViewDateEnd_med, textViewDate1_hidden, textViewDate2_hidden,
             textViewRodentRelationsInfo_med, textViewRodentRelations_med;
-    private Button buttonEdit_med, buttonAdd_med, buttonSaveEdit_med, buttonDelete_med;
+    private Button buttonAdd_med, buttonSaveEdit_med;
+    private ImageView buttonEdit_medicament, buttonDelete_medicament;
     private ListView listViewMed;
     private CheckBox checkBoxMed;
     private DatePickerDialog.OnDateSetListener dateSetListener1, dateSetListener2;
@@ -69,6 +71,12 @@ public class AddEditMedicaments extends AppCompatActivity {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         scrollViewMedicaments.setLayoutParams(scrollViewLayoutParams);
 
+        LinearLayout linearLayoutCard_medicament = findViewById(R.id.linearLayoutCard_medicament);
+        LinearLayout linearLayoutED_medicaments = findViewById(R.id.linearLayoutED_medicaments);
+
+        linearLayoutCard_medicament.setBackgroundColor(Color.parseColor("#ACC5E1"));
+        linearLayoutED_medicaments.setVisibility(View.GONE);
+
         ImageButton imageButtonDate_med1, imageButtonDate_med2;
         TextView textViewRequired_med = findViewById(R.id.textViewRequired_med);
 
@@ -86,10 +94,10 @@ public class AddEditMedicaments extends AppCompatActivity {
         imageButtonDate_med2 = findViewById(R.id.imageButtonDate_med2);
 
 
-        buttonEdit_med = findViewById(R.id.buttonEdit_med);
+        buttonEdit_medicament = findViewById(R.id.buttonEdit_medicament);
         buttonAdd_med = findViewById(R.id.buttonAdd_med);
         buttonSaveEdit_med = findViewById(R.id.buttonSaveEdit_med);
-        buttonDelete_med = findViewById(R.id.buttonDelete_med);
+        buttonDelete_medicament = findViewById(R.id.buttonDelete_medicament);
 
         textViewDate1_hidden = findViewById(R.id.textViewDate1_hidden);
         textViewDate2_hidden = findViewById(R.id.textViewDate2_hidden);
@@ -367,8 +375,8 @@ public class AddEditMedicaments extends AppCompatActivity {
             checkBoxMed.setVisibility(View.GONE);
 
             buttonAdd_med.setVisibility(View.VISIBLE);
-            buttonEdit_med.setVisibility(View.GONE);
-            buttonDelete_med.setVisibility(View.GONE);
+            buttonEdit_medicament.setVisibility(View.GONE);
+            buttonDelete_medicament.setVisibility(View.GONE);
             buttonSaveEdit_med.setVisibility(View.GONE);
             textViewRodentRelations_med.setVisibility(View.GONE);
             textViewRodentRelationsInfo_med.setVisibility(View.GONE);
@@ -378,8 +386,8 @@ public class AddEditMedicaments extends AppCompatActivity {
         if (FlagSetup.getFlagMedAdd() == 1) {
             toolbar.setTitle("Dodawanie leku");
             buttonAdd_med.setVisibility(View.VISIBLE);
-            buttonEdit_med.setVisibility(View.GONE);
-            buttonDelete_med.setVisibility(View.GONE);
+            buttonEdit_medicament.setVisibility(View.GONE);
+            buttonDelete_medicament.setVisibility(View.GONE);
             buttonSaveEdit_med.setVisibility(View.GONE);
             textViewRodentRelations_med.setVisibility(View.GONE);
             textViewRodentRelationsInfo_med.setVisibility(View.GONE);
@@ -389,8 +397,8 @@ public class AddEditMedicaments extends AppCompatActivity {
         if (FlagSetup.getFlagMedAdd() == 0) {
             toolbar.setTitle("Edytowanie leku");
             buttonAdd_med.setVisibility(View.GONE);
-            buttonEdit_med.setVisibility(View.GONE);
-            buttonDelete_med.setVisibility(View.GONE);
+            buttonEdit_medicament.setVisibility(View.GONE);
+            buttonDelete_medicament.setVisibility(View.GONE);
             buttonSaveEdit_med.setVisibility(View.VISIBLE);
             textViewRodentRelations_med.setVisibility(View.GONE);
             textViewRodentRelationsInfo_med.setVisibility(View.GONE);

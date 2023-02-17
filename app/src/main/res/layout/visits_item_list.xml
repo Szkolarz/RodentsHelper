@@ -33,279 +33,344 @@
         </LinearLayout>
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Data wizyty:"
-            android:textColor="#014D70"
-            android:textColorHint="#77147A"
-            android:textSize="16sp" />
-
         <LinearLayout
+            android:id="@+id/linearLayoutCard_visit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_cards"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Data wizyty:"
+                    android:textColor="#014D70"
+                    android:textColorHint="#77147A"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutED_visit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:foregroundGravity="right"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/buttonEdit_visit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/ic_edit"
+                        app:tint="#0375a8" />
+
+                    <ImageView
+                        android:id="@+id/buttonDelete_visit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_bin"
+                        app:tint="#DC3E3E" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewRequired_visit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="*"
+                    android:textColor="#E12222"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonDate_visit"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/roundbutton_small"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_calendar_vet"
+                    app:tint="#0A4A97" />
+
+                <TextView
+                    android:id="@+id/textViewDate_visit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:gravity="start"
+                    android:text="Ustaw..."
+                    android:textColor="#014D70"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/textViewRequired_visit"
-                android:layout_width="wrap_content"
+                android:id="@+id/textViewTimeInfo_visit"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="*"
-                android:textColor="#E12222"
-                android:textSize="18sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Godzina:"
+                android:textColor="#014D70"
+                android:textColorHint="#77147A"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:id="@+id/textViewDate1_visitHidden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/textViewDate_visit"
-                android:layout_width="wrap_content"
+                android:id="@+id/textViewDate2_hidden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButtonTime_visit"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/roundbutton_small"
+                    android:onClick="onClickTime"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_clock"
+                    app:tint="#0A4A97" />
+
+                <TextView
+                    android:id="@+id/textViewTime_visit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:gravity="start"
+                    android:onClick="onClickTime"
+                    android:text="Ustaw..."
+                    android:textColor="#014D70"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewReasonInfo_visit"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:gravity="start"
-                android:text="Ustaw..."
+                android:text="Cel wizyty:"
                 android:textColor="#014D70"
+                android:textColorHint="#77147A"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/editTextReason_visit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#014D70"
+                android:hint="Cel wizyty"
+                android:maxLines="3"
+                android:textColor="#014D70"
+                android:textColorHint="#707070"
                 android:textSize="20sp" />
 
-        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewTimeInfo_visit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Godzina:"
-            android:textColor="#014D70"
-            android:textColorHint="#77147A"
-            android:textSize="16sp" />
-
-
-        <TextView
-            android:id="@+id/textViewDate1_visitHidden"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/textViewDate2_hidden"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/textViewTime_visit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="start"
-            android:onClick="onClickTime"
-            android:text="Ustaw..."
-            android:textColor="#014D70"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/textViewReasonInfo_visit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="Cel wizyty:"
-            android:textColor="#014D70"
-            android:textColorHint="#77147A"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/editTextReason_visit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="#014D70"
-            android:hint="Cel wizyty"
-            android:maxLines="3"
-            android:textColor="#014D70"
-            android:textColorHint="#707070"
-            android:textSize="20sp" />
-
-
-        <TextView
-            android:id="@+id/textViewVetRelationsInfo_visit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:ellipsize="none"
-            android:maxLines="8"
-            android:text="Wizyta u weterynarza:"
-            android:textColor="#014D70"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textViewVetRelations_visit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:ellipsize="none"
-            android:maxLines="8"
-            android:textColor="#014D70"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/textViewVetRelationsInfo_visit2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:ellipsize="none"
-            android:maxLines="8"
-            android:text="Zwierzęta zapisane na wizytę:"
-            android:textColor="#014D70"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textViewVetRelations_visit2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:ellipsize="none"
-            android:maxLines="8"
-            android:textColor="#014D70"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/textViewNotificationSet_visit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:text="Powiadomienie ustawione na: "
-            android:textColor="#014D70"
-            android:textColorHint="#77147A"
-            android:textSize="16sp"
-            android:visibility="gone" />
-
-        <CheckBox
-            android:id="@+id/checkBoxVisit1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:buttonTint="#0375a8"
-            android:text="Przypisać weterynarza z listy do wizyty?"
-            android:textColor="#014D70"
-            android:textSize="16sp" />
-
-
-        <com.gryzoniopedia.rodentshelper.CustomListView
-            android:id="@+id/listViewVisit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:fillViewport="false"
-            android:overScrollMode="always" />
-
-        <CheckBox
-            android:id="@+id/checkBoxVisit2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:buttonTint="#0375a8"
-            android:text="Przypisać zwierzę do wizyty?"
-            android:textColor="#014D70"
-            android:textSize="16sp" />
-
-        <com.gryzoniopedia.rodentshelper.CustomListView
-            android:id="@+id/listViewVisit2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:fillViewport="false"
-            android:overScrollMode="always" />
-
-
-        <CheckBox
-            android:id="@+id/checkBoxVisit3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:buttonTint="#0375a8"
-            android:text="Ustawić przypomnienie o wizycie?"
-            android:textColor="#014D70"
-            android:textSize="16sp"
-            android:visibility="gone" />
-
-        <LinearLayout
-            android:id="@+id/aaad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonEdit_visit"
+            <TextView
+                android:id="@+id/textViewVetRelationsInfo_visit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:backgroundTint="#5397DF"
-                android:text="Edytuj"
-                android:textColor="#FFFFFF"
-                app:strokeColor="#0375a8"
-                app:strokeWidth="3dp" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:ellipsize="none"
+                android:maxLines="8"
+                android:text="Wizyta u weterynarza:"
+                android:textColor="#014D70"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonAdd_visit"
+            <TextView
+                android:id="@+id/textViewVetRelations_visit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:backgroundTint="#5397DF"
-                android:text="Dodaj"
-                android:textColor="#FFFFFF"
-                android:visibility="visible"
-                app:strokeColor="#0375a8"
-                app:strokeWidth="3dp" />
+                android:layout_marginStart="20dp"
+                android:ellipsize="none"
+                android:maxLines="8"
+                android:textColor="#014D70"
+                android:textSize="17sp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonSaveEdit_visit"
+            <TextView
+                android:id="@+id/textViewVetRelationsInfo_visit2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:backgroundTint="#5397DF"
-                android:text="Zapisz"
-                android:textColor="#FFFFFF"
-                android:visibility="visible"
-                app:strokeColor="#0375a8"
-                app:strokeWidth="3dp" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:ellipsize="none"
+                android:maxLines="8"
+                android:text="Zwierzęta zapisane na wizytę:"
+                android:textColor="#014D70"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonDelete_visit"
+            <TextView
+                android:id="@+id/textViewVetRelations_visit2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:backgroundTint="#DC3E3E"
-                android:text="Usuń"
-                android:textColor="#FFFFFF"
-                app:strokeColor="#9A2C2C"
-                app:strokeWidth="3dp" />
+                android:layout_marginStart="20dp"
+                android:ellipsize="none"
+                android:maxLines="8"
+                android:textColor="#014D70"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/textViewNotificationSet_visit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="Powiadomienie ustawione na: "
+                android:textColor="#014D70"
+                android:textColorHint="#77147A"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <CheckBox
+                android:id="@+id/checkBoxVisit1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="#0375a8"
+                android:text="Przypisać weterynarza z listy do wizyty?"
+                android:textColor="#014D70"
+                android:textSize="16sp" />
+
+
+            <com.gryzoniopedia.rodentshelper.CustomListView
+                android:id="@+id/listViewVisit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fillViewport="false"
+                android:overScrollMode="always" />
+
+            <CheckBox
+                android:id="@+id/checkBoxVisit2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="#0375a8"
+                android:text="Przypisać zwierzę do wizyty?"
+                android:textColor="#014D70"
+                android:textSize="16sp" />
+
+            <com.gryzoniopedia.rodentshelper.CustomListView
+                android:id="@+id/listViewVisit2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fillViewport="false"
+                android:overScrollMode="always" />
+
+            <TextView
+                android:id="@+id/textViewNotificationInfo_visits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:text="(aby ustawić powiadomienie do wizyty, należy najpierw określić datę oraz godzinę)"
+                android:textAlignment="center"
+                android:textColor="#014D70"
+                android:textColorHint="#77147A"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+
+            <CheckBox
+                android:id="@+id/checkBoxVisit3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="#0375a8"
+                android:text="Ustawić przypomnienie o wizycie?"
+                android:textColor="#014D70"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/aaad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonAdd_visit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#5397DF"
+                    android:text="Dodaj"
+                    android:textColor="#FFFFFF"
+                    android:visibility="visible"
+                    app:strokeColor="#0375a8"
+                    app:strokeWidth="3dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonSaveEdit_visit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#5397DF"
+                    android:text="Zapisz edycję"
+                    android:textColor="#FFFFFF"
+                    android:visibility="visible"
+                    app:strokeColor="#0375a8"
+                    app:strokeWidth="3dp" />
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_margin="6dp"
-            android:background="#048FCD" />
 
     </LinearLayout>
 </ScrollView>

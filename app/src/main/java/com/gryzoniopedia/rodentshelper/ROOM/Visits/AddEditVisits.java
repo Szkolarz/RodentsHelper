@@ -18,6 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -52,9 +54,11 @@ import java.util.Objects;
 public class AddEditVisits extends AppCompatActivity {
 
     private EditText editTextReason_visit;
-    private TextView textViewDate_visit, textViewTime_visit, textViewDate1_visitHidden,
+    private TextView textViewDate_visit, textViewTime_visit, textViewDate1_visitHidden, textViewNotificationInfo_visits,
             textViewVetRelationsInfo_visit, textViewVetRelationsInfo_visit2, textViewVetRelations_visit;
-    private Button buttonEdit_visit, buttonAdd_visit, buttonSaveEdit_visit, buttonDelete_visit;
+    private Button buttonAdd_visit, buttonSaveEdit_visit;
+    private ImageView buttonEdit_visit, buttonDelete_visit;
+    private ImageButton  imageButtonTime_visit, imageButtonDate_visit;
     private ListView listViewVisit, listViewVisit2;
     private CheckBox checkBoxVisit1, checkBoxVisit2, checkBoxVisit3;
 
@@ -75,6 +79,12 @@ public class AddEditVisits extends AppCompatActivity {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         scrollViewVisits.setLayoutParams(scrollViewLayoutParams);
 
+        LinearLayout linearLayoutCard_visit = findViewById(R.id.linearLayoutCard_visit);
+        LinearLayout linearLayoutED_visit = findViewById(R.id.linearLayoutED_visit);
+
+        linearLayoutCard_visit.setBackgroundColor(Color.parseColor("#ACC5E1"));
+        linearLayoutED_visit.setVisibility(View.GONE);
+
         TextView textViewRequired_visit = findViewById(R.id.textViewRequired_visit);
 
         LinearLayout linearLayoutToolbar = findViewById(R.id.linearLayoutToolbar);
@@ -86,11 +96,13 @@ public class AddEditVisits extends AppCompatActivity {
         textViewDate_visit = findViewById(R.id.textViewDate_visit);
         textViewTime_visit = findViewById(R.id.textViewTime_visit);
 
-
         buttonEdit_visit = findViewById(R.id.buttonEdit_visit);
         buttonAdd_visit = findViewById(R.id.buttonAdd_visit);
         buttonSaveEdit_visit = findViewById(R.id.buttonSaveEdit_visit);
         buttonDelete_visit = findViewById(R.id.buttonDelete_visit);
+
+        imageButtonDate_visit = findViewById(R.id.imageButtonDate_visit);
+        imageButtonTime_visit = findViewById(R.id.imageButtonTime_visit);
 
         textViewDate1_visitHidden = findViewById(R.id.textViewDate1_visitHidden);
 
@@ -111,6 +123,9 @@ public class AddEditVisits extends AppCompatActivity {
         checkBoxVisit1 = findViewById(R.id.checkBoxVisit1);
         checkBoxVisit2 = findViewById(R.id.checkBoxVisit2);
         checkBoxVisit3 = findViewById(R.id.checkBoxVisit3);
+        textViewNotificationInfo_visits = findViewById(R.id.textViewNotificationInfo_visits);
+        textViewNotificationInfo_visits.setVisibility(View.VISIBLE);
+
        // checkBoxVisit3.setEnabled(false);
 
         //pelna lista zwierzat
@@ -173,6 +188,7 @@ public class AddEditVisits extends AppCompatActivity {
 
             if (daoNotifications.getIdVisitFromVisit(idKey) != null) {
                 checkBoxVisit3.setChecked(true);
+                textViewNotificationInfo_visits.setVisibility(View.GONE);
             }
 
             editTextReason_visit.setText(reasonKey);
@@ -224,8 +240,7 @@ public class AddEditVisits extends AppCompatActivity {
 
         }
 
-
-
+        imageButtonDate_visit.setOnClickListener(view -> pickDate(dateSetListener1));
         textViewDate_visit.setOnClickListener(view -> pickDate(dateSetListener1));
 
 
@@ -502,8 +517,10 @@ public class AddEditVisits extends AppCompatActivity {
 
     private void checkForCheckbox() {
         if (!textViewDate_visit.getText().toString().equals("Ustaw...") && !textViewTime_visit.getText().toString().equals("Ustaw...") ) {
+            textViewNotificationInfo_visits.setVisibility(View.GONE);
             checkBoxVisit3.setVisibility(View.VISIBLE);
-        }
+        } else
+            textViewNotificationInfo_visits.setVisibility(View.VISIBLE);
     }
 
 

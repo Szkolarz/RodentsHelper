@@ -2,12 +2,16 @@ package com.gryzoniopedia.rodentshelper.ROOM.Notes;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +40,18 @@ public class AddEditNotes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notes_item_list);
 
+        ScrollView scrollViewNotes = findViewById(R.id.scrollViewNotes);
+
+        ScrollView.LayoutParams scrollViewLayoutParams = new ScrollView.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        scrollViewNotes.setLayoutParams(scrollViewLayoutParams);
+
+        LinearLayout linearLayoutCard_notes = findViewById(R.id.linearLayoutCard_notes);
+        LinearLayout linearLayoutED_notes = findViewById(R.id.linearLayoutED_notes);
+
+        linearLayoutCard_notes.setBackgroundColor(Color.parseColor("#ACC5E1"));
+        linearLayoutED_notes.setVisibility(View.GONE);
+
         TextView textViewDate_notes, textViewDateHidden_notes, textViewRequired_notes;
 
         LinearLayout linearLayoutToolbar = findViewById(R.id.linearLayoutToolbar);
@@ -45,10 +61,10 @@ public class AddEditNotes extends AppCompatActivity {
         editTextTopic_notes = findViewById(R.id.editTextTopic_notes);
         editTextContent_notes = findViewById(R.id.editTextContent_notes);
 
-        Button buttonEdit_notes = findViewById(R.id.buttonEdit_notes);
+        ImageView buttonEdit_notes = findViewById(R.id.buttonEdit_notes);
         Button buttonAdd_notes = findViewById(R.id.buttonAdd_notes);
         Button buttonSaveEdit_notes = findViewById(R.id.buttonSaveEdit_notes);
-        Button buttonDelete_notes = findViewById(R.id.buttonDelete_notes);
+        ImageView buttonDelete_notes = findViewById(R.id.buttonDelete_notes);
 
         textViewDate_notes = findViewById(R.id.textViewDate_notes);
         textViewDateHidden_notes = findViewById(R.id.textViewDateHidden_notes);

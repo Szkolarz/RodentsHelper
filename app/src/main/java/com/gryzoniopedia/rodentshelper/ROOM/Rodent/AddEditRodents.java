@@ -119,7 +119,8 @@ public class AddEditRodents extends AppCompatActivity {
         });
 
         textViewDeleteImage_rodent.setOnClickListener(view -> {
-            daoRodents.setImageNullById(Integer.parseInt(getIntent().getStringExtra("idKey")));
+            if (isEdit)
+                daoRodents.setImageNullById(Integer.parseInt(getIntent().getStringExtra("idKey")));
             imageView_rodent.setImageDrawable(getDrawable(R.drawable.no_photo));
             byteArray = null;
             textViewDeleteImage_rodent.setVisibility(View.GONE);

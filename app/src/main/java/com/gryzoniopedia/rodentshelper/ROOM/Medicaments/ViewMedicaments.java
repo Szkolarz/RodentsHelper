@@ -134,12 +134,12 @@ public class ViewMedicaments extends AppCompatActivity {
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAOMedicaments daoMedicaments = db.daoMedicaments();
         if (FlagSetup.getFlagMedAdd() == 2) {
-            toolbar.setTitle("Leki pupila");
+            toolbar.setTitle("Lekarstwa pupila");
             SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
             medicamentModel = daoMedicaments.getMedsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
         }
         else {
-            toolbar.setTitle("Leki");
+            toolbar.setTitle("Lekarstwa");
             medicamentModel = daoMedicaments.getMedsWithRodents();
             FlagSetup.setFlagMedAdd(1);
         }

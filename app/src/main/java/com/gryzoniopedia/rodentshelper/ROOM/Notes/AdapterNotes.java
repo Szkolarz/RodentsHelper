@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ import java.util.List;
 
 public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
 {
-    List<RodentWithNotes> notesModel;
+    private final List<RodentWithNotes> notesModel;
 
 
     public AdapterNotes(List<RodentWithNotes> notesModel) {
@@ -68,9 +69,6 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
             holder.editTextTopic_notes.setText("brak tematu");
         else
             holder.editTextTopic_notes.setText(notesModel.get(position).notesModel.getTopic());
-
-
-
 
 
 
@@ -127,12 +125,8 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
 
             }
         });
-        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show();
-            }
-        });
+        alert.setNegativeButton("Nie", (dialogInterface, i) ->
+                Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show());
         alert.create().show();
 
 
@@ -150,7 +144,8 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
     {
 
         EditText editTextTopic_notes, editTextContent_notes;
-        Button buttonEdit_notes, buttonAdd_notes, buttonSaveEdit_notes, buttonDelete_notes;
+        Button buttonAdd_notes, buttonSaveEdit_notes;
+        ImageView buttonEdit_notes, buttonDelete_notes;
         TextView textViewDate_notes;
 
 

@@ -64,16 +64,15 @@
 
                                 <ImageView
                                     android:id="@+id/imageButtonVet1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
                                     android:layout_margin="5dp"
                                     android:layout_marginBottom="5dp"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/roundbutton"
                                     android:padding="15dp"
                                     android:scaleType="fitCenter"
-                                    app:srcCompat="@drawable/ic_vet"
-                                    app:tint="#0A4A97" />
+                                    app:srcCompat="@drawable/ic_vet" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -132,8 +131,8 @@
 
                                 <ImageView
                                     android:id="@+id/imageButtonMed"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
                                     android:layout_margin="5dp"
                                     android:layout_marginBottom="5dp"
                                     android:adjustViewBounds="true"
@@ -141,13 +140,12 @@
                                     android:contentDescription="imageButtonMed"
                                     android:padding="15dp"
                                     android:scaleType="fitCenter"
-                                    app:srcCompat="@drawable/ic_medicine"
-                                    app:tint="#0A4A97" />
+                                    app:srcCompat="@drawable/ic_medicine" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Leki"
+                                    android:text="Lekarstwa"
                                     android:textColor="#014D70" />
 
                             </LinearLayout>
@@ -200,8 +198,8 @@
 
                                 <ImageView
                                     android:id="@+id/imageButtonVisit"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
                                     android:layout_margin="5dp"
                                     android:layout_marginBottom="5dp"
                                     android:adjustViewBounds="true"
@@ -209,8 +207,7 @@
                                     android:contentDescription="imageButtonVisit"
                                     android:padding="15dp"
                                     android:scaleType="fitCenter"
-                                    app:srcCompat="@drawable/ic_calendar_vet"
-                                    app:tint="#0A4A97" />
+                                    app:srcCompat="@drawable/ic_calendar_v2" />
 
                                 <TextView
                                     android:layout_width="wrap_content"

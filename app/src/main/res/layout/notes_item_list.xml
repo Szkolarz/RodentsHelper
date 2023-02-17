@@ -4,6 +4,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollViewNotes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ACC5E1">
@@ -30,188 +31,207 @@
         </LinearLayout>
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="Temat:"
-            android:textColor="#014D70"
-            android:textColorHint="#77147A"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/editTextTopic_notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="#014D70"
-            android:hint="Temat notatki"
-            android:maxLines="2"
-            android:textColor="#014D70"
-            android:textColorHint="#707070"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-
-        <TextView
-            android:id="@+id/textViewDate1_hidden"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/textViewDate2_hidden"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:visibility="gone" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Treść:"
-            android:textColor="#014D70"
-            android:textColorHint="#77147A"
-            android:textSize="16sp" />
-
         <LinearLayout
+            android:id="@+id/linearLayoutCard_notes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_cards"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textViewRequired_notes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="*"
-                android:textColor="#E12222"
-                android:textSize="18sp"
-                android:visibility="gone" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Temat:"
+                    android:textColor="#014D70"
+                    android:textColorHint="#77147A"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutED_notes"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:foregroundGravity="right"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/buttonEdit_notes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/ic_edit"
+                        app:tint="#0375a8" />
+
+                    <ImageView
+                        android:id="@+id/buttonDelete_notes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_bin"
+                        app:tint="#DC3E3E" />
+                </LinearLayout>
+            </LinearLayout>
 
             <EditText
-                android:id="@+id/editTextContent_notes"
+                android:id="@+id/editTextTopic_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:autoSizeMaxTextSize="100sp"
-                android:autoSizeMinTextSize="12sp"
-                android:autoSizeStepGranularity="2sp"
-                android:autoSizeTextType="uniform"
                 android:backgroundTint="#014D70"
-                android:hint="Treść notatki"
-                android:maxLines="20"
+                android:hint="Temat notatki"
+                android:maxLines="2"
                 android:textColor="#014D70"
                 android:textColorHint="#707070"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/textViewDate1_hidden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textViewDate2_hidden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Treść:"
+                android:textColor="#014D70"
+                android:textColorHint="#77147A"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewRequired_notes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="*"
+                    android:textColor="#E12222"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/editTextContent_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:backgroundTint="#014D70"
+                    android:hint="Treść notatki"
+                    android:maxLines="20"
+                    android:textColor="#014D70"
+                    android:textColorHint="#707070"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Data utworzenia notatki:"
+                android:textColor="#014D70"
+                android:textColorHint="#77147A"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textViewDate_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="start"
+                android:text="date of creation"
+                android:textColor="#014D70"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewDateHidden_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="start"
+                android:text="date of creation"
+                android:textColor="#014D70"
+                android:textSize="20sp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonAdd_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#5397DF"
+                    android:text="Dodaj"
+                    android:textColor="#FFFFFF"
+                    android:visibility="visible"
+                    app:strokeColor="#0375a8"
+                    app:strokeWidth="3dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonSaveEdit_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#5397DF"
+                    android:text="Zapisz edycję"
+                    android:textColor="#FFFFFF"
+                    android:visibility="visible"
+                    app:strokeColor="#0375a8"
+                    app:strokeWidth="3dp" />
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Data utworzenia notatki:"
-            android:textColor="#014D70"
-            android:textColorHint="#77147A"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/textViewDate_notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="10dp"
-            android:gravity="start"
-            android:text="date of creation"
-            android:textColor="#014D70"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/textViewDateHidden_notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:gravity="start"
-            android:text="date of creation"
-            android:textColor="#014D70"
-            android:textSize="20sp"
-            android:visibility="gone" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonEdit_notes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:backgroundTint="#5397DF"
-                android:text="Edytuj"
-                android:textColor="#FFFFFF"
-                app:strokeColor="#0375a8"
-                app:strokeWidth="3dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonAdd_notes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:backgroundTint="#5397DF"
-                android:text="Dodaj"
-                android:textColor="#FFFFFF"
-                android:visibility="visible"
-                app:strokeColor="#0375a8"
-                app:strokeWidth="3dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonSaveEdit_notes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:backgroundTint="#5397DF"
-                android:text="Zapisz edycję"
-                android:textColor="#FFFFFF"
-                android:visibility="visible"
-                app:strokeColor="#0375a8"
-                app:strokeWidth="3dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonDelete_notes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:backgroundTint="#DC3E3E"
-                android:text="Usuń"
-                android:textColor="#FFFFFF"
-                app:strokeColor="#9A2C2C"
-                app:strokeWidth="3dp" />
-        </LinearLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_margin="6dp"
-            android:background="#048FCD" />
 
     </LinearLayout>
 </ScrollView>
