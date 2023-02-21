@@ -118,7 +118,7 @@
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.gryzoniopedia.rodentshelper.ROOM.Notes.AddEditNotes"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Notes.Methods.AddEditNotes"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity

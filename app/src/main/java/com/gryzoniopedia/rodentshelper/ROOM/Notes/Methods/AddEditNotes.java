@@ -1,4 +1,4 @@
-package com.gryzoniopedia.rodentshelper.ROOM.Notes;
+package com.gryzoniopedia.rodentshelper.ROOM.Notes.Methods;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +24,8 @@ import com.example.rodentshelper.R;
 import com.gryzoniopedia.rodentshelper.ROOM.AppDatabase;
 import com.gryzoniopedia.rodentshelper.ROOM.DAONotes;
 import com.gryzoniopedia.rodentshelper.ROOM.DateFormat;
+import com.gryzoniopedia.rodentshelper.ROOM.Notes.NotesModel;
+import com.gryzoniopedia.rodentshelper.ROOM.Notes.ViewNotes;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

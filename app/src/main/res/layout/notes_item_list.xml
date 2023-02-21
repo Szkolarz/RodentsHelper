@@ -14,6 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ACC5E1"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
         tools:context="com.gryzoniopedia.rodentshelper.ROOM.Notes.ViewNotes">
 
@@ -95,6 +97,7 @@
                 android:layout_marginEnd="10dp"
                 android:backgroundTint="#014D70"
                 android:hint="Temat notatki"
+                android:maxLength="80"
                 android:maxLines="2"
                 android:textColor="#014D70"
                 android:textColorHint="#707070"
@@ -152,7 +155,8 @@
                     android:autoSizeStepGranularity="2sp"
                     android:autoSizeTextType="uniform"
                     android:backgroundTint="#014D70"
-                    android:hint="Treść notatki"
+                    android:hint="Treść notatki (max. 800 znaków)"
+                    android:maxLength="800"
                     android:maxLines="20"
                     android:textColor="#014D70"
                     android:textColorHint="#707070"

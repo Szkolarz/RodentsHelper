@@ -123,13 +123,20 @@ public class NotificationsActivity extends AppCompatActivity {
             AlertDialog.Builder alert = new AlertDialog.Builder(NotificationsActivity.this, R.style.AlertDialogStyleUpdate);
             alert.setTitle("Uprawnienia powiadomień");
             alert.setMessage("Android 13 oraz wyższe wersje wymagają odpowiednich uprawnień w ustawieniach telefonu, "+
-                    "aby móc wyświetlać powiadomienia. W następnym okienku musisz zezwolić na uprawnienia, "+
-                    "by móc korzystać z tego modułu.\n\nW przypadku odmówienia uprawnień możesz je przypisać "+
-                    "ręcznie w ustawieniach systemu Android.");
+                    "aby móc wyświetlać powiadomienia. W następnym okienku należy zezwolić na uprawnienia, "+
+                    "by odblokować możliwość korzystania z tego modułu.\n\nW przypadku odmówienia dostępu, uprawnienia można przywrócić "+
+                    "ręcznie w ustawieniach aplikacji systemu Android.");
 
             alert.setPositiveButton("Rozumiem", (dialogInterface, i) -> ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.POST_NOTIFICATIONS},
                     POST_NOTIFICATIONS));
+
+            alert.setOnCancelListener(dialogInterface -> {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                        POST_NOTIFICATIONS);
+            });
+
             alert.show();
         }
 

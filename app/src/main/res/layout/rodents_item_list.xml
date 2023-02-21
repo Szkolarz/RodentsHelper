@@ -110,6 +110,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/roundbutton_small_green"
+                    android:scaleType="centerInside"
                     android:textColor="#FFFFFF"
                     android:textSize="22sp"
                     app:srcCompat="@drawable/ic_pet_health"

@@ -36,7 +36,49 @@ public interface DAONotes {
 
     @Transaction
     @Query("SELECT * FROM notes WHERE id_rodent = :id_rodent ORDER BY id_notes DESC")
-    List<RodentWithNotes> getRodentWithNotes(Integer id_rodent);
+    List<RodentWithNotes> getRodentWithNotesDESC(Integer id_rodent);
+
+    @Transaction
+    @Query("SELECT * FROM notes WHERE id_rodent = :id_rodent ORDER BY id_notes ASC")
+    List<RodentWithNotes> getRodentWithNotesASC(Integer id_rodent);
+
+
+
+    @Transaction
+    @Query("SELECT * FROM notes WHERE create_date >= ((SELECT STRFTIME('%s') * 1000) - 2592000000) AND " +
+            "id_rodent = :id_rodent ORDER BY id_notes ASC")
+    List<RodentWithNotes> getRodentWithNotes1MonthASC(Integer id_rodent);
+    @Transaction
+    @Query("SELECT * FROM notes WHERE create_date >= ((SELECT STRFTIME('%s') * 1000) - 2592000000) AND " +
+            "id_rodent = :id_rodent ORDER BY id_notes DESC")
+    List<RodentWithNotes> getRodentWithNotes1MonthDESC(Integer id_rodent);
+
+    @Transaction
+    @Query("SELECT * FROM notes WHERE create_date >= ((SELECT STRFTIME('%s') * 1000) - 7689600000) AND " +
+            "id_rodent = :id_rodent ORDER BY id_notes ASC")
+    List<RodentWithNotes> getRodentWithNotes3MonthsASC(Integer id_rodent);
+    @Transaction
+    @Query("SELECT * FROM notes WHERE create_date >= ((SELECT STRFTIME('%s') * 1000) - 7689600000) AND " +
+            "id_rodent = :id_rodent ORDER BY id_notes DESC")
+    List<RodentWithNotes> getRodentWithNotes3MonthsDESC(Integer id_rodent);
+
+    @Transaction
+    @Query("SELECT * FROM notes WHERE create_date >= ((SELECT STRFTIME('%s') * 1000) - 15638400000) AND " +
+            "id_rodent = :id_rodent ORDER BY id_notes ASC")
+    List<RodentWithNotes> getRodentWithNotes6MonthsASC(Integer id_rodent);
+    @Transaction
+    @Query("SELECT * FROM notes WHERE create_date >= ((SELECT STRFTIME('%s') * 1000) - 15638400000) AND " +
+            "id_rodent = :id_rodent ORDER BY id_notes DESC")
+    List<RodentWithNotes> getRodentWithNotes6MonthsDESC(Integer id_rodent);
+
+    @Transaction
+    @Query("SELECT * FROM notes WHERE create_date >= ((SELECT STRFTIME('%s') * 1000) - 31536000000) AND " +
+            "id_rodent = :id_rodent ORDER BY id_notes ASC")
+    List<RodentWithNotes> getRodentWithNotes1YearASC(Integer id_rodent);
+    @Transaction
+    @Query("SELECT * FROM notes WHERE create_date >= ((SELECT STRFTIME('%s') * 1000) - 31536000000) AND " +
+            "id_rodent = :id_rodent ORDER BY id_notes DESC")
+    List<RodentWithNotes> getRodentWithNotes1YearDESC(Integer id_rodent);
 
 }
 
