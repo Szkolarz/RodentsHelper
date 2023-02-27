@@ -1,7 +1,14 @@
 package com.gryzoniopedia.rodentshelper.ROOM;
 
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+import androidx.room.AutoMigration;
 import androidx.room.Database;
+import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.gryzoniopedia.rodentshelper.DatabaseManagement.CloudAccountModel;
 import com.gryzoniopedia.rodentshelper.DatabaseManagement.DatabaseManagementModel;
@@ -23,6 +30,7 @@ import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentMed.RodentMedModel;
 import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentVet.RodentVetModel;
 import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentVisit.RodentVisitModel;
 
+
 @Database(entities = { RodentModel.class,
         VetModel.class, RodentVetModel.class,
         MedicamentModel.class, RodentMedModel.class,
@@ -33,8 +41,14 @@ import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentVisit.RodentVisitModel;
         GeneralModel.class, DiseasesModel.class, DatabaseManagementModel.class,
         CloudAccountModel.class,
         MedicalTestsModel.class, SoundsModel.class},
-        version = 1)
+        version = 2,
+        exportSchema = true,
+        autoMigrations = {
+                @AutoMigration(from = 1, to = 2)
+        }
+)
 public abstract class AppDatabase extends RoomDatabase {
+    private static AppDatabase INSTANCE;
     public abstract DAO dao();
     public abstract DAORodents daoRodents();
     public abstract DAONotes daoNotes();
@@ -44,5 +58,9 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract DAOWeight daoWeight();
     public abstract DAOEncyclopedia daoEncyclopedia();
     public abstract DAONotifications daoNotifications();
+
+
 }
+
+
 

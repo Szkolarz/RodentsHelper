@@ -2,6 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.RodentsHelper" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
+
+        <item name="android:windowSplashScreenAnimatedIcon">@android:color/transparent</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="android:navigationBarColor">#048FCD</item>
         <item name="colorPrimary">#0375a8</item>

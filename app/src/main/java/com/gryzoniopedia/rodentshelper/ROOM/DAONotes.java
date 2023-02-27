@@ -19,8 +19,9 @@ public interface DAONotes {
     @Query("DELETE FROM notes WHERE id_notes = :id")
     void deleteNotesById(Integer id);
 
-    @Query("UPDATE notes SET topic = :topic, content = :content WHERE id_notes = :id")
-    void updateNotesById(Integer id, String topic, String content);
+    @Query("UPDATE notes SET topic = :topic, content = :content, image1 = :image1,  image2 = :image2," +
+            "image3 = :image3, image4 = :image4  WHERE id_notes = :id")
+    void updateNotesById(Integer id, String topic, String content, byte[] image1, byte[] image2, byte[] image3, byte[] image4);
 
 
 
@@ -80,6 +81,18 @@ public interface DAONotes {
             "id_rodent = :id_rodent ORDER BY id_notes DESC")
     List<RodentWithNotes> getRodentWithNotes1YearDESC(Integer id_rodent);
 
+
+    @Query("SELECT image1 FROM notes WHERE id_notes = :id_notes")
+    byte[] getNotesImage1ById(Integer id_notes);
+
+    @Query("SELECT image2 FROM notes WHERE id_notes = :id_notes")
+    byte[] getNotesImage2ById(Integer id_notes);
+
+    @Query("SELECT image3 FROM notes WHERE id_notes = :id_notes")
+    byte[] getNotesImage3ById(Integer id_notes);
+
+    @Query("SELECT image4 FROM notes WHERE id_notes = :id_notes")
+    byte[] getNotesImage4ById(Integer id_notes);
 }
 
 

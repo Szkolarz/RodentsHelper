@@ -171,7 +171,6 @@ public class ActivityLogin extends AppCompatActivity {
                                         for (int i=0; i < loginCheck.size(); i++) {
                                             if (loginCheck.get(i).equals(login))
                                                 doesLoginExist = true;
-                                            System.out.println("ODLICZANIEEEEE");
                                         }
 
                                         if (!doesLoginExist)
@@ -211,7 +210,7 @@ public class ActivityLogin extends AppCompatActivity {
                                         });
                                     }
 
-                                } catch (SQLException | InterruptedException e) {
+                                } catch (SQLException | InterruptedException | NullPointerException e) {
                                     runOnUiThread(() -> {
                                         linearLayoutLoginProgress.setVisibility(View.GONE); allowBackButton = true;
                                         this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);

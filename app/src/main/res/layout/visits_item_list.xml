@@ -205,7 +205,7 @@
                 android:maxLines="3"
                 android:textColor="#014D70"
                 android:textColorHint="#707070"
-                android:textSize="20sp" />
+                android:textSize="22sp" />
 
 
             <TextView

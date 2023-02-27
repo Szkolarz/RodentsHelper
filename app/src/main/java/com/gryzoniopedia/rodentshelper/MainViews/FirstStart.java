@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.rodentshelper.R;
+import com.gryzoniopedia.rodentshelper.ROOM.AppDatabase;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.ViewRodents;
 
 public class FirstStart extends AppCompatActivity {
@@ -21,7 +22,6 @@ public class FirstStart extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         toolbar.setTitle("Wybierz zwierzę");
         setSupportActionBar(toolbar);
-
 
         ImageView imageButtonGuineaPig = findViewById(R.id.imageButtonGuineaPig);
         ImageView imageButtonRat = findViewById(R.id.imageButtonRat);

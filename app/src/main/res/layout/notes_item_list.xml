@@ -7,12 +7,14 @@
     android:id="@+id/scrollViewNotes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:background="#ACC5E1">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
         android:background="#ACC5E1"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -41,6 +43,7 @@
             android:layout_marginTop="35dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="10dp"
+            android:animateLayoutChanges="true"
             android:background="@drawable/rounded_cards"
             android:orientation="vertical">
 
@@ -101,7 +104,7 @@
                 android:maxLines="2"
                 android:textColor="#014D70"
                 android:textColorHint="#707070"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
 
@@ -155,14 +158,248 @@
                     android:autoSizeStepGranularity="2sp"
                     android:autoSizeTextType="uniform"
                     android:backgroundTint="#014D70"
-                    android:hint="Treść notatki (max. 800 znaków)"
-                    android:maxLength="800"
+                    android:hint="Treść notatki (max. 1000 znaków)"
+                    android:maxLength="1000"
                     android:maxLines="20"
                     android:textColor="#014D70"
                     android:textColorHint="#707070"
-                    android:textSize="24sp" />
+                    android:textSize="22sp" />
             </LinearLayout>
 
+
+            <LinearLayout
+                android:id="@+id/linearLayoutImages_notes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/textViewImagesInfo_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Opcjonalne zdjęcia (max 4):"
+                    android:textColor="#014D70"
+                    android:textColorHint="#77147A"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:animateLayoutChanges="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutImage1_notes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:elevation="32dp"
+                            android:gravity="center"
+                            app:cardBackgroundColor="#5397DF"
+                            app:cardCornerRadius="20dp">
+
+                            <ImageView
+                                android:id="@+id/imageView1_notes"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:adjustViewBounds="true"
+                                android:background="@drawable/rounded_notes"
+                                android:maxWidth="150dp"
+                                android:maxHeight="150dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/ic_camera" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/textViewDeleteImage1_notes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:text="Wyczyść\nzdjęcie"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="#014D70"
+                            android:textSize="16sp"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutImage2_notes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:elevation="32dp"
+                            android:gravity="center"
+                            app:cardBackgroundColor="#5397DF"
+                            app:cardCornerRadius="20dp">
+
+                            <ImageView
+                                android:id="@+id/imageView2_notes"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:adjustViewBounds="true"
+                                android:background="@drawable/rounded_notes"
+                                android:maxWidth="150dp"
+                                android:maxHeight="150dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/ic_camera" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/textViewDeleteImage2_notes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:text="Wyczyść\nzdjęcie"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="#014D70"
+                            android:textSize="16sp"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/viewImages_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#5397DF"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutImage3_notes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:elevation="32dp"
+                            android:gravity="center"
+                            app:cardBackgroundColor="#5397DF"
+                            app:cardCornerRadius="20dp">
+
+                            <ImageView
+                                android:id="@+id/imageView3_notes"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:adjustViewBounds="true"
+                                android:background="@drawable/rounded_notes"
+                                android:maxWidth="150dp"
+                                android:maxHeight="150dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/ic_camera" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/textViewDeleteImage3_notes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="Wyczyść\nzdjęcie"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="#014D70"
+                            android:textSize="16sp"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutImage4_notes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:elevation="32dp"
+                            android:gravity="center"
+                            app:cardBackgroundColor="#5397DF"
+                            app:cardCornerRadius="20dp">
+
+                            <ImageView
+                                android:id="@+id/imageView4_notes"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:adjustViewBounds="true"
+                                android:background="@drawable/rounded_notes"
+                                android:maxWidth="150dp"
+                                android:maxHeight="150dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/ic_camera" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/textViewDeleteImage4_notes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="Wyczyść\nzdjęcie"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="#014D70"
+                            android:textSize="16sp"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -184,7 +421,7 @@
                 android:gravity="start"
                 android:text="date of creation"
                 android:textColor="#014D70"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textViewDateHidden_notes"
@@ -203,6 +440,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
+                android:animateLayoutChanges="true"
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton

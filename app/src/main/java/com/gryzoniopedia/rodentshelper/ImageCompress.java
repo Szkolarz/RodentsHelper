@@ -21,14 +21,13 @@ public class ImageCompress extends Thread {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
         byteArray = stream.toByteArray();
-        //if more than ~1mb then compress it in a while loop
-        while (byteArray.length > 1000000) {
+        //if more than ~500kb then compress it in a while loop    (default: 1000000)
+        while (byteArray.length > 500000) {
             bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             Bitmap resized = Bitmap.createScaledBitmap(bitmap, (int) (bitmap.getWidth() * 0.8), (int) (bitmap.getHeight() * 0.8), true);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             resized.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
             byteArray = byteArrayOutputStream.toByteArray();
-            //System.out.println("a");
         }
 
         return rectifyImage(bitmap, context, selectedImageUri);

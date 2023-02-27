@@ -5,12 +5,15 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,7 +61,40 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
         holder.buttonAdd_notes.setVisibility(View.GONE);
         holder.buttonSaveEdit_notes.setVisibility(View.GONE);
 
+        holder.textViewImagesInfo_notes.setVisibility(View.GONE);
 
+
+        if (notesModel.get(position).notesModel.getImage1() != null) {
+            holder.linearLayoutImage1_notes.setVisibility(View.VISIBLE);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(notesModel.get(position).notesModel.getImage1(), 0,
+                    notesModel.get(position).notesModel.getImage1().length);
+            holder.imageView1_notes.setImageBitmap(bitmap);
+        } else
+            holder.linearLayoutImage1_notes.setVisibility(View.GONE);
+
+        if (notesModel.get(position).notesModel.getImage2() != null) {
+            holder.linearLayoutImage2_notes.setVisibility(View.VISIBLE);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(notesModel.get(position).notesModel.getImage2(), 0,
+                    notesModel.get(position).notesModel.getImage2().length);
+            holder.imageView2_notes.setImageBitmap(bitmap);
+        } else
+            holder.linearLayoutImage2_notes.setVisibility(View.GONE);
+
+        if (notesModel.get(position).notesModel.getImage3() != null) {
+            holder.linearLayoutImage3_notes.setVisibility(View.VISIBLE);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(notesModel.get(position).notesModel.getImage3(), 0,
+                    notesModel.get(position).notesModel.getImage3().length);
+            holder.imageView3_notes.setImageBitmap(bitmap);
+        } else
+            holder.linearLayoutImage3_notes.setVisibility(View.GONE);
+
+        if (notesModel.get(position).notesModel.getImage4() != null) {
+            holder.linearLayoutImage4_notes.setVisibility(View.VISIBLE);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(notesModel.get(position).notesModel.getImage4(), 0,
+                    notesModel.get(position).notesModel.getImage4().length);
+            holder.imageView4_notes.setImageBitmap(bitmap);
+        } else
+            holder.linearLayoutImage4_notes.setVisibility(View.GONE);
 
         holder.editTextTopic_notes.setText(notesModel.get(position).notesModel.getTopic());
         holder.editTextContent_notes.setText(notesModel.get(position).notesModel.getContent());
@@ -89,6 +125,7 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
                   intent.putExtra("topicKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).notesModel.getTopic()));
                   intent.putExtra("contentKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).notesModel.getContent()));
                   intent.putExtra("create_dateKey",String.valueOf(notesModel.get(holder.getAdapterPosition()).notesModel.getCreate_date()));
+                  intent.putExtra("flagKey",Boolean.valueOf(true));
 
                   //0 = edit
                   FlagSetup.setFlagNotesAdd(0);
@@ -146,8 +183,12 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
 
         EditText editTextTopic_notes, editTextContent_notes;
         Button buttonAdd_notes, buttonSaveEdit_notes;
-        ImageView buttonEdit_notes, buttonDelete_notes;
-        TextView textViewDate_notes;
+        ImageView buttonEdit_notes, buttonDelete_notes, imageView1_notes, imageView2_notes,
+                imageView3_notes, imageView4_notes;
+        TextView textViewDate_notes, textViewImagesInfo_notes;
+
+        LinearLayout linearLayoutImages_notes, linearLayoutImage1_notes, linearLayoutImage2_notes,
+                linearLayoutImage3_notes, linearLayoutImage4_notes;
 
 
         private final ArrayList<String> arrayListSelected;
@@ -164,6 +205,18 @@ public class AdapterNotes extends RecyclerView.Adapter<AdapterNotes.viewHolder>
             buttonSaveEdit_notes = itemView.findViewById(R.id.buttonSaveEdit_notes);
             buttonDelete_notes = itemView.findViewById(R.id.buttonDelete_notes);
 
+            imageView1_notes = itemView.findViewById(R.id.imageView1_notes);
+            imageView2_notes = itemView.findViewById(R.id.imageView2_notes);
+            imageView3_notes = itemView.findViewById(R.id.imageView3_notes);
+            imageView4_notes = itemView.findViewById(R.id.imageView4_notes);
+
+            textViewImagesInfo_notes = itemView.findViewById(R.id.textViewImagesInfo_notes);
+
+            linearLayoutImages_notes = itemView.findViewById(R.id.linearLayoutImages_notes);
+            linearLayoutImage1_notes = itemView.findViewById(R.id.linearLayoutImage1_notes);
+            linearLayoutImage2_notes = itemView.findViewById(R.id.linearLayoutImage2_notes);
+            linearLayoutImage3_notes = itemView.findViewById(R.id.linearLayoutImage3_notes);
+            linearLayoutImage4_notes = itemView.findViewById(R.id.linearLayoutImage4_notes);
 
             arrayListSelected = new ArrayList<>();
 

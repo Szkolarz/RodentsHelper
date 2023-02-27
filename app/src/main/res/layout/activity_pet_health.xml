@@ -222,7 +222,7 @@
                                     android:id="@+id/textView2_petHealth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Tworzenie prostych notatek w formie tekstu, które są automatycznie przypisane do wybranego zwierzęcia."
+                                    android:text="Tworzenie prostych notatek w formie tekstu, które są automatycznie przypisane do wybranego zwierzęcia. Można tu również dodawać zdjęcia."
                                     android:textColor="#014D70" />
 
                             </LinearLayout>

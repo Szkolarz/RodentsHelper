@@ -110,6 +110,8 @@ public class ViewNotes extends AppCompatActivity {
 
     public void addNewNote()
     {
+        AddEditNotes.byteArray1 = null; AddEditNotes.byteArray2 = null;
+        AddEditNotes.byteArray3 = null; AddEditNotes.byteArray4 = null;
         //1 = nowy
         FlagSetup.setFlagNotesAdd(1);
         final Context context = this;

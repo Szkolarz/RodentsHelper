@@ -41,13 +41,21 @@ public class NotesModel {
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     private byte[] image3;
 
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] image4;
 
-    public NotesModel(Integer id_rodent, String topic, String content, Date create_date, Date edit_date) {
+
+    public NotesModel(Integer id_rodent, String topic, String content, Date create_date, Date edit_date,
+                      byte[] image1,  byte[] image2,  byte[] image3,  byte[] image4) {
         this.id_rodent = id_rodent;
         this.topic = topic;
         this.content = content;
         this.create_date = create_date;
         this.edit_date = edit_date;
+        this.image1 = image1;
+        this.image2 = image2;
+        this.image3 = image3;
+        this.image4 = image4;
     }
 
 
@@ -121,5 +129,13 @@ public class NotesModel {
 
     public void setImage3(byte[] image3) {
         this.image3 = image3;
+    }
+
+    public byte[] getImage4() {
+        return image4;
+    }
+
+    public void setImage4(byte[] image4) {
+        this.image4 = image4;
     }
 }
