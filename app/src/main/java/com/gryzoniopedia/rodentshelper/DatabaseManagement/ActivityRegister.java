@@ -170,6 +170,7 @@ public class ActivityRegister extends AppCompatActivity {
                                         runOnUiThread(() -> {
                                             linearLayoutRegisterProgress.setVisibility(View.GONE); allowBackButton = true;
                                             this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                            indefiniteError(this);
                                         });
                                         Log.e("ActivityRegister 165", Log.getStackTraceString(e));
                                     }
@@ -197,6 +198,7 @@ public class ActivityRegister extends AppCompatActivity {
                         }
 
                     } catch (ExecutionException | InterruptedException e) {
+                        runOnUiThread(() -> indefiniteError(this));
                         Log.e("ActivityRegister", Log.getStackTraceString(e));
                     }
                 });
@@ -262,6 +264,15 @@ public class ActivityRegister extends AppCompatActivity {
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
+
+    private void indefiniteError (Context context) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(ActivityRegister.this, R.style.AlertDialogStyleUpdate);
+        alert.setTitle("Nieokreślony błąd");
+        alert.setMessage("Wystąpił nieokreślony błąd, prawdopodobnie podczas łączenia się z serwerem.\n\n" +
+                "Spróbuj wykonać czynność ponownie.");
+        alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> {});
+        alert.show();
+    }
 
     @Override
     public void onBackPressed() {

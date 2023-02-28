@@ -42,8 +42,11 @@ public class Querries implements ConnectionSQL{
     public ResultSet checkVersion(Integer id_animal, Context context) throws SQLException {
         ResultSet myres = null;
         try {
-        Statement stat = connectToVPS(context).createStatement();
-            myres = stat.executeQuery("SELECT * FROM `Version` WHERE id_animal = " + id_animal);
+            Connection con = connectToVPS(context);
+            PreparedStatement preparedStatement =
+                    con.prepareStatement("SELECT * FROM `Version` WHERE id_animal = ?");
+            preparedStatement.setInt(1, id_animal);
+            myres = preparedStatement.executeQuery();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
             Log.e("checkVersion", Log.getStackTraceString(e));
@@ -55,8 +58,10 @@ public class Querries implements ConnectionSQL{
     public ResultSet selectVersion(Context context) throws SQLException {
         ResultSet myres = null;
         try {
-            Statement stat = connectToVPS(context).createStatement();
-            myres = stat.executeQuery("SELECT * from `Version`");
+            Connection con = connectToVPS(context);
+            PreparedStatement preparedStatement =
+                    con.prepareStatement("SELECT * from `Version`");
+            myres = preparedStatement.executeQuery();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
             Log.e("Select Version", Log.getStackTraceString(e));
@@ -67,8 +72,11 @@ public class Querries implements ConnectionSQL{
     public ResultSet selectVersionById(Integer id_animal, Context context) throws SQLException {
         ResultSet myres = null;
         try {
-            Statement stat = connectToVPS(context).createStatement();
-            myres = stat.executeQuery("SELECT * from `Version` WHERE id_animal = " + id_animal);
+            Connection con = connectToVPS(context);
+            PreparedStatement preparedStatement =
+                    con.prepareStatement("SELECT * from `Version` WHERE id_animal = ?");
+            preparedStatement.setInt(1, id_animal);
+            myres = preparedStatement.executeQuery();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
             Log.e("Select Version Where ID ", Log.getStackTraceString(e));
@@ -80,8 +88,11 @@ public class Querries implements ConnectionSQL{
     public ResultSet selectGeneral(Integer id_animal, Context context) throws SQLException {
         ResultSet myres = null;
         try {
-        Statement stat = connectToVPS(context).createStatement();
-            myres = stat.executeQuery("SELECT * FROM `General` WHERE id_animal = " + id_animal);
+            Connection con = connectToVPS(context);
+            PreparedStatement preparedStatement =
+                    con.prepareStatement("SELECT * FROM `General` WHERE id_animal = ?");
+            preparedStatement.setInt(1, id_animal);
+            myres = preparedStatement.executeQuery();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
             Log.e("Select General", Log.getStackTraceString(e));
@@ -94,8 +105,11 @@ public class Querries implements ConnectionSQL{
     public ResultSet selectDiseases(Integer id_animal, Context context) throws SQLException {
         ResultSet myres = null;
         try {
-            Statement stat = connectToVPS(context).createStatement();
-            myres = stat.executeQuery("SELECT * FROM `Diseases` WHERE id_animal = " + id_animal);
+            Connection con = connectToVPS(context);
+            PreparedStatement preparedStatement =
+                    con.prepareStatement("SELECT * FROM `Diseases` WHERE id_animal = ?");
+            preparedStatement.setInt(1, id_animal);
+            myres = preparedStatement.executeQuery();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
             Log.e("selectDiseases", Log.getStackTraceString(e));
@@ -106,8 +120,11 @@ public class Querries implements ConnectionSQL{
     public ResultSet selectTreats(Integer id_animal, Context context) throws SQLException {
         ResultSet myres = null;
         try {
-            Statement stat = connectToVPS(context).createStatement();
-            myres = stat.executeQuery("SELECT * from `Treats` WHERE id_animal = " + id_animal);
+            Connection con = connectToVPS(context);
+            PreparedStatement preparedStatement =
+                    con.prepareStatement("SELECT * from `Treats` WHERE id_animal = ?");
+            preparedStatement.setInt(1, id_animal);
+            myres = preparedStatement.executeQuery();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
             Log.e("selectTreats", Log.getStackTraceString(e));
@@ -118,8 +135,11 @@ public class Querries implements ConnectionSQL{
     public ResultSet selectCageSupply(Integer id_animal, Context context) throws SQLException {
         ResultSet myres = null;
         try {
-            Statement stat = connectToVPS(context).createStatement();
-            myres = stat.executeQuery("SELECT * from `CageSupply` WHERE id_animal = " + id_animal);
+            Connection con = connectToVPS(context);
+            PreparedStatement preparedStatement =
+                    con.prepareStatement("SELECT * from `CageSupply` WHERE id_animal = ?");
+            preparedStatement.setInt(1, id_animal);
+            myres = preparedStatement.executeQuery();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
             Log.e("selectCageSupply", Log.getStackTraceString(e));
@@ -162,8 +182,11 @@ public class Querries implements ConnectionSQL{
     public ResultSet importLocalDatabase (String login, Context context) throws SQLException {
         ResultSet myres = null;
         try {
-            Statement stat = connectToVPS(context).createStatement();
-            myres = stat.executeQuery("SELECT file from `LocalData` WHERE login = '" + login + "'");
+            Connection con = connectToVPS(context);
+            PreparedStatement preparedStatement =
+                    con.prepareStatement("SELECT file from `LocalData` WHERE login = ?");
+            preparedStatement.setString (1, login);
+            myres = preparedStatement.executeQuery();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
             Log.e("importLocalDatabase", Log.getStackTraceString(e));
@@ -175,7 +198,6 @@ public class Querries implements ConnectionSQL{
         try {
             Connection con = connectToVPS(context);
             String sql ="UPDATE Accounts SET `export_date` = (?) WHERE `login` = (?)";
-
             PreparedStatement preparedStmt = con.prepareStatement(sql);
             preparedStmt.setDate(1, date);
             preparedStmt.setString(2, login);
@@ -188,8 +210,11 @@ public class Querries implements ConnectionSQL{
     public ResultSet getExportDate (String login, Context context) throws SQLException, InterruptedException {
         ResultSet myres = null;
         try {
-            Statement stat = connectToVPS(context).createStatement();
-            myres = stat.executeQuery("SELECT export_date from `Accounts` WHERE login = '" + login + "'");
+            Connection con = connectToVPS(context);
+            PreparedStatement preparedStatement =
+                    con.prepareStatement("SELECT export_date from `Accounts` WHERE login = ?");
+            preparedStatement.setString (1, login);
+            myres = preparedStatement.executeQuery();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
             Log.e("getExportDate", Log.getStackTraceString(e));
@@ -200,8 +225,10 @@ public class Querries implements ConnectionSQL{
     public ResultSet checkLoginAvailability (Context context) throws SQLException, InterruptedException {
         ResultSet myres = null;
         try {
-            Statement stat = connectToVPS(context).createStatement();
-            myres = stat.executeQuery("SELECT login from `Accounts`");
+            Connection con = connectToVPS(context);
+            PreparedStatement preparedStatement =
+                    con.prepareStatement("SELECT login from `Accounts`");
+            myres = preparedStatement.executeQuery();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
             Log.e("checkLoginAvailability", Log.getStackTraceString(e));
@@ -212,8 +239,9 @@ public class Querries implements ConnectionSQL{
     public ResultSet checkLoginAndPassword (Context context) throws SQLException, InterruptedException {
         ResultSet myres = null;
         try {
-            Statement stat = connectToVPS(context).createStatement();
-            myres = stat.executeQuery("SELECT login, password from `Accounts`");
+            Connection con = connectToVPS(context);
+            PreparedStatement preparedStatement = con.prepareStatement("SELECT login, password from `Accounts`");
+            myres = preparedStatement.executeQuery();
             connectToVPS(context).close();
         } catch (NullPointerException e) {
             Log.e("checkLoginAndPassword", Log.getStackTraceString(e));

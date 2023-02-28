@@ -89,6 +89,7 @@ public class ActivityLogin extends AppCompatActivity {
             if (!loginIntent.equals(""))
                 editTextLogin_login.setText(loginIntent);
         } catch (NullPointerException e) {
+            indefiniteError(this);
             System.out.println("ActivityLogin error - no loginIntent: " + e);
         }
 
@@ -214,6 +215,7 @@ public class ActivityLogin extends AppCompatActivity {
                                     runOnUiThread(() -> {
                                         linearLayoutLoginProgress.setVisibility(View.GONE); allowBackButton = true;
                                         this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                        indefiniteError(this);
                                     });
 
                                     Log.e("191 ActivityLogin", Log.getStackTraceString(e));
@@ -237,6 +239,7 @@ public class ActivityLogin extends AppCompatActivity {
                         }
                     } catch (ExecutionException | InterruptedException e) {
                         Log.e("ActivityLogin", Log.getStackTraceString(e));
+                        runOnUiThread(() -> indefiniteError(this));
                     }
 
                 });
@@ -266,6 +269,15 @@ public class ActivityLogin extends AppCompatActivity {
     public boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
+    private void indefiniteError (Context context) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(ActivityLogin.this, R.style.AlertDialogStyleUpdate);
+        alert.setTitle("Nieokreślony błąd");
+        alert.setMessage("Wystąpił nieokreślony błąd, prawdopodobnie podczas łączenia się z serwerem.\n\n" +
+                "Spróbuj wykonać czynność ponownie.");
+        alert.setPositiveButton("Rozumiem", (dialogInterface1, i1) -> {});
+        alert.show();
     }
 
 
