@@ -24,6 +24,9 @@ import com.gryzoniopedia.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.gryzoniopedia.rodentshelper.ROOM.AppDatabase;
 import com.gryzoniopedia.rodentshelper.ROOM.DAOVisits;
+import com.gryzoniopedia.rodentshelper.ROOM.Vet.Methods.VetsFillList;
+import com.gryzoniopedia.rodentshelper.ROOM.Visits.Methods.AddEditVisits;
+import com.gryzoniopedia.rodentshelper.ROOM.Visits.Methods.VisitsFillList;
 import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentVisit.VisitsWithRodentsCrossRef;
 
 import java.util.List;
@@ -116,26 +119,9 @@ public class ViewVisits extends AppCompatActivity {
     }
 
 
-
-
     public List getListVisits(){
-        List<VisitsWithRodentsCrossRef> visitModel;
-
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAOVisits daoVisits = db.daoVisits();
-
-        if (FlagSetup.getFlagVisitAdd() == 2) {
-            toolbar.setTitle("Wizyty pupila");
-            SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
-            visitModel = daoVisits.getVisitsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
-        }
-        else {
-            toolbar.setTitle("Wizyty");
-            visitModel = daoVisits.getVisitsWithRodents();
-            FlagSetup.setFlagVisitAdd(1);
-        }
-        return visitModel;
+        VisitsFillList visitsFillList = new VisitsFillList();
+        return visitsFillList.getList(this, toolbar);
     }
 
 

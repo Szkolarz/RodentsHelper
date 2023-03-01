@@ -1,4 +1,4 @@
-package com.gryzoniopedia.rodentshelper.ROOM.Vet;
+package com.gryzoniopedia.rodentshelper.ROOM.Vet.Methods;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +25,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.RodentModel;
+import com.gryzoniopedia.rodentshelper.ROOM.Vet.VetModel;
+import com.gryzoniopedia.rodentshelper.ROOM.Vet.ViewVets;
 import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentVet.RodentVetModel;
 import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 import com.gryzoniopedia.rodentshelper.Alerts;

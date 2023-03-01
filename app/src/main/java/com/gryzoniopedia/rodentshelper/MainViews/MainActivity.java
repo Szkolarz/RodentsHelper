@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.gryzoniopedia.rodentshelper.AsyncActivity;
 import com.example.rodentshelper.R;
-import com.gryzoniopedia.rodentshelper.ROOM.Rodent.AddEditRodents;
+import com.gryzoniopedia.rodentshelper.ROOM.Rodent.Methods.AddEditRodents;
 import com.gryzoniopedia.rodentshelper.ROOM.Vet.ViewVets;
 import com.gryzoniopedia.rodentshelper.SQL.Querries;
 

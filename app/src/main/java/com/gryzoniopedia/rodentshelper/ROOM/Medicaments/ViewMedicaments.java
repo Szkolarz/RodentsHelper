@@ -24,6 +24,9 @@ import com.gryzoniopedia.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.gryzoniopedia.rodentshelper.ROOM.AppDatabase;
 import com.gryzoniopedia.rodentshelper.ROOM.DAOMedicaments;
+import com.gryzoniopedia.rodentshelper.ROOM.Medicaments.Methods.AddEditMedicaments;
+import com.gryzoniopedia.rodentshelper.ROOM.Medicaments.Methods.MedicamentsFillList;
+import com.gryzoniopedia.rodentshelper.ROOM.Visits.Methods.VisitsFillList;
 import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
 
 import java.util.List;
@@ -127,26 +130,8 @@ public class ViewMedicaments extends AppCompatActivity {
 
 
     public List getListMedicament(){
-
-        List<MedicamentWithRodentsCrossRef> medicamentModel = null;
-
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAOMedicaments daoMedicaments = db.daoMedicaments();
-        if (FlagSetup.getFlagMedAdd() == 2) {
-            toolbar.setTitle("Lekarstwa pupila");
-            SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
-            medicamentModel = daoMedicaments.getMedsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
-        }
-        else {
-            toolbar.setTitle("Lekarstwa");
-            medicamentModel = daoMedicaments.getMedsWithRodents();
-            FlagSetup.setFlagMedAdd(1);
-        }
-        /** !!! **/
-        db.close();
-
-        return medicamentModel;
+        MedicamentsFillList medicamentsFillList = new MedicamentsFillList();
+        return medicamentsFillList.getList(this, toolbar);
     }
 
 

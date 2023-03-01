@@ -36,6 +36,9 @@ import com.gryzoniopedia.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.gryzoniopedia.rodentshelper.ROOM.AppDatabase;
 import com.gryzoniopedia.rodentshelper.ROOM.DAORodents;
+import com.gryzoniopedia.rodentshelper.ROOM.Notes.Methods.NotesFillList;
+import com.gryzoniopedia.rodentshelper.ROOM.Rodent.Methods.AddEditRodents;
+import com.gryzoniopedia.rodentshelper.ROOM.Rodent.Methods.RodentsFillList;
 
 import java.util.List;
 import java.util.Objects;
@@ -181,17 +184,10 @@ public class ViewRodents extends AppCompatActivity {
     }
 
     public List getListRodent(){
-        SharedPreferences prefsFirstStart = ViewRodents.this.getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
-
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAORodents daoRodents = db.daoRodents();
-
-        List<RodentModel> rodentModel = daoRodents.getAllRodentsWhereIdAnimal(prefsFirstStart.getInt("prefsFirstStart", 0));
-        db.close();
-
-        return rodentModel;
+        RodentsFillList rodentsFillList = new RodentsFillList();
+        return rodentsFillList.getList(this);
     }
+
 
 
     private void getRoomData()

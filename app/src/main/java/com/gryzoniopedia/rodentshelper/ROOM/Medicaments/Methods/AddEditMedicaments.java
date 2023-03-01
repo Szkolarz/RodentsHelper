@@ -1,4 +1,4 @@
-package com.gryzoniopedia.rodentshelper.ROOM.Medicaments;
+package com.gryzoniopedia.rodentshelper.ROOM.Medicaments.Methods;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -31,6 +31,8 @@ import com.example.rodentshelper.R;
 import com.gryzoniopedia.rodentshelper.ROOM.AppDatabase;
 import com.gryzoniopedia.rodentshelper.ROOM.DAOMedicaments;
 import com.gryzoniopedia.rodentshelper.ROOM.DAORodents;
+import com.gryzoniopedia.rodentshelper.ROOM.Medicaments.MedicamentModel;
+import com.gryzoniopedia.rodentshelper.ROOM.Medicaments.ViewMedicaments;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.RodentModel;
 import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentMed.MedicamentWithRodentsCrossRef;
 import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentMed.RodentMedModel;

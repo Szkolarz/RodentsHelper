@@ -78,11 +78,11 @@
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.gryzoniopedia.rodentshelper.ROOM.Rodent.AddEditRodents"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Rodent.Methods.AddEditRodents"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.gryzoniopedia.rodentshelper.ROOM.Vet.AddEditVets"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Vet.Methods.AddEditVets"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
@@ -90,7 +90,7 @@
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.gryzoniopedia.rodentshelper.ROOM.Medicaments.AddEditMedicaments"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Medicaments.Methods.AddEditMedicaments"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
@@ -98,7 +98,7 @@
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.gryzoniopedia.rodentshelper.ROOM.Visits.AddEditVisits"
+            android:name="com.gryzoniopedia.rodentshelper.ROOM.Visits.Methods.AddEditVisits"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity

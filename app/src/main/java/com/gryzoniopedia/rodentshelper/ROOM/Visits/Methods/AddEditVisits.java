@@ -1,4 +1,4 @@
-package com.gryzoniopedia.rodentshelper.ROOM.Visits;
+package com.gryzoniopedia.rodentshelper.ROOM.Visits.Methods;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -41,6 +41,8 @@ import com.gryzoniopedia.rodentshelper.ROOM.DAOVets;
 import com.gryzoniopedia.rodentshelper.ROOM.DAOVisits;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.RodentModel;
 import com.gryzoniopedia.rodentshelper.ROOM.Vet.VetModel;
+import com.gryzoniopedia.rodentshelper.ROOM.Visits.ViewVisits;
+import com.gryzoniopedia.rodentshelper.ROOM.Visits.VisitModel;
 import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentVisit.RodentVisitModel;
 import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentVisit.VisitsWithRodentsCrossRef;
 

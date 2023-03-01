@@ -124,7 +124,7 @@ public class ViewNotes extends AppCompatActivity {
 
     public List getListNotes(){
         NotesFillList notesFillList = new NotesFillList();
-        return notesFillList.getList(getApplicationContext());
+        return notesFillList.getList(this);
     }
 
 

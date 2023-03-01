@@ -20,6 +20,9 @@ import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
+import com.gryzoniopedia.rodentshelper.ROOM.Rodent.Methods.RodentsFillList;
+import com.gryzoniopedia.rodentshelper.ROOM.Vet.Methods.AddEditVets;
+import com.gryzoniopedia.rodentshelper.ROOM.Vet.Methods.VetsFillList;
 import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentVet.VetWithRodentsCrossRef;
 import com.gryzoniopedia.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
@@ -114,24 +117,8 @@ public class ViewVets extends AppCompatActivity {
 
 
     public List getListVet(){
-        List<VetWithRodentsCrossRef> vetModel;
-
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
-        DAOVets daoVets = db.daoVets();
-        if (FlagSetup.getFlagVetAdd() == 2) {
-            toolbar.setTitle("Weterynarze pupila");
-            SharedPreferences prefsGetRodentId = getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
-            vetModel = daoVets.getVetsWithRodentsWhereIdRodent(prefsGetRodentId.getInt("rodentId", 0));
-        }
-        else {
-            toolbar.setTitle("Weterynarze");
-            vetModel = daoVets.getVetsWithRodents();
-            FlagSetup.setFlagVetAdd(1);
-        }
-        db.close();
-
-        return vetModel;
+        VetsFillList vetsFillList = new VetsFillList();
+        return vetsFillList.getList(this, toolbar);
     }
 
 

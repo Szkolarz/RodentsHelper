@@ -1,4 +1,4 @@
-package com.gryzoniopedia.rodentshelper.ROOM.Rodent;
+package com.gryzoniopedia.rodentshelper.ROOM.Rodent.Methods;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -30,11 +30,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import com.gryzoniopedia.rodentshelper.Alerts;
-import com.gryzoniopedia.rodentshelper.FlagSetup;
 import com.gryzoniopedia.rodentshelper.ImageCompress;
 import com.example.rodentshelper.R;
 import com.gryzoniopedia.rodentshelper.ROOM.AppDatabase;
 import com.gryzoniopedia.rodentshelper.ROOM.DAORodents;
+import com.gryzoniopedia.rodentshelper.ROOM.Rodent.RodentModel;
+import com.gryzoniopedia.rodentshelper.ROOM.Rodent.ViewRodents;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
