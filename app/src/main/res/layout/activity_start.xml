@@ -127,6 +127,7 @@
                 android:id="@+id/unknown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:contentDescription="Coming soon..."
                 android:visibility="visible"

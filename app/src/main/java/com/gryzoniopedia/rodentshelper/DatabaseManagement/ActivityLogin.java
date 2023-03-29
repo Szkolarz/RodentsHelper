@@ -89,7 +89,7 @@ public class ActivityLogin extends AppCompatActivity {
             if (!loginIntent.equals(""))
                 editTextLogin_login.setText(loginIntent);
         } catch (NullPointerException e) {
-            indefiniteError(this);
+            //indefiniteError(this);
             System.out.println("ActivityLogin error - no loginIntent: " + e);
         }
 
