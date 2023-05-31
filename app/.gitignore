@@ -1,3 +1,4 @@
 /build
 /src/main/java/com/example/rodentshelper/db.properties
 /src/main/assets/db.properties
+/src/main/res/values/strings.xml
