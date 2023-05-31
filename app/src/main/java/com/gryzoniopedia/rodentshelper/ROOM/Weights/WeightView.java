@@ -1,6 +1,7 @@
 package com.gryzoniopedia.rodentshelper.ROOM.Weights;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +24,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,8 +39,10 @@ import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
 import com.gryzoniopedia.rodentshelper.Alerts;
+import com.gryzoniopedia.rodentshelper.DatabaseManagement.ActivityDatabaseManagement;
 import com.gryzoniopedia.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
+import com.gryzoniopedia.rodentshelper.MainViews.ViewEncyclopedia;
 import com.gryzoniopedia.rodentshelper.ROOM.AppDatabase;
 import com.gryzoniopedia.rodentshelper.ROOM.DAOWeight;
 import com.gryzoniopedia.rodentshelper.ROOM.DateFormat;
@@ -55,6 +65,76 @@ public class WeightView extends AppCompatActivity {
     private TextView textViewDate, textViewDateWeight_hidden;
     private ScrollView scrollView_weight;
     private DatePickerDialog.OnDateSetListener dateSetListener;
+
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_toolbar_cogwheel, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.cogwheel_global) {
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(WeightView.this);
+
+
+            View inflateView;
+            LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflateView = inflater.inflate(R.layout.btn_weight_options, null);
+
+            dialog.setCustomTitle(inflateView);
+            dialog.setOnCancelListener(dialog1 -> {
+                reloadActivity();
+            });
+
+            SwitchCompat switch_chart = inflateView.findViewById(R.id.switch_chart);
+            SwitchCompat switch_weight = inflateView.findViewById(R.id.switch_weight);
+
+            SharedPreferences prefsChartInfo = getSharedPreferences("prefsChartInfo", MODE_PRIVATE);
+            SharedPreferences prefsWeightInfo = getSharedPreferences("prefsWeightInfo", MODE_PRIVATE);
+
+
+            if (prefsChartInfo.getBoolean("prefsChartInfo", true))
+                switch_chart.setChecked(true);
+            else
+                switch_chart.setChecked(false);
+
+            if (prefsWeightInfo.getBoolean("prefsWeightInfo", true))
+                switch_weight.setChecked(true);
+            else
+                switch_weight.setChecked(false);
+
+
+            switch_chart.setOnClickListener(v -> {
+                if (switch_chart.isChecked()) {
+                    SharedPreferences.Editor editorChartInfo = prefsChartInfo.edit();
+                    editorChartInfo.putBoolean("prefsChartInfo", true);
+                    editorChartInfo.apply();
+                } else {
+                    SharedPreferences.Editor editorChartInfo = prefsChartInfo.edit();
+                    editorChartInfo.putBoolean("prefsChartInfo", false);
+                    editorChartInfo.apply();
+                }
+            });
+
+            switch_weight.setOnClickListener(v -> {
+                if (switch_weight.isChecked()) {
+                    SharedPreferences.Editor editorWeightInfo = prefsWeightInfo.edit();
+                    editorWeightInfo.putBoolean("prefsWeightInfo", true);
+                    editorWeightInfo.apply();
+                } else {
+                    SharedPreferences.Editor editorWeightInfo = prefsWeightInfo.edit();
+                    editorWeightInfo.putBoolean("prefsWeightInfo", false);
+                    editorWeightInfo.apply();
+                }
+            });
+            AlertDialog alertDialog = dialog.show();
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -106,7 +186,24 @@ public class WeightView extends AppCompatActivity {
         LineChart lineChart_weight = findViewById(R.id.lineChart_weight);
         LinearLayout linearLayoutChart_weight = findViewById(R.id.linearLayoutChart_weight);
         LinearLayout linearLayoutChartInfo_weight = findViewById(R.id.linearLayoutChartInfo_weight);
+        LinearLayout linearLayoutProperWeight_weight = findViewById(R.id.linearLayoutProperWeight_weight);
         scrollView_weight = findViewById(R.id.scrollView_weight);
+
+        SharedPreferences prefsChartInfo = getSharedPreferences("prefsChartInfo", MODE_PRIVATE);
+        SharedPreferences prefsWeightInfo = getSharedPreferences("prefsWeightInfo", MODE_PRIVATE);
+
+        if (prefsChartInfo.getBoolean("prefsChartInfo", true)) {
+            linearLayoutChart_weight.setVisibility(View.VISIBLE);
+        } else {
+            linearLayoutChart_weight.setVisibility(View.GONE);
+            linearLayoutChartInfo_weight.setVisibility(View.GONE);
+            System.out.println("DS");
+        }
+
+        if (prefsWeightInfo.getBoolean("prefsWeightInfo", true))
+            linearLayoutProperWeight_weight.setVisibility(View.VISIBLE);
+        else
+            linearLayoutProperWeight_weight.setVisibility(View.GONE);
 
 
 
@@ -139,7 +236,8 @@ public class WeightView extends AppCompatActivity {
         List <WeightModel> weightModel = weightChart.getListWeightASC(getBaseContext());
 
         if (weightModel.size() < 2) {
-            linearLayoutChartInfo_weight.setVisibility(View.VISIBLE);
+            if (prefsChartInfo.getBoolean("prefsChartInfo", true))
+                linearLayoutChartInfo_weight.setVisibility(View.VISIBLE);
             lineChart_weight.setVisibility(View.GONE);
             linearLayoutChart_weight.setVisibility(View.GONE);
         }
@@ -329,6 +427,11 @@ public class WeightView extends AppCompatActivity {
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void reloadActivity() {
+        startActivity(new Intent(WeightView.this, WeightView.class));
+        finish();
     }
 
 

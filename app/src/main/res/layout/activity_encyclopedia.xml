@@ -132,7 +132,7 @@
                         android:layout_marginBottom="25dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Okienko powinno zamknąć się automatycznie. \nProsimy o cierpliwość.\n\nPobieranie w niektórych przypadkach może trwać nawet do trzech minut. Jest to zależne od szybkości internetu oraz rodzaju urządzenia."
+                        android:text="Okienko powinno zamknąć się automatycznie. \nProsimy o cierpliwość.\n\nPobieranie w niektórych przypadkach może trwać nawet do trzech minut. Jest to zależne od szybkości internetu oraz dostępności serwera."
                         android:textColor="#014D70"
                         android:textSize="16sp"
                         android:visibility="gone" />
@@ -278,7 +278,7 @@
 
                             <View
                                 android:layout_width="match_parent"
-                                android:layout_height="5dp"
+                                android:layout_height="2dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginRight="10dp"

@@ -1,11 +1,11 @@
 package com.gryzoniopedia.rodentshelper.MainViews;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,13 +47,13 @@ public class ViewEncyclopedia extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_toolbar_encyclopedia, menu);
+        menuInflater.inflate(R.menu.menu_toolbar_cogwheel, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.update_encyclopedia) {
+        if (item.getItemId() == R.id.cogwheel_global) {
             final AlertDialog.Builder dialog = new AlertDialog.Builder(ViewEncyclopedia.this);
 
             View inflateView;
@@ -82,7 +82,9 @@ public class ViewEncyclopedia extends AppCompatActivity {
                     editorAutoUpdate.apply();
                 }
             });
-            dialog.create().show();
+            AlertDialog alertDialog = dialog.show();
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         }
         return super.onOptionsItemSelected(item);
     }

@@ -5,9 +5,10 @@
 
 
     <item
-        android:id="@+id/update_encyclopedia"
+        android:id="@+id/cogwheel_global"
+        android:icon="@drawable/cogwheel"
         android:title="@string/update_encyclopedia_name"
-        app:showAsAction="never">
+        app:showAsAction="always" >
     </item>
 
 

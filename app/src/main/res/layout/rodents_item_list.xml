@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="Edytuj"
+                android:text=""
                 android:textAlignment="center"
                 android:textColor="#014D70"
                 android:textColorHint="#77147A"
