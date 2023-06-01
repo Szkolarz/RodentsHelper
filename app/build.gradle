@@ -11,8 +11,8 @@ android {
         applicationId 'com.gryzoniopedia.rodentshelper'
         minSdk 24
         targetSdk 33
-        versionCode 26
-        versionName "1.0.8_2"
+        versionCode 30
+        versionName "1.0.9_1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
