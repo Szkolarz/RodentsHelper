@@ -3,12 +3,9 @@ package com.gryzoniopedia.rodentshelper.ROOM.Rodent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,13 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
+import com.google.android.material.navigation.NavigationView;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityOther;
@@ -34,40 +32,31 @@ import com.gryzoniopedia.rodentshelper.MainViews.FirstStart;
 import com.gryzoniopedia.rodentshelper.DatabaseManagement.ActivityDatabaseManagement;
 import com.gryzoniopedia.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
-import com.gryzoniopedia.rodentshelper.ROOM.AppDatabase;
-import com.gryzoniopedia.rodentshelper.ROOM.DAORodents;
-import com.gryzoniopedia.rodentshelper.ROOM.Notes.Methods.NotesFillList;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.Methods.AddEditRodents;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.Methods.RodentsFillList;
 
 import java.util.List;
-import java.util.Objects;
 
-public class ViewRodents extends AppCompatActivity {
+public class ViewRodents extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView recyclerView;
+    private DrawerLayout drawerLayout;
+
 
     @Override
-    public boolean onCreateOptionsMenu (Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_toolbar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.choose_rodent:
+            case R.id.nav_choose_rodent:
                 Intent intent = new Intent(ViewRodents.this, FirstStart.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.database_management_name:
+            case R.id.nav_database_management:
                 Intent intentDb = new Intent(ViewRodents.this, ActivityDatabaseManagement.class);
                 startActivity(intentDb);
                 finish();
                 break;
-            case R.id.about_app:
+            case R.id.nav_about_app:
                 Intent intentAboutApp = new Intent(ViewRodents.this, ActivityAboutApp.class);
                 startActivity(intentAboutApp);
                 finish();
@@ -83,6 +72,12 @@ public class ViewRodents extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recycler_rodents);
 
+
+        drawerLayout = findViewById(R.id.drawerlayout);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView_rodents);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
 
         Toolbar toolbar = findViewById(R.id.app_bar_rodents);
         toolbar.setTitle("");
@@ -106,11 +101,12 @@ public class ViewRodents extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_hamburger);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout,
+                toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
 
-        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_hamburger);
-        toolbar.setOverflowIcon(drawable);
 
         ImageView imageButton1_rodent, imageButton2_encyclopedia, imageButton3_health, imageButton4_other;
 

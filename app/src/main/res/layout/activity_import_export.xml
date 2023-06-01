@@ -228,7 +228,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:backgroundTint="#5397DF"
-                            android:text="Eksportuj dane"
+                            android:text="Zapisz dane w chmurze"
                             android:textColor="#FFFFFF"
                             app:strokeColor="#0375a8"
                             app:strokeWidth="3dp" />
@@ -274,7 +274,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:backgroundTint="#5397DF"
-                            android:text="Importuj dane"
+                            android:text="Wczytaj dane z chmury"
                             android:textColor="#FFFFFF"
                             app:strokeColor="#0375a8"
                             app:strokeWidth="3dp" />

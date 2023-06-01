@@ -10,6 +10,4 @@
         app:showAsAction="always"
         app:tint="@color/white" />
 
-
-
 </menu>

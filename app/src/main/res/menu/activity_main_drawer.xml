@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_choose_rodent"
+            android:icon="@drawable/ic_squirell"
+            android:title="@string/menu_choose_rodent" />
+        <item
+            android:id="@+id/nav_database_management"
+            android:icon="@drawable/ic_cloud"
+            android:title="@string/menu_database_management" />
+        <item
+            android:id="@+id/nav_about_app"
+            android:icon="@drawable/ic_about"
+            android:title="@string/menu_about_app" />
+    </group>
+</menu>

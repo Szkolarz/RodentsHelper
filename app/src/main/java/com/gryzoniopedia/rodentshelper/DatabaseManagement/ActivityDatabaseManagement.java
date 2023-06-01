@@ -125,54 +125,68 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
 
             buttonExport.setOnClickListener(view -> {
 
-                if (isNetworkConnected(ActivityDatabaseManagement.this)) {
+                AlertDialog.Builder alertCloud = new AlertDialog.Builder(ActivityDatabaseManagement.this, R.style.AlertDialogStyle);
+                alertCloud.setTitle("Zapisywanie danych do chmury");
+                alertCloud.setMessage("Czy na pewno chcesz zapisać swoje dane na chmurze?\n\n" +
+                        "Jeśli używałeś(aś) tej opcji już wcześniej, twoje starsze dane zostaną skasowane i zastąpione" +
+                        " aktualnymi; jeśli więc posiadasz już jakieś zapisane dane na chmurze, zostaną one nadpisane.");
 
-                    Thread threadProgressBar = new Thread(() -> {
-                        Intent intent = new Intent(ActivityDatabaseManagement.this, ActivityProgressBar.class);
-                        intent.putExtra("content", "Zapisywanie danych na serwer...");
-                        startActivityForResult(intent, 1);
-                    });
-                    threadProgressBar.start();
+                alertCloud.setPositiveButton("Tak", (dialogInterfaceCloud, j) -> {
 
-                    Thread thread = new Thread(() -> {
-                        try {
-                            if (new AsyncActivity().execute().get()) {
-                                File dbMain = getDatabasePath("rodents_helper");
-                                File dbShm = getDatabasePath("rodents_helper-shm");
-                                File dbWal = getDatabasePath("rodents_helper-wal");
+                    if (isNetworkConnected(ActivityDatabaseManagement.this)) {
 
-                                ExportAndImport.exportDatabase(dbMain, dbShm, dbWal, prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"), ActivityDatabaseManagement.this);
-                                finishActivity(1);
-                                runOnUiThread(() -> {
-                                    AlertDialog.Builder alert = new AlertDialog.Builder(ActivityDatabaseManagement.this, R.style.AlertDialogStyleUpdate);
-                                    alert.setTitle("Pomyślnie zapisano dane do chmury!");
-                                    alert.setMessage("Wszystkie twoje dane zostały pomyślnie zapisane w internetowej chmurze.\n\n" +
-                                            "Możesz je od teraz załadować na dowolnym urządzeniu w dowolnym momencie po zalogowaniu " +
-                                            "się na twoje konto.");
-                                    alert.setPositiveButton("Ok", (dialogInterface, i) -> {
-                                        Toast.makeText(ActivityDatabaseManagement.this, "Pomyślnie zapisano dane do chmury", Toast.LENGTH_SHORT).show();
-                                        reloadActivity();
+                        Thread threadProgressBar = new Thread(() -> {
+                            Intent intent = new Intent(ActivityDatabaseManagement.this, ActivityProgressBar.class);
+                            intent.putExtra("content", "Zapisywanie danych na serwer...");
+                            startActivityForResult(intent, 1);
+                        });
+                        threadProgressBar.start();
+
+                        Thread thread = new Thread(() -> {
+                            try {
+                                if (new AsyncActivity().execute().get()) {
+                                    File dbMain = getDatabasePath("rodents_helper");
+                                    File dbShm = getDatabasePath("rodents_helper-shm");
+                                    File dbWal = getDatabasePath("rodents_helper-wal");
+
+                                    ExportAndImport.exportDatabase(dbMain, dbShm, dbWal, prefsLoginName.getString("prefsLoginName", "nie wykryto nazwy"), ActivityDatabaseManagement.this);
+                                    finishActivity(1);
+                                    runOnUiThread(() -> {
+                                        AlertDialog.Builder alert = new AlertDialog.Builder(ActivityDatabaseManagement.this, R.style.AlertDialogStyleUpdate);
+                                        alert.setTitle("Pomyślnie zapisano dane do chmury!");
+                                        alert.setMessage("Wszystkie twoje dane zostały pomyślnie zapisane w internetowej chmurze.\n\n" +
+                                                "Możesz je od teraz załadować na dowolnym urządzeniu w dowolnym momencie po zalogowaniu " +
+                                                "się na twoje konto.");
+                                        alert.setPositiveButton("Ok", (dialogInterface, i) -> {
+                                            Toast.makeText(ActivityDatabaseManagement.this, "Pomyślnie zapisano dane do chmury", Toast.LENGTH_SHORT).show();
+                                            reloadActivity();
+                                        });
+                                        alert.setOnCancelListener(dialog -> {
+                                            Toast.makeText(ActivityDatabaseManagement.this, "Pomyślnie zapisano dane do chmury", Toast.LENGTH_SHORT).show();
+                                            reloadActivity();
+                                        });
+                                        alert.show();
                                     });
-                                    alert.setOnCancelListener(dialog -> {
-                                        Toast.makeText(ActivityDatabaseManagement.this, "Pomyślnie zapisano dane do chmury", Toast.LENGTH_SHORT).show();
-                                        reloadActivity();
-                                    });
-                                    alert.show();
-                                });
-                            } else {
+                                } else {
+                                    finishActivity(1);
+                                    runOnUiThread(this::serverErrorAlert);
+                                }
+                            } catch (ExecutionException | InterruptedException e) {
                                 finishActivity(1);
-                                runOnUiThread(this::serverErrorAlert);
+                                Log.e("164 ActivityDatabaseManagement", Log.getStackTraceString(e));
                             }
-                        } catch (ExecutionException | InterruptedException e) {
-                            finishActivity(1);
-                            Log.e("164 ActivityDatabaseManagement", Log.getStackTraceString(e));
-                        }
-                    });
-                    thread.start();
+                        });
+                        thread.start();
 
-                } else {
-                    noInternetAlert();
-                }
+                    } else {
+                        noInternetAlert();
+                    }
+
+                    });
+
+                alertCloud.setNegativeButton("Nie", (dialogInterfaceCloud, j) -> Toast.makeText(ActivityDatabaseManagement.this, "Anulowano", Toast.LENGTH_SHORT).show());
+                alertCloud.create().show();
+
             });
 
 

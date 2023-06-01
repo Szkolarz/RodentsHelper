@@ -11,8 +11,8 @@ android {
         applicationId 'com.gryzoniopedia.rodentshelper'
         minSdk 24
         targetSdk 33
-        versionCode 30
-        versionName "1.0.9_1"
+        versionCode 32
+        versionName "1.0.10_1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -80,5 +80,7 @@ dependencies {
 
     //https://mvnrepository.com/artifact/org.jasypt/jasypt
     implementation group: 'org.jasypt', name: 'jasypt', version: '1.9.3'
+
+
 
 }

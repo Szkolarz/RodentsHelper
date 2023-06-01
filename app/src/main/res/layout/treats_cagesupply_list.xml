@@ -39,8 +39,8 @@
 
                     android:gravity="center"
                     app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="35dp"
-                    app:cardElevation="5dp">
+                    app:cardCornerRadius="100px"
+                    app:cardElevation="0dp">
 
                     <ImageView
                         android:id="@+id/imageView_treats"
