@@ -1,5 +1,7 @@
 package com.gryzoniopedia.rodentshelper.ROOM.Rodent;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -37,35 +39,17 @@ import com.gryzoniopedia.rodentshelper.ROOM.Rodent.Methods.RodentsFillList;
 
 import java.util.List;
 
-public class ViewRodents extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ViewRodents extends AppCompatActivity  {
 
     private RecyclerView recyclerView;
-    private DrawerLayout drawerLayout;
 
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.nav_choose_rodent:
-                Intent intent = new Intent(ViewRodents.this, FirstStart.class);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_database_management:
-                Intent intentDb = new Intent(ViewRodents.this, ActivityDatabaseManagement.class);
-                startActivity(intentDb);
-                finish();
-                break;
-            case R.id.nav_about_app:
-                Intent intentAboutApp = new Intent(ViewRodents.this, ActivityAboutApp.class);
-                startActivity(intentAboutApp);
-                finish();
-                break;
-            default:
-        }
+    public Activity q () {
 
-        return super.onOptionsItemSelected(item);
+        return ViewRodents.this;
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +57,7 @@ public class ViewRodents extends AppCompatActivity implements NavigationView.OnN
         setContentView(R.layout.activity_view_recycler_rodents);
 
 
-        drawerLayout = findViewById(R.id.drawerlayout);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView_rodents);
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setItemIconTintList(null);
 
         Toolbar toolbar = findViewById(R.id.app_bar_rodents);
         toolbar.setTitle("");
@@ -101,10 +81,11 @@ public class ViewRodents extends AppCompatActivity implements NavigationView.OnN
 
         setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout,
-                toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        RodentsDrawer rodentsDrawer = new RodentsDrawer(ViewRodents.this, toolbar);
+
+        rodentsDrawer.activityGlobal = ViewRodents.this;
+
+        rodentsDrawer.createDrawer();
 
 
 
@@ -211,4 +192,6 @@ public class ViewRodents extends AppCompatActivity implements NavigationView.OnN
                 "Nie jest to jednak wymagane; za pomocą przycisków u dołu ekranu możesz również przenieść " +
                 "się do pozostałych modułów, zawartych w aplikacji.", ViewRodents.this);
     }
+
+
 }

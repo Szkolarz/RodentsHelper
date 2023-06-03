@@ -13,6 +13,14 @@
             android:icon="@drawable/ic_cloud"
             android:title="@string/menu_database_management" />
         <item
+            android:id="@+id/nav_filter"
+            android:icon="@drawable/filter"
+            android:title="@string/menu_filter" />
+        <item
+            android:id="@+id/nav_start_settings"
+            android:icon="@drawable/ic_smartphone"
+            android:title="@string/menu_start_settings" />
+        <item
             android:id="@+id/nav_about_app"
             android:icon="@drawable/ic_about"
             android:title="@string/menu_about_app" />

@@ -266,7 +266,7 @@ public class ActivityDatabaseManagement extends AppCompatActivity {
                                                     AlertDialog.Builder alert1 = new AlertDialog.Builder(ActivityDatabaseManagement.this, R.style.AlertDialogStyleUpdate);
                                                     alert1.setTitle("Brak zapisu w chmurze");
                                                     alert1.setMessage("W twojej prywatnej chmurze nie znajdują się jeszcze żadne dane.\n\n" +
-                                                            "Możesz je dodać za pomocą przycisku 'Eksportuj dane'.");
+                                                            "Możesz je dodać za pomocą przycisku 'Zapisz dane w chmurze'.");
                                                     alert1.setPositiveButton("Ok", (dialogInterface1, i1) -> {
                                                         Toast.makeText(ActivityDatabaseManagement.this, "Brak zapisu w chmurze", Toast.LENGTH_SHORT).show();
                                                         reloadActivity();
