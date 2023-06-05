@@ -3,9 +3,11 @@ package com.gryzoniopedia.rodentshelper.ROOM;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.TypeConverters;
 
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.RodentModel;
+import com.gryzoniopedia.rodentshelper.ROOM._MTM._RodentNotes.RodentWithNotes;
 
 import java.sql.Date;
 import java.util.List;
@@ -19,8 +21,18 @@ public interface DAORodents {
     /*@Query("SELECT EXISTS(SELECT * FROM rodents WHERE id = :id)")
     Boolean is_exist(Integer id);*/
 
+    @Transaction
+    @Query("SELECT * FROM rodents WHERE id_animal = :id_animal ORDER BY id_rodent DESC")
+    List<RodentModel> getAllRodentsWhereIdAnimalDESC(Integer id_animal);
+
     @Query("SELECT * FROM rodents WHERE id_animal = :id_animal ORDER BY id_rodent ASC")
-    List<RodentModel> getAllRodentsWhereIdAnimal(Integer id_animal);
+    List<RodentModel> getAllRodentsWhereIdAnimalASC(Integer id_animal);
+
+    @Query("SELECT * FROM rodents WHERE id_animal = :id_animal ORDER BY name DESC")
+    List<RodentModel> getAllRodentsWhereIdAnimalOrderByNameDESC(Integer id_animal);
+
+    @Query("SELECT * FROM rodents WHERE id_animal = :id_animal ORDER BY name ASC")
+    List<RodentModel> getAllRodentsWhereIdAnimalOrderByNameASC(Integer id_animal);
 
     @Query("SELECT * FROM rodents ORDER BY id_rodent ASC")
     List<RodentModel> getAllRodentsTEST();

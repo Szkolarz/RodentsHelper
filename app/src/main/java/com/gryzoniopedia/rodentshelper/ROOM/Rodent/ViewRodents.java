@@ -1,40 +1,32 @@
 package com.gryzoniopedia.rodentshelper.ROOM.Rodent;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.navigation.NavigationView;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityEncyclopedia;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityHealth;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityOther;
 import com.gryzoniopedia.rodentshelper.ActivitiesFromNavbar.ActivityRodents;
-import com.gryzoniopedia.rodentshelper.ActivityAboutApp;
 import com.gryzoniopedia.rodentshelper.Alerts;
-import com.gryzoniopedia.rodentshelper.MainViews.FirstStart;
-import com.gryzoniopedia.rodentshelper.DatabaseManagement.ActivityDatabaseManagement;
 import com.gryzoniopedia.rodentshelper.FlagSetup;
 import com.example.rodentshelper.R;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.Methods.AddEditRodents;
+import com.gryzoniopedia.rodentshelper.ROOM.Rodent.Methods.RodentsDrawer;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.Methods.RodentsFillList;
 
 import java.util.List;

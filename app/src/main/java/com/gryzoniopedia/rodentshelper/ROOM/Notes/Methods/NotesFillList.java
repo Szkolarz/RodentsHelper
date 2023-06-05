@@ -28,7 +28,7 @@ public class NotesFillList {
         AppDatabase db = Room.databaseBuilder(context,
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAONotes dao = db.daoNotes();
-        db.close();
+
 
         SharedPreferences prefsGetRodentId = context.getSharedPreferences("prefsGetRodentId", MODE_PRIVATE);
 

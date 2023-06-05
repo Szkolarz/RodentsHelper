@@ -7,8 +7,10 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.gryzoniopedia.rodentshelper.AsyncActivity;
+import com.gryzoniopedia.rodentshelper.MainViews.GoogleMaps.GoogleMaps;
 import com.gryzoniopedia.rodentshelper.Notifications.UpdateNotification;
 import com.example.rodentshelper.R;
 import com.gryzoniopedia.rodentshelper.ROOM.Rodent.ViewRodents;
@@ -23,6 +25,7 @@ public class SplashScreen extends AppCompatActivity {
       //  AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         SharedPreferences prefsFirstStart = getSharedPreferences("prefsFirstStart", MODE_PRIVATE);
+        SharedPreferences spStartSettings = getSharedPreferences("spStartSettings", MODE_PRIVATE);
 
         UpdateNotification updateNotification = new UpdateNotification();
         updateNotification.checkIfUserHasMissedNotification(SplashScreen.this);
@@ -36,9 +39,21 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(() -> {
 
             if (prefsFirstStart.getInt("prefsFirstStart", 0) != 0) {
-                Intent intent = new Intent(SplashScreen.this, ViewRodents.class);
-                startActivity(intent);
-                finish();
+
+                if (spStartSettings.getInt("spStartSettings", 1) == 1) {
+                    Intent intent = new Intent(SplashScreen.this, ViewRodents.class);
+                    startActivity(intent);
+                    finish();
+                } else if (spStartSettings.getInt("spStartSettings", 1) == 2) {
+                    Intent intent = new Intent(SplashScreen.this, ViewEncyclopedia.class);
+                    startActivity(intent);
+                    finish();
+                } else  {
+                    Intent intent = new Intent(SplashScreen.this, GoogleMaps.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             } else if (prefsFirstStart.getInt("prefsFirstStart", 0) == 0) {
                 Intent intent = new Intent(SplashScreen.this, FirstStart.class);
                 startActivity(intent);

@@ -26,9 +26,21 @@ public class RodentsFillList {
                 AppDatabase.class, "rodents_helper").allowMainThreadQueries().build();
         DAORodents daoRodents = db.daoRodents();
 
+        SharedPreferences spRodentsRadioOrder = context.getSharedPreferences("spRodentsRadioOrder", MODE_PRIVATE);
+
+        if (spRodentsRadioOrder.getInt("spRodentsRadioOrder", 1) == 1)
+            return daoRodents.getAllRodentsWhereIdAnimalASC(prefsFirstStart.getInt("prefsFirstStart", 1));
+        if (spRodentsRadioOrder.getInt("spRodentsRadioOrder", 1) == 2)
+            return daoRodents.getAllRodentsWhereIdAnimalDESC(prefsFirstStart.getInt("prefsFirstStart", 1));
+        if (spRodentsRadioOrder.getInt("spRodentsRadioOrder", 1) == 3)
+            return daoRodents.getAllRodentsWhereIdAnimalOrderByNameASC(prefsFirstStart.getInt("prefsFirstStart", 1));
+        if (spRodentsRadioOrder.getInt("spRodentsRadioOrder", 1) == 4)
+            return daoRodents.getAllRodentsWhereIdAnimalOrderByNameDESC(prefsFirstStart.getInt("prefsFirstStart", 1));
+
+
         db.close();
 
-        return daoRodents.getAllRodentsWhereIdAnimal(prefsFirstStart.getInt("prefsFirstStart", 0));
+        return daoRodents.getAllRodentsWhereIdAnimalASC(prefsFirstStart.getInt("prefsFirstStart", 1));
 
     }
 }

@@ -17,6 +17,7 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,6 +34,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.gryzoniopedia.rodentshelper.MainViews.ViewHealth;
 import com.gryzoniopedia.rodentshelper.MainViews.ViewOther;
 import com.example.rodentshelper.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -45,6 +47,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.Task;
+import com.gryzoniopedia.rodentshelper.ROOM.Rodent.ViewRodents;
 
 import java.util.Objects;
 
@@ -166,7 +169,12 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        toolbar.setNavigationOnClickListener(v -> finish());
+        toolbar.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(GoogleMaps.this, ViewOther.class);
+            startActivity(intent);
+            finish();
+        });
+
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
@@ -418,4 +426,15 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback,
 
         }
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Intent intent = new Intent(GoogleMaps.this, ViewOther.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }
