@@ -76,12 +76,12 @@ public class RodentsDrawer extends ViewRodents implements NavigationView.OnNavig
             case R.id.nav_choose_rodent:
                 Intent intent = new Intent(activity, FirstStart.class);
                 activity.startActivity(intent);
-                finish();
+                activity.finish();
                 break;
             case R.id.nav_database_management:
                 Intent intentDb = new Intent(activity, ActivityDatabaseManagement.class);
                 activity.startActivity(intentDb);
-                finish();
+                activity.finish();
                 break;
             case R.id.nav_filter:
                 LayoutInflater inflater = (LayoutInflater) activity.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -90,12 +90,12 @@ public class RodentsDrawer extends ViewRodents implements NavigationView.OnNavig
                 rodentsFilter.setUpFilter(activity, inflateView);
                 break;
             case R.id.nav_start_settings:
-                alerto();
+                alertWithRodentFilter();
                 break;
             case R.id.nav_about_app:
                 Intent intentAboutApp = new Intent(activity, ActivityAboutApp.class);
                 activity.startActivity(intentAboutApp);
-                finish();
+                activity.finish();
                 break;
             default:
         }
@@ -104,7 +104,7 @@ public class RodentsDrawer extends ViewRodents implements NavigationView.OnNavig
     }
 
 
-    private void alerto () {
+    private void alertWithRodentFilter () {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
 
         View inflateView;
