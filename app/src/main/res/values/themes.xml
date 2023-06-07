@@ -31,7 +31,7 @@
 
 
     <style name="CustomToolbarAdditional" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:background">#5397DF</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorControlNormal">#0375a8</item>
@@ -41,6 +41,7 @@
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">24sp</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="CustomPopupToolbar" parent="Theme.AppCompat.Light.NoActionBar">

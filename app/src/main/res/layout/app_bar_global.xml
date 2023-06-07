@@ -11,6 +11,7 @@
         android:id="@+id/toolbar_main"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@drawable/toolbar_test"
         app:popupTheme="@style/CustomPopupToolbar"
         app:theme="@style/CustomToolbarAdditional"
         app:titleTextAppearance="@style/Toolbar.TitleText">

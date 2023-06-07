@@ -9,7 +9,7 @@
     android:layout_marginRight="25dp"
     android:layout_marginBottom="5dp"
     android:animateLayoutChanges="true"
-    android:background="@drawable/rounded_rodent_list"
+    android:background="@drawable/rodents_card"
     android:orientation="vertical"
     tools:context="com.gryzoniopedia.rodentshelper.ROOM.Rodent.ViewRodents">
 
@@ -63,7 +63,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center|top"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
